@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\PublicationController;
+
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ItemController;
@@ -38,6 +40,11 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.'
 ], function() {
+
+    Route::resource('publications', PublicationController::class);
+
+    // ======================================================
+
     Route::resource('dashboard', DashboardController::class );
     Route::resource('users', AdminUserController::class );
     Route::resource('customers', CustomerController::class );

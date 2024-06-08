@@ -21,8 +21,9 @@ return new class extends Migration
             $table->integer('pages_count')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->unsignedBigInteger('publisher_id')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
+            $table->unsignedBigInteger('publisher_id')->nullable();
+            $table->unsignedBigInteger('language_id')->nullable();
             $table->unsignedBigInteger('location_id')->nullable();
             $table->unsignedBigInteger('publication_type_id')->nullable();
             $table->unsignedBigInteger('publication_category_id')->nullable();

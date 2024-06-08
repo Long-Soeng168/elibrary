@@ -42,6 +42,7 @@ class PublicationFactory extends Factory
             'image' => 'image.png',
             'publisher_id' => $this->faker->numberBetween(1, 10),
             'author_id' => $this->faker->numberBetween(1, 10),
+            'language_id' => $this->faker->numberBetween(1, 2),
             'location_id' => $this->faker->numberBetween(1, 10),
             'publication_type_id' => $this->faker->numberBetween(1, 10),
             'publication_category_id' => $category->id,
