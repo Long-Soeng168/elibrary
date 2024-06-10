@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
 
 
 
