@@ -826,18 +826,24 @@
     <script src="{{ asset('assets/js/glightbox.js') }}"></script>
     <script src="{{ asset('assets/js/glightbox.config.js') }}"></script>
     <script src="{{ asset('/assets/ckeditor/ckeditor4/ckeditor.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
     <script>
-        var options = {
-            filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
-            filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
-            filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
-            filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
-        };
-        var areas = Array('details', 'description', 'description_kh');
-        areas.forEach(function(area) {
-            CKEDITOR.replace(area, options);
-        });
+        // let options = {
+        //     filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
+        //     filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
+        //     filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
+        //     filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
+        // };
+        // let areas = Array('details', 'description', 'description_kh');
+        // areas.forEach(function(area) {
+        //     CKEDITOR.replace(area, options);
+        // });
     </script>
+    {{-- @livewireScripts --}}
+    {{-- @stack('scripts') --}}
+
+
 
 
 </body>

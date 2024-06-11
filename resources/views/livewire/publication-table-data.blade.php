@@ -164,11 +164,34 @@
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
-                                <x-add-more-button identifier="{{ $item->id }}"
-                                    addMoreUrl="{{ route('admin.addmore') }}" tooltipText="Add More" />
-                                <x-view-detail-button identifier="{{ $item->id }}"
-                                    viewDetailUrl="{{ route('admin.items.show', $item->id) }}"
-                                    tooltipText=" View item details" />
+                                <div class="pb-1" x-data="{ tooltip: false }">
+                                    <!-- Modal toggle -->
+                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                                        class="relative">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-plus-circle">
+                                            <circle cx="12" cy="12" r="10" />
+                                            <path d="M8 12h8" />
+                                            <path d="M12 8v8" />
+                                        </svg>
+                                        <!-- View tooltip -->
+                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0 transform scale-90"
+                                            x-transition:enter-end="opacity-100 transform scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="opacity-100 transform scale-100"
+                                            x-transition:leave-end="opacity-0 transform scale-90"
+                                            class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                            style="display: none;">
+                                            Add More
+                                        </div>
+                                    </a>
+
+
+                                </div>
+
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -190,16 +213,65 @@
                                         x-transition:leave-end="opacity-0 transform scale-90"
                                         class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
                                         style="display: none;">
-                                        View Item
+                                        View
                                     </div>
                                 </div>
 
+                                <div class="pb-1" x-data="{ tooltip: false }">
+                                    <!-- Modal toggle -->
+                                    <form action="#" method="POST" @mouseenter="tooltip = true"
+                                        @mouseleave="tooltip = false">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="text-red-600">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-trash">
+                                                <path d="M3 6h18" />
+                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                            </svg>
+                                        </button>
+                                    </form>
 
-                                <x-delete-confirm-button identifier="{{ $item->id }}"
-                                    deleteUrl="{{ route('admin.items.destroy', $item->id) }}"
-                                    message="{{ $item->name }}" tooltipText="Delete item" />
-                                <x-edit-button identifier="{{ $item->id }}"
-                                    editUrl="{{ route('admin.items.edit', $item->id) }}" tooltipText="Edit item" />
+                                    <!-- View tooltip -->
+                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0 transform scale-90"
+                                        x-transition:enter-end="opacity-100 transform scale-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100 transform scale-100"
+                                        x-transition:leave-end="opacity-0 transform scale-90"
+                                        class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                        style="display: none;">
+                                        Delete
+                                    </div>
+                                </div>
+
+                                <div class="pb-1" x-data="{ tooltip: false }">
+                                    <!-- Modal toggle -->
+                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-file-pen-line">
+                                            <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
+                                            <path d="M8 18h1" />
+                                            <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
+                                        </svg>
+                                    </a>
+                                    <!-- View tooltip -->
+                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                        x-transition:enter-start="opacity-0 transform scale-90"
+                                        x-transition:enter-end="opacity-100 transform scale-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100 transform scale-100"
+                                        x-transition:leave-end="opacity-0 transform scale-90"
+                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap right-0"
+                                        style="display: none;">
+                                        Edit
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>

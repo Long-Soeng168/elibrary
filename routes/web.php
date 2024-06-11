@@ -79,14 +79,6 @@ Route::group([
 
 
 
-
-
-
-
-
-
-
-
 Route::group([
     'middleware' => 'role:super-admin|admin'
 ], function() {

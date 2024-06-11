@@ -26,7 +26,7 @@ class PublicationTableData extends Component
     public $sortBy = 'created_at';
 
     #[Url(history: true)]
-    public $sortDir = 'ASC';
+    public $sortDir = 'DESC';
 
     public function setFilter($value) {
         $this->filter = $value;

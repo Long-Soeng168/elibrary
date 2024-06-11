@@ -52,6 +52,14 @@ return [
             'throw' => false,
         ],
 
+        'publicForPdf' => [
+            'driver' => 'local',
+            'root' => public_path('assets/pdf'),
+            'url' => env('APP_URL').'/assets/pdf',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

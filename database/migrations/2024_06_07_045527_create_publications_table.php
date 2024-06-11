@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('pages_count')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('pdf')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('publisher_id')->nullable();
             $table->unsignedBigInteger('language_id')->nullable();
