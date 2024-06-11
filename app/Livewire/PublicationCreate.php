@@ -11,6 +11,7 @@ use App\Models\PublicationType;
 use App\Models\Publisher;
 use App\Models\Location;
 use App\Models\Language;
+use App\Models\Author;
 
 use Image;
 
@@ -27,12 +28,30 @@ class PublicationCreate extends Component
     public $publisher_id = null;
     public $location_id = null;
     public $language_id = null;
+    public $author_id = null;
 
     public $name = null;
     public $pages_count = null;
     public $isbn = null;
     public $year = null;
     public $description = null;
+
+    public $newAuthorName = null;
+    public $newAuthorGender = null;
+
+    public function saveNewAuthor() {
+        $this->validate([
+            'newAuthorName' => 'required|string|max:255|unique:authors,name',
+        ]);
+        Author::create([
+            'name' => $this->newAuthorName,
+            'gender' => $this->newAuthorGender,
+        ]);
+
+
+        session()->flash('success', 'Add New Author successfully!');
+    }
+
 
     public function updatedPublication_category_id()
     {
@@ -44,6 +63,8 @@ class PublicationCreate extends Component
         $this->validate([
             'image' => 'image|max:2048', // 2MB Max
         ]);
+
+        session()->flash('success', 'Image successfully uploaded!');
     }
 
     public function updatedPdf()
@@ -51,6 +72,8 @@ class PublicationCreate extends Component
         $this->validate([
             'pdf' => 'file|max:2048', // 2MB Max
         ]);
+
+        session()->flash('success', 'PDF successfully uploaded!');
     }
 
     public function save()
@@ -69,6 +92,7 @@ class PublicationCreate extends Component
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',
+            'author_id' => 'nullable|exists:authors,id',
             'description' => 'nullable',
         ]);
 
@@ -97,7 +121,7 @@ class PublicationCreate extends Component
         $createdPublication = Publication::create($validated);
 
         // dd($createdPublication);
-        return redirect()->route('admin.publications.index')->with('message', 'Image successfully uploaded!');
+        return redirect()->route('admin.publications.index')->with('success', 'Successfully uploaded!');
 
         // session()->flash('message', 'Image successfully uploaded!');
     }
@@ -110,6 +134,7 @@ class PublicationCreate extends Component
         $publishers = Publisher::latest()->get();
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();
+        $authors = Author::latest()->get();
 
         return view('livewire.publication-create', [
             'categories' => $categories,
@@ -117,6 +142,7 @@ class PublicationCreate extends Component
             'types' => $types,
             'publishers' => $publishers,
             'locations' => $locations,
+            'authors' => $authors,
             'languages' => $languages,
         ]);
     }
