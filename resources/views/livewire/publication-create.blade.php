@@ -1,22 +1,22 @@
 <div>
     @if (session('success'))
-        {{-- @if (true) --}}
-        <div class="absolute top-4 right-4" x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)">
-            <div id="alert-border-3" x-show="show"
-                class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
+        <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 10000)">
+            <div x-show="show" id="alert-2"
+                class="flex items-center p-4 mb-4 text-green-800 border border-green-500 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
                 role="alert">
                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
                     <path
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                 </svg>
-                <div class="min-w-[250px] text-sm font-medium ms-3">
+                <div class="ml-2">
                     {{ session('success') }}
                 </div>
-                <button type="button"
+                <button type="button" @click="show = false"
                     class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
-                    data-dismiss-target="#alert-border-3" aria-label="Close" @click="show = false">
-                    <span class="sr-only">Dismiss</span>
+                    data-dismiss-target="#alert-2" aria-label="Close">
+                    <span class="sr-only">Close</span>
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -28,21 +28,33 @@
     @endif
 
     @if ($errors->any())
-        <div id="alert-2"
-            class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-            role="alert">
-            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                viewBox="0 0 20 20">
-                <path
-                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <div>
-                @foreach ($errors->all() as $error)
-                    <div class="text-sm font-medium ms-3">
-                        {{ $error }}
-                    </div>
-                @endforeach
-
+        <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
+            x-init="setTimeout(() => show = false, 4000)">
+            <div x-show="show" id="alert-2"
+                class="flex items-center p-4 mb-4 text-red-800 border border-red-500 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                role="alert">
+                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <div class="ml-2">
+                    @foreach ($errors->all() as $error)
+                        <div class="text-sm font-medium ms-3">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                </div>
+                <button type="button" @click="show = false"
+                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                    data-dismiss-target="#alert-2" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                </button>
             </div>
         </div>
     @endif
@@ -89,7 +101,7 @@
                     </x-select-option>
                     <button type="button" data-modal-target="author_modal" data-modal-toggle="author_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $author_id }}
+                        Add
                     </button>
 
                     <!-- Start Author modal -->
@@ -109,8 +121,9 @@
                                         data-modal-toggle="author_modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
                                         <span class="sr-only">Close modal</span>
                                     </button>
@@ -121,13 +134,10 @@
                                         <div class="col-span-2">
                                             <label for="name"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                            <input type="text" name="name" id="name"
-                                                wire:model='newAuthorName'
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newAuthorName'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Type name">
-
-                                            <p class="pt-1 text-sm text-red-500">Name are required & Unique
-                                                {{ $newAuthorName }}</p>
+                                                placeholder="Name">
                                         </div>
 
                                         <div class="col-span-2 sm:col-span-2">
@@ -153,7 +163,7 @@
                                                     d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                                     clip-rule="evenodd"></path>
                                             </svg>
-                                            Add New Author
+                                            Add New
                                         </button>
                                     </div>
                                 </div>
@@ -161,8 +171,6 @@
                         </div>
                     </div>
                     <!-- End Author modal -->
-
-
                 </div>
                 <x-input-error :messages="$errors->get('author_id')" class="mt-2" />
             </div>
@@ -188,7 +196,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
@@ -202,14 +210,82 @@
                             <option value=""> --No Category--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+                    <button type="button" data-modal-target="category_modal" data-modal-toggle="category_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $publication_category_id }}
+                        Add
                     </button>
+
+                    <!-- Start Category modal -->
+                    <div id="category_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Category
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="category_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newCategoryName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name">
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                                KH</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newCategoryNameKh'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name KH">
+                                        </div>
+
+
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="category_modal" data-modal-toggle="category_modal"
+                                            type="button" wire:click='saveNewCategory' wire:target="saveNewCategory"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Category modal -->
+
                 </div>
                 <x-input-error :messages="$errors->get('publication_category_id')" class="mt-2" />
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_sub_category_id" :value="__('Sub-Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='publication_sub_category_id' id="publication_sub_category_id"
@@ -224,10 +300,92 @@
                             <option value="">--No Category--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+                    <button type="button" data-modal-target="sub_category_modal"
+                        data-modal-toggle="sub_category_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $publication_sub_category_id }}
+                        Add
                     </button>
+
+                    <!-- Start Sub-Category modal -->
+                    <div id="sub_category_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Sub-Category
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="sub_category_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newSubCategoryName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Sub Category Name">
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                                KH</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newSubCategoryNameKh'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Sub Category Name KH">
+                                        </div>
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <label for="category"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                            <select id="category" wire:model='selectedCategoryId'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                <option value="">Select Category</option>
+                                                @forelse ($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}
+                                                    </option>
+                                                @empty
+                                                    <option value="">--No Category--</option>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="sub_category_modal"
+                                            data-modal-toggle="sub_category_modal" type="button"
+                                            wire:click='saveNewSubCategory' wire:target="saveNewSubCategory"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Sub-Category modal -->
                 </div>
                 <x-input-error :messages="$errors->get('publication_sub_category_id')" class="mt-2" />
             </div>

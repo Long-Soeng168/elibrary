@@ -9,6 +9,8 @@ class PublicationSubCategory extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function category()
     {
         return $this->belongsTo(PublicationCategory::class);

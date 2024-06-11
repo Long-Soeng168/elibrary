@@ -36,6 +36,7 @@ class PublicationCreate extends Component
     public $year = null;
     public $description = null;
 
+    // ==========Add New Author============
     public $newAuthorName = null;
     public $newAuthorGender = null;
 
@@ -48,8 +49,48 @@ class PublicationCreate extends Component
             'gender' => $this->newAuthorGender,
         ]);
 
-
         session()->flash('success', 'Add New Author successfully!');
+
+        $this->reset(['newAuthorName', 'newAuthorGender']);
+    }
+
+    // ==========Add New Category============
+    public $newCategoryName = null;
+    public $newCategoryNameKh = null;
+
+    public function saveNewCategory() {
+        $this->validate([
+            'newCategoryName' => 'required|string|max:255|unique:publication_categories,name',
+        ]);
+        PublicationCategory::create([
+            'name' => $this->newCategoryName,
+            'name_kh' => $this->newCategoryNameKh,
+        ]);
+
+        session()->flash('success', 'Add New Category successfully!');
+
+        $this->reset(['newCategoryName', 'newCategoryNameKh']);
+    }
+
+    // ==========Add New Author============
+    public $newSubCategoryName = null;
+    public $newSubCategoryNameKh = null;
+    public $selectedCategoryId = null;
+
+    public function saveNewSubCategory() {
+        $this->validate([
+            'newSubCategoryName' => 'required|string|max:255|unique:publication_categories,name',
+            'selectedCategoryId' => 'nullable|exists:publication_categories,id',
+        ]);
+        PublicationSubCategory::create([
+            'name' => $this->newSubCategoryName,
+            'name_kh' => $this->newSubCategoryNameKh,
+            'publication_category_id' => $this->selectedCategoryId,
+        ]);
+
+        session()->flash('success', 'Add New Sub-Category successfully!');
+
+        $this->reset(['newSubCategoryName', 'newSubCategoryNameKh', 'selectedCategoryId']);
     }
 
 
