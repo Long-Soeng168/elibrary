@@ -40,58 +40,185 @@ class PublicationCreate extends Component
     public $newAuthorName = null;
     public $newAuthorGender = null;
 
-    public function saveNewAuthor() {
-        $this->validate([
-            'newAuthorName' => 'required|string|max:255|unique:authors,name',
-        ]);
-        Author::create([
-            'name' => $this->newAuthorName,
-            'gender' => $this->newAuthorGender,
-        ]);
+    public function saveNewAuthor()
+    {
+        try {
+            $validated = $this->validate([
+                'newAuthorName' => 'required|string|max:255|unique:authors,name',
+            ]);
 
-        session()->flash('success', 'Add New Author successfully!');
+            Author::create([
+                'name' => $this->newAuthorName,
+                'gender' => $this->newAuthorGender,
+            ]);
 
-        $this->reset(['newAuthorName', 'newAuthorGender']);
+            session()->flash('success', 'Add New Author successfully!');
+
+            $this->reset(['newAuthorName', 'newAuthorGender']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
     }
+
 
     // ==========Add New Category============
     public $newCategoryName = null;
     public $newCategoryNameKh = null;
 
-    public function saveNewCategory() {
-        $this->validate([
-            'newCategoryName' => 'required|string|max:255|unique:publication_categories,name',
-        ]);
-        PublicationCategory::create([
-            'name' => $this->newCategoryName,
-            'name_kh' => $this->newCategoryNameKh,
-        ]);
+    public function saveNewCategory()
+    {
+        try {
+            $this->validate([
+                'newCategoryName' => 'required|string|max:255|unique:publication_categories,name',
+                // Add validation rules for 'newCategoryNameKh' if needed
+            ]);
 
-        session()->flash('success', 'Add New Category successfully!');
+            PublicationCategory::create([
+                'name' => $this->newCategoryName,
+                'name_kh' => $this->newCategoryNameKh,
+            ]);
 
-        $this->reset(['newCategoryName', 'newCategoryNameKh']);
+            session()->flash('success', 'Add New Category successfully!');
+
+            $this->reset(['newCategoryName', 'newCategoryNameKh']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
     }
 
-    // ==========Add New Author============
+
+    // ==========Add New Sub-Category============
     public $newSubCategoryName = null;
     public $newSubCategoryNameKh = null;
     public $selectedCategoryId = null;
 
-    public function saveNewSubCategory() {
-        $this->validate([
-            'newSubCategoryName' => 'required|string|max:255|unique:publication_categories,name',
-            'selectedCategoryId' => 'nullable|exists:publication_categories,id',
-        ]);
-        PublicationSubCategory::create([
-            'name' => $this->newSubCategoryName,
-            'name_kh' => $this->newSubCategoryNameKh,
-            'publication_category_id' => $this->selectedCategoryId,
-        ]);
+    public function saveNewSubCategory()
+    {
+        try {
+            $this->validate([
+                'newSubCategoryName' => 'required|string|max:255|unique:publication_sub_categories,name',
+                'selectedCategoryId' => 'nullable|exists:publication_categories,id',
+            ]);
 
-        session()->flash('success', 'Add New Sub-Category successfully!');
+            PublicationSubCategory::create([
+                'name' => $this->newSubCategoryName,
+                'name_kh' => $this->newSubCategoryNameKh,
+                'publication_category_id' => $this->selectedCategoryId,
+            ]);
 
-        $this->reset(['newSubCategoryName', 'newSubCategoryNameKh', 'selectedCategoryId']);
+            session()->flash('success', 'Add New Sub-Category successfully!');
+
+            $this->reset(['newSubCategoryName', 'newSubCategoryNameKh', 'selectedCategoryId']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
     }
+
+    // ==========Add New Type============
+    public $newTypeName = null;
+    public $newTypeNameKh = null;
+
+    public function saveNewType()
+    {
+        try {
+            $this->validate([
+                'newTypeName' => 'required|string|max:255|unique:publication_types,name',
+                // Add validation rules for 'newTypeNameKh' if needed
+            ]);
+
+            PublicationType::create([
+                'name' => $this->newTypeName,
+                'name_kh' => $this->newTypeNameKh,
+            ]);
+
+            session()->flash('success', 'Add New Type successfully!');
+
+            $this->reset(['newTypeName', 'newTypeNameKh']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
+    // ==========Add New Publisher============
+    public $newPublisherName = null;
+    public $newPublisherGender = null;
+
+    public function saveNewPublisher()
+    {
+        try {
+            $this->validate([
+                'newPublisherName' => 'required|string|max:255|unique:publishers,name',
+                // Add validation rules for 'newPublisherGender' if needed
+            ]);
+
+            Publisher::create([
+                'name' => $this->newPublisherName,
+                'gender' => $this->newPublisherGender,
+            ]);
+
+            session()->flash('success', 'Add New Publisher successfully!');
+
+            $this->reset(['newPublisherName', 'newPublisherGender']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
+    // ==========Add New Location============
+    public $newLocationName = null;
+
+    public function saveNewLocation()
+    {
+        try {
+            $this->validate([
+                'newLocationName' => 'required|string|max:255|unique:locations,name',
+                // Add validation rules for 'newPublisherGender' if needed
+            ]);
+
+            Location::create([
+                'name' => $this->newLocationName,
+            ]);
+
+            session()->flash('success', 'Add New Location successfully!');
+
+            $this->reset(['newLocationName']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
+    // ==========Add New Type============
+    public $newLanguageName = null;
+    public $newLanguageNameKh = null;
+
+    public function saveNewLanguage()
+    {
+        try {
+            $this->validate([
+                'newLanguageName' => 'required|string|max:255|unique:languages,name',
+                // Add validation rules for 'newLanguageNameKh' if needed
+            ]);
+
+            Language::create([
+                'name' => $this->newLanguageName,
+                'name_kh' => $this->newLanguageNameKh,
+            ]);
+
+            session()->flash('success', 'Add New Language successfully!');
+
+            $this->reset(['newLanguageName', 'newLanguageNameKh']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
 
 
     public function updatedPublication_category_id()

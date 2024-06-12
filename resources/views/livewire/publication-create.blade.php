@@ -1,7 +1,7 @@
 <div>
     @if (session('success'))
         <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
-            x-init="setTimeout(() => show = false, 10000)">
+            x-init="setTimeout(() => show = false, 7000)">
             <div x-show="show" id="alert-2"
                 class="flex items-center p-4 mb-4 text-green-800 border border-green-500 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
                 role="alert">
@@ -27,9 +27,10 @@
         </div>
     @endif
 
-    @if ($errors->any())
+    @if (session()->has('error'))
+        {{-- @dd(session()->has('error')) --}}
         <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
-            x-init="setTimeout(() => show = false, 4000)">
+            x-init="setTimeout(() => show = false, 7000)">
             <div x-show="show" id="alert-2"
                 class="flex items-center p-4 mb-4 text-red-800 border border-red-500 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                 role="alert">
@@ -39,11 +40,16 @@
                         d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                 </svg>
                 <div class="ml-2">
-                    @foreach ($errors->all() as $error)
+                    @foreach (session('error') as $error)
                         <div class="text-sm font-medium ms-3">
-                            {{ $error }}
+                            - {{ $error }}
                         </div>
                     @endforeach
+
+                    {{ session()->forget('errors') }}
+
+
+
                 </div>
                 <button type="button" @click="show = false"
                     class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
@@ -392,7 +398,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='publication_type_id' id="types" name="publication_type_id">
@@ -403,15 +409,84 @@
                             <option value="">--No Type--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+
+                    <button type="button" data-modal-target="publication_type_modal"
+                        data-modal-toggle="publication_type_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $publication_type_id }}
+                        Add
                     </button>
+
+                    <!-- Start Type modal -->
+                    <div id="publication_type_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Publication Type
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="publication_type_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newTypeName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type Name">
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                                KH</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newTypeNameKh'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type Name KH">
+                                        </div>
+
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="publication_type_modal"
+                                            data-modal-toggle="publication_type_modal" type="button"
+                                            wire:click='saveNewType' wire:target="saveNewType"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Type modal -->
                 </div>
                 <x-input-error :messages="$errors->get('publication_type_id')" class="mt-2" />
             </div>
 
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="publisher" :value="__('Publisher')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id">
@@ -422,10 +497,79 @@
                             <option value=""> --No Publisher--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+                    <button type="button" data-modal-target="publisher_modal" data-modal-toggle="publisher_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $publisher_id }}
+                        Add
                     </button>
+
+                    <!-- Start Publisher modal -->
+                    <div id="publisher_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Publisher
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="publisher_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newPublisherName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name">
+                                        </div>
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <label for="category"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                                            <select id="category" wire:model='newPublisherGender'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                <option value="">Select gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="n/a">N/A</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="publisher_modal"
+                                            data-modal-toggle="publisher_modal" type="button"
+                                            wire:click='saveNewPublisher' wire:target="saveNewPublisher"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Publisher modal -->
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
@@ -433,7 +577,7 @@
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="location" :value="__('Location')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='location_id' id="location" name="location_id">
@@ -444,14 +588,70 @@
                             <option value=""> --No Location--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+                    <button type="button" data-modal-target="location_modal" data-modal-toggle="location_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $location_id }}
+                        Add
                     </button>
+
+                    <!-- Start Location modal -->
+                    <div id="location_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Location
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="location_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newLocationName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name">
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="location_modal" data-modal-toggle="location_modal"
+                                            type="button" wire:click='saveNewLocation' wire:target="saveNewLocation"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Location modal -->
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
-            <div class="relative z-0 w-full mb-5 group">
+            <div class="relative w-full mb-5 group">
                 <x-input-label for="language" :value="__('Language')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='language_id' id="language" name="language_id">
@@ -462,10 +662,75 @@
                             <option value=""> --No Language--</option>
                         @endforelse
                     </x-select-option>
-                    <button type="button"
+                    <button type="button" data-modal-target="language_modal" data-modal-toggle="language_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add {{ $language_id }}
+                        Add
                     </button>
+
+                    <!-- Start Language modal -->
+                    <div id="language_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Language
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="language_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 md:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newLanguageName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name">
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                                KH</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newLanguageNameKh'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name KH">
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="language_modal" data-modal-toggle="language_modal"
+                                            type="button" wire:click='saveNewLanguage' wire:target="saveNewLanguage"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Language modal -->
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
@@ -544,6 +809,7 @@
 
         </div>
     </form>
+
 </div>
 
 @script
