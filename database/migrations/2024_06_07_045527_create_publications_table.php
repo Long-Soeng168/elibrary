@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('year')->nullable();
             $table->integer('pages_count')->nullable();
             $table->integer('edition')->nullable();
-            $table->integer('link')->nullable();
+            $table->string('link')->nullable();
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();

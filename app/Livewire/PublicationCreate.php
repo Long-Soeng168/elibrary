@@ -32,6 +32,8 @@ class PublicationCreate extends Component
 
     public $name = null;
     public $pages_count = null;
+    public $edition = null;
+    public $link = null;
     public $isbn = null;
     public $year = null;
     public $description = null;
@@ -254,6 +256,8 @@ class PublicationCreate extends Component
             'pages_count' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'isbn' => 'nullable|string|max:30',
+            'link' => 'nullable|string|max:255',
+            'edition' => 'nullable|integer',
             'publication_category_id' => 'nullable|exists:publication_categories,id',
             'publication_sub_category_id' => 'nullable|exists:publication_sub_categories,id',
             'publication_type_id' => 'nullable|exists:publication_types,id',

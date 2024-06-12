@@ -66,7 +66,7 @@
     @endif
     <form class="w-full" action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="grid mb-4 md:grid-cols-1 md:gap-6">
+        <div class="grid mb-5 lg:grid-cols-1 lg:gap-6">
             <!-- Name Address -->
             <div>
                 <x-input-label for="name" :value="__('Title')" /><span class="text-red-500">*</span>
@@ -76,24 +76,35 @@
             </div>
 
         </div>
-        <div class="grid mb-4 md:grid-cols-2 md:gap-6">
+        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
             <div>
-                <x-input-label for="pages_count" :value="__('Pages Count')" />
-                <x-text-input id="pages_count" class="block w-full mt-1" type="text" name="pages_count"
-                    wire:model='pages_count' autofocus placeholder="Pages Count" />
+                <x-input-label for="pages_count" :value="__('Pages')" />
+                <x-text-input id="pages_count" class="block w-full" type="number" name="pages_count"
+                    wire:model='pages_count' autofocus placeholder="Number of Pages" />
                 <x-input-error :messages="$errors->get('pages_count')" class="mt-2" />
             </div>
-
+            <div>
+                <x-input-label for="edition" :value="__('Edition')" />
+                <x-text-input id="edition" class="block w-full" type="number" name="edition" wire:model='edition'
+                    autofocus placeholder="Edition" />
+                <x-input-error :messages="$errors->get('edition')" class="mt-2" />
+            </div>
             <div>
                 <x-input-label for="isbn" :value="__('ISBN')" />
-                <x-text-input id="isbn" class="block w-full mt-1" type="text" name="isbn" wire:model='isbn'
+                <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
                     placeholder="ISBN" />
                 <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="link" :value="__('Link')" />
+                <x-text-input id="link" class="block w-full" type="text" name="link" wire:model='link'
+                    placeholder="Link" />
+                <x-input-error :messages="$errors->get('link')" class="mt-2" />
             </div>
         </div>
 
 
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
             <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />
                 <div class="flex flex-1 gap-1 mt-1">
@@ -112,13 +123,13 @@
 
                     <!-- Start Author modal -->
                     <div id="author_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Author
                                     </h3>
@@ -135,7 +146,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -182,7 +193,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <x-input-label for="year" :value="__('Year')" />
+                <x-input-label for="year" :value="__('Publication Year')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <x-select-option wire:model.live='year' id="year" name="year">
                         <option value="">Select Year...</option>
@@ -201,7 +212,7 @@
 
         </div>
 
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
@@ -223,13 +234,13 @@
 
                     <!-- Start Category modal -->
                     <div id="category_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Category
                                     </h3>
@@ -246,7 +257,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -314,13 +325,13 @@
 
                     <!-- Start Sub-Category modal -->
                     <div id="sub_category_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Sub-Category
                                     </h3>
@@ -337,7 +348,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -397,7 +408,7 @@
             </div>
         </div>
 
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
             <div class="relative w-full mb-5 group">
                 <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
@@ -418,13 +429,13 @@
 
                     <!-- Start Type modal -->
                     <div id="publication_type_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Publication Type
                                     </h3>
@@ -441,7 +452,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -504,13 +515,13 @@
 
                     <!-- Start Publisher modal -->
                     <div id="publisher_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Publisher
                                     </h3>
@@ -527,7 +538,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -576,7 +587,7 @@
 
         </div>
 
-        <div class="grid md:grid-cols-2 md:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
             <div class="relative w-full mb-5 group">
                 <x-input-label for="location" :value="__('Location')" />
                 <div class="flex flex-1 gap-1 mt-1">
@@ -595,13 +606,13 @@
 
                     <!-- Start Location modal -->
                     <div id="location_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Location
                                     </h3>
@@ -618,7 +629,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -669,13 +680,13 @@
 
                     <!-- Start Language modal -->
                     <div id="language_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
                                 <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t md:p-5 dark:border-gray-600">
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                         Create Language
                                     </h3>
@@ -692,7 +703,7 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <div class="p-4 md:p-5">
+                                <div class="p-4 lg:p-5">
                                     <div class="grid grid-cols-2 gap-4 mb-4 ">
                                         <div class="col-span-2">
                                             <label for="name"
@@ -736,20 +747,37 @@
             </div>
         </div>
         <div class="mb-5">
-            <div class="flex items-center space-4">
-                <div class="max-w-40">
+            {{-- Start Upload Image --}}
+            <div class="flex items-center mb-5 space-4">
+                <div class="pt-5 max-w-40">
                     @if ($image)
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
                             class="max-w-full pr-4 max-h-40" />
                     @endif
                 </div>
                 <div class="flex flex-col flex-1">
-                    <div>
-                        <x-input-label for="types" :value="__('Upload Image (max : 2MB)')" />
-                        <span class="text-red-500">*</span>
+                    <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                        Upload Image (Max: 2MB) <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
+                        <label for="dropzone-file"
+                            class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                        class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
+
+                            </div>
+                            <input wire:model="image" accept="image/png, image/jpeg, image/gif" id="dropzone-file"
+                                type="file" class="absolute h-[140%] w-[100%]" />
+                        </label>
                     </div>
-                    <input type="file" wire:model="image" id="dropzone-file" name="image"
-                        accept="image/png, image/jpeg, image/gif" />
                     <div wire:loading wire:target="image" class="text-blue-700">
                         <svg aria-hidden="true" role="status"
                             class="inline w-4 h-4 text-gray-200 me-3 animate-spin dark:text-gray-600"
@@ -765,14 +793,38 @@
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
+            </div>
 
+            {{-- Start Upload PDF --}}
+            <div class="flex items-center space-4">
                 <div class="flex flex-col flex-1">
-                    <div>
-                        <x-input-label for="pdf" :value="__('Upload PDF File (max : 10MB)')" />
-                        <span class="text-red-500">*</span>
+                    <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                        Upload PDF File (Max : 10MB) <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
+                        <label for="pdf"
+                            class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                </svg>
+                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                        class="font-semibold">Click to upload</span> or drag and drop</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
+                                @if ($pdf)
+                                    <p class="text-sm text-center text-gray-600 dark:text-gray-400">
+                                        <span class="font-bold text-md">Uploaded File :</span>
+                                        {{ $pdf->getClientOriginalName() }}
+                                    </p>
+                                @endif
+                            </div>
+                            <input type="file" wire:model="pdf" id="pdf" name="pdf"
+                                accept="application/pdf" class="absolute h-[140%] w-[100%]" />
+                        </label>
                     </div>
-                    <input type="file" wire:model="pdf" id="dropzone-file" name="pdf"
-                        accept="application/pdf" />
                     <div wire:loading wire:target="pdf" class="text-blue-700">
                         <svg aria-hidden="true" role="status"
                             class="inline w-4 h-4 text-gray-200 me-3 animate-spin dark:text-gray-600"
@@ -788,9 +840,7 @@
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
-
             </div>
-
         </div>
 
         <div class="mb-5" wire:ignore>
