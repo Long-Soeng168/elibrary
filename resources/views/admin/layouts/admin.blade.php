@@ -885,7 +885,7 @@
         //     CKEDITOR.replace(area, options);
         // });
     </script>
-    {{-- @livewireScripts --}}
+
     {{-- @stack('scripts') --}}
 
     {{-- <script>

@@ -12,6 +12,7 @@ use App\Models\Publisher;
 use App\Models\Location;
 use App\Models\Language;
 use App\Models\Author;
+use App\Models\Keyword;
 
 use Image;
 
@@ -38,6 +39,8 @@ class PublicationCreate extends Component
     public $year = null;
     public $description = null;
 
+    public $selectedKeywords = [];
+
     // ==========Add New Author============
     public $newAuthorName = null;
     public $newAuthorGender = null;
@@ -57,6 +60,29 @@ class PublicationCreate extends Component
             session()->flash('success', 'Add New Author successfully!');
 
             $this->reset(['newAuthorName', 'newAuthorGender']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
+    // ==========Add New Keyword============
+    public $newKeywordName = null;
+
+    public function saveNewKeyword()
+    {
+        try {
+            $validated = $this->validate([
+                'newKeywordName' => 'required|string|max:255|unique:keywords,name',
+            ]);
+
+            Keyword::create([
+                'name' => $this->newKeywordName,
+            ]);
+
+            session()->flash('success', 'Add New Keyword successfully!');
+
+            $this->reset(['newKeywordName']);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             session()->flash('error', $e->validator->errors()->all());
@@ -248,7 +274,7 @@ class PublicationCreate extends Component
 
     public function save()
     {
-
+        dd($this->selectedKeywords);
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
@@ -307,8 +333,9 @@ class PublicationCreate extends Component
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();
         $authors = Author::latest()->get();
-
-        // dump($this->publication_category_id);
+        $keywords = Keyword::latest()->get();
+// dd($keywords);
+        // dump($this->selectedKeywords);
 
         return view('livewire.publication-create', [
             'categories' => $categories,
@@ -318,6 +345,7 @@ class PublicationCreate extends Component
             'locations' => $locations,
             'authors' => $authors,
             'languages' => $languages,
+            'keywords' => $keywords,
         ]);
     }
 }
