@@ -308,6 +308,8 @@ class PublicationCreate extends Component
         $languages = Language::latest()->get();
         $authors = Author::latest()->get();
 
+        // dump($this->publication_category_id);
+
         return view('livewire.publication-create', [
             'categories' => $categories,
             'subCategories' => $subCategories,

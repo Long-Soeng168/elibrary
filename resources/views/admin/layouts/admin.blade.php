@@ -14,16 +14,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Moul&family=Siemreap&family=Poppins:wght@400;600;700&family=Noto+Serif:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="{{ asset('assets/js/tailwindcss3.4.js') }}"></script>
     <script src="{{ asset('assets/js/tailwindConfig.js') }}"></script>
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
     <script defer src="{{ asset('assets/js/darkMode.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
 
+    <style>
+        .select2-selection {
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            background-color: #f9fafb !important;
+            border-color: #d1d5db !important;
+            flex: 1 !important;
+        }
 
+        .select2-selection__arrow {
+            height: 100% !important;
+        }
+    </style>
 
 </head>
 

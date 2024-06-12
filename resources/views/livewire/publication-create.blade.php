@@ -108,14 +108,17 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='author_id' id="author" name="author_id">
-                        <option value="">Select Author...</option>
-                        @forelse ($authors as $author)
-                            <option value="{{ $author->id }}">{{ $author->name }}</option>
-                        @empty
-                            <option value=""> --No Author--</option>
-                        @endforelse
-                    </x-select-option>
+                    <div class="flex justify-start flex-1" wire:ignore>
+                        <x-select-option class="author-select" wire:model.live='author_id' id="author"
+                            name="author_id">
+                            <option value="">Select Author...</option>
+                            @forelse ($authors as $author)
+                                <option value="{{ $author->id }}">{{ $author->name }}</option>
+                            @empty
+                                <option value=""> --No Author--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="author_modal" data-modal-toggle="author_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
@@ -194,14 +197,16 @@
 
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label for="year" :value="__('Publication Year')" />
-                <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='year' id="year" name="year">
-                        <option value="">Select Year...</option>
+                <div class="flex flex-1 gap-1 mt-1 min-h-[2.5rem]">
+                    <div wire:ignore class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='year' id="year" name="year" class="year-select">
+                            <option value="">Select Year...</option>
 
-                        @for ($year = date('Y'); $year >= 1980; $year--)
+                            @for ($year = date('Y'); $year >= 1980; $year--)
                             <option value="{{ $year }}">{{ $year }}</option>
-                        @endfor
-                    </x-select-option>
+                            @endfor
+                        </x-select-option>
+                    </div>
                     {{-- <button type="button"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add {{ $year }}
@@ -216,17 +221,19 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
-                        name="publication_category_id">
-                        <option value="">Select Category...</option>
-                        @forelse ($categories as $category)
-                            <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                {{ $category->name }}
-                            </option>
-                        @empty
-                            <option value=""> --No Category--</option>
-                        @endforelse
-                    </x-select-option>
+                    <div class="flex justify-start flex-1" wire:ignore>
+                        <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
+                            name="publication_category_id" class="category-select">
+                            <option value="">Select Category...</option>
+                            @forelse ($categories as $category)
+                                <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
+                                    {{ $category->name }}
+                                </option>
+                            @empty
+                                <option value=""> --No Category--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="category_modal" data-modal-toggle="category_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
@@ -305,18 +312,20 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_sub_category_id" :value="__('Sub-Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='publication_sub_category_id' id="publication_sub_category_id"
-                        name="category_id">
-                        <option value="">
-                            {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
-                        </option>
-                        @forelse ($subCategories as $subCategory)
-                            <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
-                                {{ $subCategory->name }}</option>
-                        @empty
-                            <option value="">--No Category--</option>
-                        @endforelse
-                    </x-select-option>
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='publication_sub_category_id' id="publication_sub_category_id"
+                            name="category_id" class="sub-category-select">
+                            <option value="">
+                                {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
+                            </option>
+                            @forelse ($subCategories as $subCategory)
+                                <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
+                                    {{ $subCategory->name }}</option>
+                            @empty
+                                <option value="">--No Category--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="sub_category_modal"
                         data-modal-toggle="sub_category_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
@@ -412,14 +421,16 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='publication_type_id' id="types" name="publication_type_id">
-                        <option value="">Select Type...</option>
-                        @forelse ($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->name }}</option>
-                        @empty
-                            <option value="">--No Type--</option>
-                        @endforelse
-                    </x-select-option>
+                    <div wire:ignore class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='publication_type_id' id="types" name="publication_type_id" class="type-select">
+                            <option value="">Select Type...</option>
+                            @forelse ($types as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @empty
+                                <option value="">--No Type--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
 
                     <button type="button" data-modal-target="publication_type_modal"
                         data-modal-toggle="publication_type_modal"
@@ -500,14 +511,16 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publisher" :value="__('Publisher')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id">
-                        <option value="">Select Publisher...</option>
-                        @forelse ($publishers as $publisher)
+                    <div wire:ignore class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id" class="publisher-select">
+                            <option value="">Select Publisher...</option>
+                            @forelse ($publishers as $publisher)
                             <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
-                        @empty
+                            @empty
                             <option value=""> --No Publisher--</option>
-                        @endforelse
-                    </x-select-option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="publisher_modal" data-modal-toggle="publisher_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
@@ -591,14 +604,16 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="location" :value="__('Location')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='location_id' id="location" name="location_id">
-                        <option value="">Select Location...</option>
-                        @forelse ($locations as $location)
+                    <div wire:ignore class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='location_id' id="location" name="location_id" class="location-select">
+                            <option value="">Select Location...</option>
+                            @forelse ($locations as $location)
                             <option value="{{ $location->id }}">{{ $location->name }}</option>
-                        @empty
+                            @empty
                             <option value=""> --No Location--</option>
-                        @endforelse
-                    </x-select-option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="location_modal" data-modal-toggle="location_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
@@ -665,14 +680,16 @@
             <div class="relative w-full mb-5 group">
                 <x-input-label for="language" :value="__('Language')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <x-select-option wire:model.live='language_id' id="language" name="language_id">
-                        <option value="">Select Language...</option>
-                        @forelse ($languages as $language)
+                    <div wire:ignore class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='language_id' id="language" name="language_id" class="language-select">
+                            <option value="">Select Language...</option>
+                            @forelse ($languages as $language)
                             <option value="{{ $language->id }}">{{ $language->name }}</option>
-                        @empty
+                            @empty
                             <option value=""> --No Language--</option>
-                        @endforelse
-                    </x-select-option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
                     <button type="button" data-modal-target="language_modal" data-modal-toggle="language_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
@@ -746,15 +763,27 @@
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
         </div>
+
+        {{-- Start Keyword --}}
+        <div class="mb-5">
+            <x-input-label for="language" :value="__('Keywords')" />
+            <x-select-option multiple class="js-example-basic-single" name="state">
+                <option value="KH">KH</option>
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+            </x-select-option>
+        </div>
+        {{-- End Keyword --}}
+
         <div class="mb-5">
             {{-- Start Upload Image --}}
             <div class="flex items-center mb-5 space-4">
+                @if ($image)
                 <div class="pt-5 max-w-40">
-                    @if ($image)
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
                             class="max-w-full pr-4 max-h-40" />
-                    @endif
-                </div>
+                        </div>
+                        @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload Image (Max: 2MB) <span class="text-red-500">*</span>
@@ -841,6 +870,9 @@
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
             </div>
+            {{-- End Upload PDF --}}
+
+
         </div>
 
         <div class="mb-5" wire:ignore>
@@ -878,11 +910,65 @@
                 @this.set('description', event.editor.getData());
             })
         })
+
+        $(document).ready(function() {
+            $('.author-select').select2();
+            $('.author-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('author_id', data);
+            });
+
+            $('.category-select').select2();
+            $('.category-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('publication_category_id', data);
+            });
+
+            $('.sub-category-select').select2();
+            $('.sub-category-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('publication_sub_category_id', data);
+            });
+
+            $('.type-select').select2();
+            $('.type-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('publication_type_id', data);
+            });
+
+            $('.publisher-select').select2();
+            $('.publisher-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('publisher_id', data);
+            });
+
+            $('.location-select').select2();
+            $('.location-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('location_id', data);
+            });
+
+            $('.language-select').select2();
+            $('.language-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('language_id', data);
+            });
+
+            $('.year-select').select2();
+            $('.year-select').on('change', function (event) {
+                let data = event.target.value;
+                @this.set('year', data);
+            });
+        });
+
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
     </script>
 
-    <script>
+    {{-- <script>
         document.addEventListener('livewire:loaded', () => {
             initFlowbite();
         });
-    </script>
+    </script> --}}
 @endscript
