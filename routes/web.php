@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PublicationController;
+use App\Http\Controllers\Admin\VideoController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -42,6 +43,7 @@ Route::group([
 ], function() {
 
     Route::resource('publications', PublicationController::class);
+    Route::resource('videos', VideoController::class);
 
     // ======================================================
 

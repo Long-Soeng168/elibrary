@@ -30,6 +30,11 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Keyword::factory(10)->create();
         // \App\Models\Publication::factory(20)->create();
 
+        // \App\Models\VideoType::factory(3)->create();
+        // \App\Models\VideoCategory::factory(10)->create();
+        // \App\Models\VideoSubCategory::factory(10)->create();
+        // \App\Models\Video::factory(10)->create();
+
 
     }
 }
