@@ -272,9 +272,15 @@ class PublicationCreate extends Component
         session()->flash('success', 'PDF successfully uploaded!');
     }
 
+    public function updated()
+    {
+        $this->dispatch('livewire:updated');
+    }
+
+
     public function save()
     {
-        dd($this->selectedKeywords);
+        $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
@@ -296,7 +302,7 @@ class PublicationCreate extends Component
 
         $validated['create_by_user_id'] = request()->user()->id;
 
-        // dd($validated);
+        dd($validated);
 
         if(!empty($this->image)){
             $filename = time() . '_' . $this->image->getClientOriginalName();

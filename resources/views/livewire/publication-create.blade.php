@@ -67,55 +67,69 @@
     <form class="w-full" action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="grid mb-5 lg:grid-cols-1 lg:gap-6">
-            <!-- Name Address -->
+            <!-- Start Name -->
             <div>
                 <x-input-label for="name" :value="__('Title')" /><span class="text-red-500">*</span>
                 <x-text-input id="name" class="block w-full mt-1" type="text" name="name" wire:model='name'
                     required autofocus placeholder="Title" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
+            <!-- End Name -->
 
         </div>
         <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
+            <!-- Start Pages -->
             <div>
                 <x-input-label for="pages_count" :value="__('Pages')" />
                 <x-text-input id="pages_count" class="block w-full" type="number" name="pages_count"
                     wire:model='pages_count' autofocus placeholder="Number of Pages" />
                 <x-input-error :messages="$errors->get('pages_count')" class="mt-2" />
             </div>
+            <!-- End Pages -->
+
+            <!-- Start Edition -->
             <div>
                 <x-input-label for="edition" :value="__('Edition')" />
                 <x-text-input id="edition" class="block w-full" type="number" name="edition" wire:model='edition'
                     autofocus placeholder="Edition" />
                 <x-input-error :messages="$errors->get('edition')" class="mt-2" />
             </div>
+            <!-- End Edition -->
+
+            <!-- Start isbn -->
             <div>
                 <x-input-label for="isbn" :value="__('ISBN')" />
                 <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
                     placeholder="ISBN" />
                 <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
             </div>
+            <!-- End isbn -->
+
+            <!-- Start Link -->
             <div>
                 <x-input-label for="link" :value="__('Link')" />
                 <x-text-input id="link" class="block w-full" type="text" name="link" wire:model='link'
                     placeholder="Link" />
                 <x-input-error :messages="$errors->get('link')" class="mt-2" />
             </div>
+            <!-- End Link -->
         </div>
 
 
         <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start Author Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div class="flex justify-start flex-1" wire:ignore>
+                    <div class="flex justify-start flex-1">
                         <x-select-option class="author-select" wire:model.live='author_id' id="author"
                             name="author_id">
-                            <option value="">Select Author...</option>
+                            <option wire:key='select-author' value="">Select Author...</option>
                             @forelse ($authors as $author)
-                                <option value="{{ $author->id }}">{{ $author->name }}</option>
+                                <option wire:key='{{ $author->id }}' value="{{ $author->id }}">{{ $author->name }}
+                                </option>
                             @empty
-                                <option value=""> --No Author--</option>
+                                <option wire:key='no-author' value=""> --No Author--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -194,16 +208,18 @@
                 </div>
                 <x-input-error :messages="$errors->get('author_id')" class="mt-2" />
             </div>
+            {{-- End Author Select --}}
 
+            {{-- Start Year Select --}}
             <div class="relative z-0 w-full mb-5 group">
                 <x-input-label for="year" :value="__('Publication Year')" />
                 <div class="flex flex-1 gap-1 mt-1 min-h-[2.5rem]">
-                    <div wire:ignore class="flex justify-start flex-1">
+                    <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='year' id="year" name="year" class="year-select">
                             <option value="">Select Year...</option>
 
                             @for ($year = date('Y'); $year >= 1980; $year--)
-                            <option value="{{ $year }}">{{ $year }}</option>
+                                <option value="{{ $year }}">{{ $year }}</option>
                             @endfor
                         </x-select-option>
                     </div>
@@ -214,14 +230,16 @@
                 </div>
                 <x-input-error :messages="$errors->get('year')" class="mt-2" />
             </div>
+            {{-- End Year Select --}}
 
         </div>
 
         <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start Category Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div class="flex justify-start flex-1" wire:ignore>
+                    <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
                             name="publication_category_id" class="category-select">
                             <option value="">Select Category...</option>
@@ -309,12 +327,15 @@
                 </div>
                 <x-input-error :messages="$errors->get('publication_category_id')" class="mt-2" />
             </div>
+            {{-- End Category Select --}}
+
+            {{-- Start Sub-Category Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publication_sub_category_id" :value="__('Sub-Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publication_sub_category_id' id="publication_sub_category_id"
-                            name="category_id" class="sub-category-select">
+                        <x-select-option wire:model.live='publication_sub_category_id'
+                            id="publication_sub_category_id" name="category_id" class="sub-category-select">
                             <option value="">
                                 {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
                             </option>
@@ -415,14 +436,17 @@
                 </div>
                 <x-input-error :messages="$errors->get('publication_sub_category_id')" class="mt-2" />
             </div>
+            {{-- End Sub-Category Select --}}
         </div>
 
         <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start Type Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div wire:ignore class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publication_type_id' id="types" name="publication_type_id" class="type-select">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='publication_type_id' id="types"
+                            name="publication_type_id" class="type-select">
                             <option value="">Select Type...</option>
                             @forelse ($types as $type)
                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -507,17 +531,20 @@
                 </div>
                 <x-input-error :messages="$errors->get('publication_type_id')" class="mt-2" />
             </div>
+            {{-- Start Type Select --}}
 
+            {{-- Start Publisher Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="publisher" :value="__('Publisher')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div wire:ignore class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id" class="publisher-select">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id"
+                            class="publisher-select">
                             <option value="">Select Publisher...</option>
                             @forelse ($publishers as $publisher)
-                            <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                                <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
                             @empty
-                            <option value=""> --No Publisher--</option>
+                                <option value=""> --No Publisher--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -597,20 +624,23 @@
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
+            {{-- End Publisher Select --}}
 
         </div>
 
         <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start Location Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="location" :value="__('Location')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div wire:ignore class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='location_id' id="location" name="location_id" class="location-select">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='location_id' id="location" name="location_id"
+                            class="location-select">
                             <option value="">Select Location...</option>
                             @forelse ($locations as $location)
-                            <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                <option value="{{ $location->id }}">{{ $location->name }}</option>
                             @empty
-                            <option value=""> --No Location--</option>
+                                <option value=""> --No Location--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -677,16 +707,20 @@
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
+            {{-- End Location Select --}}
+
+            {{-- Start Language Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="language" :value="__('Language')" />
                 <div class="flex flex-1 gap-1 mt-1">
-                    <div wire:ignore class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='language_id' id="language" name="language_id" class="language-select">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model.live='language_id' id="language" name="language_id"
+                            class="language-select">
                             <option value="">Select Language...</option>
                             @forelse ($languages as $language)
-                            <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                <option value="{{ $language->id }}">{{ $language->name }}</option>
                             @empty
-                            <option value=""> --No Language--</option>
+                                <option value=""> --No Language--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -762,17 +796,21 @@
                 </div>
                 <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
             </div>
+            {{-- End Language Select --}}
         </div>
 
-        {{-- Start Keyword --}}
+        {{-- Start Keyword Select --}}
         <div class="relative w-full mb-5 group">
             <x-input-label for="keywords" :value="__('Keywords')" />
             <div class="flex flex-1 gap-1 mt-1">
-                <div wire:ignore class="flex justify-start flex-1">
-                    <select multiple="multiple" wire:model='selectedKeywords'  class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 keyword-select' id="keywords">
-                            <option value="">Select Keyword...</option>
+                <div class="flex justify-start flex-1">
+                    <select multiple="multiple" wire:model='selectedKeywords'
+                        class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 keyword-select'
+                        id="keywords">
+                        <option value="">Select Keyword...</option>
                         @forelse ($keywords as $keyword)
-                            <option wire:key='{{ $keyword->id }}' value="{{ $keyword->name }}">{{ $keyword->name }}</option>
+                            <option wire:key='{{ $keyword->id }}' value="{{ $keyword->name }}">
+                                {{ $keyword->name }}</option>
                         @empty
                             <option value=""> --No Keyword--</option>
                         @endforelse
@@ -800,9 +838,8 @@
                                     data-modal-toggle="keyword_modal">
                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2"
-                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                     </svg>
                                     <span class="sr-only">Close modal</span>
                                 </button>
@@ -842,17 +879,17 @@
             </div>
             <x-input-error :messages="$errors->get('publisher_id')" class="mt-2" />
         </div>
-        {{-- End Keyword --}}
+        {{-- End Keyword Select --}}
 
         <div class="mb-5">
-            {{-- Start Upload Image --}}
+            {{-- Start Image Upload --}}
             <div class="flex items-center mb-5 space-4">
                 @if ($image)
-                <div class="pt-5 max-w-40">
+                    <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
                             class="max-w-full pr-4 max-h-40" />
-                        </div>
-                        @endif
+                    </div>
+                @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload Image (Max: 2MB) <span class="text-red-500">*</span>
@@ -892,8 +929,9 @@
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
             </div>
+            {{-- End Image Upload --}}
 
-            {{-- Start Upload PDF --}}
+            {{-- Start PDF Upload --}}
             <div class="flex items-center space-4">
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
@@ -939,7 +977,7 @@
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
             </div>
-            {{-- End Upload PDF --}}
+            {{-- End PDF Upload --}}
 
 
         </div>
@@ -976,70 +1014,88 @@
             const editor = CKEDITOR.replace('description', options);
             editor.on('change', function(event) {
                 console.log(event.editor.getData())
-                @this.set('description', event.editor.getData());
+                @this.set('description', event.editor.getData(), false);
             })
         })
 
+        function initSelect2() {
+            $(document).ready(function() {
+                $('.author-select').select2();
+                $('.author-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('author_id', data);
+                });
+
+                $('.category-select').select2();
+                $('.category-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('publication_category_id', data);
+                });
+
+                $('.sub-category-select').select2();
+                $('.sub-category-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('publication_sub_category_id', data);
+
+                });
+
+                $('.type-select').select2();
+                $('.type-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('publication_type_id', data);
+                });
+
+                $('.publisher-select').select2();
+                $('.publisher-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('publisher_id', data);
+                });
+
+                $('.location-select').select2();
+                $('.location-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('location_id', data);
+                });
+
+                $('.language-select').select2();
+                $('.language-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('language_id', data);
+                });
+
+                $('.year-select').select2();
+                $('.year-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('year', data);
+                });
+
+                $('.keyword-select').select2();
+                $('.keyword-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('selectedKeywords', data);
+                    console.log(data);
+                });
+            });
+        }
+        initSelect2();
+
         $(document).ready(function() {
-            $('.author-select').select2();
-            $('.author-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('author_id', data);
-            });
+            document.addEventListener('livewire:updated', event => {
+                console.log('updated'); // Logs 'Livewire component updated' to browser console
 
-            $('.category-select').select2();
-            $('.category-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('publication_category_id', data);
-            });
+                initSelect2();
 
-            $('.sub-category-select').select2();
-            $('.sub-category-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('publication_sub_category_id', data);
-
-            });
-
-            $('.type-select').select2();
-            $('.type-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('publication_type_id', data);
-            });
-
-            $('.publisher-select').select2();
-            $('.publisher-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('publisher_id', data);
-            });
-
-            $('.location-select').select2();
-            $('.location-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('location_id', data);
-            });
-
-            $('.language-select').select2();
-            $('.language-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('language_id', data);
-            });
-
-            $('.year-select').select2();
-            $('.year-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('year', data);
-            });
-
-            $('.keyword-select').select2();
-            $('.keyword-select').on('change', function (event) {
-                let data = $(this).val();
-                @this.set('selectedKeywords', data);
-                console.log(data);
             });
         });
 
-        $(document).ready(function() {
-            $('.js-example-basic-single').select2();
+        // Prevent Submit from click enter in input field
+        const inputFields = document.querySelectorAll('input');
+        inputFields.forEach(input => {
+            input.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default form submission
+                }
+            });
         });
     </script>
 
