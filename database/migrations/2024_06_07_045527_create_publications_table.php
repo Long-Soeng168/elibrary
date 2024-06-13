@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('edition')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();
+            $table->string('keywords', 5000)->nullable();
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();

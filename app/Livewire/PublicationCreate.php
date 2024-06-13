@@ -39,7 +39,7 @@ class PublicationCreate extends Component
     public $year = null;
     public $description = null;
 
-    public $selectedKeywords = [];
+    public $keywords = [];
 
     // ==========Add New Author============
     public $newAuthorName = null;
@@ -127,7 +127,7 @@ class PublicationCreate extends Component
         try {
             $this->validate([
                 'newSubCategoryName' => 'required|string|max:255|unique:publication_sub_categories,name',
-                'selectedCategoryId' => 'nullable|exists:publication_categories,id',
+                'selectedCategoryId' => 'required|exists:publication_categories,id',
             ]);
 
             PublicationSubCategory::create([
@@ -301,8 +301,13 @@ class PublicationCreate extends Component
         ]);
 
         $validated['create_by_user_id'] = request()->user()->id;
+        if (count($this->keywords) > 0) {
+            $validated['keywords'] = implode(',', $this->keywords);
+        } else {
+            $validated['keywords'] = null;
+        }
 
-        dd($validated);
+        // dd($validated);
 
         if(!empty($this->image)){
             $filename = time() . '_' . $this->image->getClientOriginalName();
@@ -339,9 +344,9 @@ class PublicationCreate extends Component
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();
         $authors = Author::latest()->get();
-        $keywords = Keyword::latest()->get();
-// dd($keywords);
-        // dump($this->selectedKeywords);
+        $allKeywords = Keyword::latest()->get();
+// dd($allKeywords);
+        // dump($this->selectedallKeywords);
 
         return view('livewire.publication-create', [
             'categories' => $categories,
@@ -351,7 +356,7 @@ class PublicationCreate extends Component
             'locations' => $locations,
             'authors' => $authors,
             'languages' => $languages,
-            'keywords' => $keywords,
+            'allKeywords' => $allKeywords,
         ]);
     }
 }

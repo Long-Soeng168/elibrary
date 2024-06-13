@@ -39,11 +39,69 @@
         .select2-selection__arrow {
             height: 100% !important;
         }
+
+        .select2-selection__choice {
+            background-color: #c5d5ff !important;
+            border-color: #0d43d6 !important;
+            color: #000000 !important;
+        }
+
+        .select2-selection__choice__remove {
+            color: black !important;
+        }
     </style>
+
+    {{-- Show popup to reload screen when resize --}}
+    <script>
+        // Function to show the modal
+        function showReloadModal() {
+            document.getElementById('reloadModal').classList.remove('hidden');
+        }
+
+        // Function to hide the modal
+        function hideReloadModal() {
+            document.getElementById('reloadModal').classList.add('hidden');
+        }
+
+        // Function to reload the page
+        function reloadPage() {
+            window.location.reload();
+        }
+
+        // Check if the window has been resized
+        window.addEventListener('resize', function() {
+            showReloadModal(); // Show modal when window is resized
+        });
+    </script>
+
 
 </head>
 
 <body class="min-h-[100vh] font-body">
+    <!-- Modal Reload Page -->
+    <div id="reloadModal" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-gray-800 bg-opacity-75">
+        <div class="max-w-md p-8 bg-white rounded shadow-lg">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-semibold">Screen Resize Detected</h2>
+                <button class="text-gray-600 hover:text-gray-800" onclick="hideReloadModal()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <p class="mb-4 text-sm text-gray-700">Your screen has been resized. For optimal experience, please reload
+                the page.</p>
+            <div class="flex justify-end">
+                <button class="px-4 py-2 mr-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
+                    onclick="hideReloadModal()">Close</button>
+                <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600" onclick="reloadPage()">Reload
+                    Page</button>
+            </div>
+        </div>
+    </div>
+
     <div class="antialiased min-h-[100vh] bg-gray-50 dark:bg-gray-800">
         <nav
             class="border-b border-gray-200 px-4 py-2.5 bg-white dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-30">
@@ -885,7 +943,16 @@
         //     CKEDITOR.replace(area, options);
         // });
     </script>
-
+    <script>
+        // Prevent Submit from click ENTER key
+        const form = document.querySelector('form');
+        form.addEventListener('keydown', function(event) {
+            // Check if the key pressed is Enter (key code 13)
+            if (event.keyCode === 13) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
     {{-- @stack('scripts') --}}
 
     {{-- <script>

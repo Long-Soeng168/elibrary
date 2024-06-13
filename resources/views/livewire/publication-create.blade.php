@@ -124,12 +124,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option class="author-select" wire:model.live='author_id' id="author"
                             name="author_id">
-                            <option wire:key='select-author' value="">Select Author...</option>
+                            <option wire:key='author' value="">Select Author...</option>
                             @forelse ($authors as $author)
                                 <option wire:key='{{ $author->id }}' value="{{ $author->id }}">{{ $author->name }}
                                 </option>
                             @empty
-                                <option wire:key='no-author' value=""> --No Author--</option>
+                                <option wire:key='noauthor' value=""> --No Author--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -216,10 +216,10 @@
                 <div class="flex flex-1 gap-1 mt-1 min-h-[2.5rem]">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='year' id="year" name="year" class="year-select">
-                            <option value="">Select Year...</option>
+                            <option wire:key='year-select' value="">Select Year...</option>
 
                             @for ($year = date('Y'); $year >= 1980; $year--)
-                                <option value="{{ $year }}">{{ $year }}</option>
+                                <option wire:key='{{ $year }}' value="{{ $year }}">{{ $year }}</option>
                             @endfor
                         </x-select-option>
                     </div>
@@ -242,13 +242,13 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
                             name="publication_category_id" class="category-select">
-                            <option value="">Select Category...</option>
+                            <option wire:key='category' value="">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
                                     {{ $category->name }}
                                 </option>
                             @empty
-                                <option value=""> --No Category--</option>
+                                <option wire:key='nocateogry' value=""> --No Category--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -336,14 +336,14 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_sub_category_id'
                             id="publication_sub_category_id" name="category_id" class="sub-category-select">
-                            <option value="">
+                            <option wire:key='sub-category' value="">
                                 {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
                                     {{ $subCategory->name }}</option>
                             @empty
-                                <option value="">--No Category--</option>
+                                <option wire:key='nosub-category' value="">--No Category--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -403,12 +403,12 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                             <select id="category" wire:model='selectedCategoryId'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select Category</option>
+                                                <option wire:key='modalcate' value="">Select Category</option>
                                                 @forelse ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}
+                                                    <option wire:key='{{ $category->name }}' value="{{ $category->id }}">{{ $category->name }}
                                                     </option>
                                                 @empty
-                                                    <option value="">--No Category--</option>
+                                                    <option wire:key='nomodalcate' value="">--No Category--</option>
                                                 @endforelse
                                             </select>
                                         </div>
@@ -447,11 +447,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_type_id' id="types"
                             name="publication_type_id" class="type-select">
-                            <option value="">Select Type...</option>
+                            <option wire:key='type' value="">Select Type...</option>
                             @forelse ($types as $type)
-                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
                             @empty
-                                <option value="">--No Type--</option>
+                                <option wire:key='notype' value="">--No Type--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -540,11 +540,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id"
                             class="publisher-select">
-                            <option value="">Select Publisher...</option>
+                            <option wire:key='publisher' value="">Select Publisher...</option>
                             @forelse ($publishers as $publisher)
-                                <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                                <option wire:key='{{ $publisher->id }}' value="{{ $publisher->id }}">{{ $publisher->name }}</option>
                             @empty
-                                <option value=""> --No Publisher--</option>
+                                <option wire:key='nopublisher' value=""> --No Publisher--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -636,11 +636,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='location_id' id="location" name="location_id"
                             class="location-select">
-                            <option value="">Select Location...</option>
+                            <option  wire:key='location' value="">Select Location...</option>
                             @forelse ($locations as $location)
-                                <option value="{{ $location->id }}">{{ $location->name }}</option>
+                                <option wire:key='{{ $location->id }}' value="{{ $location->id }}">{{ $location->name }}</option>
                             @empty
-                                <option value=""> --No Location--</option>
+                                <option wire:key='nolocation' value=""> --No Location--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -716,11 +716,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='language_id' id="language" name="language_id"
                             class="language-select">
-                            <option value="">Select Language...</option>
+                            <option wire:key='language' value="">Select Language...</option>
                             @forelse ($languages as $language)
-                                <option value="{{ $language->id }}">{{ $language->name }}</option>
+                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }}</option>
                             @empty
-                                <option value=""> --No Language--</option>
+                                <option wire:key='nolanguage' value=""> --No Language--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -804,15 +804,15 @@
             <x-input-label for="keywords" :value="__('Keywords')" />
             <div class="flex flex-1 gap-1 mt-1">
                 <div class="flex justify-start flex-1">
-                    <select multiple="multiple" wire:model='selectedKeywords'
+                    <select multiple="multiple" wire:model='keywords'
                         class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 keyword-select'
                         id="keywords">
-                        <option value="">Select Keyword...</option>
-                        @forelse ($keywords as $keyword)
+                        <option wire:key='keyword' value="">Select Keyword...</option>
+                        @forelse ($allKeywords as $keyword)
                             <option wire:key='{{ $keyword->id }}' value="{{ $keyword->name }}">
                                 {{ $keyword->name }}</option>
                         @empty
-                            <option value=""> --No Keyword--</option>
+                            <option wire:key=nokeyword' value=""> --No Keyword--</option>
                         @endforelse
                     </select>
                 </div>
@@ -883,7 +883,7 @@
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center mb-5 space-4">
+            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
                 @if ($image)
                     <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
@@ -914,17 +914,10 @@
                         </label>
                     </div>
                     <div wire:loading wire:target="image" class="text-blue-700">
-                        <svg aria-hidden="true" role="status"
-                            class="inline w-4 h-4 text-gray-200 me-3 animate-spin dark:text-gray-600"
-                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                fill="currentColor" />
-                            <path
-                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                fill="#1C64F2" />
-                        </svg>
-                        Uploading...
+                        <span>
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            Uploading...
+                        </span>
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
@@ -932,7 +925,7 @@
             {{-- End Image Upload --}}
 
             {{-- Start PDF Upload --}}
-            <div class="flex items-center space-4">
+            <div class="flex items-center space-4" wire:key='uploadpdf'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload PDF File (Max : 10MB) <span class="text-red-500">*</span>
@@ -962,17 +955,10 @@
                         </label>
                     </div>
                     <div wire:loading wire:target="pdf" class="text-blue-700">
-                        <svg aria-hidden="true" role="status"
-                            class="inline w-4 h-4 text-gray-200 me-3 animate-spin dark:text-gray-600"
-                            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                fill="currentColor" />
-                            <path
-                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                fill="#1C64F2" />
-                        </svg>
-                        Uploading...
+                        <span>
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            Uploading...
+                        </span>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
@@ -991,10 +977,17 @@
             <x-outline-button href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent = "save"
-                class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                Save
+            <button wire:click.prevent="save"
+                    wire:target="save"
+                    wire:loading.attr="disabled"
+                    class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+
+                    Save
             </button>
+            <span wire:target="save" wire:loading>
+                <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                Saving
+            </span>
 
         </div>
     </form>
@@ -1072,7 +1065,7 @@
                 $('.keyword-select').select2();
                 $('.keyword-select').on('change', function(event) {
                     let data = $(this).val();
-                    @this.set('selectedKeywords', data);
+                    @this.set('keywords', data);
                     console.log(data);
                 });
             });
@@ -1082,21 +1075,12 @@
         $(document).ready(function() {
             document.addEventListener('livewire:updated', event => {
                 console.log('updated'); // Logs 'Livewire component updated' to browser console
-
                 initSelect2();
-
+                initFlowbite();
             });
         });
 
-        // Prevent Submit from click enter in input field
-        const inputFields = document.querySelectorAll('input');
-        inputFields.forEach(input => {
-            input.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault(); // Prevent the default form submission
-                }
-            });
-        });
+
     </script>
 
     {{-- <script>
