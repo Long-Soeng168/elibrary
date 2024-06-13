@@ -64,7 +64,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
-            <x-primary-button href="{{ route('admin.publications.create') }}">
+            <x-primary-button href="{{ route('admin.videos.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"
@@ -128,7 +128,6 @@
                     {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
                     <th scope="col" class="px-4 py-3">Type</th>
                     <th scope="col" class="px-4 py-3">Language</th>
-                    <th scope="col" class="px-4 py-3">ISBN</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -141,8 +140,8 @@
                         </td>
                         <th scope="row"
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                            <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
-                                <img src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
+                            <a href="{{ asset('assets/images/videos/' . $item->image) }}" class="glightbox">
+                                <img src="{{ asset('assets/images/videos/thumb/' . $item->image) }}"
                                     alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[6/9]">
                             </a>
                         </th>
@@ -155,11 +154,10 @@
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->publisher?->name }}" />
-                        <x-table-data value="{{ $item->publicationCategory?->name }}" />
-                        {{-- <x-table-data value="{{ $item->publicationSubCategory?->name }}" /> --}}
-                        <x-table-data value="{{ $item->publicationType?->name }}" />
+                        <x-table-data value="{{ $item->videoCategory?->name }}" />
+                        {{-- <x-table-data value="{{ $item->videoSubCategory?->name }}" /> --}}
+                        <x-table-data value="{{ $item->videoType?->name }}" />
                         <x-table-data value="{{ $item->language?->name }}" />
-                        <x-table-data value="{{ $item->isbn }}" />
 
 
                         <td class="px-6 py-4">

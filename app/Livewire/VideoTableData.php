@@ -6,8 +6,8 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use App\Models\Publication;
-use App\Models\PublicationCategory;
+use App\Models\Video;
+use App\Models\VideoCategory;
 
 class VideoTableData extends Component
 {
@@ -49,18 +49,17 @@ class VideoTableData extends Component
 
     public function render(){
 
-        $items = Publication::where(function($query){
+        $items = Video::where(function($query){
                                 $query->where('name', 'LIKE', "%$this->search%")
-                                    ->orWhere('description', 'LIKE', "%$this->search%")
-                                    ->orWhere('isbn', 'LIKE', "%$this->search%");
+                                    ->orWhere('description', 'LIKE', "%$this->search%");
                             })
                             ->when($this->filter != 0, function($query){
-                                $query->where('publication_category_id', $this->filter);
+                                $query->where('video_category_id', $this->filter);
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
-        $categories = PublicationCategory::latest()->get();
-        $selectedCategory = PublicationCategory::find($this->filter);
+        $categories = VideoCategory::latest()->get();
+        $selectedCategory = VideoCategory::find($this->filter);
 
         return view('livewire.video-table-data', [
             'items' => $items,

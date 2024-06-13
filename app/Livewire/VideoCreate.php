@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Publication;
-use App\Models\PublicationCategory;
-use App\Models\PublicationSubCategory;
-use App\Models\PublicationType;
+use App\Models\Video;
+use App\Models\VideoCategory;
+use App\Models\VideoSubCategory;
+use App\Models\VideoType;
 use App\Models\Publisher;
 use App\Models\Location;
 use App\Models\Language;
@@ -21,18 +21,18 @@ class VideoCreate extends Component
     use WithFileUploads;
 
     public $image;
-    public $pdf;
+    public $file;
 
-    public $publication_category_id = null;
-    public $publication_sub_category_id = null;
-    public $publication_type_id = null;
+    public $video_category_id = null;
+    public $video_sub_category_id = null;
+    public $video_type_id = null;
     public $publisher_id = null;
     public $location_id = null;
     public $language_id = null;
     public $author_id = null;
 
     public $name = null;
-    public $pages_count = null;
+    public $duration = null;
     public $edition = null;
     public $link = null;
     public $isbn = null;
@@ -98,11 +98,11 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newCategoryName' => 'required|string|max:255|unique:publication_categories,name',
+                'newCategoryName' => 'required|string|max:255|unique:video_categories,name',
                 // Add validation rules for 'newCategoryNameKh' if needed
             ]);
 
-            PublicationCategory::create([
+            VideoCategory::create([
                 'name' => $this->newCategoryName,
                 'name_kh' => $this->newCategoryNameKh,
             ]);
@@ -126,14 +126,14 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newSubCategoryName' => 'required|string|max:255|unique:publication_sub_categories,name',
-                'selectedCategoryId' => 'required|exists:publication_categories,id',
+                'newSubCategoryName' => 'required|string|max:255|unique:video_sub_categories,name',
+                'selectedCategoryId' => 'required|exists:video_categories,id',
             ]);
 
-            PublicationSubCategory::create([
+            VideoSubCategory::create([
                 'name' => $this->newSubCategoryName,
                 'name_kh' => $this->newSubCategoryNameKh,
-                'publication_category_id' => $this->selectedCategoryId,
+                'video_category_id' => $this->selectedCategoryId,
             ]);
 
             session()->flash('success', 'Add New Sub-Category successfully!');
@@ -153,11 +153,11 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newTypeName' => 'required|string|max:255|unique:publication_types,name',
+                'newTypeName' => 'required|string|max:255|unique:video_types,name',
                 // Add validation rules for 'newTypeNameKh' if needed
             ]);
 
-            PublicationType::create([
+            VideoType::create([
                 'name' => $this->newTypeName,
                 'name_kh' => $this->newTypeNameKh,
             ]);
@@ -249,9 +249,9 @@ class VideoCreate extends Component
 
 
 
-    public function updatedPublication_category_id()
+    public function updatedvideo_category_id()
     {
-        $this->publication_sub_category_id = null;
+        $this->video_sub_category_id = null;
     }
 
     public function updatedImage()
@@ -263,13 +263,13 @@ class VideoCreate extends Component
         session()->flash('success', 'Image successfully uploaded!');
     }
 
-    public function updatedPdf()
+    public function updatedFile()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'file' => 'file|max:2048', // 2MB Max
         ]);
 
-        session()->flash('success', 'PDF successfully uploaded!');
+        session()->flash('success', 'file successfully uploaded!');
     }
 
     public function updated()
@@ -284,15 +284,13 @@ class VideoCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'pdf' => 'required|file|mimes:pdf|max:2048',
-            'pages_count' => 'nullable|integer|min:1',
+            'file' => 'nullable|file|max:2048',
+            'duration' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
-            'isbn' => 'nullable|string|max:30',
             'link' => 'nullable|string|max:255',
-            'edition' => 'nullable|integer',
-            'publication_category_id' => 'nullable|exists:publication_categories,id',
-            'publication_sub_category_id' => 'nullable|exists:publication_sub_categories,id',
-            'publication_type_id' => 'nullable|exists:publication_types,id',
+            'video_category_id' => 'nullable|exists:video_categories,id',
+            'video_sub_category_id' => 'nullable|exists:video_sub_categories,id',
+            'video_type_id' => 'nullable|exists:video_types,id',
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',
@@ -312,8 +310,8 @@ class VideoCreate extends Component
         if(!empty($this->image)){
             $filename = time() . '_' . $this->image->getClientOriginalName();
 
-            $image_path = public_path('assets/images/publications/'.$filename);
-            $image_thumb_path = public_path('assets/images/publications/thumb/'.$filename);
+            $image_path = public_path('assets/images/videos/'.$filename);
+            $image_thumb_path = public_path('assets/images/videos/thumb/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $imageUpload->resize(400,null,function($resize){
                 $resize->aspectRatio();
@@ -321,25 +319,25 @@ class VideoCreate extends Component
             $validated['image'] = $filename;
         }
 
-        if (!empty($this->pdf)) {
-            $filename = time() . '_' . $this->pdf->getClientOriginalName();
-            $this->pdf->storeAs('publications', $filename, 'publicForPdf');
-            $validated['pdf'] = $filename;
+        if (!empty($this->file)) {
+            $filename = time() . '_' . $this->file->getClientOriginalName();
+            $this->file->storeAs('videos', $filename, 'publicForPdf');
+            $validated['file'] = $filename;
         }
 
-        $createdPublication = Publication::create($validated);
+        $createdVideo = Video::create($validated);
 
-        // dd($createdPublication);
-        return redirect()->route('admin.publications.index')->with('success', 'Successfully uploaded!');
+        // dd($createdVideo);
+        return redirect()->route('admin.videos.index')->with('success', 'Successfully uploaded!');
 
         // session()->flash('message', 'Image successfully uploaded!');
     }
 
     public function render()
     {
-        $categories = PublicationCategory::latest()->get();
-        $subCategories = PublicationSubCategory::where('publication_category_id', $this->publication_category_id)->latest()->get();
-        $types = PublicationType::latest()->get();
+        $categories = VideoCategory::latest()->get();
+        $subCategories = VideoSubCategory::where('video_category_id', $this->video_category_id)->latest()->get();
+        $types = VideoType::latest()->get();
         $publishers = Publisher::latest()->get();
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();

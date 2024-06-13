@@ -78,32 +78,14 @@
 
         </div>
         <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
-            <!-- Start Pages -->
+            <!-- Start Duration -->
             <div>
-                <x-input-label for="pages_count" :value="__('Pages')" />
-                <x-text-input id="pages_count" class="block w-full" type="number" name="pages_count"
-                    wire:model='pages_count' autofocus placeholder="Number of Pages" />
-                <x-input-error :messages="$errors->get('pages_count')" class="mt-2" />
+                <x-input-label for="duration" :value="__('Duration (Minutes)')" />
+                <x-text-input id="duration" class="block w-full" type="number" name="duration"
+                    wire:model='duration' autofocus placeholder="Number of Duration" />
+                <x-input-error :messages="$errors->get('duration')" class="mt-2" />
             </div>
-            <!-- End Pages -->
-
-            <!-- Start Edition -->
-            <div>
-                <x-input-label for="edition" :value="__('Edition')" />
-                <x-text-input id="edition" class="block w-full" type="number" name="edition" wire:model='edition'
-                    autofocus placeholder="Edition" />
-                <x-input-error :messages="$errors->get('edition')" class="mt-2" />
-            </div>
-            <!-- End Edition -->
-
-            <!-- Start isbn -->
-            <div>
-                <x-input-label for="isbn" :value="__('ISBN')" />
-                <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
-                    placeholder="ISBN" />
-                <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
-            </div>
-            <!-- End isbn -->
+            <!-- End Duration -->
 
             <!-- Start Link -->
             <div>
@@ -237,11 +219,11 @@
         <div class="grid lg:grid-cols-2 lg:gap-6">
             {{-- Start Category Select --}}
             <div class="relative w-full mb-5 group">
-                <x-input-label for="publication_category_id" :value="__('Category')" />
+                <x-input-label for="video_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
-                            name="publication_category_id" class="category-select">
+                        <x-select-option wire:model.live='video_category_id' id="video_category_id"
+                            name="video_category_id" class="category-select">
                             <option wire:key='category' value="">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
@@ -325,19 +307,19 @@
                     <!-- End Category modal -->
 
                 </div>
-                <x-input-error :messages="$errors->get('publication_category_id')" class="mt-2" />
+                <x-input-error :messages="$errors->get('video_category_id')" class="mt-2" />
             </div>
             {{-- End Category Select --}}
 
             {{-- Start Sub-Category Select --}}
             <div class="relative w-full mb-5 group">
-                <x-input-label for="publication_sub_category_id" :value="__('Sub-Category')" />
+                <x-input-label for="video_sub_category_id" :value="__('Sub-Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publication_sub_category_id'
-                            id="publication_sub_category_id" name="category_id" class="sub-category-select">
+                        <x-select-option wire:model.live='video_sub_category_id'
+                            id="video_sub_category_id" name="category_id" class="sub-category-select">
                             <option wire:key='sub-category' value="">
-                                {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
+                                {{ $video_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
@@ -434,7 +416,7 @@
                     </div>
                     <!-- End Sub-Category modal -->
                 </div>
-                <x-input-error :messages="$errors->get('publication_sub_category_id')" class="mt-2" />
+                <x-input-error :messages="$errors->get('video_sub_category_id')" class="mt-2" />
             </div>
             {{-- End Sub-Category Select --}}
         </div>
@@ -445,8 +427,8 @@
                 <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
-                        <x-select-option wire:model.live='publication_type_id' id="types"
-                            name="publication_type_id" class="type-select">
+                        <x-select-option wire:model.live='video_type_id' id="types"
+                            name="video_type_id" class="type-select">
                             <option wire:key='type' value="">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
@@ -456,14 +438,14 @@
                         </x-select-option>
                     </div>
 
-                    <button type="button" data-modal-target="publication_type_modal"
-                        data-modal-toggle="publication_type_modal"
+                    <button type="button" data-modal-target="video_type_modal"
+                        data-modal-toggle="video_type_modal"
                         class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
                         Add
                     </button>
 
                     <!-- Start Type modal -->
-                    <div id="publication_type_modal" tabindex="-1" aria-hidden="true"
+                    <div id="video_type_modal" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative w-full max-w-md max-h-full p-4">
                             <!-- Modal content -->
@@ -476,7 +458,7 @@
                                     </h3>
                                     <button type="button"
                                         class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-toggle="publication_type_modal">
+                                        data-modal-toggle="video_type_modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round"
@@ -509,8 +491,8 @@
 
                                     </div>
                                     <div class="text-right">
-                                        <button data-modal-target="publication_type_modal"
-                                            data-modal-toggle="publication_type_modal" type="button"
+                                        <button data-modal-target="video_type_modal"
+                                            data-modal-toggle="video_type_modal" type="button"
                                             wire:click='saveNewType' wire:target="saveNewType"
                                             wire:loading.attr="disabled"
                                             class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -529,7 +511,7 @@
                     </div>
                     <!-- End Type modal -->
                 </div>
-                <x-input-error :messages="$errors->get('publication_type_id')" class="mt-2" />
+                <x-input-error :messages="$errors->get('video_type_id')" class="mt-2" />
             </div>
             {{-- Start Type Select --}}
 
@@ -924,14 +906,14 @@
             </div>
             {{-- End Image Upload --}}
 
-            {{-- Start PDF Upload --}}
-            <div class="flex items-center space-4" wire:key='uploadpdf'>
+            {{-- Start file Upload --}}
+            {{-- <div class="flex items-center space-4" wire:key='uploadfile'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload PDF File (Max : 10MB) <span class="text-red-500">*</span>
+                        Upload File (Max : 10MB) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
-                        <label for="pdf"
+                        <label for="file"
                             class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
@@ -942,28 +924,28 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
-                                @if ($pdf)
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 10MB)</p>
+                                @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
-                                        {{ $pdf->getClientOriginalName() }}
+                                        {{ $file->getClientOriginalName() }}
                                     </p>
                                 @endif
                             </div>
-                            <input type="file" wire:model="pdf" id="pdf" name="pdf"
-                                accept="application/pdf" class="absolute h-[140%] w-[100%]" />
+                            <input type="file" wire:model="file" id="file" name="file"
+                                accept="application/file" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
-                    <div wire:loading wire:target="pdf" class="text-blue-700">
+                    <div wire:loading wire:target="file" class="text-blue-700">
                         <span>
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
                     </div>
-                    <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
-            </div>
-            {{-- End PDF Upload --}}
+            </div> --}}
+            {{-- End file Upload --}}
 
 
         </div>
@@ -1022,20 +1004,20 @@
                 $('.category-select').select2();
                 $('.category-select').on('change', function(event) {
                     let data = $(this).val();
-                    @this.set('publication_category_id', data);
+                    @this.set('video_category_id', data);
                 });
 
                 $('.sub-category-select').select2();
                 $('.sub-category-select').on('change', function(event) {
                     let data = $(this).val();
-                    @this.set('publication_sub_category_id', data);
+                    @this.set('video_sub_category_id', data);
 
                 });
 
                 $('.type-select').select2();
                 $('.type-select').on('change', function(event) {
                     let data = $(this).val();
-                    @this.set('publication_type_id', data);
+                    @this.set('video_type_id', data);
                 });
 
                 $('.publisher-select').select2();

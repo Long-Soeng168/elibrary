@@ -618,6 +618,21 @@
                         </x-sidebar-item>
                     </li>
                     <li>
+                        <x-sidebar-item href="{{ route('admin.videos.index') }}"
+                            class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            <span class="ml-3">Videos</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
                         <x-sidebar-item href="{{ route('admin.slides.index') }}"
                             class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -633,7 +648,7 @@
                             <span class="ml-3">Slides</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.dtcs.index') }}"
                             class="{{ request()->is('admin/dtcs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -648,7 +663,7 @@
                             </svg>
                             <span class="ml-3">DTC</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
                     <li>
                         <x-sidebar-item href="{{ route('admin.items.index') }}"
                             class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
