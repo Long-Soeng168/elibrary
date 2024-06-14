@@ -556,13 +556,13 @@
         <!-- Sidebar -->
 
         <aside
-            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+            class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 "
             aria-label="Sidenav" id="drawer-navigation">
-            <a href="/" class="flex items-center justify-center mt-4">
+            <a href="/" class="flex items-center justify-center mt-4 ">
                 <img src="{{ asset('assets/images/logo/tomato.png') }}" class="h-8 mr-3" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Potato</span>
             </a>
-            <div class="h-full px-3 py-5 overflow-y-auto bg-white dark:bg-gray-800">
+            <div class="h-full px-3 py-5 overflow-y-auto bg-white dark:bg-gray-800 pb-[8rem]">
 
                 <ul class="space-y-2">
                     <li>
@@ -672,6 +672,21 @@
                                 <rect width="7" height="5" x="3" y="16" rx="1" />
                             </svg>
                             <span class="ml-3">Bulletins</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.audios.index') }}"
+                            class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            <span class="ml-3">Audios</span>
                         </x-sidebar-item>
                     </li>
                     <li>

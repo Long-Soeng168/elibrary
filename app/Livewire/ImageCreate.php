@@ -249,7 +249,7 @@ class ImageCreate extends Component
 
 
 
-    public function updatedimage_category_id()
+    public function updatedImage_category_id()
     {
         $this->image_sub_category_id = null;
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PublicationController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\AudioController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -48,6 +49,7 @@ Route::group([
     Route::resource('videos', VideoController::class);
     Route::resource('images', ImageController::class);
     Route::resource('bulletins', NewsController::class);
+    Route::resource('audios', AudioController::class);
 
     // ======================================================
 

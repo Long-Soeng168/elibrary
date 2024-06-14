@@ -45,5 +45,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\NewsType::factory(3)->create();
         // \App\Models\News::factory(10)->create();
 
+        // \App\Models\AudioType::factory(3)->create();
+        // \App\Models\AudioCategory::factory(8)->create();
+        // \App\Models\AudioSubCategory::factory(10)->create();
+        \App\Models\Audio::factory(10)->create();
+
+
+
     }
 }

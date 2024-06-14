@@ -249,7 +249,7 @@ class NewsCreate extends Component
 
 
 
-    public function updatednews_category_id()
+    public function updatedNews_category_id()
     {
         $this->news_sub_category_id = null;
     }

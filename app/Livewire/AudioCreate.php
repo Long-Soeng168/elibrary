@@ -4,28 +4,28 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Video;
-use App\Models\VideoCategory;
-use App\Models\VideoSubCategory;
-use App\Models\VideoType;
+use App\Models\Audio;
+use App\Models\AudioCategory;
+use App\Models\AudioSubCategory;
+use App\Models\AudioType;
 use App\Models\Publisher;
 use App\Models\Location;
 use App\Models\Language;
 use App\Models\Author;
 use App\Models\Keyword;
 
-use Image;
+use Image as ImageClass;
 
-class VideoCreate extends Component
+class AudioCreate extends Component
 {
     use WithFileUploads;
 
     public $image;
     public $file;
 
-    public $video_category_id = null;
-    public $video_sub_category_id = null;
-    public $video_type_id = null;
+    public $audio_category_id = null;
+    public $audio_sub_category_id = null;
+    public $audio_type_id = null;
     public $publisher_id = null;
     public $location_id = null;
     public $language_id = null;
@@ -98,11 +98,11 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newCategoryName' => 'required|string|max:255|unique:video_categories,name',
+                'newCategoryName' => 'required|string|max:255|unique:audio_categories,name',
                 // Add validation rules for 'newCategoryNameKh' if needed
             ]);
 
-            VideoCategory::create([
+            AudioCategory::create([
                 'name' => $this->newCategoryName,
                 'name_kh' => $this->newCategoryNameKh,
             ]);
@@ -126,14 +126,14 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newSubCategoryName' => 'required|string|max:255|unique:video_sub_categories,name',
-                'selectedCategoryId' => 'required|exists:video_categories,id',
+                'newSubCategoryName' => 'required|string|max:255|unique:audio_sub_categories,name',
+                'selectedCategoryId' => 'required|exists:audio_categories,id',
             ]);
 
-            VideoSubCategory::create([
+            AudioSubCategory::create([
                 'name' => $this->newSubCategoryName,
                 'name_kh' => $this->newSubCategoryNameKh,
-                'video_category_id' => $this->selectedCategoryId,
+                'audio_category_id' => $this->selectedCategoryId,
             ]);
 
             session()->flash('success', 'Add New Sub-Category successfully!');
@@ -153,11 +153,11 @@ class VideoCreate extends Component
     {
         try {
             $this->validate([
-                'newTypeName' => 'required|string|max:255|unique:video_types,name',
+                'newTypeName' => 'required|string|max:255|unique:audio_types,name',
                 // Add validation rules for 'newTypeNameKh' if needed
             ]);
 
-            VideoType::create([
+            AudioType::create([
                 'name' => $this->newTypeName,
                 'name_kh' => $this->newTypeNameKh,
             ]);
@@ -249,9 +249,9 @@ class VideoCreate extends Component
 
 
 
-    public function updatedVideo_category_id()
+    public function updatedAudio_category_id()
     {
-        $this->video_sub_category_id = null;
+        $this->audio_sub_category_id = null;
     }
 
     public function updatedImage()
@@ -269,7 +269,7 @@ class VideoCreate extends Component
             'file' => 'file|max:2048', // 2MB Max
         ]);
 
-        session()->flash('success', 'file successfully uploaded!');
+        session()->flash('success', 'File successfully uploaded!');
     }
 
     public function updated()
@@ -285,12 +285,11 @@ class VideoCreate extends Component
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
             'file' => 'nullable|file|max:2048',
-            'duration' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
-            'video_category_id' => 'nullable|exists:video_categories,id',
-            'video_sub_category_id' => 'nullable|exists:video_sub_categories,id',
-            'video_type_id' => 'nullable|exists:video_types,id',
+            'audio_category_id' => 'nullable|exists:audio_categories,id',
+            'audio_sub_category_id' => 'nullable|exists:audio_sub_categories,id',
+            'audio_type_id' => 'nullable|exists:audio_types,id',
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',
@@ -299,6 +298,7 @@ class VideoCreate extends Component
         ]);
 
         $validated['create_by_user_id'] = request()->user()->id;
+
         if (count($this->keywords) > 0) {
             $validated['keywords'] = implode(',', $this->keywords);
         } else {
@@ -310,34 +310,34 @@ class VideoCreate extends Component
         if(!empty($this->image)){
             $filename = time() . '_' . $this->image->getClientOriginalName();
 
-            $image_path = public_path('assets/images/videos/'.$filename);
-            $image_thumb_path = public_path('assets/images/videos/thumb/'.$filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $audio_path = public_path('assets/images/audios/'.$filename);
+            $audio_thumb_path = public_path('assets/images/audios/thumb/'.$filename);
+            $imageUpload = ImageClass::make($this->image->getRealPath())->save($audio_path);
             $imageUpload->resize(400,null,function($resize){
                 $resize->aspectRatio();
-            })->save($image_thumb_path);
+            })->save($audio_thumb_path);
             $validated['image'] = $filename;
         }
 
         if (!empty($this->file)) {
             $filename = time() . '_' . $this->file->getClientOriginalName();
-            $this->file->storeAs('videos', $filename, 'publicForPdf');
+            $this->file->storeAs('audios', $filename, 'publicForAudio');
             $validated['file'] = $filename;
         }
 
-        $createdVideo = Video::create($validated);
+        $createdImage = Audio::create($validated);
 
-        // dd($createdVideo);
-        return redirect()->route('admin.videos.index')->with('success', 'Successfully uploaded!');
+        // dd($createdImage);
+        return redirect()->route('admin.audios.index')->with('success', 'Successfully uploaded!');
 
         // session()->flash('message', 'Image successfully uploaded!');
     }
 
     public function render()
     {
-        $categories = VideoCategory::latest()->get();
-        $subCategories = VideoSubCategory::where('video_category_id', $this->video_category_id)->latest()->get();
-        $types = VideoType::latest()->get();
+        $categories = AudioCategory::latest()->get();
+        $subCategories = AudioSubCategory::where('audio_category_id', $this->audio_category_id)->latest()->get();
+        $types = AudioType::latest()->get();
         $publishers = Publisher::latest()->get();
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();
@@ -346,7 +346,7 @@ class VideoCreate extends Component
 // dd($allKeywords);
         // dump($this->selectedallKeywords);
 
-        return view('livewire.video-create', [
+        return view('livewire.audio-create', [
             'categories' => $categories,
             'subCategories' => $subCategories,
             'types' => $types,
