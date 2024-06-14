@@ -35,6 +35,18 @@
             border-color: #d1d5db !important;
             flex: 1 !important;
         }
+        .dark .select2-selection__rendered {
+            color: white !important;
+        }
+        .dark .select2-selection {
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            background-color: #374151 !important;
+            border-color: #49505b !important;
+            flex: 1 !important;
+        }
 
         .select2-selection__arrow {
             height: 100% !important;
@@ -630,6 +642,36 @@
                                 <rect width="7" height="5" x="3" y="16" rx="1" />
                             </svg>
                             <span class="ml-3">Videos</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.images.index') }}"
+                            class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            <span class="ml-3">Images</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
+                            class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-layout-dashboard">
+                                <rect width="7" height="9" x="3" y="3" rx="1" />
+                                <rect width="7" height="5" x="14" y="3" rx="1" />
+                                <rect width="7" height="9" x="14" y="12" rx="1" />
+                                <rect width="7" height="5" x="3" y="16" rx="1" />
+                            </svg>
+                            <span class="ml-3">Bulletins</span>
                         </x-sidebar-item>
                     </li>
                     <li>

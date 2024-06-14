@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('video_categories', function (Blueprint $table) {
+        Schema::create('image_types', function (Blueprint $table) {
             $table->id();
 
             $table->string('name');
             $table->string('name_kh')->nullable();
-            $table->string('image')->nullable();
-            $table->unsignedBigInteger('create_by_user_id')->nullable();
 
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('video_categories');
+        Schema::dropIfExists('image_types');
     }
 };

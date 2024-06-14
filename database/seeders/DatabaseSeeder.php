@@ -35,6 +35,15 @@ class DatabaseSeeder extends Seeder
         // \App\Models\VideoSubCategory::factory(10)->create();
         // \App\Models\Video::factory(10)->create();
 
+        // \App\Models\ImageCategory::factory(8)->create();
+        // \App\Models\ImageSubCategory::factory(10)->create();
+        // \App\Models\ImageType::factory(3)->create();
+        // \App\Models\Image::factory(10)->create();
+
+        // \App\Models\NewsCategory::factory(8)->create();
+        // \App\Models\NewsSubCategory::factory(10)->create();
+        // \App\Models\NewsType::factory(3)->create();
+        // \App\Models\News::factory(10)->create();
 
     }
 }
