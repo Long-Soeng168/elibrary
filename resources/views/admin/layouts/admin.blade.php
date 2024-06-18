@@ -641,20 +641,19 @@
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
-                            class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon" class="object-contain w-8 h-8">
-                            <span class="ml-3">Bulletins</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
                         <x-sidebar-item href="{{ route('admin.audios.index') }}"
                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/audio.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">Audios</span>
                         </x-sidebar-item>
                     </li>
-
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
+                            class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon" class="object-contain w-8 h-8">
+                            <span class="ml-3">Bulletins / News</span>
+                        </x-sidebar-item>
+                    </li>
                 </ul>
 
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
@@ -672,6 +671,22 @@
                                 <path d="M14 20h7" />
                             </svg>
                             <span class="ml-3">Slide</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.authors.index') }}"
+                            class="{{ request()->is('admin/authors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list">
+                                <rect width="7" height="7" x="3" y="3" rx="1" />
+                                <rect width="7" height="7" x="3" y="14" rx="1" />
+                                <path d="M14 4h7" />
+                                <path d="M14 9h7" />
+                                <path d="M14 15h7" />
+                                <path d="M14 20h7" />
+                            </svg>
+                            <span class="ml-3">Authors</span>
                         </x-sidebar-item>
                     </li>
                     <li>

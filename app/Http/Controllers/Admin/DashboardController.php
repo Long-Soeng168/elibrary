@@ -10,6 +10,9 @@ use App\Models\Video;
 use App\Models\Image;
 use App\Models\Audio;
 use App\Models\News;
+use App\Models\User;
+use App\Models\Publisher;
+use App\Models\Author;
 
 class DashboardController extends Controller
 {
@@ -23,6 +26,10 @@ class DashboardController extends Controller
         $imagesCount = Image::count();
         $audiosCount = Audio::count();
         $bulletinsCount = News::count();
+
+        $usersCount = User::count();
+        $publishersCount = Publisher::count();
+        $authorsCount = Author::count();
         return view('admin.dashboard.index', [
             'title' => 'Records',
             'publicationsCount' => $publicationsCount,
@@ -30,6 +37,9 @@ class DashboardController extends Controller
             'imagesCount' => $imagesCount,
             'audiosCount' => $audiosCount,
             'bulletinsCount' => $bulletinsCount,
+            'usersCount' => $usersCount,
+            'publishersCount' => $publishersCount,
+            'authorsCount' => $authorsCount,
         ]);
     }
 

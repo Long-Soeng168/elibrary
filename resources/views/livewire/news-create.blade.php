@@ -898,7 +898,7 @@
             {{-- End Image Upload --}}
 
             {{-- Start file Upload --}}
-            {{-- <div class="flex items-center space-4" wire:key='uploadfile'>
+            <div class="flex items-center space-4" wire:key='uploadfile'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload File (Max : 10MB) <span class="text-red-500">*</span>
@@ -915,7 +915,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 10MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
                                 @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
@@ -924,7 +924,7 @@
                                 @endif
                             </div>
                             <input type="file" wire:model="file" id="file" name="file"
-                                accept="application/file" class="absolute h-[140%] w-[100%]" />
+                                accept="application/pdf" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="file" class="text-blue-700">
@@ -935,7 +935,7 @@
                     </div>
                     <x-input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
-            </div> --}}
+            </div>
             {{-- End file Upload --}}
 
 

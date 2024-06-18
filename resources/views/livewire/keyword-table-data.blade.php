@@ -187,6 +187,7 @@
                             Name
                         </div>
                     </th>
+                    <th scope="col" class="px-4 py-3">Created At</th>
                     <th scope="col" class="py-3 text-center w-[300px]">Action</th>
                 </tr>
             </thead>
@@ -203,8 +204,10 @@
                                 <input type="text" wire:model='name'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
+                            <td></td>
                         @else
                             <x-table-data value="{{ $item->name }}" />
+                                <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">

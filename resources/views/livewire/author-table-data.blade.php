@@ -200,6 +200,7 @@
                         </div>
                     </th>
                     <th scope="col" class="px-4 py-3">Gender</th>
+                    <th scope="col" class="px-4 py-3">Created At</th>
                     <th scope="col" class="py-3 text-center w-[300px]">Action</th>
                 </tr>
             </thead>
@@ -230,8 +231,10 @@
                                     <option {{ $gender == 'n/a' ? 'selected' : '' }} value="n/a">N/A</option>
                                 </select>
                             </td>
+                            <td></td>
                         @else
                             <x-table-data class="capitalize" value="{{ $item->gender ? $item->gender : 'N/A' }}" />
+                            <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
                         @endif
 
 
