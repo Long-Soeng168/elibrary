@@ -14,16 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Moul&family=Siemreap&family=Poppins:wght@400;600;700&family=Noto+Serif:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" />
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <link href="{{ asset('assets/css/select2.css') }}" rel="stylesheet" />
     <script src="{{ asset('assets/js/tailwindcss3.4.js') }}"></script>
     <script src="{{ asset('assets/js/tailwindConfig.js') }}"></script>
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
     <script defer src="{{ asset('assets/js/darkMode.js') }}"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script defer src="{{ asset('assets/js/select2.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js"></script>
+    <script defer src="{{ asset('assets/js/alpine31.js') }}"></script>
 
     <style>
         .select2-selection {
@@ -35,9 +37,11 @@
             border-color: #d1d5db !important;
             flex: 1 !important;
         }
+
         .dark .select2-selection__rendered {
             color: white !important;
         }
+
         .dark .select2-selection {
             height: 100% !important;
             display: flex !important;
@@ -595,7 +599,7 @@
                             <span class="ml-3">Users</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.customers.index') }}"
                             class="{{ request()->is('admin/customers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -609,86 +613,51 @@
                             </svg>
                             <span class="ml-3">Customers</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
 
 
                 </ul>
+
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
                         <x-sidebar-item href="{{ route('admin.publications.index') }}"
                             class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-layout-dashboard">
-                                <rect width="7" height="9" x="3" y="3" rx="1" />
-                                <rect width="7" height="5" x="14" y="3" rx="1" />
-                                <rect width="7" height="9" x="14" y="12" rx="1" />
-                                <rect width="7" height="5" x="3" y="16" rx="1" />
-                            </svg>
+                            <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">E-Publications</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.videos.index') }}"
                             class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-layout-dashboard">
-                                <rect width="7" height="9" x="3" y="3" rx="1" />
-                                <rect width="7" height="5" x="14" y="3" rx="1" />
-                                <rect width="7" height="9" x="14" y="12" rx="1" />
-                                <rect width="7" height="5" x="3" y="16" rx="1" />
-                            </svg>
+                            <img src="{{ asset('assets/icons/video.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">Videos</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.images.index') }}"
                             class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-layout-dashboard">
-                                <rect width="7" height="9" x="3" y="3" rx="1" />
-                                <rect width="7" height="5" x="14" y="3" rx="1" />
-                                <rect width="7" height="9" x="14" y="12" rx="1" />
-                                <rect width="7" height="5" x="3" y="16" rx="1" />
-                            </svg>
+                            <img src="{{ asset('assets/icons/image.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">Images</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
                             class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-layout-dashboard">
-                                <rect width="7" height="9" x="3" y="3" rx="1" />
-                                <rect width="7" height="5" x="14" y="3" rx="1" />
-                                <rect width="7" height="9" x="14" y="12" rx="1" />
-                                <rect width="7" height="5" x="3" y="16" rx="1" />
-                            </svg>
+                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">Bulletins</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.audios.index') }}"
                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="lucide lucide-layout-dashboard">
-                                <rect width="7" height="9" x="3" y="3" rx="1" />
-                                <rect width="7" height="5" x="14" y="3" rx="1" />
-                                <rect width="7" height="9" x="14" y="12" rx="1" />
-                                <rect width="7" height="5" x="3" y="16" rx="1" />
-                            </svg>
+                            <img src="{{ asset('assets/icons/audio.png') }}" alt="icon" class="object-contain w-8 h-8">
                             <span class="ml-3">Audios</span>
                         </x-sidebar-item>
                     </li>
+
+                </ul>
+
+                <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                     <li>
                         <x-sidebar-item href="{{ route('admin.slides.index') }}"
                             class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
@@ -702,12 +671,12 @@
                                 <path d="M14 15h7" />
                                 <path d="M14 20h7" />
                             </svg>
-                            <span class="ml-3">Slides</span>
+                            <span class="ml-3">Slide</span>
                         </x-sidebar-item>
                     </li>
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.dtcs.index') }}"
-                            class="{{ request()->is('admin/dtcs*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.publishers.index') }}"
+                            class="{{ request()->is('admin/publishers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list">
@@ -718,12 +687,13 @@
                                 <path d="M14 15h7" />
                                 <path d="M14 20h7" />
                             </svg>
-                            <span class="ml-3">DTC</span>
+                            <span class="ml-3">Publishers</span>
                         </x-sidebar-item>
-                    </li> --}}
+                    </li>
+
                     <li>
-                        <x-sidebar-item href="{{ route('admin.items.index') }}"
-                            class="{{ request()->is('admin/items*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                        <x-sidebar-item href="{{ route('admin.keywords.index') }}"
+                            class="{{ request()->is('admin/keywords*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list">
@@ -734,39 +704,39 @@
                                 <path d="M14 15h7" />
                                 <path d="M14 20h7" />
                             </svg>
-                            <span class="ml-3">Items</span>
+                            <span class="ml-3">Keywords</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('admin.categories.index') }}"
-                            class="{{ request()->is('admin/categories*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                        <x-sidebar-item href="{{ route('admin.locations.index') }}"
+                            class="{{ request()->is('admin/locations*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layers-3">
-                                <path
-                                    d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
-                                <path
-                                    d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59" />
-                                <path
-                                    d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59" />
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list">
+                                <rect width="7" height="7" x="3" y="3" rx="1" />
+                                <rect width="7" height="7" x="3" y="14" rx="1" />
+                                <path d="M14 4h7" />
+                                <path d="M14 9h7" />
+                                <path d="M14 15h7" />
+                                <path d="M14 20h7" />
                             </svg>
-                            <span class="ml-3">Categories</span>
+                            <span class="ml-3">Locations</span>
                         </x-sidebar-item>
                     </li>
                     <li>
-                        <x-sidebar-item href="{{ route('admin.types.index') }}"
-                            class="{{ request()->is('admin/types*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                        <x-sidebar-item href="{{ route('admin.languages.index') }}"
+                            class="{{ request()->is('admin/languages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles">
-                                <path
-                                    d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-                                <path d="M5 3v4" />
-                                <path d="M19 17v4" />
-                                <path d="M3 5h4" />
-                                <path d="M17 19h4" />
+                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-layout-list">
+                                <rect width="7" height="7" x="3" y="3" rx="1" />
+                                <rect width="7" height="7" x="3" y="14" rx="1" />
+                                <path d="M14 4h7" />
+                                <path d="M14 9h7" />
+                                <path d="M14 15h7" />
+                                <path d="M14 20h7" />
                             </svg>
-                            <span class="ml-3">Types or Brands</span>
+                            <span class="ml-3">Languages</span>
                         </x-sidebar-item>
                     </li>
                     <li>
@@ -783,7 +753,7 @@
                     </li>
                 </ul>
                 <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.settings.index') }}"
                             class="{{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -795,7 +765,7 @@
                             </svg>
                             <span class="ml-3">Settings</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
 
                 </ul>
             </div>

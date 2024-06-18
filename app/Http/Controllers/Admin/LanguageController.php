@@ -1,36 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Publication;
-use App\Models\Video;
-use App\Models\Image;
-use App\Models\Audio;
-use App\Models\News;
-
-class DashboardController extends Controller
+class LanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $publicationsCount = Publication::count();
-        $videosCount = Video::count();
-        $imagesCount = Image::count();
-        $audiosCount = Audio::count();
-        $bulletinsCount = News::count();
-        return view('admin.dashboard.index', [
-            'title' => 'Records',
-            'publicationsCount' => $publicationsCount,
-            'videosCount' => $videosCount,
-            'imagesCount' => $imagesCount,
-            'audiosCount' => $audiosCount,
-            'bulletinsCount' => $bulletinsCount,
-        ]);
+        return view('admin.languages.index');
     }
 
     /**
