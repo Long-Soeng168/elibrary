@@ -64,4 +64,16 @@ class PublicationController extends Controller
     {
         //
     }
+    public function types()
+    {
+        return view('admin.publications.type');
+    }
+    public function categories()
+    {
+        return view('admin.publications.category');
+    }
+    public function sub_categories()
+    {
+        return view('admin.publications.sub_category');
+    }
 }
