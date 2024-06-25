@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\LinkController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -77,6 +79,8 @@ Route::group([
 
     // Route::resource('settings', SettingsController::class );
     Route::resource('settings/menus', MenuController::class );
+    Route::resource('settings/footer', FooterController::class );
+    Route::resource('settings/links', LinkController::class );
 
 
     Route::resource('slides', SlideController::class);
