@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PublisherController;
+use App\Http\Controllers\Admin\MenuController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -74,7 +75,8 @@ Route::group([
     Route::resource('categories', CategoryController::class );
     Route::resource('types', TypeController::class );
 
-    Route::resource('settings', SettingsController::class );
+    // Route::resource('settings', SettingsController::class );
+    Route::resource('settings/menus', MenuController::class );
 
 
     Route::resource('slides', SlideController::class);

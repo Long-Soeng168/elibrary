@@ -41,66 +41,24 @@
                     </div>
                     <input type="text" id="simple-search" wire:model.live.debounce.300ms='search'
                         class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Search Items">
+                        placeholder="Search...">
                 </div>
-                <div>
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                        class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-[200px] focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                        type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-4 mr-2 text-gray-400"
-                            viewbox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        {{ $selectedCategory ? $selectedCategory->name : 'Categories' }}
-                        <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                        </svg>
-                    </button>
-                    <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Category</h6>
-                        <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
-                            <li class="flex items-center">
-                                <button wire:click="setFilter(0)">
-                                    <label for="apple"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $filter == 0 ? 'underline' : '' }}">
-                                        All Category
-                                    </label>
-                                </button>
-                            </li>
-                            @foreach ($categories as $category)
-                                <li class="flex items-center">
-                                    <button wire:click.prevent='setFilter("{{ $category->id }}")'>
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $category->id == $filter ? 'underline' : '' }}">
-                                            {{ $category->name }}
-                                        </label>
 
-                                    </button>
-                                </li>
-                            @endforeach
-
-                        </ul>
-                    </div>
-                </div>
             </form>
         </div>
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
-            <x-primary-button href="{{ route('admin.audios.create') }}">
+            <x-primary-button href="{{ url('admin/settings/menus/create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
-                Add Item
+                Add
             </x-primary-button>
 
-            <div class="flex items-center w-full space-x-3 md:w-auto">
+            {{-- <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
                     class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                     type="button">
@@ -115,7 +73,7 @@
                     Export
                 </button>
 
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="overflow-x-auto">
@@ -123,7 +81,6 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">No</th>
-                    <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col" class="px-4 py-3 " wire:click='setSortBy("name")'>
                         <div class="flex items-center cursor-pointer">
 
@@ -133,28 +90,12 @@
                                 <path d="m7 15 5 5 5-5" />
                                 <path d="m7 9 5-5 5 5" />
                             </svg>
-                            Title
+                            Name
                         </div>
                     </th>
-                    {{-- <th scope="col" class="px-4 py-3 " wire:click='setSortBy("description")'>
-                        <div class="flex items-center cursor-pointer">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-chevrons-up-down">
-                                <path d="m7 15 5 5 5-5" />
-                                <path d="m7 9 5-5 5 5" />
-                            </svg>
-                            Description
-                        </div>
-                    </th> --}}
-
-                    <th scope="col" class="px-4 py-3">Author</th>
-                    <th scope="col" class="px-4 py-3">Publisher</th>
-                    <th scope="col" class="px-4 py-3">Category</th>
-                    {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
-                    <th scope="col" class="px-4 py-3">Type</th>
-                    <th scope="col" class="px-4 py-3">Language</th>
+                    <th scope="col" class="px-4 py-3">Name_kh</th>
+                    <th scope="col" class="px-4 py-3">Created_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -165,57 +106,26 @@
                         <td class="w-4 px-4 py-3">
                             {{ $loop->iteration }}
                         </td>
-                        <th scope="row"
+                        {{-- <th scope="row"
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                            <a href="{{ asset('assets/images/audios/' . $item->image) }}" class="glightbox">
-                                <img src="{{ asset('assets/images/audios/thumb/' . $item->image) }}"
+                            <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
+                                <img src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
                                     alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[6/9]">
                             </a>
-                        </th>
+                        </th> --}}
                         <x-table-data value="{{ $item->name }}" />
                         {{-- <x-table-data value="{{ $item->description }}" /> --}}
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->author?->name }}
+                                {{ $item->name_kh }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->publisher?->name }}" />
-                        <x-table-data value="{{ $item->audioCategory?->name }}" />
-                        {{-- <x-table-data value="{{ $item->audiosubCategory?->name }}" /> --}}
-                        <x-table-data value="{{ $item->audioType?->name }}" />
-                        <x-table-data value="{{ $item->language?->name }}" />
+                        <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
 
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                        class="relative">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-plus-circle">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <path d="M8 12h8" />
-                                            <path d="M12 8v8" />
-                                        </svg>
-                                        <!-- View tooltip -->
-                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 transform scale-90"
-                                            x-transition:enter-end="opacity-100 transform scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="opacity-100 transform scale-100"
-                                            x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                            style="display: none;">
-                                            Add More
-                                        </div>
-                                    </a>
-
-
-                                </div>
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
@@ -231,11 +141,6 @@
 
                                     <!-- View tooltip -->
                                     <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
                                         class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
                                         style="display: none;">
                                         View
@@ -244,12 +149,10 @@
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <form action="#" method="POST" @mouseenter="tooltip = true"
-                                        @mouseleave="tooltip = false">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-red-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                    <a wire:click="delete({{ $item->id }})"
+                                        wire:confirm="Are you sure? you want to delete : {{ $item->name }}"
+                                         @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="text-red-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                 class="lucide lucide-trash">
@@ -257,17 +160,11 @@
                                                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
                                                 <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
                                             </svg>
-                                        </button>
-                                    </form>
+                                    </a>
 
                                     <!-- View tooltip -->
                                     <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
                                         style="display: none;">
                                         Delete
                                     </div>
@@ -275,7 +172,7 @@
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('admin/settings/menus/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -287,12 +184,7 @@
                                     </a>
                                     <!-- View tooltip -->
                                     <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap right-0"
+                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
                                         style="display: none;">
                                         Edit
                                     </div>

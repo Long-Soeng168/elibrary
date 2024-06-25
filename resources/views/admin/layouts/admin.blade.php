@@ -572,7 +572,8 @@
                     <li>
                         <x-sidebar-item href="{{ route('admin.dashboard.index') }}"
                             class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Dashboard</span>
                         </x-sidebar-item>
                     </li>
@@ -580,7 +581,8 @@
                     <li>
                         <x-sidebar-item href="{{ route('admin.users.index') }}"
                             class="{{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/user.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/user.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Users</span>
                         </x-sidebar-item>
                     </li>
@@ -605,28 +607,39 @@
 
                 <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
                     <li x-data="{ open: {{ request()->is('admin/publications*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}" aria-controls="publication-dropdown" :aria-expanded="open" :class="{'bg-slate-100 dark:bg-slate-700': open}">
-                            <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon" class="object-contain w-8 h-8">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="publication-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
                             <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">E-Publications</span>
-                            <svg class="w-3 h-3 transition-transform duration-200 transform" :class="{'rotate-180': open}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
                         <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
                             <li>
-                                <a href="{{ route('admin.publications.index') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">E-Publications</a>
+                                <a href="{{ route('admin.publications.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">E-Publications</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/publications_types') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                Types</a>
+                                <a href="{{ url('admin/publications_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/publications_categories') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                <a href="{{ url('admin/publications_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                     Categories</a>
                             </li>
                             <li>
-                                <a href="{{ url('admin/publications_sub_categories') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                Sub-Categories</a>
+                                <a href="{{ url('admin/publications_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
                             </li>
                         </ul>
                     </li>
@@ -641,28 +654,32 @@
                     <li>
                         <x-sidebar-item href="{{ route('admin.videos.index') }}"
                             class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/video.png') }}" alt="icon" class="object-contain w-8 h-8">
+                            <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
                             <span class="ml-3">Videos</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.images.index') }}"
                             class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/image.png') }}" alt="icon" class="object-contain w-8 h-8">
+                            <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
                             <span class="ml-3">Images</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.audios.index') }}"
                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/audio.png') }}" alt="icon" class="object-contain w-8 h-8">
+                            <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
                             <span class="ml-3">Audios</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
                             class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon" class="object-contain w-8 h-8">
+                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
                             <span class="ml-3">Bulletins / News</span>
                         </x-sidebar-item>
                     </li>
@@ -672,21 +689,24 @@
                     <li>
                         <x-sidebar-item href="{{ route('admin.slides.index') }}"
                             class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/slides.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/slides.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Slides</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.authors.index') }}"
                             class="{{ request()->is('admin/authors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/author.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/author.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Authors</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.publishers.index') }}"
                             class="{{ request()->is('admin/publishers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/publisher.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/publisher.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Publishers</span>
                         </x-sidebar-item>
                     </li>
@@ -694,21 +714,24 @@
                     <li>
                         <x-sidebar-item href="{{ route('admin.keywords.index') }}"
                             class="{{ request()->is('admin/keywords*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/keyword.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/keyword.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Keywords</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.locations.index') }}"
                             class="{{ request()->is('admin/locations*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/location.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/location.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Locations</span>
                         </x-sidebar-item>
                     </li>
                     <li>
                         <x-sidebar-item href="{{ route('admin.languages.index') }}"
                             class="{{ request()->is('admin/languages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/language.png') }}" alt="icon" class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <img src="{{ asset('assets/icons/language.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Languages</span>
                         </x-sidebar-item>
                     </li>
@@ -725,24 +748,70 @@
                         </x-sidebar-item>
                     </li> --}}
                 </ul>
-                <ul class="pt-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.settings.index') }}"
-                            class="{{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings">
-                                <path
-                                    d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-                                <circle cx="12" cy="12" r="3" />
+                <ul class="pt-5 pb-3 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                    <li x-data="{
+                            open: {{ request()->is('admin/settings*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/settings*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.dropdown.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                    >
+                        <button
+                            type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))"
+                            >
+                            <img src="{{ asset('assets/icons/settings.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Settings</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
-                            <span class="ml-3">Settings</span>
-                        </x-sidebar-item>
-                    </li> --}}
-
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
+                            <li>
+                                <a href="{{ url('admin/settings/menus') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/menus*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Menus
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/publications_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Links
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/publications_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Footer
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/publications_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Databases
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/publications_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Website Info
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
+
             </div>
-            <div class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white dark:bg-gray-800">
+            <div
+                class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white border-t dark:bg-gray-800">
                 <button id="theme-toggle" type="button"
                     class="p-2 text-sm text-gray-600 rounded-lg hover:text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -758,17 +827,13 @@
                 </button>
 
                 <a href="#" data-tooltip-target="tooltip-settings"
-                    class="inline-flex justify-center p-2 text-gray-500 rounded cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
-                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                            clip-rule="evenodd"></path>
+                    class="inline-flex justify-center p-2 text-gray-600 rounded cursor-pointer dark:text-gray-300 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-cog"><path d="M2 21a8 8 0 0 1 10.434-7.62"/><circle cx="10" cy="8" r="5"/><circle cx="18" cy="18" r="3"/><path d="m19.5 14.3-.4.9"/><path d="m16.9 20.8-.4.9"/><path d="m21.7 19.5-.9-.4"/><path d="m15.2 16.9-.9-.4"/><path d="m21.7 16.5-.9.4"/><path d="m15.2 19.1-.9.4"/><path d="m19.5 21.7-.4-.9"/><path d="m16.9 15.2-.4-.9"/></svg>
                     </svg>
                 </a>
                 <div id="tooltip-settings" role="tooltip"
                     class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip">
-                    Settings page
+                    Account Settings
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
                 <button type="button" data-dropdown-toggle="language-dropdown"
@@ -904,35 +969,6 @@
                 <div class="mx-auto max-w-screen-2xl ">
                     <div
                         class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg  min-h-[80vh] mb-4">
-                        @if (session('success'))
-                            {{-- @if (true) --}}
-                            <div class="fixed right-4 " x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)">
-                                <div id="alert-border-3" x-show="show"
-                                    class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
-                                    role="alert">
-                                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                    </svg>
-                                    <div class="min-w-[250px] text-sm font-medium ms-3">
-                                        {{ session('success') }}
-                                    </div>
-                                    <button type="button"
-                                        class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
-                                        data-dismiss-target="#alert-border-3" aria-label="Close"
-                                        @click="show = false">
-                                        <span class="sr-only">Dismiss</span>
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        @endif
                         @yield('content')
                     </div>
                 </div>
