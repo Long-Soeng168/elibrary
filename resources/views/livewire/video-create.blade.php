@@ -956,7 +956,7 @@
         </div>
 
         <div>
-            <x-outline-button href="{{ URL::previous() }}">
+            <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
             <button wire:click.prevent="save"

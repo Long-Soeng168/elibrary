@@ -138,6 +138,11 @@
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
                             class="max-w-full pr-4 max-h-40" />
                     </div>
+                @elseif($item->image)
+                    <div class="pt-5 max-w-40">
+                        <img src="{{ asset('assets/images/databases/'.$item->image) }}" alt="Selected Image"
+                            class="max-w-full pr-4 max-h-40" />
+                    </div>
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
