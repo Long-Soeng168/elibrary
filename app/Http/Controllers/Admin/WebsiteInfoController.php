@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Footer;
 
-class FooterController extends Controller
+use App\Models\WebsiteInfo;
+
+class WebsiteInfoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -45,9 +46,9 @@ class FooterController extends Controller
      */
     public function edit(string $id)
     {
-        $footer = Footer::first();
-        return view('admin.footer.edit',[
-            'footer' => $footer,
+        $item = WebsiteInfo::first();
+        return view('admin.website_infos.edit', [
+            'item' => $item,
         ]);
     }
 

@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Footer::factory(1)->create();
         // \App\Models\Link::factory(3)->create();
         // \App\Models\Database::factory(1)->create();
+        // \App\Models\WebsiteInfo::factory(1)->create();
 
 
 
