@@ -131,9 +131,17 @@
                                         placeholder="Name">
                                 </div>
                                 <div class="col-span-2">
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                        <select id="category" wire:model='newPublication_category_id'
+                                    <label for="name_kh"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name KH</label>
+                                    <input wire:key="{{ rand() }}" type="text" name="name_kh"
+                                        id="name_kh" wire:model='newName_kh'
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                        placeholder="Name KH">
+                                </div>
+                                <div class="col-span-2">
+                                    <label for="category"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                                        <select id="category" wire:model='new_category_id'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
                                         <option value="">Select Category</option>
                                         @foreach ($categories as $category)
@@ -199,6 +207,7 @@
                             Name
                         </div>
                     </th>
+                    <th scope="col" class="px-4 py-3">Name KH</th>
                     <th scope="col" class="px-4 py-3">Category</th>
                     <th scope="col" class="px-4 py-3">Created At</th>
                     <th scope="col" class="py-3 text-center w-[300px]">Action</th>
@@ -218,11 +227,15 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </td>
                             <td>
-                                <select id="category" wire:model='publication_category_id'
+                                <input type="text" wire:model='name_kh'
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </td>
+                            <td>
+                                <select id="category" wire:model='category_id'
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option value="">Select Category</option>
                                     @foreach ($categories as $category)
-                                        <option wire:key='{{ $category->id }}' {{ $category->id == $publication_category_id ? 'selected' : '' }} value="{{ $category->id }}">
+                                        <option wire:key='{{ $category->id }}' {{ $category->id == $category_id ? 'selected' : '' }} value="{{ $category->id }}">
                                         {{ $category->name }}</option>
                                     @endforeach
                                 </select>
@@ -230,6 +243,12 @@
                             <td></td>
                         @else
                             <x-table-data value="{{ $item->name }}" />
+                            <x-table-data>
+                                <span
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                    {{ $item->name_kh }}
+                                </span>
+                            </x-table-data>
                             <x-table-data value="{{ $item->category?->name }}" />
                             <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
                         @endif

@@ -6,7 +6,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use App\Models\PublicationCategory;
+use App\Models\PublicationCategory as Category;
 
 class PublicationCategoryTableData extends Component
 {
@@ -48,29 +48,32 @@ class PublicationCategoryTableData extends Component
 
     public function delete($id)
     {
-        $PublicationCategory = PublicationCategory::find($id);
-        $PublicationCategory->delete();
+        $category = Category::find($id);
+        $category->delete();
 
         session()->flash('success', 'Category successfully deleted!');
     }
 
-     // ==========Add New PublicationCategory============
+     // ==========Add New Category============
      public $newName = null;
+     public $newName_kh = null;
 
      public function save()
      {
          try {
              $validated = $this->validate([
                  'newName' => 'required|string|max:255|unique:publication_categories,name',
+                 'newName_kh' => 'required|string|max:255',
              ]);
 
-             PublicationCategory::create([
+             Category::create([
                  'name' => $this->newName,
+                 'name_kh' => $this->newName_kh,
              ]);
 
              session()->flash('success', 'Add New Category successfully!');
 
-             $this->reset(['newName']);
+             $this->reset(['newName', 'newName_kh']);
 
          } catch (\Illuminate\Validation\ValidationException $e) {
              session()->flash('error', $e->validator->errors()->all());
@@ -79,16 +82,19 @@ class PublicationCategoryTableData extends Component
 
      public $editId = null;
      public $name;
+     public $name_kh;
 
      public function setEdit($id) {
-        $PublicationCategory = PublicationCategory::find($id);
+        $category = Category::find($id);
         $this->editId = $id;
-        $this->name = $PublicationCategory->name;
+        $this->name = $category->name;
+        $this->name_kh = $category->name_kh;
      }
 
      public function cancelUpdate() {
         $this->editId = null;
         $this->name = null;
+        $this->name_kh = null;
         $this->gender = null;
      }
 
@@ -96,16 +102,18 @@ class PublicationCategoryTableData extends Component
         try {
             $validated = $this->validate([
                 'name' => 'required|string|max:255|unique:publication_categories,name,' . $id,
+                'name_kh' => 'required|string|max:255',
             ]);
 
-            $PublicationCategory = PublicationCategory::find($id);
-            $PublicationCategory->update([
+            $category = Category::find($id);
+            $category->update([
                 'name' => $this->name,
+                'name_kh' => $this->name_kh,
             ]);
 
             session()->flash('success', 'Category successfully edited!');
 
-            $this->reset(['name', 'editId']);
+            $this->reset(['name', 'name_kh', 'editId']);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             session()->flash('error', $e->validator->errors()->all());
@@ -114,8 +122,9 @@ class PublicationCategoryTableData extends Component
 
     public function render(){
 
-        $items = PublicationCategory::where(function($query){
-                                $query->where('name', 'LIKE', "%$this->search%");
+        $items = Category::where(function($query){
+                                $query->where('name', 'LIKE', "%$this->search%")
+                                ->orWhere('name_kh', 'LIKE', "%$this->search%");
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);

@@ -6,7 +6,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use App\Models\PublicationType;
+use App\Models\PublicationType as Type;
 
 class PublicationTypeTableData extends Component
 {
@@ -48,29 +48,32 @@ class PublicationTypeTableData extends Component
 
     public function delete($id)
     {
-        $PublicationType = PublicationType::find($id);
-        $PublicationType->delete();
+        $type = Type::find($id);
+        $type->delete();
 
         session()->flash('success', 'Type successfully deleted!');
     }
 
-     // ==========Add New PublicationType============
+     // ==========Add New Type============
      public $newName = null;
+     public $newName_kh = null;
 
      public function save()
      {
          try {
              $validated = $this->validate([
                  'newName' => 'required|string|max:255|unique:publication_types,name',
+                 'newName_kh' => 'required|string|max:255',
              ]);
 
-             PublicationType::create([
+             Type::create([
                  'name' => $this->newName,
+                 'name_kh' => $this->newName_kh,
              ]);
 
-             session()->flash('success', 'Add New PublicationType successfully!');
+             session()->flash('success', 'Add New Type successfully!');
 
-             $this->reset(['newName']);
+             $this->reset(['newName', 'newName_kh']);
 
          } catch (\Illuminate\Validation\ValidationException $e) {
              session()->flash('error', $e->validator->errors()->all());
@@ -79,16 +82,19 @@ class PublicationTypeTableData extends Component
 
      public $editId = null;
      public $name;
+     public $name_kh;
 
      public function setEdit($id) {
-        $PublicationType = PublicationType::find($id);
+        $type = Type::find($id);
         $this->editId = $id;
-        $this->name = $PublicationType->name;
+        $this->name = $type->name;
+        $this->name_kh = $type->name_kh;
      }
 
      public function cancelUpdate() {
         $this->editId = null;
         $this->name = null;
+        $this->name_kh = null;
         $this->gender = null;
      }
 
@@ -96,16 +102,18 @@ class PublicationTypeTableData extends Component
         try {
             $validated = $this->validate([
                 'name' => 'required|string|max:255|unique:publication_types,name,' . $id,
+                'name_kh' => 'required|string|max:255',
             ]);
 
-            $PublicationType = PublicationType::find($id);
-            $PublicationType->update([
+            $type = Type::find($id);
+            $type->update([
                 'name' => $this->name,
+                'name_kh' => $this->name_kh,
             ]);
 
-            session()->flash('success', 'PublicationType successfully edited!');
+            session()->flash('success', 'Type successfully edited!');
 
-            $this->reset(['name', 'editId']);
+            $this->reset(['name', 'name_kh', 'editId']);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             session()->flash('error', $e->validator->errors()->all());
@@ -114,8 +122,9 @@ class PublicationTypeTableData extends Component
 
     public function render(){
 
-        $items = PublicationType::where(function($query){
-                                $query->where('name', 'LIKE', "%$this->search%");
+        $items = Type::where(function($query){
+                                $query->where('name', 'LIKE', "%$this->search%")
+                                ->orWhere('name_kh', 'LIKE', "%$this->search%");
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);

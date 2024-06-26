@@ -56,6 +56,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Database::factory(1)->create();
         // \App\Models\WebsiteInfo::factory(1)->create();
 
+        // \App\Models\ThesisType::factory(3)->create();
+        // \App\Models\Lecturer::factory(5)->create();
+        // \App\Models\Supervisor::factory(5)->create();
+        // \App\Models\Major::factory(3)->create();
+        // \App\Models\Student::factory(5)->create();
+        // \App\Models\ThesisCategory::factory(5)->create();
 
 
     }

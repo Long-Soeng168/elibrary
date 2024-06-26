@@ -136,7 +136,7 @@
         {{-- Start Logo --}}
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center gap-5 mb-5 space-4" wire:key='uploadimage'>
+            <div class="items-center gap-5 mb-5 lg:flex space-4" wire:key='uploadimage'>
 
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
@@ -188,7 +188,7 @@
         {{-- Start Banner --}}
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center gap-5 mb-5 space-4" wire:key='uploadbanner'>
+            <div class="items-center gap-5 mb-5 lg:flex space-4" wire:key='uploadbanner'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload Banner (Max: 2MB) <span class="text-red-500">*</span>
@@ -223,12 +223,12 @@
                 @if ($banner)
                     <div class="flex-1 pt-5">
                         <img src="{{ $banner->temporaryUrl() }}" alt="Banner Image"
-                            class="object-contain max-w-full pr-4 max-h-40" />
+                            class="object-contain max-w-full max-h-40" />
                     </div>
                 @elseif($item->banner)
                     <div class="flex-1 pt-5">
                         <img src="{{ asset('assets/images/website_infos/'.$item->banner) }}" alt="Banner Image"
-                            class="object-contain max-w-full pr-4 max-h-40" />
+                            class="object-contain w-full max-h-40" />
                     </div>
                 @endif
             </div>

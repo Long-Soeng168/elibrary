@@ -169,7 +169,7 @@
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
                             <a href="{{ asset('assets/images/videos/' . $item->image) }}" class="glightbox">
                                 <img src="{{ asset('assets/images/videos/thumb/' . $item->image) }}"
-                                    alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[6/9]">
+                                    alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[16/9]">
                             </a>
                         </th>
                         <x-table-data value="{{ $item->name }}" />
