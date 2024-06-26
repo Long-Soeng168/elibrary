@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Thesis extends Model
+class Journal extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -14,20 +14,8 @@ class Thesis extends Model
         return $this->belongsTo(Author::class, 'author_id', 'id');
     }
 
-    public function student(){
-        return $this->belongsTo(Student::class, 'student_id', 'id');
-    }
-
-    public function lecturer(){
-        return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id');
-    }
-
-    public function supervisor(){
-        return $this->belongsTo(Supervisor::class, 'supervisor_id', 'id');
-    }
-
     public function category(){
-        return $this->belongsTo(ThesisCategory::class, 'thesis_category_id', 'id');
+        return $this->belongsTo(ThesisCategory::class, 'journal_category_id', 'id');
     }
 
     public function publisher(){
@@ -35,7 +23,7 @@ class Thesis extends Model
     }
 
     public function type(){
-        return $this->belongsTo(ThesisType::class, 'thesis_type_id', 'id');
+        return $this->belongsTo(JournalType::class, 'journal_type_id', 'id');
     }
 
     public function language(){

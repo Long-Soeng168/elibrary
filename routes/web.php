@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\LinkController;
 use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\WebsiteInfoController;
+use App\Http\Controllers\Admin\ThesisController;
+use App\Http\Controllers\Admin\JournalController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -61,10 +63,12 @@ Route::group([
     Route::get('publications_sub_categories', [PublicationController::class, 'sub_categories']);
     Route::resource('videos', VideoController::class);
     Route::resource('images', ImageController::class);
-    Route::resource('bulletins', NewsController::class);
     Route::resource('audios', AudioController::class);
-    Route::resource('publishers', PublisherController::class);
+    Route::resource('bulletins', NewsController::class);
+    Route::resource('theses', ThesisController::class);
+    Route::resource('journals', JournalController::class);
 
+    Route::resource('publishers', PublisherController::class);
     Route::resource('authors', AuthorController::class);
     Route::resource('keywords', KeywordController::class);
     Route::resource('languages', LanguageController::class);

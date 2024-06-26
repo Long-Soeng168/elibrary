@@ -683,6 +683,22 @@
                             <span class="ml-3">Bulletins / News</span>
                         </x-sidebar-item>
                     </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.theses.index') }}"
+                            class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="ml-3">Theses</span>
+                        </x-sidebar-item>
+                    </li>
+                    <li>
+                        <x-sidebar-item href="{{ route('admin.journals.index') }}"
+                            class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                            <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="ml-3">Journals</span>
+                        </x-sidebar-item>
+                    </li>
                 </ul>
 
                 <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
