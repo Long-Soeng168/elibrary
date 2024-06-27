@@ -72,8 +72,8 @@ class ThesisController extends Controller
     {
         return view('admin.theses.category');
     }
-    public function sub_categories()
-    {
-        return view('admin.theses.sub_category');
-    }
+    // public function sub_categories()
+    // {
+    //     return view('admin.theses.sub_category');
+    // }
 }

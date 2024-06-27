@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 @section('content')
     <div>
-        <x-page-header :value="__('Publication Types')" />
-        @livewire('publication-type-table-data')
+        <x-page-header :value="__('Journal Types')" />
+        @livewire('journal-type-table-data')
     </div>
 @endsection

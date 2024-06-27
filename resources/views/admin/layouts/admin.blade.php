@@ -643,6 +643,229 @@
                             </li>
                         </ul>
                     </li>
+                    <li x-data="{ open: {{ request()->is('admin/videos*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="video-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Videos</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.videos.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Videos</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/videos_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/videos_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Categories</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/videos_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-data="{ open: {{ request()->is('admin/images*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="image-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Images</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.images.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Images</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/images_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/images_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Categories</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/images_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-data="{ open: {{ request()->is('admin/audios*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="audio-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Audios</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.audios.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Audios</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/audios_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/audios_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Categories</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/audios_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-data="{ open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="bulletin-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Bulletins</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.bulletins.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Bulletins</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/bulletins_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/bulletins_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Categories</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/bulletins_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li x-data="{ open: {{ request()->is('admin/theses*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="these-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Theses</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.theses.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Theses</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/theses_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/theses_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Topics</a>
+                            </li>
+                            {{-- <li>
+                                <a href="{{ url('admin/theses_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li> --}}
+                        </ul>
+                    </li>
+                    <li x-data="{ open: {{ request()->is('admin/journals*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" type="button"
+                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                            aria-controls="journal-dropdown" :aria-expanded="open"
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
+                                class="object-contain w-8 h-8">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Journals</span>
+                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                            <li>
+                                <a href="{{ route('admin.journals.index') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Journals</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/journals_types') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Types</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/journals_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Topics</a>
+                            </li>
+                            {{-- <li>
+                                <a href="{{ url('admin/journals_sub_categories') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Sub-Categories</a>
+                            </li> --}}
+                        </ul>
+                    </li>
+
 
                     {{-- <li>
                         <x-sidebar-item href="{{ route('admin.publications.index') }}"
@@ -651,54 +874,6 @@
                             <span class="ml-3">E-Publications</span>
                         </x-sidebar-item>
                     </li> --}}
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.videos.index') }}"
-                            class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Videos</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.images.index') }}"
-                            class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Images</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.audios.index') }}"
-                            class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Audios</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.bulletins.index') }}"
-                            class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Bulletins / News</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.theses.index') }}"
-                            class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Theses</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.journals.index') }}"
-                            class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="ml-3">Journals</span>
-                        </x-sidebar-item>
-                    </li>
                 </ul>
 
                 <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">

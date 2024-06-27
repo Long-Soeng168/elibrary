@@ -70,8 +70,8 @@ class JournalController extends Controller
     {
         return view('admin.journals.category');
     }
-    public function sub_categories()
-    {
-        return view('admin.journals.sub_category');
-    }
+    // public function sub_categories()
+    // {
+    //     return view('admin.journals.sub_category');
+    // }
 }

@@ -62,4 +62,17 @@ class VideoController extends Controller
     {
         //
     }
+
+    public function types()
+    {
+        return view('admin.videos.type');
+    }
+    public function categories()
+    {
+        return view('admin.videos.category');
+    }
+    public function sub_categories()
+    {
+        return view('admin.videos.sub_category');
+    }
 }

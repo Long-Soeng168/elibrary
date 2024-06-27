@@ -12,6 +12,6 @@ class ImageSubCategory extends Model
 
     public function category()
     {
-        return $this->belongsTo(ImageCategory::class);
+        return $this->belongsTo(ImageCategory::class, 'image_category_id', 'id');
     }
 }

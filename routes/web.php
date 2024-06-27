@@ -61,12 +61,34 @@ Route::group([
     Route::get('publications_types', [PublicationController::class, 'types']);
     Route::get('publications_categories', [PublicationController::class, 'categories']);
     Route::get('publications_sub_categories', [PublicationController::class, 'sub_categories']);
+
     Route::resource('videos', VideoController::class);
+    Route::get('videos_types', [VideoController::class, 'types']);
+    Route::get('videos_categories', [VideoController::class, 'categories']);
+    Route::get('videos_sub_categories', [VideoController::class, 'sub_categories']);
+
     Route::resource('images', ImageController::class);
+    Route::get('images_types', [ImageController::class, 'types']);
+    Route::get('images_categories', [ImageController::class, 'categories']);
+    Route::get('images_sub_categories', [ImageController::class, 'sub_categories']);
+
     Route::resource('audios', AudioController::class);
+    Route::get('audios_types', [AudioController::class, 'types']);
+    Route::get('audios_categories', [AudioController::class, 'categories']);
+    Route::get('audios_sub_categories', [AudioController::class, 'sub_categories']);
+
     Route::resource('bulletins', NewsController::class);
+    Route::get('bulletins_types', [NewsController::class, 'types']);
+    Route::get('bulletins_categories', [NewsController::class, 'categories']);
+    Route::get('bulletins_sub_categories', [NewsController::class, 'sub_categories']);
+
     Route::resource('theses', ThesisController::class);
+    Route::get('theses_types', [ThesisController::class, 'types']);
+    Route::get('theses_categories', [ThesisController::class, 'categories']);
+
     Route::resource('journals', JournalController::class);
+    Route::get('journals_types', [JournalController::class, 'types']);
+    Route::get('journals_categories', [JournalController::class, 'categories']);
 
     Route::resource('publishers', PublisherController::class);
     Route::resource('authors', AuthorController::class);

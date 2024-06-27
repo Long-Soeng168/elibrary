@@ -321,7 +321,7 @@ class AudioCreate extends Component
 
         if (!empty($this->file)) {
             $filename = time() . '_' . $this->file->getClientOriginalName();
-            $this->file->storeAs('audios', $filename, 'publicForAudio');
+            $this->file->storeAs('/', $filename, 'publicForAudio');
             $validated['file'] = $filename;
         }
 

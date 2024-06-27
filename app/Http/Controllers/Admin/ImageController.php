@@ -62,4 +62,17 @@ class ImageController extends Controller
     {
         //
     }
+
+    public function types()
+    {
+        return view('admin.images.type');
+    }
+    public function categories()
+    {
+        return view('admin.images.category');
+    }
+    public function sub_categories()
+    {
+        return view('admin.images.sub_category');
+    }
 }

@@ -12,6 +12,6 @@ class AudioSubCategory extends Model
 
     public function category()
     {
-        return $this->belongsTo(AudioCategory::class);
+        return $this->belongsTo(AudioCategory::class, 'audio_category_id', 'id');
     }
 }

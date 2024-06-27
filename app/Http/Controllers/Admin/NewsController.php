@@ -62,4 +62,17 @@ class NewsController extends Controller
     {
         //
     }
+
+    public function types()
+    {
+        return view('admin.news.type');
+    }
+    public function categories()
+    {
+        return view('admin.news.category');
+    }
+    public function sub_categories()
+    {
+        return view('admin.news.sub_category');
+    }
 }

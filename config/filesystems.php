@@ -62,8 +62,8 @@ return [
 
         'publicForAudio' => [
             'driver' => 'local',
-            'root' => public_path('assets/audio'),
-            'url' => env('APP_URL').'/assets/audio',
+            'root' => public_path('assets/audios'),
+            'url' => env('APP_URL').'/assets/audios',
             'visibility' => 'public',
             'throw' => false,
         ],
