@@ -66,7 +66,7 @@
     @endif
     <form class="w-full" action="{{ route('admin.items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="grid gap-5 mb-5 lg:grid-cols-2">
+        <div class="grid mb-5 lg:grid-cols-2 lg:gap-6">
             <!-- Start Name -->
             <div>
                 <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
@@ -75,72 +75,55 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="name_kh" :value="__('Name KH')" /><span class="text-red-500">*</span>
-                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh" wire:model='name_kh'
-                    required autofocus placeholder="Name KH" />
-                <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
+                <label for="category"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                <select id="category" wire:model='gender'
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="n/a">N/A</option>
+                </select>
             </div>
-            <div class="col-span-1">
-                <label for="copyright" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Copy Right') }}
-                </label>
-                <x-text-input id="copyright" class="block w-full mt-1" type="text" name="copyright" wire:model='copyright'
-                    required autofocus placeholder="Copy Right" />
-                <x-input-error :messages="$errors->get('copyright')" class="mt-2" />
+            <div>
+                <x-input-label for="phone" :value="__('Phone')" />
+                <x-text-input id="phone" class="block w-full mt-1" type="text" name="phone" wire:model='phone'
+                    required autofocus placeholder="Phone Number" />
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
-            <div class="col-span-1">
-                <label for="copyright_kh" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Copy Right KH') }}
-                </label>
-                <x-text-input id="copyright_kh" class="block w-full mt-1" type="text" name="copyright_kh" wire:model='copyright_kh'
-                    required autofocus placeholder="Copy Right KH" />
-                <x-input-error :messages="$errors->get('copyright_kh')" class="mt-2" />
+            <div>
+                <x-input-label for="email" :value="__('Email')" />
+                <x-text-input id="email" class="block w-full mt-1" type="text" name="email" wire:model='email'
+                    required autofocus placeholder="Email" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
+            <div>
+                <x-input-label for="address" :value="__('Address')" />
+                <x-text-input id="address" class="block w-full mt-1" type="text" name="address" wire:model='address'
+                    required autofocus placeholder="Address" />
+                <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            </div>
+            <div>
+                <label for="major_id"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Major</label>
+                <select id="major_id" wire:model='major_id'
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                    <option value="">Select Major</option>
+                    @forelse ($majors as $major)
+                        <option wire:key='{{ $major->id }}' value="{{ $major->id }}">{{ $major->name }}</option>
+                    @empty
+                        <option value="">No Major</option>
+                    @endforelse
+                </select>
+            </div>
+
             <!-- End Name -->
 
         </div>
 
-        {{-- <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
-            <!-- Start Pages -->
-            <div>
-                <x-input-label for="pages_count" :value="__('Pages')" />
-                <x-text-input id="pages_count" class="block w-full" type="number" name="pages_count"
-                    wire:model='pages_count' autofocus placeholder="Number of Pages" />
-                <x-input-error :messages="$errors->get('pages_count')" class="mt-2" />
-            </div>
-            <!-- End Pages -->
-
-            <!-- Start Edition -->
-            <div>
-                <x-input-label for="edition" :value="__('Edition')" />
-                <x-text-input id="edition" class="block w-full" type="number" name="edition" wire:model='edition'
-                    autofocus placeholder="Edition" />
-                <x-input-error :messages="$errors->get('edition')" class="mt-2" />
-            </div>
-            <!-- End Edition -->
-
-            <!-- Start isbn -->
-            <div>
-                <x-input-label for="isbn" :value="__('ISBN')" />
-                <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
-                    placeholder="ISBN" />
-                <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
-            </div>
-            <!-- End isbn -->
-
-            <!-- Start Link -->
-            <div>
-                <x-input-label for="link" :value="__('Link')" />
-                <x-text-input id="link" class="block w-full" type="text" name="link" wire:model='link'
-                    placeholder="Link" />
-                <x-input-error :messages="$errors->get('link')" class="mt-2" />
-            </div>
-            <!-- End Link -->
-        </div> --}}
-
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            {{-- <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
+            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
                 @if ($image)
                     <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
@@ -178,26 +161,20 @@
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
-            </div> --}}
+            </div>
             {{-- End Image Upload --}}
         </div>
 
-        <div class="mb-5" wire:ignore>
-            <x-input-label for="description" :value="__('Description')" />
-            <textarea id="description" name="description" wire:model="description"></textarea>
-        </div>
-        <div class="mb-5" wire:ignore>
-            <x-input-label for="description_kh" :value="__('Description KH')" />
-            <textarea id="description_kh" name="description_kh" wire:model="description_kh"></textarea>
-        </div>
-
         <div>
+            <x-outline-button wire:ignore href="{{ URL::previous() }}">
+                Go back
+            </x-outline-button>
             <button wire:click.prevent="save"
                     wire:target="save"
                     wire:loading.attr="disabled"
                     class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
 
-                    Save Update
+                    Save
             </button>
             <span wire:target="save" wire:loading>
                 <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
@@ -211,27 +188,27 @@
 
 @script
     <script>
-        let options = {
-            filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
-            filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
-            filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
-            filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
-        };
+        // let options = {
+        //     filebrowserImageBrowseUrl: "{{ asset('laravel-filemanager?type=Images') }}",
+        //     filebrowserImageUploadUrl: "{{ asset('laravel-filemanager/upload?type=Images&_token=') }}",
+        //     filebrowserBrowseUrl: "{{ asset('laravel-filemanager?type=Files') }}",
+        //     filebrowserUploadUrl: "{{ asset('laravel-filemanager/upload?type=Files&_token=') }}"
+        // };
 
-        $(document).ready(function() {
-            const editor = CKEDITOR.replace('description', options);
-            editor.on('change', function(event) {
-                console.log(event.editor.getData())
-                @this.set('description', event.editor.getData(), false);
-            })
-        })
-        $(document).ready(function() {
-            const editor = CKEDITOR.replace('description_kh', options);
-            editor.on('change', function(event) {
-                console.log(event.editor.getData())
-                @this.set('description_kh', event.editor.getData(), false);
-            })
-        })
+        // $(document).ready(function() {
+        //     const editor = CKEDITOR.replace('description', options);
+        //     editor.on('change', function(event) {
+        //         console.log(event.editor.getData())
+        //         @this.set('description', event.editor.getData(), false);
+        //     })
+        // })
+        // $(document).ready(function() {
+        //     const editor = CKEDITOR.replace('description_kh', options);
+        //     editor.on('change', function(event) {
+        //         console.log(event.editor.getData())
+        //         @this.set('description_kh', event.editor.getData(), false);
+        //     })
+        // })
 
 
 

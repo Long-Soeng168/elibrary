@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AudioController;
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\KeywordController;
 use App\Http\Controllers\Admin\LanguageController;
+use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PublisherController;
 use App\Http\Controllers\Admin\MenuController;
@@ -17,6 +18,9 @@ use App\Http\Controllers\Admin\DatabaseController;
 use App\Http\Controllers\Admin\WebsiteInfoController;
 use App\Http\Controllers\Admin\ThesisController;
 use App\Http\Controllers\Admin\JournalController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SupervisorController;
+use App\Http\Controllers\Admin\LecturerController;
 
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -90,10 +94,9 @@ Route::group([
     Route::get('journals_types', [JournalController::class, 'types']);
     Route::get('journals_categories', [JournalController::class, 'categories']);
 
-    Route::resource('publishers', PublisherController::class);
-    Route::resource('authors', AuthorController::class);
     Route::resource('keywords', KeywordController::class);
     Route::resource('languages', LanguageController::class);
+    Route::resource('majors', MajorController::class);
     Route::resource('locations', LocationController::class);
 
     // ======================================================
@@ -112,11 +115,14 @@ Route::group([
     Route::resource('settings/databases', DatabaseController::class );
     Route::resource('settings/website_infos', WebsiteInfoController::class );
 
+    Route::resource('people/authors', AuthorController::class);
+    Route::resource('people/publishers', PublisherController::class);
+    Route::resource('people/students', StudentController::class );
+    Route::resource('people/supervisors', SupervisorController::class);
+    Route::resource('people/lecturers', LecturerController::class);
 
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
-
-
 
     Route::get('addmore', function(){
         dd('Add More Route Test Success');

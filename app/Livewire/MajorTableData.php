@@ -6,9 +6,9 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-use App\Models\Language;
+use App\Models\Major;
 
-class LanguageTableData extends Component
+class MajorTableData extends Component
 {
     use WithPagination;
 
@@ -48,13 +48,13 @@ class LanguageTableData extends Component
 
     public function delete($id)
     {
-        $language = Language::find($id);
-        $language->delete();
+        $major = Major::find($id);
+        $major->delete();
 
-        session()->flash('success', 'Language successfully deleted!');
+        session()->flash('success', 'Successfully deleted!');
     }
 
-     // ==========Add New Language============
+     // ==========Add New major============
      public $newName = null;
      public $newName_kh = null;
 
@@ -62,15 +62,15 @@ class LanguageTableData extends Component
      {
          try {
              $validated = $this->validate([
-                 'newName' => 'required|string|max:255|unique:languages,name',
+                 'newName' => 'required|string|max:255|unique:majors,name',
              ]);
 
-             Language::create([
+             Major::create([
                  'name' => $this->newName,
                  'name_kh' => $this->newName_kh,
              ]);
 
-             session()->flash('success', 'Add New Language successfully!');
+             session()->flash('success', 'Add New Major successfully!');
 
              $this->reset(['newName', 'newName_kh']);
 
@@ -84,10 +84,10 @@ class LanguageTableData extends Component
      public $name_kh;
 
      public function setEdit($id) {
-        $language = Language::find($id);
+        $major = Major::find($id);
         $this->editId = $id;
-        $this->name = $language->name;
-        $this->name_kh = $language->name_kh;
+        $this->name = $major->name;
+        $this->name_kh = $major->name_kh;
      }
 
      public function cancelUpdate() {
@@ -102,13 +102,13 @@ class LanguageTableData extends Component
                 'name' => 'required|string|max:255|unique:languages,name,' . $id,
             ]);
 
-            $language = Language::find($id);
-            $language->update([
+            $major = Major::find($id);
+            $major->update([
                 'name' => $this->name,
                 'name_kh' => $this->name_kh,
             ]);
 
-            session()->flash('success', 'Language successfully edited!');
+            session()->flash('success', 'Successfully edited!');
 
             $this->reset(['name', 'editId']);
 
@@ -119,13 +119,13 @@ class LanguageTableData extends Component
 
     public function render(){
 
-        $items = Language::where(function($query){
+        $items = Major::where(function($query){
                                 $query->where('name', 'LIKE', "%$this->search%");
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
 
-        return view('livewire.language-table-data', [
+        return view('livewire.major-table-data', [
             'items' => $items,
         ]);
     }
