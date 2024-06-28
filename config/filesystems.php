@@ -44,6 +44,14 @@ return [
             'throw' => false,
         ],
 
+        'livewireLocal' => [
+            'driver' => 'local',
+            'root' => public_path('/livewire'),
+            'url' => env('APP_URL').'/livewire',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'publicForCKeditor' => [
             'driver' => 'local',
             'root' => public_path('assets/images/ckeditor'),
