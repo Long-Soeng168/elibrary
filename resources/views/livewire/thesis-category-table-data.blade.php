@@ -224,11 +224,11 @@
                             <x-table-data value="{{ $item->name }}" />
                             <x-table-data>
                                 <span
-                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                                     {{ $item->name_kh }}
                                 </span>
                             </x-table-data>
-                            <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
+                            <x-table-data class=" whitespace-nowrap" value="{{ $item->created_at->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">

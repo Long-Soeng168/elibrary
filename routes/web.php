@@ -65,6 +65,7 @@ Route::group([
     Route::get('publications_types', [PublicationController::class, 'types']);
     Route::get('publications_categories', [PublicationController::class, 'categories']);
     Route::get('publications_sub_categories', [PublicationController::class, 'sub_categories']);
+    Route::get('publications_images/{id}', [PublicationController::class, 'images']);
 
     Route::resource('videos', VideoController::class);
     Route::get('videos_types', [VideoController::class, 'types']);

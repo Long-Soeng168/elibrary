@@ -193,7 +193,7 @@
                             <div class="flex items-start justify-center gap-3">
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                                    <a href="{{ url('admin/publications_images/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
                                         class="relative">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -212,7 +212,7 @@
                                             x-transition:leave-end="opacity-0 transform scale-90"
                                             class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
                                             style="display: none;">
-                                            Add More
+                                            Add Images
                                         </div>
                                     </a>
 

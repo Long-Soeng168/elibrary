@@ -76,4 +76,11 @@ class PublicationController extends Controller
     {
         return view('admin.publications.sub_category');
     }
+    public function images($id)
+    {
+        $item = Publication::findOrFail($id);
+        return view('admin.publications.image', [
+            'item' => $item,
+        ]);
+    }
 }
