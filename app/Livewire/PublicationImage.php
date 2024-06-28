@@ -110,7 +110,7 @@ class PublicationImage extends Component
 
     public function render()
     {
-        $multiImages = MultiImage::latest()->get();
+        $multiImages = MultiImage::where('publication_id', $this->item->id)->latest()->get();
         return view('livewire.publication-image', [
             'multiImages' => $multiImages,
         ]);
