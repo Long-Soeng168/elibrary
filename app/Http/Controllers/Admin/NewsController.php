@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\News;
+
 class NewsController extends Controller
 {
     /**
@@ -74,5 +76,12 @@ class NewsController extends Controller
     public function sub_categories()
     {
         return view('admin.news.sub_category');
+    }
+    public function images($id)
+    {
+        $item = News::findOrFail($id);
+        return view('admin.news.image', [
+            'item' => $item,
+        ]);
     }
 }

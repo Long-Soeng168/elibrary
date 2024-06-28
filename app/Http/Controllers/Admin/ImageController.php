@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Image;
+
 class ImageController extends Controller
 {
     /**
@@ -74,5 +76,12 @@ class ImageController extends Controller
     public function sub_categories()
     {
         return view('admin.images.sub_category');
+    }
+    public function images($id)
+    {
+        $item = Image::findOrFail($id);
+        return view('admin.images.image', [
+            'item' => $item,
+        ]);
     }
 }

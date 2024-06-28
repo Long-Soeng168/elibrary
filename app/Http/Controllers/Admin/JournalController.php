@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Journal;
+
 class JournalController extends Controller
 {
     /**
@@ -74,4 +76,11 @@ class JournalController extends Controller
     // {
     //     return view('admin.journals.sub_category');
     // }
+    public function images($id)
+    {
+        $item = Journal::findOrFail($id);
+        return view('admin.journals.image', [
+            'item' => $item,
+        ]);
+    }
 }

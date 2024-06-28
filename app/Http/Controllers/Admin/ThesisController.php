@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Publication;
+use App\Models\Thesis;
+
 
 
 class ThesisController extends Controller
@@ -76,4 +77,11 @@ class ThesisController extends Controller
     // {
     //     return view('admin.theses.sub_category');
     // }
+    public function images($id)
+    {
+        $item = Thesis::findOrFail($id);
+        return view('admin.theses.image', [
+            'item' => $item,
+        ]);
+    }
 }

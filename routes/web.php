@@ -71,29 +71,36 @@ Route::group([
     Route::get('videos_types', [VideoController::class, 'types']);
     Route::get('videos_categories', [VideoController::class, 'categories']);
     Route::get('videos_sub_categories', [VideoController::class, 'sub_categories']);
+    Route::get('videos_images/{id}', [VideoController::class, 'images']);
 
     Route::resource('images', ImageController::class);
     Route::get('images_types', [ImageController::class, 'types']);
     Route::get('images_categories', [ImageController::class, 'categories']);
     Route::get('images_sub_categories', [ImageController::class, 'sub_categories']);
+    Route::get('images_images/{id}', [ImageController::class, 'images']);
 
     Route::resource('audios', AudioController::class);
     Route::get('audios_types', [AudioController::class, 'types']);
     Route::get('audios_categories', [AudioController::class, 'categories']);
     Route::get('audios_sub_categories', [AudioController::class, 'sub_categories']);
+    Route::get('audios_images/{id}', [AudioController::class, 'images']);
 
     Route::resource('bulletins', NewsController::class);
     Route::get('bulletins_types', [NewsController::class, 'types']);
     Route::get('bulletins_categories', [NewsController::class, 'categories']);
     Route::get('bulletins_sub_categories', [NewsController::class, 'sub_categories']);
+    Route::get('bulletins_images/{id}', [NewsController::class, 'images']);
 
     Route::resource('theses', ThesisController::class);
     Route::get('theses_types', [ThesisController::class, 'types']);
     Route::get('theses_categories', [ThesisController::class, 'categories']);
+    Route::get('theses_images/{id}', [ThesisController::class, 'images']);
 
     Route::resource('journals', JournalController::class);
     Route::get('journals_types', [JournalController::class, 'types']);
     Route::get('journals_categories', [JournalController::class, 'categories']);
+    Route::get('journals_images/{id}', [JournalController::class, 'images']);
+
 
     Route::resource('keywords', KeywordController::class);
     Route::resource('languages', LanguageController::class);

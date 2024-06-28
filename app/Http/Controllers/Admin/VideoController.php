@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Video;
+
 class VideoController extends Controller
 {
     /**
@@ -74,5 +76,12 @@ class VideoController extends Controller
     public function sub_categories()
     {
         return view('admin.videos.sub_category');
+    }
+    public function images($id)
+    {
+        $item = Video::findOrFail($id);
+        return view('admin.videos.image', [
+            'item' => $item,
+        ]);
     }
 }

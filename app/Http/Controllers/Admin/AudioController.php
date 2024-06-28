@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Audio;
+
 class AudioController extends Controller
 {
     /**
@@ -74,5 +76,13 @@ class AudioController extends Controller
     public function sub_categories()
     {
         return view('admin.audios.sub_category');
+    }
+
+    public function images($id)
+    {
+        $item = Audio::findOrFail($id);
+        return view('admin.audios.image', [
+            'item' => $item,
+        ]);
     }
 }
