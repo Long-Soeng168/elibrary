@@ -37,6 +37,7 @@
                 display: flex;
                 justify-content: flex-end; /* Align menu items to the right */
                 gap: 20px; /* Adjust spacing between menu items */
+                text-decoration: underline;
             }
 
             .menu a {
