@@ -46,7 +46,9 @@ class ImageController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.images.edit', [
+            'id' => $id,
+        ]);
     }
 
     /**

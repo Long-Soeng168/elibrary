@@ -33,14 +33,14 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
 
-            $table->unsignedBigInteger('author_id')->nullable();
-            $table->unsignedBigInteger('publisher_id')->nullable();
-            $table->unsignedBigInteger('language_id')->nullable();
-            $table->unsignedBigInteger('location_id')->nullable();
-            $table->unsignedBigInteger('journal_type_id')->nullable();
-            $table->unsignedBigInteger('journal_category_id')->nullable();
-            $table->unsignedBigInteger('journal_sub_category_id')->nullable();
-            $table->unsignedBigInteger('create_by_user_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
+            $table->bigInteger('publisher_id')->nullable();
+            $table->bigInteger('language_id')->nullable();
+            $table->bigInteger('location_id')->nullable();
+            $table->bigInteger('journal_type_id')->nullable();
+            $table->bigInteger('journal_category_id')->nullable();
+            $table->bigInteger('journal_sub_category_id')->nullable();
+            $table->bigInteger('create_by_user_id')->nullable();
 
             $table->integer('status')->default(1)->nullable();
 

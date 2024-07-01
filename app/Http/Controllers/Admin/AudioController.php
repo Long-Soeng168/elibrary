@@ -46,7 +46,9 @@ class AudioController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.audios.edit', [
+            'id' => $id,
+        ]);
     }
 
     /**

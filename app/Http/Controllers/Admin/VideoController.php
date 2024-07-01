@@ -46,7 +46,9 @@ class VideoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.videos.edit', [
+            'id' => $id,
+        ]);
     }
 
     /**

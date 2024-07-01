@@ -23,14 +23,14 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('pdf')->nullable();
             $table->string('file')->nullable();
-            $table->unsignedBigInteger('author_id')->nullable();
-            $table->unsignedBigInteger('publisher_id')->nullable();
-            $table->unsignedBigInteger('language_id')->nullable();
-            $table->unsignedBigInteger('location_id')->nullable();
-            $table->unsignedBigInteger('news_type_id')->nullable();
-            $table->unsignedBigInteger('news_category_id')->nullable();
-            $table->unsignedBigInteger('news_sub_category_id')->nullable();
-            $table->unsignedBigInteger('create_by_user_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
+            $table->bigInteger('publisher_id')->nullable();
+            $table->bigInteger('language_id')->nullable();
+            $table->bigInteger('location_id')->nullable();
+            $table->bigInteger('news_type_id')->nullable();
+            $table->bigInteger('news_category_id')->nullable();
+            $table->bigInteger('news_sub_category_id')->nullable();
+            $table->bigInteger('create_by_user_id')->nullable();
 
             $table->timestamps();
         });

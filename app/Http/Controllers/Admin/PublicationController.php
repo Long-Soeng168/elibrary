@@ -46,7 +46,9 @@ class PublicationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.publications.edit', [
+            'id' => $id,
+        ]);
     }
 
     /**

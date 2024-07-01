@@ -46,7 +46,9 @@ class NewsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.news.edit', [
+            'id' => $id,
+        ]);
     }
 
     /**

@@ -23,14 +23,14 @@ return new class extends Migration
             $table->string('keywords', 5000)->nullable();
             $table->string('image')->nullable();
             $table->string('file')->nullable();
-            $table->unsignedBigInteger('author_id')->nullable();
-            $table->unsignedBigInteger('publisher_id')->nullable();
-            $table->unsignedBigInteger('language_id')->nullable();
-            $table->unsignedBigInteger('location_id')->nullable();
-            $table->unsignedBigInteger('image_type_id')->nullable();
-            $table->unsignedBigInteger('image_category_id')->nullable();
-            $table->unsignedBigInteger('image_sub_category_id')->nullable();
-            $table->unsignedBigInteger('create_by_user_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
+            $table->bigInteger('publisher_id')->nullable();
+            $table->bigInteger('language_id')->nullable();
+            $table->bigInteger('location_id')->nullable();
+            $table->bigInteger('image_type_id')->nullable();
+            $table->bigInteger('image_category_id')->nullable();
+            $table->bigInteger('image_sub_category_id')->nullable();
+            $table->bigInteger('create_by_user_id')->nullable();
 
             $table->timestamps();
         });
