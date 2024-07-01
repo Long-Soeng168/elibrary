@@ -32,7 +32,7 @@ class ThesisCreate extends Component
     {
         $this->dispatch('livewire:updated');
         // Check if the last link is filled
-        if (!empty($this->resourceLinks[count($this->resourceLinks) - 1])) {
+        if (!empty($this->resourceLinks[count($this->resourceLinks) - 1]) || count($this->resourceLinks) < 1) {
             $this->resourceLinks[] = '';
         } else {
             // Optionally, you can set a flash message or other feedback to the user
@@ -42,6 +42,7 @@ class ThesisCreate extends Component
 
     public function removeResourceLink($index)
     {
+        $this->dispatch('livewire:updated');
         unset($this->resourceLinks[$index]);
         $this->resourceLinks = array_values($this->resourceLinks); // Reindex array
     }
@@ -53,7 +54,7 @@ class ThesisCreate extends Component
     {
         $this->dispatch('livewire:updated');
         // Check if the last link is filled
-        if (!empty($this->journalLinks[count($this->journalLinks) - 1])) {
+        if (!empty($this->journalLinks[count($this->journalLinks) - 1]) || count($this->journalLinks) < 1) {
             $this->journalLinks[] = '';
         } else {
             // Optionally, you can set a flash message or other feedback to the user
@@ -458,19 +459,23 @@ class ThesisCreate extends Component
 
         if($this->resourceLinks > 0){
             foreach($this->resourceLinks as $link){
-                ThesisResourceLink::create([
-                    'thesis_id' => $createdThesis->id,
-                    'link' => $link,
-                ]);
+                if($link) {
+                    ThesisResourceLink::create([
+                        'thesis_id' => $createdThesis->id,
+                        'link' => $link,
+                    ]);
+                }
             }
         }
 
         if($this->journalLinks > 0){
             foreach($this->journalLinks as $link){
-                ThesisJournalLink::create([
-                    'thesis_id' => $createdThesis->id,
-                    'link' => $link,
-                ]);
+                if($link) {
+                    ThesisJournalLink::create([
+                        'thesis_id' => $createdThesis->id,
+                        'link' => $link,
+                    ]);
+                }
             }
         }
 

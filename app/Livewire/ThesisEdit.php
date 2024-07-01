@@ -4,19 +4,25 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Models\Journal;
-use App\Models\JournalCategory as Category;
-use App\Models\JournalType as Type;
+use App\Models\Thesis;
+use App\Models\ThesisCategory as Category;
+use App\Models\ThesisType as Type;
 use App\Models\Publisher;
 use App\Models\Location;
 use App\Models\Language;
 use App\Models\Author;
+use App\Models\Student;
+use App\Models\Lecturer;
+use App\Models\Supervisor;
 use App\Models\Keyword;
-use App\Models\JournalResourceLink;
+use App\Models\Major;
+use App\Models\ThesisResourceLink;
+use App\Models\ThesisJournalLink;
 
 use Image;
+use Illuminate\Support\Facades\File;
 
-class JournalCreate extends Component
+class ThesisEdit extends Component
 {
     use WithFileUploads;
 
@@ -42,21 +48,47 @@ class JournalCreate extends Component
         $this->resourceLinks = array_values($this->resourceLinks); // Reindex array
     }
 
+    // Add Journal Links
+    public $journalLinks = ['']; // Initialize with one empty link
+
+    public function addJournalLink()
+    {
+        $this->dispatch('livewire:updated');
+        // Check if the last link is filled
+        if (!empty($this->journalLinks[count($this->journalLinks) - 1]) || count($this->journalLinks) < 1) {
+            $this->journalLinks[] = '';
+        } else {
+            // Optionally, you can set a flash message or other feedback to the user
+            session()->flash('error', ['Please fill in the current link before adding a new one.']);
+        }
+    }
+
+    public function removeJournalLink($index)
+    {
+        $this->dispatch('livewire:updated');
+        unset($this->journalLinks[$index]);
+        $this->journalLinks = array_values($this->journalLinks); // Reindex array
+    }
+
+    public $item;
     public $image;
     public $pdf;
 
-    public $journal_category_id = null;
-    public $journal_type_id = null;
+
+    public $thesis_category_id = null;
+    public $thesis_type_id = null;
     public $publisher_id = null;
     public $location_id = null;
     public $language_id = null;
     public $author_id = null;
+    public $student_id = null;
+    public $lecturer_id = null;
+    public $supervisor_id = null;
+    public $major_id = null;
 
     public $name = null;
     public $pages_count = null;
     public $barcode = null;
-    public $volume = null;
-    public $issue = null;
     public $link = null;
     public $isbn = null;
     public $inventory_number = null;
@@ -65,6 +97,37 @@ class JournalCreate extends Component
     public $short_description = null;
 
     public $keywords = [];
+
+    public function mount($id)
+    {
+        $this->item = Thesis::findOrFail($id);
+
+        $this->thesis_category_id = $this->item->thesis_category_id;
+        $this->thesis_sub_category_id = $this->item->thesis_sub_category_id;
+        $this->thesis_type_id = $this->item->thesis_type_id;
+        $this->publisher_id = $this->item->publisher_id;
+        $this->location_id = $this->item->location_id;
+        $this->language_id = $this->item->language_id;
+        $this->author_id = $this->item->author_id;
+
+        $this->name = $this->item->name;
+        $this->pages_count = $this->item->pages_count;
+        $this->barcode = $this->item->barcode;
+        $this->link = $this->item->link;
+        $this->isbn = $this->item->isbn;
+        $this->published_date = $this->item->published_date;
+        $this->description = $this->item->description;
+        $this->short_description = $this->item->short_description;
+        $this->inventory_number = $this->item->inventory_number;
+
+        $this->keywords = explode(',', $this->item->keywords);
+
+        $resourceLinks = ThesisResourceLink::where('thesis_id', $this->item->id)->get();
+        $this->resourceLinks = $resourceLinks->pluck('link')->toArray();
+
+        $journalLinks = ThesisResourceLink::where('thesis_id', $this->item->id)->get();
+        $this->journalLinks = $journalLinks->pluck('link')->toArray();
+    }
 
     // ==========Add New Author============
     public $newAuthorName = null;
@@ -91,6 +154,80 @@ class JournalCreate extends Component
         }
     }
 
+     // ==========Add New Student============
+     public $newStudentName = null;
+     public $newStudentGender = null;
+
+     public function saveNewStudent()
+     {
+         try {
+             $validated = $this->validate([
+                 'newStudentName' => 'required|string|max:255|unique:students,name',
+             ]);
+
+             Student::create([
+                 'name' => $this->newStudentName,
+                 'gender' => $this->newStudentGender,
+             ]);
+
+             session()->flash('success', 'Add New Student successfully!');
+
+             $this->reset(['newStudentName', 'newStudentGender']);
+
+         } catch (\Illuminate\Validation\ValidationException $e) {
+             session()->flash('error', $e->validator->errors()->all());
+         }
+     }
+
+     // ==========Add New Lecturer============
+     public $newLecturerName = null;
+     public $newLecturerGender = null;
+
+     public function saveNewLecturer()
+     {
+         try {
+             $validated = $this->validate([
+                 'newLecturerName' => 'required|string|max:255|unique:lecturers,name',
+             ]);
+
+             Lecturer::create([
+                 'name' => $this->newLecturerName,
+                 'gender' => $this->newLecturerGender,
+             ]);
+
+             session()->flash('success', 'Add New Lecturer successfully!');
+
+             $this->reset(['newLecturerName', 'newLecturerGender']);
+
+         } catch (\Illuminate\Validation\ValidationException $e) {
+             session()->flash('error', $e->validator->errors()->all());
+         }
+     }
+
+     // ==========Add New Author============
+    public $newSupervisorName = null;
+    public $newSupervisorGender = null;
+
+    public function saveNewSupervisor()
+    {
+        try {
+            $validated = $this->validate([
+                'newSupervisorName' => 'required|string|max:255|unique:supervisors,name',
+            ]);
+
+            Supervisor::create([
+                'name' => $this->newSupervisorName,
+                'gender' => $this->newSupervisorGender,
+            ]);
+
+            session()->flash('success', 'Add New Supervisor successfully!');
+
+            $this->reset(['newSupervisorName', 'newSupervisorGender']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
 
     // ==========Add New Keyword============
     public $newKeywordName = null;
@@ -124,7 +261,7 @@ class JournalCreate extends Component
     {
         try {
             $this->validate([
-                'newCategoryName' => 'required|string|max:255|unique:journal_categories,name',
+                'newCategoryName' => 'required|string|max:255|unique:thesis_categories,name',
                 // Add validation rules for 'newCategoryNameKh' if needed
             ]);
 
@@ -151,7 +288,7 @@ class JournalCreate extends Component
     {
         try {
             $this->validate([
-                'newTypeName' => 'required|string|max:255|unique:journal_types,name',
+                'newTypeName' => 'required|string|max:255|unique:thesis_types,name',
                 // Add validation rules for 'newTypeNameKh' if needed
             ]);
 
@@ -245,6 +382,32 @@ class JournalCreate extends Component
         }
     }
 
+    // ==========Add New Type============
+    public $newMajorName = null;
+    public $newMajorNameKh = null;
+
+    public function saveNewMajor()
+    {
+        try {
+            $this->validate([
+                'newMajorName' => 'required|string|max:255|unique:majors,name',
+                // Add validation rules for 'newMajorNameKh' if needed
+            ]);
+
+            Major::create([
+                'name' => $this->newMajorName,
+                'name_kh' => $this->newMajorNameKh,
+            ]);
+
+            session()->flash('success', 'Add New Major successfully!');
+
+            $this->reset(['newMajorName', 'newMajorNameKh']);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            session()->flash('error', $e->validator->errors()->all());
+        }
+    }
+
 
     public function updatedImage()
     {
@@ -275,22 +438,22 @@ class JournalCreate extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|max:2048',
-            'pdf' => 'required|file|mimes:pdf|max:2048',
             'pages_count' => 'nullable|integer|min:1',
             'inventory_number' => 'nullable|integer',
             'isbn' => 'nullable|string|max:30',
             'link' => 'nullable|string|max:255',
             'barcode' => 'nullable|integer',
-            'volume' => 'nullable|integer',
-            'issue' => 'nullable|integer',
             'published_date' => 'nullable',
-            'journal_category_id' => 'nullable|exists:journal_categories,id',
-            'journal_type_id' => 'nullable|exists:journal_types,id',
+            'thesis_category_id' => 'nullable|exists:thesis_categories,id',
+            'thesis_type_id' => 'required|exists:thesis_types,id',
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',
             'author_id' => 'nullable|exists:authors,id',
+            'student_id' => 'nullable|exists:students,id',
+            'lecturer_id' => 'nullable|exists:lecturers,id',
+            'supervisor_id' => 'nullable|exists:supervisors,id',
+            'major_id' => 'nullable|exists:majors,id',
             'description' => 'nullable',
             'short_description' => 'nullable',
         ]);
@@ -307,37 +470,64 @@ class JournalCreate extends Component
         if(!empty($this->image)){
             $filename = time() . '_' . $this->image->getClientOriginalName();
 
-            $image_path = public_path('assets/images/journals/'.$filename);
-            $image_thumb_path = public_path('assets/images/journals/thumb/'.$filename);
+            $image_path = public_path('assets/images/theses/'.$filename);
+            $image_thumb_path = public_path('assets/images/theses/thumb/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $imageUpload->resize(400,null,function($resize){
                 $resize->aspectRatio();
             })->save($image_thumb_path);
             $validated['image'] = $filename;
+
+            $old_path = public_path('assets/images/theses/' . $this->item->image);
+            $old_thumb_path = public_path('assets/images/theses/thumb/' . $this->item->image);
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
+            if (File::exists($old_thumb_path)) {
+                File::delete($old_thumb_path);
+            }
         }
 
         if (!empty($this->pdf)) {
             $filename = time() . '_' . $this->pdf->getClientOriginalName();
-            $this->pdf->storeAs('journals', $filename, 'publicForPdf');
+            $this->pdf->storeAs('theses', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
+
+            $old_file = public_path('assets/pdf/theses/' . $this->item->pdf);
+            if (File::exists($old_file)) {
+                File::delete($old_file);
+            }
         }
 
         // dd($validated);
 
-        $createdJournal = Journal::create($validated);
+        $this->item->update($validated);
 
+        ThesisResourceLink::where('thesis_id', $this->item->id)->delete();
         if($this->resourceLinks > 0){
             foreach($this->resourceLinks as $link){
                 if($link) {
-                    JournalResourceLink::create([
-                        'journal_id' => $createdJournal->id,
+                    ThesisResourceLink::create([
+                        'thesis_id' => $this->item->id,
                         'link' => $link,
                     ]);
                 }
             }
         }
 
-        return redirect()->route('admin.journals.index')->with('success', 'Successfully uploaded!');
+        ThesisJournalLink::where('thesis_id', $this->item->id)->delete();
+        if($this->journalLinks > 0){
+            foreach($this->journalLinks as $link){
+                if($link) {
+                    ThesisJournalLink::create([
+                        'thesis_id' => $this->item->id,
+                        'link' => $link,
+                    ]);
+                }
+            }
+        }
+
+        return redirect()->route('admin.theses.index')->with('success', 'Successfully uploaded!');
 
         // session()->flash('message', 'Image successfully uploaded!');
     }
@@ -350,18 +540,26 @@ class JournalCreate extends Component
         $locations = Location::latest()->get();
         $languages = Language::latest()->get();
         $authors = Author::latest()->get();
+        $students = Student::latest()->get();
+        $lecturers = Lecturer::latest()->get();
+        $supervisors = Supervisor::latest()->get();
         $allKeywords = Keyword::latest()->get();
-// dd($allKeywords);
+        $majors = major::latest()->get();
+        // dd($allKeywords);
         // dump($this->selectedallKeywords);
 
-        return view('livewire.journal-create', [
+        return view('livewire.thesis-edit', [
             'categories' => $categories,
             'types' => $types,
             'publishers' => $publishers,
             'locations' => $locations,
             'authors' => $authors,
+            'students' => $students,
+            'lecturers' => $lecturers,
+            'supervisors' => $supervisors,
             'languages' => $languages,
             'allKeywords' => $allKeywords,
+            'majors' => $majors,
         ]);
     }
 }

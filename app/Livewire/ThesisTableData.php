@@ -8,6 +8,8 @@ use Livewire\WithPagination;
 
 use App\Models\Thesis;
 use App\Models\ThesisImage;
+use App\Models\ThesisResourceLink;
+use App\Models\ThesisJournalLink;
 use App\Models\ThesisType as Type;
 use Illuminate\Support\Facades\File;
 
@@ -86,6 +88,9 @@ class ThesisTableData extends Component
                 }
             }
         }
+
+        ThesisResourceLink::where('thesis_id', $item->id)->delete();
+        ThesisJournalLink::where('thesis_id', $item->id)->delete();
 
         $item->delete();
 

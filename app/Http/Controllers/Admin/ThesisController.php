@@ -47,7 +47,7 @@ class ThesisController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.theses.edit', ['id' => $id]);
     }
 
     /**

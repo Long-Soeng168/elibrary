@@ -151,12 +151,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id"
                             class="publisher-select">
-                            <option wire:key='publisher' value="">Select Publisher...</option>
+                            <option wire:key='publisher' value="0">Select Publisher...</option>
                             @forelse ($publishers as $publisher)
                                 <option wire:key='{{ $publisher->id }}' value="{{ $publisher->id }}">
                                     {{ $publisher->name }}</option>
                             @empty
-                                <option wire:key='nopublisher' value=""> --No Publisher--</option>
+                                <option wire:key='nopublisher' value="0"> --No Publisher--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -206,7 +206,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
                                             <select id="publisher" wire:model='newPublisherGender'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select gender</option>
+                                                <option value="0">Select gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="n/a">N/A</option>
@@ -248,13 +248,13 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option class="author-select" wire:model.live='author_id' id="author"
                             name="author_id">
-                            <option wire:key='author' value="">Select Author...</option>
+                            <option wire:key='author' value="0">Select Author...</option>
                             @forelse ($authors as $author)
                                 <option wire:key='{{ $author->id }}' value="{{ $author->id }}">
                                     {{ $author->name }}
                                 </option>
                             @empty
-                                <option wire:key='noauthor' value=""> --No Author--</option>
+                                <option wire:key='noauthor' value="0"> --No Author--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -304,7 +304,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
                                             <select id="author" wire:model='newAuthorGender'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select gender</option>
+                                                <option value="0">Select gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="n/a">N/A</option>
@@ -346,12 +346,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='journal_type_id' id="types"
                             name="publication_type_id" class="type-select">
-                            <option wire:key='type' value="">Select Type...</option>
+                            <option wire:key='type' value="0">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">
                                     {{ $type->name }}</option>
                             @empty
-                                <option wire:key='notype' value="">--No Type--</option>
+                                <option wire:key='notype' value="0">--No Type--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -440,13 +440,13 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='journal_category_id' id="publication_category_id"
                             name="publication_category_id" class="category-select">
-                            <option wire:key='category' value="">Select Topic...</option>
+                            <option wire:key='category' value="0">Select Topic...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
                                     {{ $category->name }}
                                 </option>
                             @empty
-                                <option wire:key='nocateogry' value=""> --No Topic--</option>
+                                <option wire:key='nocateogry' value="0"> --No Topic--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -537,12 +537,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='location_id' id="location" name="location_id"
                             class="location-select">
-                            <option wire:key='location' value="">Select Location...</option>
+                            <option wire:key='location' value="0">Select Location...</option>
                             @forelse ($locations as $location)
                                 <option wire:key='{{ $location->id }}' value="{{ $location->id }}">
                                     {{ $location->name }}</option>
                             @empty
-                                <option wire:key='nolocation' value=""> --No Location--</option>
+                                <option wire:key='nolocation' value="0"> --No Location--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -618,12 +618,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='language_id' id="language" name="language_id"
                             class="language-select">
-                            <option wire:key='language' value="">Select Language...</option>
+                            <option wire:key='language' value="0">Select Language...</option>
                             @forelse ($languages as $language)
                                 <option wire:key='{{ $language->id }}' value="{{ $language->id }}">
                                     {{ $language->name }}</option>
                             @empty
-                                <option wire:key='nolanguage' value=""> --No Language--</option>
+                                <option wire:key='nolanguage' value="0"> --No Language--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -714,7 +714,7 @@
                             <option wire:key='{{ $keyword->id }}' value="{{ $keyword->name }}">
                                 {{ $keyword->name }}</option>
                         @empty
-                            <option wire:key=nokeyword' value=""> --No Keyword--</option>
+                            <option wire:key=nokeyword' value="0"> --No Keyword--</option>
                         @endforelse
                     </select>
                 </div>

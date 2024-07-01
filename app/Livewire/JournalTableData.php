@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 
 use App\Models\Journal;
 use App\Models\JournalImage;
+use App\Models\JournalResourceLink;
 use App\Models\JournalType as Type;
 use Illuminate\Support\Facades\File;
 
@@ -86,6 +87,8 @@ class JournalTableData extends Component
                 }
             }
         }
+
+        JournalResourceLink::where('journal_id', $item->id)->delete();
 
         $item->delete();
 

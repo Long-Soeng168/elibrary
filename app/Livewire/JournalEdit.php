@@ -15,8 +15,9 @@ use App\Models\Keyword;
 use App\Models\JournalResourceLink;
 
 use Image;
+use Illuminate\Support\Facades\File;
 
-class JournalCreate extends Component
+class JournalEdit extends Component
 {
     use WithFileUploads;
 
@@ -27,7 +28,7 @@ class JournalCreate extends Component
     {
         $this->dispatch('livewire:updated');
         // Check if the last link is filled
-        if (!empty($this->resourceLinks[count($this->resourceLinks) - 1]) || count($this->resourceLinks) < 1) {
+        if (!empty($this->resourceLinks[count($this->resourceLinks) - 1])) {
             $this->resourceLinks[] = '';
         } else {
             // Optionally, you can set a flash message or other feedback to the user
@@ -42,6 +43,7 @@ class JournalCreate extends Component
         $this->resourceLinks = array_values($this->resourceLinks); // Reindex array
     }
 
+    public $item;
     public $image;
     public $pdf;
 
@@ -65,6 +67,36 @@ class JournalCreate extends Component
     public $short_description = null;
 
     public $keywords = [];
+
+    public function mount($id)
+    {
+        $this->item = Journal::findOrFail($id);
+
+        $this->journal_category_id = $this->item->journal_category_id;
+        $this->journal_sub_category_id = $this->item->journal_sub_category_id;
+        $this->journal_type_id = $this->item->journal_type_id;
+        $this->publisher_id = $this->item->publisher_id;
+        $this->location_id = $this->item->location_id;
+        $this->language_id = $this->item->language_id;
+        $this->author_id = $this->item->author_id;
+
+        $this->name = $this->item->name;
+        $this->pages_count = $this->item->pages_count;
+        $this->barcode = $this->item->barcode;
+        $this->volume = $this->item->volume;
+        $this->issue = $this->item->issue;
+        $this->link = $this->item->link;
+        $this->isbn = $this->item->isbn;
+        $this->published_date = $this->item->published_date;
+        $this->description = $this->item->description;
+        $this->short_description = $this->item->short_description;
+        $this->inventory_number = $this->item->inventory_number;
+
+        $this->keywords = explode(',', $this->item->keywords);
+
+        $links = JournalResourceLink::where('journal_id', $this->item->id)->get();
+        $this->resourceLinks = $links->pluck('link')->toArray();
+    }
 
     // ==========Add New Author============
     public $newAuthorName = null;
@@ -275,8 +307,6 @@ class JournalCreate extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'image' => 'required|image|max:2048',
-            'pdf' => 'required|file|mimes:pdf|max:2048',
             'pages_count' => 'nullable|integer|min:1',
             'inventory_number' => 'nullable|integer',
             'isbn' => 'nullable|string|max:30',
@@ -314,23 +344,38 @@ class JournalCreate extends Component
                 $resize->aspectRatio();
             })->save($image_thumb_path);
             $validated['image'] = $filename;
+
+            $old_path = public_path('assets/images/journals/' . $this->item->image);
+            $old_thumb_path = public_path('assets/images/journals/thumb/' . $this->item->image);
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
+            if (File::exists($old_thumb_path)) {
+                File::delete($old_thumb_path);
+            }
         }
 
         if (!empty($this->pdf)) {
             $filename = time() . '_' . $this->pdf->getClientOriginalName();
             $this->pdf->storeAs('journals', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
+
+            $old_file = public_path('assets/pdf/journals/' . $this->item->pdf);
+            if (File::exists($old_file)) {
+                File::delete($old_file);
+            }
         }
 
         // dd($validated);
 
-        $createdJournal = Journal::create($validated);
+        $this->item->update($validated);
 
+        JournalResourceLink::where('journal_id', $this->item->id)->delete();
         if($this->resourceLinks > 0){
             foreach($this->resourceLinks as $link){
                 if($link) {
                     JournalResourceLink::create([
-                        'journal_id' => $createdJournal->id,
+                        'journal_id' => $this->item->id,
                         'link' => $link,
                     ]);
                 }
@@ -354,7 +399,7 @@ class JournalCreate extends Component
 // dd($allKeywords);
         // dump($this->selectedallKeywords);
 
-        return view('livewire.journal-create', [
+        return view('livewire.journal-edit', [
             'categories' => $categories,
             'types' => $types,
             'publishers' => $publishers,

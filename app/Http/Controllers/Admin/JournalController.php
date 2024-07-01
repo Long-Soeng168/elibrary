@@ -46,7 +46,7 @@ class JournalController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.journals.edit', ['id' => $id]);
     }
 
     /**
