@@ -599,7 +599,7 @@
         <aside
             class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 "
             aria-label="Sidenav" id="drawer-navigation">
-            <a href="/" class="flex items-center justify-center p-3.5 border-b">
+            <a href="/" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
                 @if ($websiteInfo->image)
                      <img src="{{ asset('assets/images/website_infos/'.$websiteInfo->image) }}" class="h-8 mr-3" alt="Flowbite Logo" />
                 @endif
@@ -1111,7 +1111,7 @@
 
             </div>
             <div
-                class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white border-t dark:bg-gray-800">
+                class="absolute bottom-0 z-20 flex justify-center w-full p-4 space-x-4 bg-white border-t dark:border-t-slate-600 dark:bg-gray-800">
                 <button id="theme-toggle" type="button"
                     class="p-2 text-sm text-gray-600 rounded-lg hover:text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"

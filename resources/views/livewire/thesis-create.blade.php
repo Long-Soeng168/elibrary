@@ -84,7 +84,7 @@
             </div>
 
         </div>
-        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
+        <div class="grid gap-5 mb-5 lg:grid-cols-3 lg:gap-6">
             <!-- Start Pages -->
             <div>
                 <x-input-label for="pages_count" :value="__('Pages')" />
@@ -104,14 +104,18 @@
             </div>
             <!-- End Edition -->
 
-            <!-- Start isbn -->
-            <div>
+             <!-- Start isbn -->
+             <div>
                 <x-input-label for="isbn" :value="__('ISBN')" />
                 <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
                     placeholder="ISBN" />
                 <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
             </div>
             <!-- End isbn -->
+        </div>
+        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
+
+
 
             <!-- Start inventory_number -->
             <div>
@@ -121,6 +125,100 @@
                 <x-input-error :messages="$errors->get('inventory_number')" class="mt-2" />
             </div>
             <!-- End inventory_number -->
+
+            {{-- Start Major --}}
+            <div class="relative w-full group">
+                <x-input-label for="majors" :value="__('Majors')" /><span class="text-red-600">*</span>
+                <div class="flex flex-1 gap-1 mt-1">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option wire:model='major_id' id="majors"
+                            name="major_id" class="major-select">
+                            <option wire:key='major' value="">Select Major...</option>
+                            @forelse ($majors as $major)
+                                <option wire:key='{{ $major->id }}' value="{{ $major->id }}">
+                                    {{ $major->name }}</option>
+                            @empty
+                                <option wire:key='nomajor' value="">--No major--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
+
+                    <button type="button" data-modal-target="major_modal"
+                        data-modal-toggle="major_modal"
+                        class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
+                        Add
+                    </button>
+
+                    <!-- Start Type modal -->
+                    <div id="major_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Major
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="major_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 lg:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newMajorName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type Name">
+                                        </div>
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                                KH</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newMajorNameKh'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type Name KH">
+                                        </div>
+
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="major_modal"
+                                            data-modal-toggle="major_modal" type="button"
+                                            wire:click='saveNewMajor' wire:target="saveNewMajor"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Type modal -->
+                </div>
+                <x-input-error :messages="$errors->get('major_id')" class="mt-2" />
+            </div>
+            {{-- End Major --}}
 
             <!-- Start published_date -->
             <div>
@@ -1054,6 +1152,60 @@
         </div>
         {{-- End Keyword Select --}}
 
+        {{-- Start Add Resource Links --}}
+        <div class="grid gap-5 mb-5 lg:grid-cols-1">
+            <div>
+                <x-input-label for="link" :value="__('Resource Link')" /><span class="text-red-500">*</span>
+                <div class="flex flex-col gap-1">
+                    @foreach($resourceLinks as $index => $link)
+                        <div class="flex justify-start flex-1 gap-2">
+                            <x-text-input id="link_{{ $index }}" class="block w-full mt-1" type="text" name="resourceLinks[]"
+                                          wire:model="resourceLinks.{{ $index }}" required autofocus placeholder="Link or URL" />
+                            <button type="button"
+                                    class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-red-700"
+                                    wire:click="removeResourceLink({{ $index }})">
+                                Remove
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+                <button type="button" class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 mt-2"
+                        wire:click="addResourceLink">
+                    Add Link
+                </button>
+                <x-input-error :messages="$errors->get('resourceLinks')" class="mt-2" />
+            </div>
+        </div>
+
+        {{-- End Add Resource Links --}}
+
+        {{-- Start Add Journal Links --}}
+        <div class="grid gap-5 mb-5 lg:grid-cols-1">
+            <div>
+                <x-input-label for="link" :value="__('Journal Link')" /><span class="text-red-500">*</span>
+                <div class="flex flex-col gap-1">
+                    @foreach($journalLinks as $index => $link)
+                        <div class="flex justify-start flex-1 gap-2">
+                            <x-text-input id="link_{{ $index }}" class="block w-full mt-1" type="text" name="journalLinks[]"
+                                          wire:model="journalLinks.{{ $index }}" required autofocus placeholder="Link or URL" />
+                            <button type="button"
+                                    class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-red-700"
+                                    wire:click="removeJournalLink({{ $index }})">
+                                Remove
+                            </button>
+                        </div>
+                    @endforeach
+                </div>
+                <button type="button" class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 mt-2"
+                        wire:click="addJournalLink">
+                    Add Link
+                </button>
+                <x-input-error :messages="$errors->get('journalLinks')" class="mt-2" />
+            </div>
+        </div>
+
+        {{-- End Add Journal Links --}}
+
         <div class="mb-5">
             {{-- Start Image Upload --}}
             <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
@@ -1232,6 +1384,12 @@
                 $('.type-select').on('change', function(event) {
                     let data = $(this).val();
                     @this.set('thesis_type_id', data);
+                });
+
+                $('.major-select').select2();
+                $('.major-select').on('change', function(event) {
+                    let data = $(this).val();
+                    @this.set('major_id', data);
                 });
 
                 $('.publisher-select').select2();

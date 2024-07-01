@@ -150,10 +150,9 @@
                     </th> --}}
 
                     <th scope="col" class="px-4 py-3">Student</th>
-                    <th scope="col" class="px-4 py-3">Publisher</th>
-                    <th scope="col" class="px-4 py-3">Topic</th>
-                    {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
+                    <th scope="col" class="px-4 py-3">Major</th>
                     <th scope="col" class="px-4 py-3">Type</th>
+                    <th scope="col" class="px-4 py-3">Topic</th>
                     <th scope="col" class="px-4 py-3">Published Date</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -180,9 +179,10 @@
                                 {{ $item->student?->name }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->publisher?->name }}" />
-                        <x-table-data value="{{ $item->category?->name }}" />
-                        <x-table-data value="{{ $item->type?->name }}" />
+                        <x-table-data value="{{ $item->major?->name }}" />
+                        {{-- <x-table-data value="{{ $item->publisher?->name }}" /> --}}
+                            <x-table-data value="{{ $item->type?->name }}" />
+                            <x-table-data value="{{ $item->category?->name }}" />
                         <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" />
 
 

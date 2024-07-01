@@ -38,6 +38,10 @@ class Thesis extends Model
         return $this->belongsTo(ThesisType::class, 'thesis_type_id', 'id');
     }
 
+    public function major(){
+        return $this->belongsTo(Major::class, 'major_id', 'id');
+    }
+
     public function language(){
         return $this->belongsTo(Language::class, 'language_id', 'id');
     }
