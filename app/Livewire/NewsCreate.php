@@ -322,7 +322,7 @@ class NewsCreate extends Component
         if (!empty($this->file)) {
             $filename = time() . '_' . $this->file->getClientOriginalName();
             $this->file->storeAs('news', $filename, 'publicForPdf');
-            $validated['file'] = $filename;
+            $validated['pdf'] = $filename;
         }
 
         $createdImage = News::create($validated);

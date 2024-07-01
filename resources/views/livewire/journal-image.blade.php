@@ -153,11 +153,12 @@
                             alt="Preview Image"
                             class="object-contain max-w-full border rounded-lg shadow-md max-h-40" />
                         <button wire:click="delete({{ $image->id }})"
-                            class="absolute p-1 text-white transition-opacity duration-300 ease-in-out bg-red-500 rounded-full opacity-0 top-2 right-2 group-hover:opacity-100">
-                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M6 18L18 6M6 6l12 12" />
+                                wire:loading.attr="disabled"
+                                wire:loading.class="opacity-50 cursor-not-allowed"
+                                wire:target="delete"
+                                class="absolute p-1 text-white transition-opacity duration-300 ease-in-out bg-red-500 rounded-full opacity-0 top-2 right-2 group-hover:opacity-100">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>

@@ -1,7 +1,7 @@
 <div>
     @if (session('success'))
         <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
-            x-init="setTimeout(() => show = false, 7000)">
+            x-init="setTimeout(() => show = false, 5000)">
             <div x-show="show" id="alert-2"
                 class="flex items-center p-4 mb-4 text-green-800 border border-green-500 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
                 role="alert">
@@ -246,11 +246,9 @@
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <form action="#" method="POST" @mouseenter="tooltip = true"
+                                    <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
                                         @mouseleave="tooltip = false">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="text-red-600">
+                                        <span class="text-red-600">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -259,8 +257,8 @@
                                                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
                                                 <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
                                             </svg>
-                                        </button>
-                                    </form>
+                                        </span>
+                                    </a>
 
                                     <!-- View tooltip -->
                                     <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"

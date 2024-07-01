@@ -7,7 +7,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Journal;
+use App\Models\JournalImage;
 use App\Models\JournalType as Type;
+use Illuminate\Support\Facades\File;
 
 class JournalTableData extends Component
 {
@@ -45,6 +47,49 @@ class JournalTableData extends Component
     // ResetPage when updated search
     public function updatedSearch() {
         $this->resetPage();
+    }
+
+    public function delete($id) {
+        $item = Journal::findOrFail($id);
+
+        if($item->image !== 'image.png') {
+            $imagePathThumb = public_path('assets/images/journals/thumb/' . $item->image);
+            $imagePath = public_path('assets/images/journals/' . $item->image);
+            // Delete the image file from the filesystem
+            if (File::exists($imagePathThumb)) {
+                File::delete($imagePathThumb);
+            }
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        if($item->pdf) {
+            $filePath = public_path('assets/pdf/journals/' . $item->pdf);
+            // Delete the image file from the filesystem
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $multiImages = JournalImage::where('journal_id', $item->id)->get();
+        if($multiImages){
+            foreach($multiImages as $image) {
+                $imagePathThumb = public_path('assets/images/journals/thumb/' . $image->image);
+                $imagePath = public_path('assets/images/journals/' . $image->image);
+                // Delete the image file from the filesystem
+                if (File::exists($imagePathThumb)) {
+                    File::delete($imagePathThumb);
+                }
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+        }
+
+        $item->delete();
+
+        session()->flash('success', 'Delete Successfully!');
     }
 
     public function render(){

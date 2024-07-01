@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/no-tailwind.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
-    <script src="{{ asset('assets/js/alpine31.js') }}"></script>
+    <script defer src="{{ asset('assets/js/alpine31.js') }}"></script>
 
     <style>
         .select2-selection {
@@ -68,7 +68,7 @@
     </style>
 
     {{-- Show popup to reload screen when resize --}}
-    <script>
+    {{-- <script>
         // Function to show the modal
         function showReloadModal() {
             document.getElementById('reloadModal').classList.remove('hidden');
@@ -87,6 +87,41 @@
         // Check if the window has been resized
         window.addEventListener('resize', function() {
             showReloadModal(); // Show modal when window is resized
+        });
+    </script> --}}
+    <script>
+        // Function to show the modal
+        function showReloadModal() {
+            document.getElementById('reloadModal').classList.remove('hidden');
+        }
+
+        // Function to hide the modal
+        function hideReloadModal() {
+            document.getElementById('reloadModal').classList.add('hidden');
+        }
+
+        // Function to reload the page
+        function reloadPage() {
+            window.location.reload();
+        }
+
+        // Variables to store the initial window size
+        let initialWidth = window.innerWidth;
+        let initialHeight = window.innerHeight;
+
+        // Check if the window has been resized by at least 50 pixels
+        window.addEventListener('resize', function() {
+            let newWidth = window.innerWidth;
+            let newHeight = window.innerHeight;
+
+            // Calculate the difference in size
+            let widthDifference = Math.abs(newWidth - initialWidth);
+            let heightDifference = Math.abs(newHeight - initialHeight);
+
+            // Show modal if the difference is at least 50 pixels
+            if (widthDifference >= 50 || heightDifference >= 50) {
+                showReloadModal();
+            }
         });
     </script>
 

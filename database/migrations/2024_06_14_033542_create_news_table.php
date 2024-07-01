@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('keywords', 5000)->nullable();
             $table->string('image')->nullable();
+            $table->string('pdf')->nullable();
             $table->string('file')->nullable();
             $table->unsignedBigInteger('author_id')->nullable();
             $table->unsignedBigInteger('publisher_id')->nullable();

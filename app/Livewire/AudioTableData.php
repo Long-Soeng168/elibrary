@@ -7,7 +7,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Audio;
+use App\Models\AudioImage;
 use App\Models\AudioCategory;
+
+use Illuminate\Support\Facades\File;
 
 class AudioTableData extends Component
 {
@@ -45,6 +48,49 @@ class AudioTableData extends Component
     // ResetPage when updated search
     public function updatedSearch() {
         $this->resetPage();
+    }
+
+    public function delete($id) {
+        $item = Audio::findOrFail($id);
+
+        if($item->image !== 'image.png') {
+            $imagePathThumb = public_path('assets/images/audios/thumb/' . $item->image);
+            $imagePath = public_path('assets/images/audios/' . $item->image);
+            // Delete the image file from the filesystem
+            if (File::exists($imagePathThumb)) {
+                File::delete($imagePathThumb);
+            }
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        if($item->pdf) {
+            $filePath = public_path('assets/pdf/audios/' . $item->pdf);
+            // Delete the image file from the filesystem
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $multiImages = AudioImage::where('audio_id', $item->id)->get();
+        if($multiImages){
+            foreach($multiImages as $image) {
+                $imagePathThumb = public_path('assets/images/audios/thumb/' . $image->image);
+                $imagePath = public_path('assets/images/audios/' . $image->image);
+                // Delete the image file from the filesystem
+                if (File::exists($imagePathThumb)) {
+                    File::delete($imagePathThumb);
+                }
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+        }
+
+        $item->delete();
+
+        session()->flash('success', 'Delete Successfully!');
     }
 
     public function render(){

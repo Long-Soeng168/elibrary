@@ -7,7 +7,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Publication;
+use App\Models\PublicationImage;
 use App\Models\PublicationCategory;
+use Illuminate\Support\Facades\File;
 
 class PublicationTableData extends Component
 {
@@ -45,6 +47,49 @@ class PublicationTableData extends Component
     // ResetPage when updated search
     public function updatedSearch() {
         $this->resetPage();
+    }
+
+    public function delete($id) {
+        $item = Publication::findOrFail($id);
+
+        if($item->image !== 'image.png') {
+            $imagePathThumb = public_path('assets/images/publications/thumb/' . $item->image);
+            $imagePath = public_path('assets/images/publications/' . $item->image);
+            // Delete the image file from the filesystem
+            if (File::exists($imagePathThumb)) {
+                File::delete($imagePathThumb);
+            }
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        if($item->pdf) {
+            $filePath = public_path('assets/pdf/publications/' . $item->pdf);
+            // Delete the image file from the filesystem
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $multiImages = PublicationImage::where('publication_id', $item->id)->get();
+        if($multiImages){
+            foreach($multiImages as $image) {
+                $imagePathThumb = public_path('assets/images/publications/thumb/' . $image->image);
+                $imagePath = public_path('assets/images/publications/' . $image->image);
+                // Delete the image file from the filesystem
+                if (File::exists($imagePathThumb)) {
+                    File::delete($imagePathThumb);
+                }
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+        }
+
+        $item->delete();
+
+        session()->flash('success', 'Delete Successfully!');
     }
 
     public function render(){

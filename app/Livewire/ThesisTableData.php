@@ -7,7 +7,9 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 use App\Models\Thesis;
+use App\Models\ThesisImage;
 use App\Models\ThesisType as Type;
+use Illuminate\Support\Facades\File;
 
 class ThesisTableData extends Component
 {
@@ -46,6 +48,50 @@ class ThesisTableData extends Component
     public function updatedSearch() {
         $this->resetPage();
     }
+
+    public function delete($id) {
+        $item = Thesis::findOrFail($id);
+
+        if($item->image !== 'image.png') {
+            $imagePathThumb = public_path('assets/images/theses/thumb/' . $item->image);
+            $imagePath = public_path('assets/images/theses/' . $item->image);
+            // Delete the image file from the filesystem
+            if (File::exists($imagePathThumb)) {
+                File::delete($imagePathThumb);
+            }
+            if (File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+        }
+
+        if($item->pdf) {
+            $filePath = public_path('assets/pdf/theses/' . $item->pdf);
+            // Delete the image file from the filesystem
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
+        $multiImages = ThesisImage::where('thesis_id', $item->id)->get();
+        if($multiImages){
+            foreach($multiImages as $image) {
+                $imagePathThumb = public_path('assets/images/theses/thumb/' . $image->image);
+                $imagePath = public_path('assets/images/theses/' . $image->image);
+                // Delete the image file from the filesystem
+                if (File::exists($imagePathThumb)) {
+                    File::delete($imagePathThumb);
+                }
+                if (File::exists($imagePath)) {
+                    File::delete($imagePath);
+                }
+            }
+        }
+
+        $item->delete();
+
+        session()->flash('success', 'Delete Successfully!');
+    }
+
 
     public function render(){
 
