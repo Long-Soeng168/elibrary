@@ -181,7 +181,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="px-4 py-4">No Type or Brand</td>
+                        <td class="px-4 py-4">No Data...</td>
                     </tr>
                 @endforelse
 

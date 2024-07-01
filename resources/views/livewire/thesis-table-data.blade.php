@@ -299,7 +299,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="px-4 py-4">No Data</td>
+                        <td class="px-4 py-4">No Data...</td>
                     </tr>
                 @endforelse
 
