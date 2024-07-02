@@ -118,6 +118,7 @@ Route::group([
 
     // Route::resource('settings', SettingsController::class );
     Route::resource('settings/menus', MenuController::class );
+    Route::resource('settings/slides', SlideController::class );
     Route::resource('settings/footer', FooterController::class );
     Route::resource('settings/links', LinkController::class );
     Route::resource('settings/databases', DatabaseController::class );

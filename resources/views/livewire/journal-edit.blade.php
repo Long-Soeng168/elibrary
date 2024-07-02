@@ -240,7 +240,17 @@
         </div>
 
 
-        <div class="grid lg:grid-cols-1 lg:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
+
+            {{-- Start DOI --}}
+            <div>
+                <x-input-label for="doi" :value="__('DOI (Digital Object Identifier)')" />
+                <x-text-input id="doi" class="block w-full" type="text" name="doi" wire:model='doi'
+                autofocus placeholder="DOI" />
+                <x-input-error :messages="$errors->get('doi')" class="mt-2" />
+            </div>
+            {{-- End DOI --}}
+
             {{-- Start Author Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />

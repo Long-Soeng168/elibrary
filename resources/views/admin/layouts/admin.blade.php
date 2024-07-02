@@ -918,14 +918,14 @@
                 </ul>
 
                 <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
-                    <li>
+                    {{-- <li>
                         <x-sidebar-item href="{{ route('admin.slides.index') }}"
                             class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/slides.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                             <span class="ml-3">Slides</span>
                         </x-sidebar-item>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <x-sidebar-item href="{{ route('admin.authors.index') }}"
                             class="{{ request()->is('admin/authors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
@@ -1075,6 +1075,12 @@
                             </svg>
                         </button>
                         <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
+                            <li>
+                                <a href="{{ url('admin/settings/slides') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    Slides
+                                </a>
+                            </li>
                             <li>
                                 <a href="{{ url('admin/settings/menus') }}"
                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/menus*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">

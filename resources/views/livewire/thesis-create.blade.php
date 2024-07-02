@@ -79,7 +79,7 @@
             <div>
                 <x-input-label for="short_description" :value="__('Abstract')" />
                 <textarea wire:model='short_description' id="short_description" name="short_description"
-                    class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     rows="2" placeholder="Type Short Description..." ></textarea>
             </div>
 

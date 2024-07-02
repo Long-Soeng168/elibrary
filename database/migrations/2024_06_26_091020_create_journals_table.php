@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('barcode')->nullable();
             $table->string('volume')->nullable();
             $table->string('issue')->nullable();
+            $table->string('doi')->nullable();
             $table->string('inventory_number')->nullable();
             $table->date('published_date')->nullable();
             $table->integer('pages_count')->nullable();

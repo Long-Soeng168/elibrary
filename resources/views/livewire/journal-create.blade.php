@@ -79,7 +79,7 @@
             <div>
                 <x-input-label for="short_description" :value="__('Abstract')" />
                 <textarea wire:model='short_description' id="short_description" name="short_description"
-                    class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     rows="2" placeholder="Type Short Description..." ></textarea>
             </div>
 
@@ -240,7 +240,15 @@
         </div>
 
 
-        <div class="grid lg:grid-cols-1 lg:gap-6">
+        <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start DOI --}}
+            <div>
+                <x-input-label for="doi" :value="__('DOI (Digital Object Identifier)')" />
+                <x-text-input id="doi" class="block w-full" type="text" name="doi" wire:model='doi'
+                autofocus placeholder="DOI" />
+                <x-input-error :messages="$errors->get('doi')" class="mt-2" />
+            </div>
+            {{-- End DOI --}}
             {{-- Start Author Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />
@@ -790,7 +798,7 @@
                 <div class="flex flex-col gap-1">
                     @foreach($resourceLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">
-                            <x-text-input id="link_{{ $index }}" class="block w-full mt-1" type="text" name="resourceLinks[]"
+                            <x-text-input id="link_{{ $index }}" class="block w-full" type="text" name="resourceLinks[]"
                                           wire:model="resourceLinks.{{ $index }}" required autofocus placeholder="Link or URL" />
                             <button type="button"
                                     class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-red-700"

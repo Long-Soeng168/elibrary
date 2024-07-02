@@ -63,6 +63,7 @@ class JournalCreate extends Component
     public $published_date = null;
     public $description = null;
     public $short_description = null;
+    public $doi = null;
 
     public $keywords = [];
 
@@ -293,6 +294,7 @@ class JournalCreate extends Component
             'author_id' => 'nullable|exists:authors,id',
             'description' => 'nullable',
             'short_description' => 'nullable',
+            'doi' => 'nullable',
         ]);
 
         $validated['create_by_user_id'] = request()->user()->id;

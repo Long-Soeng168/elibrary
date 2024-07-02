@@ -2,87 +2,69 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Slide;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Image;
+
+use App\Models\Slide;
 
 class SlideController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $slides = Slide::paginate(10);
-        return view('admin.slides.index', compact('slides'));
+        return view('admin.slides.index');
     }
-    
+
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
         return view('admin.slides.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Image validation
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        $item = Slide::findOrFail($id);
+        return view('admin.slides.edit', [
+            'item' => $item,
         ]);
-        
-        $input = $request->all();
-        $image = $request->file('image');
-        if(!empty($image)){
-            $filename = time() . $image->getClientOriginalName();
-        
-            $image_path = public_path('assets/images/slides/'.$filename);
-            $image_thumb_path = public_path('assets/images/slides/thumb/'.$filename);
-            $imageUpload = Image::make($image->getRealPath())->save($image_path);
-            $imageUpload->resize(600,null,function($resize){
-                $resize->aspectRatio();
-            })->save($image_thumb_path);
-            
-            $input['image'] = $filename;
-        }
-
-        $slide = Slide::create($input);
-
-        return redirect()->route('admin.slides.index')->with('success', 'Slide created successfully.');
     }
 
-    public function show($id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
-        $slide = Slide::findOrFail($id);
-        return view('admin.slides.show', compact('slide'));
+        //
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
-        $slide = Slide::findOrFail($id);
-        $input = $request->all();
-        $image = $request->file('image');
-        if(!empty($image)){
-            $filename = time() . $image->getClientOriginalName();
-        
-            $image_path = public_path('assets/images/slides/'.$filename);
-            $image_thumb_path = public_path('assets/images/slides/thumb/'.$filename);
-            $imageUpload = Image::make($image->getRealPath())->save($image_path);
-            $imageUpload->resize(600,null,function($resize){
-                $resize->aspectRatio();
-            })->save($image_thumb_path);
-            
-            $input['image'] = $filename;
-        }
-
-        $slide->update($input);
-
-        return redirect()->route('admin.slides.index')->with('success', 'Slide updated successfully.');
-    }
-
-    public function destroy($id)
-    {
-        Slide::findOrFail($id)->delete();
-        return redirect()->route('admin.slides.index')->with('success', 'Slide deleted successfully.');
+        //
     }
 }
