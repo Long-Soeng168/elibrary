@@ -176,13 +176,13 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->student?->name }}
+                                {{ $item->student?->name ? $item->student?->name : 'N/A' }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->major?->name }}" />
+                        <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />
                         {{-- <x-table-data value="{{ $item->publisher?->name }}" /> --}}
-                            <x-table-data value="{{ $item->type?->name }}" />
-                            <x-table-data value="{{ $item->category?->name }}" />
+                            <x-table-data value="{{ $item->type?->name ? $item->type?->name : 'N/A' }}" />
+                            <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
                         <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" />
 
 

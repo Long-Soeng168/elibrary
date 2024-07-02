@@ -728,7 +728,7 @@
                             >
                             <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">publications</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">E-Publications</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -779,7 +779,7 @@
                             >
                             <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">videos</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Videos</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -828,7 +828,7 @@
                             >
                             <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">images</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Images</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -877,7 +877,7 @@
                             >
                             <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">audios</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Audios</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -927,7 +927,7 @@
                             >
                             <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">bulletins</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Bulletins</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -977,7 +977,7 @@
                             >
                             <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">theses</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Theses</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -1026,7 +1026,7 @@
                             >
                             <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">journals</span>
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Journals</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">

@@ -223,7 +223,7 @@
                             <x-table-data>
                                 <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->name_kh }}
+                                {{ $item->name_kh ? $item->name_kh : 'N/A'}}
                             </span>
                             </x-table-data>
                             <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />

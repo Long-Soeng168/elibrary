@@ -105,16 +105,18 @@
                         @endif
 
                     </th>
-                    <x-table-data value="{{ $user->name }}"/>
-                    <x-table-data value="{{ $user->email }}"/>
-                    <x-table-data value="{{ $user->phone }}"/>
+                    <x-table-data value="{{ $user->name ? $user->name : 'N/A' }}"/>
+                    <x-table-data value="{{ $user->email ? $user->email : 'N/A' }}"/>
+                    <x-table-data value="{{ $user->phone ? $user->phone : 'N/A'}}"/>
                     <x-table-data>
                         @if ($user->roles->count() > 0)
-                            @foreach ($user->roles as $role)
+                            @forelse ($user->roles as $role)
                                 <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
                                     {{ $role->name }}
                                 </span>
-                            @endforeach
+                            @empty
+                                <span>N/A</span>
+                            @endforelse
                         @endif
                     </x-table-data>
                     <td class="px-6 py-4">

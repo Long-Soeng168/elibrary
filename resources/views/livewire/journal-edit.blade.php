@@ -800,7 +800,7 @@
                 <div class="flex flex-col gap-1">
                     @foreach($resourceLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">
-                            <x-text-input id="link_{{ $index }}" class="block w-full mt-1" type="text" name="resourceLinks[]"
+                            <x-text-input id="link_{{ $index }}" class="block w-full" type="text" name="resourceLinks[]"
                                           wire:model="resourceLinks.{{ $index }}" required autofocus placeholder="Link or URL" />
                             <button type="button"
                                     class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-red-700"

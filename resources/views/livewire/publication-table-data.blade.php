@@ -178,15 +178,15 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->author?->name }}
+                                {{ $item->author?->name ? $item->author?->name : 'N/A' }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->publisher?->name }}" />
-                        <x-table-data value="{{ $item->publicationCategory?->name }}" />
+                        <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
+                        <x-table-data value="{{ $item->publicationCategory?->name ? $item->publicationCategory?->name : 'N/A' }}" />
                         {{-- <x-table-data value="{{ $item->publicationSubCategory?->name }}" /> --}}
-                        <x-table-data value="{{ $item->publicationType?->name }}" />
-                        <x-table-data value="{{ $item->language?->name }}" />
-                        <x-table-data value="{{ $item->isbn }}" />
+                        <x-table-data value="{{ $item->publicationType?->name ? $item->publicationType?->name : 'N/A' }}" />
+                        <x-table-data value="{{ $item->language?->name ? $item->language?->name : 'N/A' }}" />
+                        <x-table-data value="{{ $item->isbn ? $item->isbn : 'N/A' }}" />
 
 
                         <td class="px-6 py-4">
