@@ -480,7 +480,7 @@
                                     class="block px-4 py-2 text-sm glightbox4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
                                     My Profile
                                 </a>
-                                <div id="profileFrame" class="hidden">
+                                <div id="profileFrame" class="hidden dark:bg-gray-800">
                                     <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
                                         <div class="min-[1000px]:flex">
                                             <div class="flex flex-col items-center mb-6">
@@ -559,7 +559,7 @@
                                                         <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
                                                             Roles
                                                         </p>
-                                                        <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-200">
+                                                        <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-600">
                                                             @forelse (auth()->user()->roles as $role)
                                                                 <span class="bg-blue-200 ">{{ $role->name }}</span>
                                                             @empty
