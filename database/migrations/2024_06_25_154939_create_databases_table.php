@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_kh')->nullable();
             $table->string('image')->nullable();
+            $table->string('client_side_image')->nullable();
             $table->string('link')->nullable();
+            $table->string('slug')->nullable();
 
             $table->timestamps();
         });

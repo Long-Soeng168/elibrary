@@ -13,11 +13,11 @@
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search Users" required="">
+                    <input type="text" id="simple-search" class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search Users" required="">
                 </div>
-                <div>
-                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                {{-- <div>
+                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                         </svg>
                         Filter
@@ -50,10 +50,10 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </form>
         </div>
-        <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+        <div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
             <x-primary-button href="{{ route('admin.users.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -62,8 +62,8 @@
                 Add User
             </x-primary-button>
 
-            <div class="flex items-center space-x-3 w-full md:w-auto">
-                <button id="filterDropdownButton" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+            <div class="flex items-center w-full space-x-3 md:w-auto">
+                <button id="filterDropdownButton" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-up">
                         <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
                         <path d="M14 2v4a2 2 0 0 0 2 2h4" />
@@ -80,18 +80,13 @@
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    <th scope="col" class="p-4">
-                        <div class="flex items-center">
-                            <input id="checkbox-all" type="checkbox" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-all" class="sr-only">checkbox</label>
-                        </div>
-                    </th>
+                    <th scope="col" class="px-4 py-3">No</th>
                     <th scope="col" class="px-4 py-3">Image</th>
                     <th scope="col" class="px-4 py-3">Name</th>
                     <th scope="col" class="px-4 py-3">Email</th>
                     <th scope="col" class="px-4 py-3">Phone</th>
                     <th scope="col" class="px-4 py-3">Roles</th>
-                    <th scope="col" class="text-center py-3">Action</th>
+                    <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,12 +94,16 @@
             <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="w-4 px-4 py-3">
                     <div class="flex items-center">
-                            <input id="checkbox-table-search-1" type="checkbox" onclick="event.stopPropagation()" class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                        </div>
+                        {{ $loop->iteration }}
+                    </div>
                     </td>
                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-front-image.png" alt="iMac Front Image" class="w-auto h-10 mr-3">
+                        @if ($user->image)
+                            <img src="{{ asset('assets/images/users/thumb/'.$user->image) }}" alt="iMac Front Image" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
+                        @else
+                            <img src="{{ asset('assets/icons/profile.png') }}" alt="iMac Front Image" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
+                        @endif
+
                     </th>
                     <x-table-data value="{{ $user->name }}"/>
                     <x-table-data value="{{ $user->email }}"/>
@@ -119,17 +118,123 @@
                         @endif
                     </x-table-data>
                     <td class="px-6 py-4">
-                        <div class="flex items-start gap-3 justify-center">
-                            <x-add-more-button
-                            identifier="{{ $user->id }}"
-                            addMoreUrl="{{ route('admin.addmore') }}"
-                            tooltipText="Add More"
-                            />
-                            <x-view-detail-button
-                            identifier="{{ $user->id }}"
-                            viewDetailUrl="{{ route('admin.users.show', $user->id) }}"
-                            tooltipText=" View user details"
-                            />
+                        <div class="flex items-start justify-center gap-3">
+                            <a href="#profileFrame{{ $user->id }}" class="glightbox4" data-gallery="gallery1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </a>
+                            <div id="profileFrame{{ $user->id }}" class="hidden">
+                                <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
+                                    <div class="min-[1000px]:flex">
+                                        <div class="flex flex-col items-center mb-6">
+                                            <div class="max-w-[400px] w-full lg:w-auto flex flex-col gap-2 px-2 lg:px-0 border rounded-lg overflow-hidden shardow-md">
+                                                @if ($user->image)
+                                                    <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                    src="{{ asset('assets/images/users/thumb/'.$user->image) }}"
+                                                    alt="User photo">
+
+                                                @else
+                                                <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                src="{{ asset('assets/icons/profile.png') }}"
+                                                alt="User photo">
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="lg:ml-4">
+                                            <div class="mb-4 text-sm font-semibold tracking-wide text-blue-600 uppercase">
+                                                User Informations
+                                            </div>
+                                            {{-- <h1 class="block mt-1 mb-2 text-2xl font-medium leading-tight text-gray-800 dark:text-gray-100">
+                                                Your subtitle or any other text goes here Implementation of Title,
+                                                Subtitle and Author name as well as any other text you like to the
+                                                book cover design.
+                                            </h1> --}}
+                                            <div class="flex flex-col gap-2">
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Name
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->name }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        gender
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->gender ? $user->gender : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Phone
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->phone ? $user->phone : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Email
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->email ? $user->email : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Birth Date
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->date_of_birth ? $user->date_of_birth : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Address
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->address ? $user->address : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Roles
+                                                    </p>
+                                                    <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-200">
+                                                        @forelse ($user->roles as $role)
+                                                            <span class="bg-blue-200 ">{{ $role->name }}</span>
+                                                        @empty
+                                                            <span>N/A</span>
+                                                        @endforelse
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Created At
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->created_at ? $user->created_at : 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Updated At
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $user->updated_at ? $user->updated_at : 'N/A' }}
+                                                    </p>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <x-delete-confirm-button
                             identifier="{{ $user->id }}"
                             deleteUrl="{{ route('admin.users.destroy', $user->id) }}"
@@ -138,7 +243,8 @@
                             />
                             <x-edit-button
                             identifier="{{ $user->id }}"
-                            editUrl="{{ route('admin.users.edit', $user->id) }}"
+                            {{-- editUrl="{{ route('admin.users.edit', $user->id) }}" --}}
+                            editUrl="#"
                             tooltipText="Edit User"
                             />
                         </div>

@@ -194,7 +194,7 @@
                             </path>
                         </svg>
                     </button>
-                    <!-- Notifications -->
+                    {{-- <!-- Notifications -->
                     <button type="button" data-dropdown-toggle="notification-dropdown"
                         class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
                         <span class="sr-only">View notifications</span>
@@ -370,7 +370,7 @@
                                 View all
                             </div>
                         </a>
-                    </div>
+                    </div> --}}
                     <!-- Apps -->
                     <button type="button" data-dropdown-toggle="apps-dropdown"
                         class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
@@ -391,152 +391,214 @@
                             Apps
                         </div>
                         <div class="grid grid-cols-3 gap-4 p-4">
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">Sales</div>
+                            <a href="{{ url('admin/dashboard') }}"
+                                class="{{ request()->is('admin/dashboard*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/dashboard.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Dashboard</div>
                             </a>
-                            <a href="{{ route('admin.users.index') }}"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                                    </path>
-                                </svg>
+                            <a href="{{ url('admin/users') }}"
+                                class="{{ request()->is('admin/users*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/user.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                 <div class="text-sm text-gray-900 dark:text-white">Users</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">Inbox</div>
+                            <a href="{{ url('admin/publications') }}"
+                                class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Publications</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Profile
-                                </div>
+                            <a href="{{ url('admin/videos') }}"
+                                class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Videos</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Settings
-                                </div>
+                            <a href="{{ url('admin/images') }}"
+                                class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Images</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path>
-                                    <path fill-rule="evenodd"
-                                        d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Products
-                                </div>
+                            <a href="{{ url('admin/audios') }}"
+                                class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Audios</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z">
-                                    </path>
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Pricing
-                                </div>
+                            <a href="{{ url('admin/bulletins') }}"
+                                class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
                             </a>
-                            <a href="#"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M5 2a2 2 0 00-2 2v14l3.5-2 3.5 2 3.5-2 3.5 2V4a2 2 0 00-2-2H5zm2.5 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm6.207.293a1 1 0 00-1.414 0l-6 6a1 1 0 101.414 1.414l6-6a1 1 0 000-1.414zM12.5 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Billing
-                                </div>
+                            <a href="{{ url('admin/theses') }}"
+                                class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Theses</div>
                             </a>
-                            <a href="{{ route('logout') }}"
-                                class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                <svg aria-hidden="true"
-                                    class="mx-auto mb-1 text-gray-400 w-7 h-7 group-hover:text-gray-500 dark:text-gray-400 dark:group-hover:text-gray-400"
-                                    fill="currentColor" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                    </path>
-                                </svg>
-                                <div class="text-sm text-gray-900 dark:text-white">
-                                    Logout
-                                </div>
+                            <a href="{{ url('admin/journals') }}"
+                                class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                <div class="text-sm text-gray-900 dark:text-white">Journals</div>
                             </a>
+
                         </div>
                     </div>
                     <button type="button"
-                        class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                        class="flex mx-3 text-sm bg-white rounded-full dark:bg-gray-300 md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
+                        @if (auth()->user()->image)
+                            <img class="object-cover w-8 h-8 p-0.5 rounded-full"
+                            src="{{ asset('assets/images/users/thumb/'.auth()->user()->image) }}"
                             alt="user photo" />
+                        @else
+                            <img class="object-cover w-8 h-8 p-0.5 rounded-full"
+                            src="{{ asset('assets/icons/profile.png') }}"
+                            alt="user photo" />
+                        @endif
+
                     </button>
                     <!-- Dropdown menu -->
                     <div class="z-50 hidden w-56 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
                         id="dropdown">
                         <div class="px-4 py-3">
-                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">Neil Sims</span>
-                            <span class="block text-sm text-gray-900 truncate dark:text-white">name@flowbite.com</span>
+                            <span class="block text-sm font-semibold text-gray-900 dark:text-white">
+                                {{ auth()->user()->name }}
+                            </span>
+                            <span class="block text-sm text-gray-900 truncate dark:text-white">
+                                {{ auth()->user()->email }}
+                            </span>
                         </div>
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">My
-                                    profile</a>
+                                <a href="#profileFrame" data-gallery="gallery2"
+                                    class="block px-4 py-2 text-sm glightbox4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">
+                                    My Profile
+                                </a>
+                                <div id="profileFrame" class="hidden">
+                                    <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
+                                        <div class="min-[1000px]:flex">
+                                            <div class="flex flex-col items-center mb-6">
+                                                <div class="max-w-[400px] w-full lg:w-auto flex flex-col gap-2 px-2 lg:px-0 border rounded-lg overflow-hidden shardow-md">
+                                                    @if (auth()->user()->image)
+                                                        <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                        src="{{ asset('assets/images/users/thumb/'.auth()->user()->image) }}"
+                                                        alt="User photo">
+
+                                                    @else
+                                                    <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                    src="{{ asset('assets/icons/profile.png') }}"
+                                                    alt="User photo">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="lg:ml-4">
+                                                <div class="mb-4 text-sm font-semibold tracking-wide text-blue-600 uppercase">
+                                                    User Informations
+                                                </div>
+                                                {{-- <h1 class="block mt-1 mb-2 text-2xl font-medium leading-tight text-gray-800 dark:text-gray-100">
+                                                    Your subtitle or any other text goes here Implementation of Title,
+                                                    Subtitle and Author name as well as any other text you like to the
+                                                    book cover design.
+                                                </h1> --}}
+                                                <div class="flex flex-col gap-2">
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Name
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->name }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            gender
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->gender ? auth()->user()->gender : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Phone
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->phone ? auth()->user()->phone : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Email
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->email ? auth()->user()->email : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Birth Date
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Address
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->address ? auth()->user()->address : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Roles
+                                                        </p>
+                                                        <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-200">
+                                                            @forelse (auth()->user()->roles as $role)
+                                                                <span class="bg-blue-200 ">{{ $role->name }}</span>
+                                                            @empty
+                                                                <span>N/A</span>
+                                                            @endforelse
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Created At
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->created_at ? auth()->user()->created_at : 'N/A' }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex nowrap">
+                                                        <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                            Updated At
+                                                        </p>
+                                                        <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                            {{ auth()->user()->updated_at ? auth()->user()->updated_at : 'N/A' }}
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
+
                             <li>
-                                <a href="#"
+                                <a href="{{ url('/profile') }}"
                                     class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-white">Account
                                     settings</a>
                             </li>
                         </ul>
-                        <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
+                        {{-- <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
                                 <a href="#"
                                     class="flex items-center px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg
@@ -581,7 +643,7 @@
                                     </svg>
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                         <ul class="py-1 text-gray-700 dark:text-gray-300" aria-labelledby="dropdown">
                             <li>
                                 <a href="{{ route('logout') }}"
@@ -601,7 +663,7 @@
             aria-label="Sidenav" id="drawer-navigation">
             <a href="/" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
                 @if ($websiteInfo->image)
-                     <img src="{{ asset('assets/images/website_infos/'.$websiteInfo->image) }}" class="h-8 mr-3" alt="Flowbite Logo" />
+                     <img src="{{ asset('assets/images/website_infos/'.$websiteInfo->image) }}" class="object-cover h-8 mr-3 rounded-full aspect-square" alt="Flowbite Logo" />
                 @endif
                 <span class="self-center text-2xl font-semibold line-clamp-1 dark:text-white">
                     {{ $websiteInfo->name }}
@@ -646,15 +708,27 @@
 
                 </ul>
 
-                <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
-                    <li x-data="{ open: {{ request()->is('admin/publications*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+                <ul class="pt-3 mt-5 border-t border-gray-200 dark:border-gray-700">
+                    <li x-data="{
+                            open: {{ request()->is('admin/publications*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/publications*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.publications.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="publications"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="publication-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.publications.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">E-Publications</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">publications</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -664,8 +738,10 @@
                         </button>
                         <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
                             <li>
-                                <a href="{{ route('admin.publications.index') }}"
-                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">E-Publications</a>
+                                <a href="{{ url('admin/publications') }}"
+                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                    E-Publications
+                                </a>
                             </li>
                             <li>
                                 <a href="{{ url('admin/publications_types') }}"
@@ -684,14 +760,26 @@
                             </li>
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/videos*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+                    <li x-data="{
+                            open: {{ request()->is('admin/videos*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/videos*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.videos.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="videos"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="video-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.videos.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/video.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Videos</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">videos</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -721,14 +809,26 @@
                             </li>
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/images*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+                    <li x-data="{
+                            open: {{ request()->is('admin/images*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/images*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.images.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="images"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="image-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.images.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/image.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Images</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">images</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -758,14 +858,26 @@
                             </li>
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/audios*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+                    <li x-data="{
+                            open: {{ request()->is('admin/audios*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/audios*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.audios.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="audios"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="audio-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.audios.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/audio.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Audios</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">audios</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -795,14 +907,27 @@
                             </li>
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+
+                    <li x-data="{
+                            open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/bulletins*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.bulletins.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="bulletins"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="bulletin-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.bulletins.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/bulletin.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Bulletins</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">bulletins</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -832,14 +957,27 @@
                             </li>
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/theses*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+
+                    <li x-data="{
+                            open: {{ request()->is('admin/theses*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/theses*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.theses.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="theses"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="these-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.theses.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/thesis.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Theses</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">theses</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -869,14 +1007,26 @@
                             </li> --}}
                         </ul>
                     </li>
-                    <li x-data="{ open: {{ request()->is('admin/journals*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" type="button"
+                    <li x-data="{
+                            open: {{ request()->is('admin/journals*') ? 'true' : 'false' }},
+                            init() {
+                                if ({{ request()->is('admin/journals*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.journals.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="journals"
+                        class="pt-1"
+                    >
+                        <button
+                            type="button"
                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
-                            aria-controls="journal-dropdown" :aria-expanded="open"
-                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }">
+                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                            @click="open = !open; if (open) $nextTick(() => $refs.journals.scrollIntoView({ behavior: 'smooth' }))"
+                            >
                             <img src="{{ asset('assets/icons/journal.png') }}" alt="icon"
-                                class="object-contain w-8 h-8">
-                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">Journals</span>
+                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                            <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">journals</span>
                             <svg class="w-3 h-3 transition-transform duration-200 transform"
                                 :class="{ 'rotate-180': open }" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
@@ -908,42 +1058,19 @@
                     </li>
 
 
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.publications.index') }}"
-                            class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/epublication.png') }}" alt="icon" class="object-contain w-8 h-8">
-                            <span class="ml-3">E-Publications</span>
-                        </x-sidebar-item>
-                    </li> --}}
                 </ul>
 
                 <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.slides.index') }}"
-                            class="{{ request()->is('admin/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/slides.png') }}" alt="icon"
-                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="ml-3">Slides</span>
-                        </x-sidebar-item>
-                    </li> --}}
-                    {{-- <li>
-                        <x-sidebar-item href="{{ route('admin.authors.index') }}"
-                            class="{{ request()->is('admin/authors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/author.png') }}" alt="icon"
-                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="ml-3">Authors</span>
-                        </x-sidebar-item>
-                    </li>
-                    <li>
-                        <x-sidebar-item href="{{ route('admin.publishers.index') }}"
-                            class="{{ request()->is('admin/publishers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                            <img src="{{ asset('assets/icons/publisher.png') }}" alt="icon"
-                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                            <span class="ml-3">Publishers</span>
-                        </x-sidebar-item>
-                    </li> --}}
-
-                    <li>
+                    <li
+                        x-data="{
+                            init() {
+                                if ({{ request()->is('admin/keywords*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.keywords.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="keywords"
+                    >
                         <x-sidebar-item href="{{ route('admin.keywords.index') }}"
                             class="{{ request()->is('admin/keywords*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/keyword.png') }}" alt="icon"
@@ -951,7 +1078,16 @@
                             <span class="ml-3">Keywords</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    <li
+                        x-data="{
+                            init() {
+                                if ({{ request()->is('admin/locations*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.locations.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="locations"
+                    >
                         <x-sidebar-item href="{{ route('admin.locations.index') }}"
                             class="{{ request()->is('admin/locations*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/location.png') }}" alt="icon"
@@ -959,7 +1095,16 @@
                             <span class="ml-3">Locations</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    <li
+                        x-data="{
+                            init() {
+                                if ({{ request()->is('admin/languages*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.languages.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="languages"
+                    >
                         <x-sidebar-item href="{{ route('admin.languages.index') }}"
                             class="{{ request()->is('admin/languages*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/language.png') }}" alt="icon"
@@ -967,7 +1112,16 @@
                             <span class="ml-3">Languages</span>
                         </x-sidebar-item>
                     </li>
-                    <li>
+                    <li
+                        x-data="{
+                            init() {
+                                if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
+                                    this.$nextTick(() => this.$refs.majors.scrollIntoView({ behavior: 'smooth' }));
+                                }
+                            }
+                        }"
+                        x-ref="majors"
+                    >
                         <x-sidebar-item href="{{ route('admin.majors.index') }}"
                             class="{{ request()->is('admin/majors*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                             <img src="{{ asset('assets/icons/major.png') }}" alt="icon"
@@ -1132,7 +1286,7 @@
                     </svg>
                 </button>
 
-                <a href="#" data-tooltip-target="tooltip-settings"
+                <a href="{{ url('/profile') }}" data-tooltip-target="tooltip-settings"
                     class="inline-flex justify-center p-2 text-gray-600 rounded cursor-pointer dark:text-gray-300 dark:hover:text-white hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-600">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-cog"><path d="M2 21a8 8 0 0 1 10.434-7.62"/><circle cx="10" cy="8" r="5"/><circle cx="18" cy="18" r="3"/><path d="m19.5 14.3-.4.9"/><path d="m16.9 20.8-.4.9"/><path d="m21.7 19.5-.9-.4"/><path d="m15.2 16.9-.9-.4"/><path d="m21.7 16.5-.9.4"/><path d="m15.2 19.1-.9.4"/><path d="m19.5 21.7-.4-.9"/><path d="m16.9 15.2-.4-.9"/></svg>
                     </svg>

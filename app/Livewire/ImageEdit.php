@@ -17,7 +17,7 @@ use App\Models\Keyword;
 use Image as ImageClass;
 use Illuminate\Support\Facades\File;
 
-class ImageCreate extends Component
+class ImageEdit extends Component
 {
     use WithFileUploads;
 

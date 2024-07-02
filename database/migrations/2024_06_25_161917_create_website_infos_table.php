@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->string('primary')->nullable();
             $table->string('primary_hover')->nullable();
+            $table->string('banner_color')->nullable();
 
             $table->timestamps();
         });

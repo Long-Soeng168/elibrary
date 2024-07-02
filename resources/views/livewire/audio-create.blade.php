@@ -901,7 +901,7 @@
             <div class="flex items-center space-4" wire:key='uploadfile'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Uploa Audio File (Max : 2MB) <span class="text-red-500">*</span>
+                        Upload Audio File (Max : 2MB) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="file"
