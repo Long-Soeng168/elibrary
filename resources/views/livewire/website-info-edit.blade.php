@@ -80,6 +80,9 @@
                     required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
+        </div>
+        <div class="grid gap-5 mb-5 lg:grid-cols-3">
+            <!-- Start Name -->
             <div>
                 <x-input-label for="primary" :value="__('Primary Color')" /><span class="text-red-500">*</span>
                 <input type="color" class="block w-full mt-1" wire:model='primary'>
@@ -89,6 +92,11 @@
                 <x-input-label for="primary_hover" :value="__('Primary Hover Color')" /><span class="text-red-500">*</span>
                 <input type="color" class="block w-full mt-1" wire:model='primary_hover'>
                 <x-input-error :messages="$errors->get('primary_hover')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="banner_color" :value="__('Banner Color')" /><span class="text-red-500">*</span>
+                <input type="color" class="block w-full mt-1" wire:model='banner_color'>
+                <x-input-error :messages="$errors->get('banner_color')" class="mt-2" />
             </div>
 
             <!-- End Name -->

@@ -73,6 +73,14 @@ class AudioTableData extends Component
             }
         }
 
+        if($item->file) {
+            $filePath = public_path('assets/audios/' . $item->file);
+            // Delete the image file from the filesystem
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+        }
+
         $multiImages = AudioImage::where('audio_id', $item->id)->get();
         if($multiImages){
             foreach($multiImages as $image) {

@@ -13,11 +13,14 @@ class DatabaseEdit extends Component
     use WithFileUploads;
 
     public $image;
+    public $client_side_image;
 
     public $item; // Variable to hold the item record for editing
     public $name;
     public $name_kh;
     public $link;
+    public $slug;
+    public $order_index;
     public $description;
     public $description_kh;
 
@@ -27,9 +30,20 @@ class DatabaseEdit extends Component
         $this->name = $item->name;
         $this->name_kh = $item->name_kh;
         $this->link = $item->link;
+        $this->slug = $item->slug;
+        $this->order_index = $item->order_index;
     }
 
     public function updatedImage()
+    {
+        $this->validate([
+            'image' => 'image|max:2048', // 2MB Max
+        ]);
+
+        session()->flash('success', 'Image successfully uploaded!');
+    }
+
+    public function updatedClient_side_image()
     {
         $this->validate([
             'image' => 'image|max:2048', // 2MB Max
@@ -43,7 +57,9 @@ class DatabaseEdit extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
-            'link' => 'required|url|max:255',
+            'link' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:databases,slug,'.$this->item->id,
+            'order_index' => 'nullable||max:255',
         ]);
 
         // Update the existing item record
@@ -53,6 +69,14 @@ class DatabaseEdit extends Component
             $image_path = public_path('assets/images/databases/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
+        }
+
+        if(!empty($this->client_side_image)){
+            $filename = time() . '_' . $this->client_side_image->getClientOriginalName();
+
+            $image_path = public_path('assets/images/databases/'.$filename);
+            $imageUpload = Image::make($this->client_side_image->getRealPath())->save($image_path);
+            $validated['client_side_image'] = $filename;
         }
 
         $this->item->update($validated);

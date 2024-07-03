@@ -19,10 +19,10 @@ class DatabaseTableData extends Component
     public $perPage = 10;
 
     #[Url(history: true)]
-    public $sortBy = 'created_at';
+    public $sortBy = 'order_index';
 
     #[Url(history: true)]
-    public $sortDir = 'DESC';
+    public $sortDir = 'ASC';
 
     public function setFilter($value) {
         $this->filter = $value;
@@ -39,6 +39,10 @@ class DatabaseTableData extends Component
     }
     public function delete($id) {
         $item = Database::findOrFail($id);
+        if($item->slug && !$item->link) {
+            session()->flash('success', 'Cannot Delete!');
+            return;
+        }
         $item->delete();
 
         session()->flash('success', 'Successfully deleted!');
@@ -47,6 +51,12 @@ class DatabaseTableData extends Component
     // ResetPage when updated search
     public function updatedSearch() {
         $this->resetPage();
+    }
+    public function toggleActive($id) {
+        $database = Database::findOrFail($id);
+        $database->update([
+            'status' => !$database->status,
+        ]);
     }
 
     public function render(){

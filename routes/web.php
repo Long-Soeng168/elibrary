@@ -29,6 +29,8 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -102,6 +104,13 @@ Route::group([
     Route::get('journals_images/{id}', [JournalController::class, 'images']);
 
 
+    Route::resource('permissions', AdminPermissionController::class);
+    Route::resource('roles', AdminRoleController::class);
+    Route::get('roles/{id}/give-permissions', [AdminRoleController::class, 'givePermissionsToRole']);
+    Route::put('roles/{id}/give-permissions', [AdminRoleController::class, 'updatePermissionsToRole']);
+    Route::resource('users', AdminUserController::class );
+    Route::put('users/{user}/update_password', [AdminUserController::class, 'updateUserPassword']);
+
     Route::resource('keywords', KeywordController::class);
     Route::resource('languages', LanguageController::class);
     Route::resource('majors', MajorController::class);
@@ -110,7 +119,6 @@ Route::group([
     // ======================================================
 
     Route::resource('dashboard', DashboardController::class );
-    Route::resource('users', AdminUserController::class );
     Route::resource('customers', CustomerController::class );
     Route::resource('items', ItemController::class );
     Route::resource('categories', CategoryController::class );

@@ -5,9 +5,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use DB;
 
 class AdminUserController extends Controller
 {
@@ -86,7 +88,7 @@ class AdminUserController extends Controller
         }
 
 
-        return redirect('/admin/users')->with('status', 'User created successfully');
+        return redirect('/admin/users')->with('success', 'User Created Successfully');
     }
 
     /**
@@ -100,9 +102,8 @@ class AdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        dd('Edit user', $id);
+    public function edit($id) {
+
         $user = User::findOrFail($id);
         $roles = Role::all();
         $userRoles = DB::table('model_has_roles')
@@ -116,14 +117,56 @@ class AdminUserController extends Controller
             'userRoles' => $userRoles,
         ]);
     }
+    public function update(Request $request, User $user) {
+        // return $request->all();
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'roles' => ['required'],
+        ]);
 
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        $roles = $request->only('roles');
+
+        if ($roles) {
+            $user->syncRoles($roles);
+        }
+
+        return redirect('admin/users')->with('success', 'User Updated Successfully');
+    }
+
+
+
+    public function updateUserPassword(Request $request, User $user)
+    {
+        // return $user;
+        $request->validate([
+            'current_password' => ['required'],
+            'password' => ['required', 'confirmed'],
+        ]);
+
+        $currentPassword = $request->input('current_password');
+        $newPassword = $request->input('password');
+
+        // Check if the current password matches the password stored in the database for the user
+        if (!Hash::check($currentPassword, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'The current password is incorrect.'])->withInput();
+        }
+
+        // Update the user's password
+        $user->update([
+            'password' => Hash::make($newPassword),
+        ]);
+
+        return redirect('admin/users')->with('success', 'Password Updated Successfully!');
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -133,6 +176,6 @@ class AdminUserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->back()->with('status', 'Delete Successful!');
+        return redirect()->back()->with('success', 'Delete Successful!');
     }
 }

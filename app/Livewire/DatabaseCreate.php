@@ -13,16 +13,28 @@ class DatabaseCreate extends Component
     use WithFileUploads;
 
     public $image;
+    public $client_side_image;
     // public $pdf;
 
 
     public $name = null;
     public $name_kh = null;
     public $link = null;
+    public $slug = null;
+    public $order_index = 0;
     public $description = null;
     public $description_kh = null;
 
     public function updatedImage()
+    {
+        $this->validate([
+            'image' => 'image|max:2048', // 2MB Max
+        ]);
+
+        session()->flash('success', 'Image successfully uploaded!');
+    }
+
+    public function updatedClient_side_image()
     {
         $this->validate([
             'image' => 'image|max:2048', // 2MB Max
@@ -53,7 +65,9 @@ class DatabaseCreate extends Component
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
             'image' => 'required|file|max:2048',
-            'link' => 'required|url|max:255',
+            'link' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:databases,slug',
+            'order_index' => 'nullable|max:255',
         ]);
 
         // $validated['create_by_user_id'] = request()->user()->id;
@@ -66,6 +80,15 @@ class DatabaseCreate extends Component
             $image_path = public_path('assets/images/databases/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
+        }
+
+
+        if(!empty($this->client_side_image)){
+            $filename = time() . '_' . $this->client_side_image->getClientOriginalName();
+
+            $image_path = public_path('assets/images/databases/'.$filename);
+            $imageUpload = Image::make($this->client_side_image->getRealPath())->save($image_path);
+            $validated['client_side_image'] = $filename;
         }
 
         // if (!empty($this->pdf)) {

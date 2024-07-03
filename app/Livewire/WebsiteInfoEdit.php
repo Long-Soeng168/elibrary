@@ -20,6 +20,7 @@ class WebsiteInfoEdit extends Component
     public $name_kh;
     public $primary;
     public $primary_hover;
+    public $banner_color;
     public $description;
     public $description_kh;
 
@@ -30,6 +31,7 @@ class WebsiteInfoEdit extends Component
         $this->name_kh = $item->name_kh;
         $this->primary = $item->primary;
         $this->primary_hover = $item->primary_hover;
+        $this->banner_color = $item->banner_color;
     }
 
     public function updatedImage()
@@ -56,6 +58,7 @@ class WebsiteInfoEdit extends Component
             'name_kh' => 'required|string|max:255',
             'primary' => 'required|max:255',
             'primary_hover' => 'required|max:255',
+            'banner_color' => 'required|max:255',
         ]);
 
         // Update the existing item record

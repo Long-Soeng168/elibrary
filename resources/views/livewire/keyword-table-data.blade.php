@@ -188,7 +188,7 @@
                         </div>
                     </th>
                     <th scope="col" class="px-4 py-3">Created At</th>
-                    <th scope="col" class="py-3 text-center w-[300px]">Action</th>
+                    <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
             <tbody>

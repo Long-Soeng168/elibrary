@@ -96,8 +96,10 @@
                     </th>
 
                     <th scope="col" class="px-4 py-3">Name_kh</th>
+                    <th scope="col" class="px-4 py-3">Slug</th>
                     <th scope="col" class="px-4 py-3">Link</th>
-                    <th scope="col" class="px-4 py-3">Created_at</th>
+                    <th scope="col" class="px-4 py-3">Order Index</th>
+                    <th scope="col" class="px-4 py-3">Status</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -116,15 +118,31 @@
                             </a>
                         </th>
                         <x-table-data value="{{ $item->name }}" />
-                        <x-table-data value="{{ $item->name_kh }}" />
+                        <x-table-data value="{{ $item->name_kh ? $item->name_kh : 'N/A' }}" />
                         {{-- <x-table-data value="{{ $item->description }}" /> --}}
                         <x-table-data>
-                            <span
-                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->link }}
-                            </span>
+                                {{ $item->slug ? $item->slug : 'N/A' }}
                         </x-table-data>
-                        <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
+                        <x-table-data>
+                            {{ $item->link ? $item->link : 'N/A' }}
+                        </x-table-data>
+                        <x-table-data>
+                            {{ $item->order_index ? $item->order_index : 'N/A' }}
+                        </x-table-data>
+                        <x-table-data wire:click='toggleActive({{ $item->id }})' class="cursor-pointer">
+                            @if ($item->status == 1)
+                                <span
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                    Active
+                                </span>
+                            @else
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                    InActive
+                                </span>
+                            @endif
+
+                        </x-table-data>
 
 
                         <td class="px-6 py-4">

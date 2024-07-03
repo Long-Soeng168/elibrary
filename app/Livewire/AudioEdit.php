@@ -349,18 +349,18 @@ class AudioEdit extends Component
             $validated['image'] = $this->item->image;
         }
 
-        // if (!empty($this->pdf)) {
-        //     $filename = time() . '_' . $this->pdf->getClientOriginalName();
-        //     $this->pdf->storeAs('audios', $filename, 'publicForPdf');
-        //     $validated['pdf'] = $filename;
+        if (!empty($this->file)) {
+            $filename = time() . '_' . $this->file->getClientOriginalName();
+            $this->file->storeAs('/', $filename, 'publicForAudio');
+            $validated['file'] = $filename;
 
-        //     $old_file = public_path('assets/pdf/audios/' . $this->item->pdf);
-        //     if (File::exists($old_file)) {
-        //         File::delete($old_file);
-        //     }
-        // }else {
-        //     $validated['pdf'] = $this->item->pdf;
-        // }
+            $old_file = public_path('assets/audios/' . $this->item->file);
+            if (File::exists($old_file)) {
+                File::delete($old_file);
+            }
+        }else {
+            $validated['file'] = $this->item->file;
+        }
 
         $this->item->update($validated);
 
