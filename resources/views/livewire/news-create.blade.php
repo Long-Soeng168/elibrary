@@ -916,7 +916,7 @@
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
-                                @if ($file)
+                            @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
                                         {{ $file->getClientOriginalName() }}

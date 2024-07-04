@@ -9,9 +9,9 @@
             <div class="flex flex-col items-center px-2 mb-6 mr-2 lg-px-0">
                 <div class="max-w-[400px] flex flex-col gap-2">
 
-                    <a href="{{ asset('assets/images/publications/thumb/'.$item->image) }}" class="glightbox">
+                    <a href="{{ asset('assets/images/publications/'.$item->image) }}" class="glightbox">
                         <img class="max-w-[400px] aspect-[6/9] object-cover rounded-md cursor-pointer"
-                            src="{{ asset('assets/images/publications/thumb/'.$item->image) }}" alt="Book Cover" />
+                            src="{{ asset('assets/images/publications/'.$item->image) }}" alt="Book Cover" />
                     </a>
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
@@ -21,7 +21,7 @@
                                             src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
                                     </a>
                                 @elseif ($index == 3)
-                                    <a href="{{ asset('assets/images/publications/thumb/' . $image->image) }}"
+                                    <a href="{{ asset('assets/images/publications/' . $image->image) }}"
                                     class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
                                         <div class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
                                             <span class="text-xl font-medium text-white">
@@ -32,7 +32,7 @@
                                             class="rounded-lg w-full aspect-[1/1]">
                                     </a>
                                 @else
-                                    <a href="{{ asset('assets/images/publications/thumb/' . $image->image) }}" class="glightbox">
+                                    <a href="{{ asset('assets/images/publications/' . $image->image) }}" class="glightbox">
                                         <img class="hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
                                             src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
                                     </a>

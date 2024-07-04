@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\Audio;
 use App\Models\Thesis;
 use App\Models\Journal;
+use App\Models\News;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,7 @@ class HomeController extends Controller
         $videos = Video::latest()->limit(4)->get();
         $images = Image::latest()->limit(4)->get();
         $audios = Audio::latest()->limit(4)->get();
+        $bulletins = News::latest()->limit(4)->get();
         $theses = Thesis::latest()->limit(6)->get();
         $journals = Journal::latest()->limit(6)->get();
         return view('client.home', [
@@ -28,6 +30,7 @@ class HomeController extends Controller
             'videos' => $videos,
             'images' => $images,
             'audios' => $audios,
+            'bulletins' => $bulletins,
             'theses' => $theses,
             'journals' => $journals,
         ]);

@@ -916,18 +916,18 @@
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
-                                @if ($file)
+                                @if ($pdf)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
-                                        {{ $file->getClientOriginalName() }}
+                                        {{ $pdf->getClientOriginalName() }}
                                     </p>
                                 @endif
                             </div>
-                            <input type="file" wire:model="file" id="file" name="file"
+                            <input type="file" wire:model="pdf" id="file" name="file"
                                 accept="application/pdf" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
-                    <div wire:loading wire:target="file" class="text-blue-700">
+                    <div wire:loading wire:target="pdf" class="text-blue-700">
                         <span>
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...

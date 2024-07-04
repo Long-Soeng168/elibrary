@@ -43,6 +43,9 @@ use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Client\ClientPublicationController;
 use App\Http\Controllers\Client\ClientVideoController;
+use App\Http\Controllers\Client\ClientAudioController;
+use App\Http\Controllers\Client\ClientImageController;
+use App\Http\Controllers\Client\ClientNewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -172,36 +175,18 @@ Route::get('/', [HomeController::class, 'index']);
 // });
 Route::get('/publications', [ClientPublicationController::class, 'index']);
 Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
+
 Route::get('/videos', [ClientVideoController::class, 'index']);
 Route::get('/videos/{id}', [ClientVideoController::class, 'show']);
 
-Route::get('/audios', function () {
-    return view('client.audios.index');
-});
-Route::get('/audios/detail', function () {
-    return view('client.audios.show');
-});
+Route::get('/audios', [ClientAudioController::class, 'index']);
+Route::get('/audios/{id}', [ClientAudioController::class, 'show']);
 
-Route::get('/images', function () {
-    return view('client.images.index');
-});
-Route::get('/images/detail', function () {
-    return view('client.images.show');
-});
+Route::get('/images', [ClientImageController::class, 'index']);
+Route::get('/images/{id}', [ClientImageController::class, 'show']);
 
-Route::get('/bulletins', function () {
-    return view('client.news.index');
-});
-Route::get('/bulletins/detail', function () {
-    return view('client.news.show');
-});
-Route::get('/news', function () {
-    return view('client.news.index');
-});
-Route::get('/news/detail', function () {
-    return view('client.news.show');
-});
-
+Route::get('/bulletins', [ClientNewsController::class, 'index']);
+Route::get('/bulletins/{id}', [ClientNewsController::class, 'show']);
 
 
 // Route::get('publications/{id}', function () {

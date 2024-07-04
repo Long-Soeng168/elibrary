@@ -23,7 +23,7 @@ class NewsEdit extends Component
 
     public $item;
     public $image;
-    public $file;
+    public $pdf;
 
     public $news_category_id = null;
     public $news_sub_category_id = null;
@@ -287,10 +287,10 @@ class NewsEdit extends Component
         session()->flash('success', 'Image successfully uploaded!');
     }
 
-    public function updatedFile()
+    public function updatedPdf()
     {
         $this->validate([
-            'file' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:2048', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
