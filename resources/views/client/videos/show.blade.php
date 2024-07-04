@@ -9,13 +9,13 @@
             <div class="flex flex-col items-center mx-2 mb-6 lg:mx-0">
                 <div class="max-w-[500px] flex flex-col gap-2 px-2">
                     <div class="relative max-w-[500px] rounded-md overflow-hidden">
-                        <img class="max-w-[500px] aspect-video object-cover rounded-md cursor-pointer"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg" alt="Book Cover" />
+                        <img class="max-w-[500px] w-full aspect-video object-cover rounded-md cursor-pointer border"
+                            src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
 
-                        <div class="absolute inset-0 size-full">
+                        <div class="absolute inset-0 border size-full">
                             <div class="flex flex-col items-center justify-center size-full">
                                 <a class="inline-flex items-center px-4 py-3 text-sm font-semibold text-gray-800 bg-white border border-gray-200 rounded-full shadow-sm glightbox3 gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                                    href="https://youtu.be/DV2tAG5E-F0?si=v4dCW08HXoYI8FBZ">
+                                    href="{{ $item->link }}">
                                     <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -25,6 +25,33 @@
                                 </a>
                             </div>
                         </div>
+
+                    </div>
+                    <div class="grid grid-cols-4 gap-2">
+                        @foreach ($multi_images as $index => $image)
+                            @if ($index < 3 || count($multi_images) == 4)
+                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}" class="glightbox">
+                                    <img class="w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                        src="{{ asset('assets/images/videos/thumb/' . $image->image) }}">
+                                </a>
+                            @elseif ($index == 3)
+                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}"
+                                class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
+                                    <div class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
+                                        <span class="text-xl font-medium text-white">
+                                            +{{ count($multi_images) - 4 }}
+                                        </span>
+                                    </div>
+                                    <img src="{{ asset('assets/images/videos/thumb/' . $image->image) }}"
+                                        class="rounded-lg w-full aspect-[1/1]">
+                                </a>
+                            @else
+                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}" class="glightbox">
+                                    <img class="hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                        src="{{ asset('assets/images/videos/thumb/' . $image->image) }}">
+                                </a>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -33,97 +60,126 @@
                     Video
                 </div>
                 <h1 class="block mt-1 mb-2 text-2xl font-medium leading-tight text-gray-800 dark:text-gray-100">
-                    Your subtitle or any other text goes here Implementation of Title,
-                    Subtitle and Author name as well as any other text you like to the
-                    book cover design.
+                    {{ $item->name}}
                 </h1>
                 <div class="flex flex-col gap-2">
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Author
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">
-                            Long Soeng Co.
-                        </p>
-                    </div>
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Publisher
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">Routledge</p>
-                    </div>
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Year
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">1988</p>
-                    </div>
-                    <div class="flex items-center nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Page Count
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">322</p>
-                    </div>
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Type
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">
-                            សៀវភៅ / Book
-                        </p>
-                    </div>
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Language
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">English</p>
-                    </div>
-                    <div class="flex nowrap">
-                        <p
-                            class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                            Location
-                        </p>
-                        <p class="text-sm text-gray-600 dark:text-gray-200">
-                            London, England
-                        </p>
-                    </div>
+                    @if ($item->author?->name)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Author
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->author?->name }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->isbn)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                isbn
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->isbn }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->publisher?->name)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Publisher
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->publisher?->name }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->year)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Year
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->year }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->pages_count)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Pages
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->pages_count }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->type?->name)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Type
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->type?->name }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->language?->name)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Language
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->language?->name }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->location?->name)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Location
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->location?->name }}
+                            </p>
+                        </div>
+                    @endif
+                    @if ($item->keywords)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                Keywords
+                            </p>
+                            <p class="space-x-1 space-y-1 text-sm text-gray-600 dark:text-gray-200">
+                                @foreach (explode(',', $item->keywords) as $keyword)
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 whitespace-nowrap capitalize">
+                                        {{ $keyword }}
+                                    </span>
+                                @endforeach
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-        <div class="mt-8 lg:pl-2 xl:pl-0">
-            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                Description
-            </h2>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">
-                Upgrade to paperback for just
-                <span class="font-bold">$100</span> extra. Get matching spine and back
-                cover for your book.
-                <a href="#" class="underline text-primary">Contact me</a> for
-                upgrading or drop in a line when you place the order.
-            </p>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">
-                Purchase will include hi resolution
-                <span class="font-bold">eBook cover design</span> ready to upload to
-                Amazon Kindle, B&N Nook books and Smashwords.
-            </p>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">
-                Implementation of Title, Subtitle and Author name as well as any other
-                text you like to the
-                <span class="font-bold">book cover design</span>.
-            </p>
-            <p class="mt-2 text-gray-600 dark:text-gray-300">
-                Exclusive
-                <a href="#" class="underline text-primary">premade book covers</a>,
-                designed using only Standard license royalty-free stock photos.
-                Copyrights to the design transferred to client for all purchases.
-            </p>
-        </div>
+        @if ($item->description)
+                <div class="mt-8 lg:pl-2 xl:pl-0">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                        Description
+                    </h2>
+                    <div class="no-tailwind">
+                        {!! $item->description !!}
+                    </div>
+                </div>
+                @endif
+
     </div>
     <!-- End Detail -->
 

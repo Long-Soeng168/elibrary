@@ -41,7 +41,8 @@ use App\Http\Controllers\Admin\DtcController;
 use App\Http\Controllers\Admin\SlideController;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Client\ClientPublicationsController;
+use App\Http\Controllers\Client\ClientPublicationController;
+use App\Http\Controllers\Client\ClientVideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,17 +170,10 @@ Route::get('/', [HomeController::class, 'index']);
 // Route::get('/publications', function () {
 //     return view('client.publications.index');
 // });
-Route::get('/publications', [ClientPublicationsController::class, 'index']);
-Route::get('/publications/detail', function () {
-    return view('client.publications.show');
-});
-
-Route::get('/videos', function () {
-    return view('client.videos.index');
-});
-Route::get('/videos/detail', function () {
-    return view('client.videos.show');
-});
+Route::get('/publications', [ClientPublicationController::class, 'index']);
+Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
+Route::get('/videos', [ClientVideoController::class, 'index']);
+Route::get('/videos/{id}', [ClientVideoController::class, 'show']);
 
 Route::get('/audios', function () {
     return view('client.audios.index');
@@ -210,9 +204,9 @@ Route::get('/news/detail', function () {
 
 
 
-Route::get('publications/{id}', function () {
-    return view('publication_detail');
-});
+// Route::get('publications/{id}', function () {
+//     return view('publication_detail');
+// });
 
 /*
 |--------------------------------------------------------------------------

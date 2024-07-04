@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ClientPublicationsController extends Controller
+use App\Models\Video;
+use App\Models\VideoImage;
+
+class ClientVideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('client.publications.index');
+        return view('client.videos.index');
     }
 
     /**
@@ -36,7 +39,10 @@ class ClientPublicationsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('client.videos.show', [
+            'item' => Video::findOrFail($id),
+            'multi_images' => VideoImage::where('video_id', $id)->latest()->get(),
+        ]);
     }
 
     /**

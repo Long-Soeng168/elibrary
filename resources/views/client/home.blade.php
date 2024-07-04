@@ -179,7 +179,7 @@
             class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
             <!-- Card -->
             @forelse ($publications as $item)
-                <a class="block group" href="{{ url('/publications/detail') }}">
+                <a class="block group" href="{{ url('/publications/'.$item->id) }}">
                     <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                         <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                             src="{{ asset('assets/images/publications/thumb/'.$item->image) }}"
@@ -221,7 +221,7 @@
             class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
             <!-- Card -->
             @forelse ($videos as $item)
-                <a class="block group" href="{{ url('/videos/detail') }}">
+                <a class="block group" href="{{ url('/videos/'.$item->id) }}">
                     <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                         <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
                             src="{{ asset('assets/images/videos/thumb/'.$item->image) }}"

@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pdfview.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/audioplayer.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/glightbox.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/no-tailwind.css') }}" />
+
+
 
     <!-- <style>
         body ::selection {
@@ -18,6 +21,7 @@
             color: white; /* This is text-white in Tailwind */
         }
     </style> -->
+
     <!-- end Start CSS -->
 
     <!-- Start JS -->
@@ -25,6 +29,9 @@
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
     {{-- <script src="{{ asset('assets/js/tailwind.config.js') }}"></script> --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Moul&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Siemreap&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: "class", // Enables dark mode based on class
@@ -40,6 +47,21 @@
                         warning: "#fab105",
                         warningHover: "#ffb915",
                     },
+                },
+                fontFamily: {
+                    moul: [
+                        "Moul", "Siemreap", "Arial", "Inter", "ui-sans-serif", "system-ui", "-apple-system",
+                        "system-ui", "Segoe UI", "Helvetica Neue",
+                    ],
+                    siemreap: [
+                        "Siemreap", "Arial", "Inter", "ui-sans-serif", "system-ui", "-apple-system", "system-ui",
+                        "Segoe UI", "Helvetica Neue",
+                    ],
+                    poppins: [
+                        "Poppins", "Roboto", "Arial", "Inter", "ui-sans-serif", "system-ui", "-apple-system",
+                        "system-ui", "Segoe UI", "Helvetica Neue",
+                    ],
+
                 },
             },
         };
@@ -89,8 +111,8 @@
                                 </a>
                                 <a href="#" type="button"
                                     class="bg-gray-100 dark:bg-gray-300 inline-flex items-center font-medium justify-center p-2.5 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
-                                    <img class="w-5 h-5 rounded-full"
-                                        src="{{ asset('assets/icons/english.png') }}" alt="" />
+                                    <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
+                                        alt="" />
                                 </a>
                                 <button type="button" data-drawer-target="drawer-body-scrolling"
                                     data-drawer-show="drawer-body-scrolling" data-drawer-body-scrolling="true"
@@ -200,24 +222,25 @@
                     <div class="min-[1300px]:flex md:justify-between">
                         <div class="mb-6 min-[1300px]:mb-0">
                             <a href="#" class="flex items-center">
-                                <img src="{{ asset('assets/images/logo.png') }}"
+                                <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
                                     class="h-24 max-w-[250px] object-contain me-3" alt="Logo" />
                             </a>
                         </div>
-                        <div class="justify-between gap-6 lg:flex md:gap-8">
+                        <div class="justify-between gap-6 lg:flex lg:gap-20">
                             <div class="max-w-[500px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
-                                    Contact Us
+                                    {{ $footer->name }}
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
-                                        <p>
+                                        {{-- <p>
                                             Building (5th Floor), St,National Assembly, Sangkat
                                             Tonle Basac, Khan Chamka Mon, Phnom Penh, Cambodia
                                             <span><a href="#">Google Maps</a></span>
                                         </p>
                                         <p>Phone Number : +855 99 999 999</p>
-                                        <p>Email : beltei@beltei.kh</p>
+                                        <p>Email : beltei@beltei.kh</p> --}}
+                                        {!! $footer->description !!}
                                     </li>
                                 </ul>
                             </div>
@@ -243,12 +266,18 @@
                                 </h2>
 
                                 <div class="flex flex-wrap gap-2 mt-4 mb-4 lg:justify-center sm:mt-0">
-                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">
-                                        <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
-                                            src="{{ asset('assets/icons/facebook.png') }}" alt="Facebook page" />
-                                        <span class="sr-only">Facebook page</span>
-                                    </a>
-                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">
+                                    @forelse ($links as $item)
+                                        <a target="_blank" href="{{ $item->link }}"
+                                            class="hover:text-gray-900 dark:hover:text-white">
+                                            <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
+                                                src="{{ asset('assets/images/links/' . $item->image) }}"
+                                                alt="Facebook page" />
+                                            <span class="sr-only">{{ $item->name }}</span>
+                                        </a>
+                                    @empty
+                                    @endforelse
+
+                                    {{-- <a href="#" class="hover:text-gray-900 dark:hover:text-white">
                                         <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
                                             src="{{ asset('assets/icons/youtube.png') }}" alt="Facebook page" />
                                         <span class="sr-only">Youtube</span>
@@ -262,15 +291,15 @@
                                         <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
                                             src="{{ asset('assets/icons/www.png') }}" alt="Facebook page" />
                                         <span class="sr-only">WWW</span>
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                     <div class="flex justify-between">
-                        <span class="text-sm sm:text-center dark:text-gray-400">© 2024 BELTEI E-Library. All Rights
-                            Reserved.
+                        <span class="text-sm sm:text-center dark:text-gray-400">
+                            {{ $footer->copyright }}
                         </span>
                         <span class="text-sm sm:text-center dark:text-gray-400">Developed by Alphalib
                         </span>
