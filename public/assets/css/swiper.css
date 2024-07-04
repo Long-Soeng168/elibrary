@@ -20,3 +20,9 @@
     height: 100%;
     object-fit: cover;
   }
+  /* .swiper-pagination .swiper-pagination-clickable .swiper-pagination-bullets .swiper-pagination-horizontal {
+    display: none !important;
+  }
+  .swiper-pagination-bullets {
+    display: none;
+} */
