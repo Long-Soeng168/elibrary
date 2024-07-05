@@ -46,6 +46,8 @@ use App\Http\Controllers\Client\ClientVideoController;
 use App\Http\Controllers\Client\ClientAudioController;
 use App\Http\Controllers\Client\ClientImageController;
 use App\Http\Controllers\Client\ClientNewsController;
+use App\Http\Controllers\Client\ClientThesisController;
+use App\Http\Controllers\Client\ClientJournalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -187,6 +189,12 @@ Route::get('/images/{id}', [ClientImageController::class, 'show']);
 
 Route::get('/bulletins', [ClientNewsController::class, 'index']);
 Route::get('/bulletins/{id}', [ClientNewsController::class, 'show']);
+
+Route::get('/theses', [ClientThesisController::class, 'index']);
+Route::get('/theses/{id}', [ClientThesisController::class, 'show']);
+
+Route::get('/journals', [ClientJournalController::class, 'index']);
+Route::get('/journals/{id}', [ClientJournalController::class, 'show']);
 
 
 // Route::get('publications/{id}', function () {

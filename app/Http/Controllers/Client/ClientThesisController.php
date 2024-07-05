@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Audio;
-use App\Models\AudioImage;
+use App\Models\Thesis;
+use App\Models\ThesisImage;
 
-class ClientAudioController extends Controller
+class ClientThesisController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('client.audios.index');
+        return view('client.theses.index');
     }
 
     /**
@@ -39,25 +39,25 @@ class ClientAudioController extends Controller
      */
     public function show(string $id)
     {
-        // Find the main Audio item
-        $item = Audio::findOrFail($id);
+        // Find the main Thesis item
+        $item = Thesis::findOrFail($id);
 
-        // Retrieve images related to the Audio
-        $multi_images = AudioImage::where('audio_id', $id)
+        // Retrieve images related to the Thesis
+        $multi_images = ThesisImage::where('thesis_id', $id)
                                         ->latest()
                                         ->get();
 
-        // Retrieve related Audios excluding the item itself
-        $related_items = Audio::where(function($query) use ($item) {
-            $query->where('audio_category_id', $item->audio_category_id)
-                ->orWhere('audio_sub_category_id', $item->audio_sub_category_id)
-                ->orWhere('audio_type_id', $item->audio_type_id);
+        // Retrieve related Thesiss excluding the item itself
+        $related_items = Thesis::where(function($query) use ($item) {
+            $query->where('thesis_category_id', $item->thesis_category_id)
+                ->orWhere('thesis_sub_category_id', $item->thesis_sub_category_id)
+                ->orWhere('thesis_type_id', $item->thesis_type_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
-        ->limit(4)
+        ->limit(6)
         ->get();
 
         // Return the view with the data
-        return view('client.audios.show', [
+        return view('client.theses.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,

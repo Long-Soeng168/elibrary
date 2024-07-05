@@ -39,11 +39,32 @@ class ClientPublicationController extends Controller
      */
     public function show(string $id)
     {
+        // Find the main publication item
+        $item = Publication::findOrFail($id);
+
+        // Retrieve images related to the publication
+        $multi_images = PublicationImage::where('publication_id', $id)
+                                        ->latest()
+                                        ->get();
+
+        // Retrieve related publications excluding the item itself
+        $related_items = Publication::where(function($query) use ($item) {
+            $query->where('publication_category_id', $item->publication_category_id)
+                ->orWhere('publication_sub_category_id', $item->publication_sub_category_id)
+                ->orWhere('publication_type_id', $item->publication_type_id);
+        })->where('id', '!=', $item->id) // Exclude the item itself
+        ->limit(6)
+        ->get();
+
+        // Return the view with the data
         return view('client.publications.show', [
-            'item' => Publication::findOrFail($id),
-            'multi_images' => PublicationImage::where('publication_id', $id)->latest()->get(),
+            'item' => $item,
+            'multi_images' => $multi_images,
+            'related_items' => $related_items,
         ]);
     }
+
+
 
     /**
      * Show the form for editing the specified resource.

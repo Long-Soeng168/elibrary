@@ -5,19 +5,18 @@
 
     <!-- Detail -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
-        <div class="min-[840px]:flex">
-            <div class="flex flex-col items-center px-2 mb-6 mr-2 lg-px-0">
-                <div class="max-w-[400px] flex flex-col gap-2">
-
+        <div class="min-[800px]:grid grid-cols-12 gap-4">
+            <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
+                <div class="flex flex-col w-full gap-2">
                     <a href="{{ asset('assets/images/news/'.$item->image) }}" class="glightbox">
-                        <img class="max-w-[400px] aspect-[6/9] object-cover rounded-md cursor-pointer"
+                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border"
                             src="{{ asset('assets/images/news/'.$item->image) }}" alt="Book Cover" />
                     </a>
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
                                 @if ($index < 3 || count($multi_images) == 4)
                                     <a href="{{ asset('assets/images/news/thumb/' . $image->image) }}" class="glightbox">
-                                        <img class="w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                        <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
                                             src="{{ asset('assets/images/news/thumb/' . $image->image) }}">
                                     </a>
                                 @elseif ($index == 3)
@@ -29,11 +28,11 @@
                                             </span>
                                         </div>
                                         <img src="{{ asset('assets/images/news/thumb/' . $image->image) }}"
-                                            class="rounded-lg w-full aspect-[1/1]">
+                                            class="bg-white rounded-lg w-full aspect-[1/1]">
                                     </a>
                                 @else
                                     <a href="{{ asset('assets/images/news/' . $image->image) }}" class="glightbox">
-                                        <img class="hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                        <img class="bg-white hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
                                             src="{{ asset('assets/images/news/thumb/' . $image->image) }}">
                                     </a>
                                 @endif
@@ -86,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="col-span-7 lg:col-span-8">
                 <div class="text-sm font-semibold tracking-wide uppercase text-primary">
                     Bulletin
                 </div>
@@ -229,143 +228,30 @@
         <div
             class="grid grid-cols-2 gap-2 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-6 xl:m-0">
             <!-- Card -->
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom1" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">ចំណងជើងខ្មែរ</p>
-                    </h3>
-
-                    <div id="tooltip-bottom1" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        1 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+            @forelse ($related_items as $item)
+                <a class="block group" href="{{ url('bulletins/'.$item->id) }}">
+                    <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
+                        <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                            src="{{ asset('assets/images/news/thumb/'.$item->image) }}"
+                            alt="Image Description" />
                     </div>
-                </div>
-            </a>
 
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
+                    <div class="pt-2">
+                        <h3 data-tooltip-target="tooltip-item-{{ $item->id }}" data-tooltip-placement="bottom"
+                            class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                            <p class="line-clamp-1">{{ $item->name }}</p>
+                        </h3>
 
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom2" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">
-                            A revamped and dynamic approach to yoga analytics
-                        </p>
-                    </h3>
-
-                    <div id="tooltip-bottom2" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        2 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                        <div id="tooltip-item-{{ $item->id }}" role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            {{ $item->name }}
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom1" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">ចំណងជើងខ្មែរ</p>
-                    </h3>
-
-                    <div id="tooltip-bottom1" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        1 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom2" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">
-                            A revamped and dynamic approach to yoga analytics
-                        </p>
-                    </h3>
-
-                    <div id="tooltip-bottom2" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        2 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom1" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">ចំណងជើងខ្មែរ</p>
-                    </h3>
-
-                    <div id="tooltip-bottom1" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        1 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom2" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">
-                            A revamped and dynamic approach to yoga analytics
-                        </p>
-                    </h3>
-
-                    <div id="tooltip-bottom2" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        2 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            @empty
+                <p>No Related Item...</p>
+            @endforelse
         </div>
         <!-- End Card Grid -->
     </div>
