@@ -39,9 +39,28 @@ class ClientAudioController extends Controller
      */
     public function show(string $id)
     {
+        // Find the main Audio item
+        $item = Audio::findOrFail($id);
+
+        // Retrieve images related to the Audio
+        $multi_images = AudioImage::where('audio_id', $id)
+                                        ->latest()
+                                        ->get();
+
+        // Retrieve related Audios excluding the item itself
+        $related_items = Audio::where(function($query) use ($item) {
+            $query->where('audio_category_id', $item->audio_category_id)
+                ->orWhere('audio_sub_category_id', $item->audio_sub_category_id)
+                ->orWhere('audio_type_id', $item->audio_type_id);
+        })->where('id', '!=', $item->id) // Exclude the item itself
+        ->limit(4)
+        ->get();
+
+        // Return the view with the data
         return view('client.audios.show', [
-            'item' => Audio::findOrFail($id),
-            'multi_images' => AudioImage::where('audio_id', $id)->latest()->get(),
+            'item' => $item,
+            'multi_images' => $multi_images,
+            'related_items' => $related_items,
         ]);
     }
 

@@ -39,9 +39,28 @@ class ClientVideoController extends Controller
      */
     public function show(string $id)
     {
+        // Find the main Video item
+        $item = Video::findOrFail($id);
+
+        // Retrieve images related to the Video
+        $multi_images = VideoImage::where('video_id', $id)
+                                        ->latest()
+                                        ->get();
+
+        // Retrieve related Videos excluding the item itself
+        $related_items = Video::where(function($query) use ($item) {
+            $query->where('video_category_id', $item->video_category_id)
+                ->orWhere('video_sub_category_id', $item->video_sub_category_id)
+                ->orWhere('video_type_id', $item->video_type_id);
+        })->where('id', '!=', $item->id) // Exclude the item itself
+        ->limit(4)
+        ->get();
+
+        // Return the view with the data
         return view('client.videos.show', [
-            'item' => Video::findOrFail($id),
-            'multi_images' => VideoImage::where('video_id', $id)->latest()->get(),
+            'item' => $item,
+            'multi_images' => $multi_images,
+            'related_items' => $related_items,
         ]);
     }
 

@@ -39,9 +39,29 @@ class ClientImageController extends Controller
      */
     public function show(string $id)
     {
+
+        // Find the main Image item
+        $item = Image::findOrFail($id);
+
+        // Retrieve images related to the Image
+        $multi_images = ImageImage::where('image_id', $id)
+                                        ->latest()
+                                        ->get();
+
+        // Retrieve related Images excluding the item itself
+        $related_items = Image::where(function($query) use ($item) {
+            $query->where('image_category_id', $item->image_category_id)
+                ->orWhere('image_sub_category_id', $item->image_sub_category_id)
+                ->orWhere('image_type_id', $item->image_type_id);
+        })->where('id', '!=', $item->id) // Exclude the item itself
+        ->limit(4)
+        ->get();
+
+        // Return the view with the data
         return view('client.images.show', [
-            'item' => Image::findOrFail($id),
-            'multi_images' => ImageImage::where('image_id', $id)->latest()->get(),
+            'item' => $item,
+            'multi_images' => $multi_images,
+            'related_items' => $related_items,
         ]);
     }
 
