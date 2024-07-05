@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Publication;
-use App\Models\PublicationImage;
+use App\Models\Thesis;
+use App\Models\ThesisImage;
 
-class ClientPublicationController extends Controller
+class ClientThesisController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('client.publications.index');
+        return view('client.theses.index');
     }
 
     /**
@@ -39,32 +39,30 @@ class ClientPublicationController extends Controller
      */
     public function show(string $id)
     {
-        // Find the main publication item
-        $item = Publication::findOrFail($id);
+        // Find the main Thesis item
+        $item = Thesis::findOrFail($id);
 
-        // Retrieve images related to the publication
-        $multi_images = PublicationImage::where('publication_id', $id)
+        // Retrieve images related to the Thesis
+        $multi_images = ThesisImage::where('thesis_id', $id)
                                         ->latest()
                                         ->get();
 
-        // Retrieve related publications excluding the item itself
-        $related_items = Publication::where(function($query) use ($item) {
-            $query->where('publication_category_id', $item->publication_category_id)
-                ->orWhere('publication_sub_category_id', $item->publication_sub_category_id)
-                ->orWhere('publication_type_id', $item->publication_type_id);
+        // Retrieve related Thesiss excluding the item itself
+        $related_items = Thesis::where(function($query) use ($item) {
+            $query->where('thesis_category_id', $item->thesis_category_id)
+                ->orWhere('thesis_sub_category_id', $item->thesis_sub_category_id)
+                ->orWhere('thesis_type_id', $item->thesis_type_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(6)
         ->get();
 
         // Return the view with the data
-        return view('client.publications.show', [
+        return view('client.theses.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,
         ]);
     }
-
-
 
     /**
      * Show the form for editing the specified resource.

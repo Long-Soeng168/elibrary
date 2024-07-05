@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Publication;
-use App\Models\PublicationImage;
+use App\Models\Journal;
+use App\Models\JournalImage;
 
-class ClientPublicationController extends Controller
+class ClientJournalController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('client.publications.index');
+        return view('client.journals.index');
     }
 
     /**
@@ -39,32 +39,30 @@ class ClientPublicationController extends Controller
      */
     public function show(string $id)
     {
-        // Find the main publication item
-        $item = Publication::findOrFail($id);
+        // Find the main Journal item
+        $item = Journal::findOrFail($id);
 
-        // Retrieve images related to the publication
-        $multi_images = PublicationImage::where('publication_id', $id)
+        // Retrieve images related to the Journal
+        $multi_images = JournalImage::where('journal_id', $id)
                                         ->latest()
                                         ->get();
 
-        // Retrieve related publications excluding the item itself
-        $related_items = Publication::where(function($query) use ($item) {
-            $query->where('publication_category_id', $item->publication_category_id)
-                ->orWhere('publication_sub_category_id', $item->publication_sub_category_id)
-                ->orWhere('publication_type_id', $item->publication_type_id);
+        // Retrieve related Journals excluding the item itself
+        $related_items = Journal::where(function($query) use ($item) {
+            $query->where('journal_category_id', $item->journal_category_id)
+                ->orWhere('journal_sub_category_id', $item->journal_sub_category_id)
+                ->orWhere('journal_type_id', $item->journal_type_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(6)
         ->get();
 
         // Return the view with the data
-        return view('client.publications.show', [
+        return view('client.journals.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,
         ]);
     }
-
-
 
     /**
      * Show the form for editing the specified resource.

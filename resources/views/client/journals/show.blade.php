@@ -4,43 +4,45 @@
     @include('client.components.search')
 
     <!-- Detail -->
-    <div class="max-w-screen-xl mx-auto mt-6 lg:px-0">
-        <div class="min-[800px]:grid grid-cols-12 gap-4 px-2">
-            <div class="flex flex-col items-center col-span-5 mb-6">
+    <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
+        <div class="min-[800px]:grid grid-cols-12 gap-4">
+            <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
                 <div class="flex flex-col w-full gap-2">
-                    <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md glightbox">
-                        <img class="object-cover w-full h-auto border cursor-pointer"
-                            src="{{ asset('assets/images/images/'.$item->image) }}" alt="Book Cover" />
+                    <a href="{{ asset('assets/images/journals/'.$item->image) }}" class="glightbox">
+                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border"
+                            src="{{ asset('assets/images/journals/'.$item->image) }}" alt="Book Cover" />
                     </a>
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
                                 @if ($index < 3 || count($multi_images) == 4)
-                                    <a href="{{ asset('assets/images/images/thumb/' . $image->image) }}" class="glightbox">
-                                        <img class="w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                            src="{{ asset('assets/images/images/thumb/' . $image->image) }}">
+                                    <a href="{{ asset('assets/images/journals/thumb/' . $image->image) }}" class="glightbox">
+                                        <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                            src="{{ asset('assets/images/journals/thumb/' . $image->image) }}">
                                     </a>
                                 @elseif ($index == 3)
-                                    <a href="{{ asset('assets/images/images/thumb/' . $image->image) }}"
+                                    <a href="{{ asset('assets/images/journals/' . $image->image) }}"
                                     class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
                                         <div class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
                                             <span class="text-xl font-medium text-white">
                                                 +{{ count($multi_images) - 4 }}
                                             </span>
                                         </div>
-                                        <img src="{{ asset('assets/images/images/thumb/' . $image->image) }}"
-                                            class="rounded-lg w-full aspect-[1/1]">
+                                        <img src="{{ asset('assets/images/journals/thumb/' . $image->image) }}"
+                                            class="bg-white rounded-lg w-full aspect-[1/1]">
                                     </a>
                                 @else
-                                    <a href="{{ asset('assets/images/images/thumb/' . $image->image) }}" class="glightbox">
-                                        <img class="hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                            src="{{ asset('assets/images/images/thumb/' . $image->image) }}">
+                                    <a href="{{ asset('assets/images/journals/' . $image->image) }}" class="glightbox">
+                                        <img class="bg-white hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                            src="{{ asset('assets/images/journals/thumb/' . $image->image) }}">
                                     </a>
                                 @endif
                             @endforeach
                         </div>
-                    {{-- <div class="flex w-full gap-2 rounded-md shadow-sm" role="group">
-                        <a class="inline-flex items-center justify-center flex-1 gap-2 px-4 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md glightbox hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
-                            onclick="openPdfPopup('/files/pdf_file.pdf')">
+                    <!-- Action Button -->
+                    <div class="flex w-full gap-2 rounded-md shadow-sm" role="group">
+                        <button type="button"
+                            class="inline-flex items-center justify-center flex-1 gap-2 px-4 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+                            onclick="openPdfPopup('{{ asset('assets/pdf/journals/'.$item->pdf) }}')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-eye">
@@ -48,15 +50,44 @@
                                 <circle cx="12" cy="12" r="3" />
                             </svg>
                             <div>
-                                <p class="whitespace-nowrap">View Images</p>
+                                <p class="whitespace-nowrap">Read PDF</p>
+                                <p class="text-center">(54345)</p>
+                            </div>
+                        </button>
+
+                        <!-- Popup Container -->
+                        <div class="popup-overlay" id="popupOverlay">
+                            <div class="popup-content-container">
+                                <div class="popup-content">
+                                    <span class="close-btn" onclick="closePdfPopup()">
+                                        <img src="{{ asset('assets/icons/cancel.png') }}" alt=""
+                                            class="close-btn-image" />
+                                    </span>
+                                    <embed id="pdfEmbed" src="" width="100%" height="100%" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="{{ asset('assets/pdf/journals/'.$item->pdf) }}" download
+                            class="inline-flex items-center justify-center flex-1 gap-2 px-4 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-arrow-down-to-line">
+                                <path d="M12 17V3" />
+                                <path d="m6 11 6 6 6-6" />
+                                <path d="M19 21H5" />
+                            </svg>
+                            <div>
+                                <p class="whitespace-nowrap">Download PDF</p>
+                                <p class="text-center">(9567)</p>
                             </div>
                         </a>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
-            <div class="col-span-7">
+            <div class="col-span-7 lg:col-span-8">
                 <div class="text-sm font-semibold tracking-wide uppercase text-primary">
-                    Image
+                    Journal
                 </div>
                 <h1 class="block mt-1 mb-2 text-2xl font-medium leading-tight text-gray-800 dark:text-gray-100">
                     {{ $item->name }}
@@ -183,7 +214,7 @@
     </div>
     <!-- End Detail -->
 
-    <!-- Start Items -->
+    <!-- Items -->
     <div class="max-w-screen-xl mx-auto mt-6">
         <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
             <p class="text-lg text-white">Related</p>
@@ -195,99 +226,32 @@
         </div>
         <!-- Card Grid -->
         <div
-            class="grid grid-cols-2 gap-2 py-2 m-2 lg:py-4 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 sm:gap-2 md:gap-4 lg:gap-6 xl:m-0">
+            class="grid grid-cols-2 gap-2 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-6 xl:m-0">
             <!-- Card -->
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom1" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">ចំណងជើងខ្មែរ</p>
-                    </h3>
-
-                    <div id="tooltip-bottom1" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        1 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+            @forelse ($related_items as $item)
+                <a class="block group" href="{{ url('journals/'.$item->id) }}">
+                    <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
+                        <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                            src="{{ asset('assets/images/journals/thumb/'.$item->image) }}"
+                            alt="Image Description" />
                     </div>
-                </div>
-            </a>
 
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
+                    <div class="pt-2">
+                        <h3 data-tooltip-target="tooltip-item-{{ $item->id }}" data-tooltip-placement="bottom"
+                            class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                            <p class="line-clamp-1">{{ $item->name }}</p>
+                        </h3>
 
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom2" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">
-                            A revamped and dynamic approach to yoga analytics
-                        </p>
-                    </h3>
-
-                    <div id="tooltip-bottom2" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        2 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
+                        <div id="tooltip-item-{{ $item->id }}" role="tooltip"
+                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            {{ $item->name }}
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
                     </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom1" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">ចំណងជើងខ្មែរ</p>
-                    </h3>
-
-                    <div id="tooltip-bottom1" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        1 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
-
-            <a class="block group" href="#">
-                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="https://www.creativeparamita.com/wp-content/uploads/2022/03/the-mountain.jpg"
-                        alt="Image Description" />
-                </div>
-
-                <div class="pt-2">
-                    <h3 data-tooltip-target="tooltip-bottom2" data-tooltip-placement="bottom"
-                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
-                        <p class="line-clamp-1">
-                            A revamped and dynamic approach to yoga analytics
-                        </p>
-                    </h3>
-
-                    <div id="tooltip-bottom2" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        2 revamped and dynamic approach to yoga analytics A revamped and
-                        dynamic approach to yoga analytics
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </a>
+                </a>
+            @empty
+                <p>No Related Item...</p>
+            @endforelse
         </div>
         <!-- End Card Grid -->
     </div>

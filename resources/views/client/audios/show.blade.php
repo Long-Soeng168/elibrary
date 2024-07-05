@@ -4,13 +4,13 @@
     @include('client.components.search')
 
     <!-- Detail -->
-    <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
-        <div class="min-[1000px]:flex">
-            <div class="flex flex-col items-center mx-2 mb-6 mr-2 lg:mx-0">
-                <div class="max-w-[500px] flex flex-col gap-2 px-2 lg:px-0">
+    <div class="max-w-screen-xl mx-auto mt-6 lg:px-0">
+        <div class="min-[1000px]:grid grid-cols-12 gap-4 px-2">
+            <div class="flex flex-col items-center col-span-5 mb-6">
+                <div class="flex flex-col w-full gap-2 ">
                     @if ($item->image)
                     <a href="{{ asset('assets/images/audios/'.$item->image) }}" class="glightbox">
-                        <img class="max-w-[500px] aspect-[4/3] object-cover rounded-md cursor-pointer"
+                        <img class="w-full aspect-[4/3] object-cover rounded-md cursor-pointer border"
                             src="{{ asset('assets/images/audios/'.$item->image) }}" alt="Book Cover" />
                     </a>
                         <div class="grid grid-cols-4 gap-2">
@@ -53,7 +53,7 @@
                     <!-- End Audio -->
                 </div>
             </div>
-            <div class="lg:ml-4">
+            <div class="col-span-7">
                 <div class="text-sm font-semibold tracking-wide uppercase text-primary">
                     Audio
                 </div>

@@ -5,12 +5,12 @@
 
     <!-- Detail -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
-        <div class="min-[1000px]:flex">
-            <div class="flex flex-col items-center mx-2 mb-6 lg:mx-0">
-                <div class="max-w-[500px] flex flex-col gap-2 px-2">
-                    <div class="relative max-w-[500px] rounded-md overflow-hidden">
-                        <img class="max-w-[500px] w-full aspect-video object-cover rounded-md cursor-pointer border"
-                            src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
+        <div class="min-[800px]:grid grid-cols-12 gap-4 px-2">
+            <div class="flex flex-col items-center col-span-5 mb-6">
+                <div class="flex flex-col w-full gap-2">
+                    <div class="relative w-full overflow-hidden rounded-md">
+                        <img class="object-cover w-full border rounded-md cursor-pointer aspect-video"
+                            src="{{ asset('assets/images/videos/'.$item->image) }}" alt="Book Cover" />
 
                         <div class="absolute inset-0 border size-full">
                             <div class="flex flex-col items-center justify-center size-full">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:ml-4">
+            <div class="col-span-7">
                 <div class="text-sm font-semibold tracking-wide uppercase text-primary">
                     Video
                 </div>

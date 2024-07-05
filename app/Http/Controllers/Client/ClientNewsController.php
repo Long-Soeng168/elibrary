@@ -39,10 +39,30 @@ class ClientNewsController extends Controller
      */
     public function show(string $id)
     {
-        return view('client.news.show', [
-            'item' => News::findOrFail($id),
-            'multi_images' => NewsImage::where('news_id', $id)->latest()->get(),
-        ]);
+         // Find the main News item
+         $item = News::findOrFail($id);
+
+         // Retrieve images related to the News
+         $multi_images = NewsImage::where('news_id', $id)
+                                         ->latest()
+                                         ->get();
+
+         // Retrieve related Newss excluding the item itself
+         $related_items = News::where(function($query) use ($item) {
+             $query->where('news_category_id', $item->news_category_id)
+                 ->orWhere('news_sub_category_id', $item->news_sub_category_id)
+                 ->orWhere('news_type_id', $item->news_type_id);
+         })->where('id', '!=', $item->id) // Exclude the item itself
+         ->limit(6)
+         ->get();
+
+         // Return the view with the data
+         return view('client.news.show', [
+             'item' => $item,
+             'multi_images' => $multi_images,
+             'related_items' => $related_items,
+         ]);
+
     }
 
     /**
