@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Publication;
 use App\Models\PublicationImage;
+use App\Models\PublicationCategory;
 
 class ClientPublicationController extends Controller
 {
@@ -15,7 +16,12 @@ class ClientPublicationController extends Controller
      */
     public function index()
     {
-        return view('client.publications.index');
+        $items = Publication::inRandomOrder()->paginate(24);
+        $categories = PublicationCategory::latest()->get();
+        return view('client.publications.index', [
+            'items' => $items,
+            'categories' => $categories,
+        ]);
     }
 
     /**

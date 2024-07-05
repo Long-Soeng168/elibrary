@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/glightbox.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/no-tailwind.css') }}" />
 
-
-
     <!-- <style>
         body ::selection {
             background-color: goldenrod; /* This is bg-blue-900 in Tailwind */
@@ -27,7 +25,8 @@
     <!-- Start JS -->
     <script src="{{ asset('assets/js/tailwind34.js') }}"></script>
     <script src="{{ asset('assets/js/darkModeHead.js') }}"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+    <script src="{{ asset('assets/js/swiper11.js') }}"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script> --}}
     {{-- <script src="{{ asset('assets/js/tailwind.config.js') }}"></script> --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,29 +132,35 @@
                             <ul
                                 class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                 <li
-                                    class="transition-all border-b-2 border-b-white border-b-transparent hover:border-b-white">
+                                    class="transition-all {{ request()->is('/') ? 'border-b-2' : '' }}  border-b-white border-b-transparent hover:border-b-white">
                                     <a href="/"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                         Home
                                     </a>
                                 </li>
-                                <li class="transition-all border-b-2 border-b-transparent hover:border-b-white">
-                                    <a href="/"
+                                @forelse ($menu_pages as $item)
+                                <li
+                                    class="transition-all {{ request()->is('menu/'.$item->id) ? 'border-b-2' : '' }}  border-b-white border-b-transparent hover:border-b-white">
+                                    <a href="{{ url('/menu/'.$item->id) }}"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        News &amp; Events
+                                        {{ $item->name }}
                                     </a>
                                 </li>
+                                @empty
+
+                                @endforelse
                                 <li class="transition-all border-b-2 border-b-transparent hover:border-b-white">
-                                    <a href="/"
+                                    @if (auth()->check())
+                                    <a href="{{ url('/logout') }}"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        About Us
+                                        Logout
                                     </a>
-                                </li>
-                                <li class="transition-all border-b-2 border-b-transparent hover:border-b-white">
-                                    <a href="/"
+                                    @else
+                                    <a href="{{ url('/login') }}"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Contact
+                                        Login
                                     </a>
+                                    @endif
                                 </li>
                             </ul>
                         </nav>
