@@ -153,9 +153,10 @@
                                 @endforelse
                                 <li class="transition-all hover:border-b-2 border-b-white">
                                     @if (auth()->check())
-                                    <a href="{{ url('/logout') }}"
+                                    <a href="{{ url('/admin/dashboard') }}"
+                                    {{-- <a href="{{ url('/logout') }}" --}}
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Logout
+                                        Admin
                                     </a>
                                     @else
                                     <a href="{{ url('/login') }}"
