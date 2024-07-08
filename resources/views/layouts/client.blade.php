@@ -78,8 +78,10 @@
     <!-- Head -->
     <div>
         <div class="relative w-full px-2 bg-bannerColor xl:px-0">
-            <img class="max-w-screen-xl mx-auto w-full max-h-[300px] dark:saturate-500"
+            <a href="/">
+                <img class="max-w-screen-xl mx-auto w-full max-h-[300px] dark:saturate-500"
                 src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
+            </a>
 
             <header class="md:absolute left-0 right-0 bottom-0 z-[30] bg-transparent">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
@@ -132,7 +134,7 @@
                             <ul
                                 class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                 <li
-                                    class="transition-all {{ request()->is('/') ? 'border-b-2' : '' }}  border-b-white border-b-transparent hover:border-b-white">
+                                    class="transition-all hover:border-b-2 border-b-white {{ request()->is('/') ? 'border-b-2' : '' }}  ">
                                     <a href="/"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                         Home
@@ -140,7 +142,7 @@
                                 </li>
                                 @forelse ($menu_pages as $item)
                                 <li
-                                    class="transition-all {{ request()->is('menu/'.$item->id) ? 'border-b-2' : '' }}  border-b-white border-b-transparent hover:border-b-white">
+                                    class="transition-all hover:border-b-2 border-b-white {{ request()->is('menu/'.$item->id) ? 'border-b-2' : '' }}   ">
                                     <a href="{{ url('/menu/'.$item->id) }}"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                         {{ $item->name }}
@@ -149,7 +151,7 @@
                                 @empty
 
                                 @endforelse
-                                <li class="transition-all border-b-2 border-b-transparent hover:border-b-white">
+                                <li class="transition-all hover:border-b-2 border-b-white">
                                     @if (auth()->check())
                                     <a href="{{ url('/logout') }}"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
