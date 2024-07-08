@@ -73,8 +73,8 @@
                                                 </button>
                                             </div>
                                             <div id="doubleDropdown-{{ $category->id }}"
-                                                class="relative z-30 hidden bg-gray-50 divide-y divide-gray-200 border-t-4 border-t-primary/50 shadow-lg w-[250px] dark:bg-gray-500 ml-2 border">
-                                                <div class="py-1 font-bold text-center">{{ $category->name }}</div>
+                                                class="relative z-30 hidden bg-gray-50 divide-y divide-gray-200 border shadow-lg w-[250px]  dark:bg-gray-500 ml-2">
+                                                <div class="py-1 font-bold text-center underline bg-gray-200 dark:bg-gray-600">{{ $category->name }}</div>
                                                 <ul class="text-sm text-gray-700 dark:text-gray-100" aria-labelledby="doubleDropdownButton-{{ $category->id }}">
                                                     @forelse ($category->subCategories as $subCategory)
                                                         <li class="hover:underline" wire:key="{{ $subCategory->id }}">
