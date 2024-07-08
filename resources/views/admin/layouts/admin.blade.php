@@ -405,7 +405,7 @@
                                 <div class="text-sm text-gray-900 dark:text-white">Users</div>
                             </a>
                             @forelse ($menu_databases as $database)
-                                @if (!$database->slug || $database->link)
+                                @if ($database->type !== 'slug')
                                     @continue
                                 @endif
                                 @switch($database->slug)
@@ -790,7 +790,7 @@
 
                     <ul class="pt-3 mt-5 border-t border-gray-200 dark:border-gray-700">
                         @forelse ($menu_databases as $database)
-                            @if (!$database->slug || $database->link)
+                            @if ($database->type != 'slug')
                                 @continue
                             @endif
                             @switch($database->slug)

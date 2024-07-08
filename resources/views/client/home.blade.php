@@ -24,7 +24,7 @@
 
     <!-- Start Database -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="text-2xl font-bold text-gray-700 uppercase  dark:text-white xl:p-0">
+        <p class="text-2xl font-bold text-gray-700 uppercase dark:text-white xl:p-0">
             Databases
         </p>
         <!-- Icon Blocks -->

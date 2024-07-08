@@ -80,7 +80,7 @@
                     required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
-            <div class="col-span-2">
+            <div class="col-span-1">
                 <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                    {{ __('Link') }}
                 </label>
@@ -96,6 +96,7 @@
                     required autofocus placeholder="Slug" />
                 <x-input-error :messages="$errors->get('slug')" class="mt-2" />
             </div>
+
             <div class="col-span-1">
                 <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                    {{ __('Order Index') }}
@@ -103,6 +104,15 @@
                 <x-text-input id="order_index" class="block w-full mt-1" type="text" name="order_index" wire:model='order_index'
                     required autofocus placeholder="Order Index" />
                 <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
+            </div>
+            <div class="col-span-1">
+                <label for="type"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                    <select id="type" wire:model='type'
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
+                    <option value="link">Link</option>
+                    <option value="slug">Slug</option>
+                </select>
             </div>
             <!-- End Name -->
 

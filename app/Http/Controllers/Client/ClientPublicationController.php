@@ -16,12 +16,8 @@ class ClientPublicationController extends Controller
      */
     public function index()
     {
-        $items = Publication::inRandomOrder()->paginate(24);
-        $categories = PublicationCategory::latest()->get();
-        return view('client.publications.index', [
-            'items' => $items,
-            'categories' => $categories,
-        ]);
+
+        return view('client.publications.index');
     }
 
     /**
