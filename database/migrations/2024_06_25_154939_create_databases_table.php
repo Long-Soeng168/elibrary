@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('client_side_image')->nullable();
             $table->string('link')->nullable();
             $table->string('slug')->nullable();
+            $table->string('type')->nullable();
             $table->boolean('status')->nullable();
 
             $table->timestamps();
