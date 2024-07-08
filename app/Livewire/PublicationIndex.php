@@ -90,6 +90,7 @@ class PublicationIndex extends Component
     #[Url(history: true)]
     public $search = '';
 
+    #[Url(history: true)]
     public $perPage = 12;
 
     use WithPagination;
