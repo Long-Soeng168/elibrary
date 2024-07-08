@@ -11,9 +11,7 @@ class Publication extends Model
 
     protected $guarded = [];
 
-    public function author(){
-        return $this->belongsTo(Author::class, 'author_id', 'id');
-    }
+
 
     public function publicationCategory(){
         return $this->belongsTo(PublicationCategory::class, 'publication_category_id', 'id');
@@ -21,6 +19,10 @@ class Publication extends Model
 
     public function publicationSubCategory(){
         return $this->belongsTo(PublicationSubCategory::class, 'publication_sub_category_id', 'id');
+    }
+
+    public function author(){
+        return $this->belongsTo(Author::class, 'author_id', 'id');
     }
 
     public function publisher(){

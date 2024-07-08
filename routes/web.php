@@ -171,6 +171,7 @@ Route::group([
 */
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/menu/{id}', [HomeController::class, 'menu']);
 
 // Route::get('/publications', function () {
 //     return view('client.publications.index');
@@ -195,6 +196,7 @@ Route::get('/theses/{id}', [ClientThesisController::class, 'show']);
 
 Route::get('/journals', [ClientJournalController::class, 'index']);
 Route::get('/journals/{id}', [ClientJournalController::class, 'show']);
+
 
 
 // Route::get('publications/{id}', function () {

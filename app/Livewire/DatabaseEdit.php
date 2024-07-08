@@ -20,6 +20,7 @@ class DatabaseEdit extends Component
     public $name_kh;
     public $link;
     public $slug;
+    public $type;
     public $order_index;
     public $description;
     public $description_kh;
@@ -31,6 +32,7 @@ class DatabaseEdit extends Component
         $this->name_kh = $item->name_kh;
         $this->link = $item->link;
         $this->slug = $item->slug;
+        $this->type = $item->type;
         $this->order_index = $item->order_index;
     }
 
@@ -59,6 +61,7 @@ class DatabaseEdit extends Component
             'name_kh' => 'required|string|max:255',
             'link' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255|unique:databases,slug,'.$this->item->id,
+            'type' => 'required|string|max:255',
             'order_index' => 'nullable||max:255',
         ]);
 

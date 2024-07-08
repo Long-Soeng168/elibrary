@@ -12,6 +12,7 @@ use App\Models\Audio;
 use App\Models\Thesis;
 use App\Models\Journal;
 use App\Models\News;
+use App\Models\Menu;
 
 class HomeController extends Controller
 {
@@ -33,6 +34,12 @@ class HomeController extends Controller
             'bulletins' => $bulletins,
             'theses' => $theses,
             'journals' => $journals,
+        ]);
+    }
+
+    public function menu($id) {
+        return view('client.menu_detail', [
+            'item' => Menu::findOrFail($id),
         ]);
     }
 }
