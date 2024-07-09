@@ -140,6 +140,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -184,6 +185,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
 
                     </div>
@@ -229,6 +231,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
 
                     </div>
@@ -280,6 +283,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
 
                     </div>
@@ -325,6 +329,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -370,6 +375,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -416,6 +422,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -462,6 +469,7 @@
                                 </div>
                             </a>
                         @empty
+                        <p class="p-2">No Data...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
