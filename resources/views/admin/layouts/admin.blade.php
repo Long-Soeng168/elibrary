@@ -67,6 +67,32 @@
         }
     </style>
 
+    {{-- Start Scroll Bar Style --}}
+    <style>
+    /* ===== Scrollbar CSS ===== */
+    /* Firefox */
+    * {
+        scrollbar-width: auto;
+        /* scrollbar-color: #377EB4 #ffffff; */
+        scrollbar-color: {{ $websiteInfo->primary }} #ffffff;
+    }
+
+    /* Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 16px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: #ffffff;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #8f54a0;
+        border-radius: 10px;
+        border: 3px solid #ffffff;
+    }
+    </style>
+
     {{-- Show popup to reload screen when resize --}}
     {{-- <script>
         // Function to show the modal

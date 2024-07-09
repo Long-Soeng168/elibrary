@@ -30,7 +30,9 @@
     {{-- <script src="{{ asset('assets/js/tailwind.config.js') }}"></script> --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Moul&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Siemreap&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Moul&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Siemreap&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: "class", // Enables dark mode based on class
@@ -80,7 +82,7 @@
         <div class="relative w-full px-2 bg-bannerColor xl:px-0">
             <a href="/">
                 <img class="max-w-screen-xl mx-auto w-full max-h-[300px] dark:saturate-500"
-                src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
+                    src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
             <header class="md:absolute left-0 right-0 bottom-0 z-[30] bg-transparent">
@@ -91,7 +93,7 @@
                             <div class="shrink-0">
                                 <!-- Toggle Dark mode -->
                                 <button id="theme-toggle" type="button"
-                                    class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700">
+                                    class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none ">
                                     <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
@@ -104,17 +106,18 @@
                                             fill-rule="evenodd" clip-rule="evenodd"></path>
                                     </svg>
                                 </button>
-                                <!--  Language -->
+                                <!-- Start Language -->
                                 <a href="#" type="button"
-                                    class="inline-flex items-center font-medium justify-center p-2.5 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}"
                                         alt="" />
                                 </a>
                                 <a href="#" type="button"
-                                    class="bg-gray-100 dark:bg-gray-300 inline-flex items-center font-medium justify-center p-2.5 text-sm text-gray-900 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-200 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
                                         alt="" />
                                 </a>
+                                {{-- End Language --}}
                                 <button type="button" data-drawer-target="drawer-body-scrolling"
                                     data-drawer-show="drawer-body-scrolling" data-drawer-body-scrolling="true"
                                     aria-controls="drawer-body-scrolling"
@@ -134,35 +137,34 @@
                             <ul
                                 class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                 <li
-                                    class="transition-all hover:border-b-2 border-b-white {{ request()->is('/') ? 'border-b-2' : '' }}  ">
+                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('/') ? 'border-opacity-100' : '' }}  ">
                                     <a href="/"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                         Home
                                     </a>
                                 </li>
                                 @forelse ($menu_pages as $item)
-                                <li
-                                    class="transition-all hover:border-b-2 border-b-white {{ request()->is('menu/'.$item->id) ? 'border-b-2' : '' }}   ">
-                                    <a href="{{ url('/menu/'.$item->id) }}"
-                                        class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        {{ $item->name }}
-                                    </a>
-                                </li>
+                                    <li
+                                        class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('menu/' . $item->id) ? 'border-opacity-100' : '' }}   ">
+                                        <a href="{{ url('/menu/' . $item->id) }}"
+                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                            {{ $item->name }}
+                                        </a>
+                                    </li>
                                 @empty
-
                                 @endforelse
-                                <li class="transition-all hover:border-b-2 border-b-white">
+                                <li
+                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white">
                                     @if (auth()->check())
-                                    <a href="{{ url('/admin/dashboard') }}"
-                                    {{-- <a href="{{ url('/logout') }}" --}}
-                                        class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Admin
-                                    </a>
+                                        <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                            Admin
+                                        </a>
                                     @else
-                                    <a href="{{ url('/login') }}"
-                                        class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Login
-                                    </a>
+                                        <a href="{{ url('/login') }}"
+                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                            Login
+                                        </a>
                                     @endif
                                 </li>
                             </ul>
@@ -192,27 +194,33 @@
                 <ul class="space-y-2 font-medium">
                     <li>
                         <a href="/"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            class="{{ request()->is('/') ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <span class="ms-3">Home</span>
                         </a>
                     </li>
+
+                    @forelse ($menu_pages as $item)
+                        <li>
+                            <a href="{{ url('/menu/' . $item->id) }}"
+                                class="{{ request()->is('menu/' . $item->id) ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">{{ $item->name }}</span>
+                            </a>
+                        </li>
+                    @empty
+                    @endforelse
+
                     <li>
-                        <a href="/"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="ms-3">News &amp; Events</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="ms-3">About Us</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/"
-                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="ms-3">Contact</span>
-                        </a>
+                        @if (auth()->check())
+                            <a href="{{ url('/admin/dashboard') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">Admin</span>
+                            </a>
+                        @else
+                            <a href="{{ url('/login') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">Login</span>
+                            </a>
+                        @endif
                     </li>
                 </ul>
             </div>

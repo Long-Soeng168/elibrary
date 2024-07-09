@@ -167,10 +167,19 @@
                         </td>
                         <th scope="row"
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                            <a href="{{ asset('assets/images/audios/' . $item->image) }}" class="glightbox">
+                            @if ($item->image)
+                            <a href="{{ asset('assets/icons/audio_placeholder.png') }}" class="glightbox">
                                 <img src="{{ asset('assets/images/audios/thumb/' . $item->image) }}"
-                                    alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[16/9]">
+                                    alt="iMac Front Image" class="object-cover border rounded-sm h-10 mr-3 aspect-[16/9]">
                             </a>
+                            @else
+                            <a href="{{ asset('assets/icons/audio_placeholder.png') }}" class="glightbox">
+                                <img src="{{ asset('assets/icons/audio_placeholder.png') }}"
+                                    alt="iMac Front Image" class="object-contain border p-1 rounded-sm h-10 mr-3 aspect-[16/9]">
+                            </a>
+                            @endif
+
+
                         </th>
                         <x-table-data value="{{ $item->name }}" />
                         {{-- <x-table-data value="{{ $item->description }}" /> --}}

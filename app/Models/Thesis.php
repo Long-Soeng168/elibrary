@@ -45,4 +45,7 @@ class Thesis extends Model
     public function language(){
         return $this->belongsTo(Language::class, 'language_id', 'id');
     }
+    public function location(){
+        return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
 }

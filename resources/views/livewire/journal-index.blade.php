@@ -2,13 +2,13 @@
         <!-- Search -->
         <div class="p-2 bg-gradient-to-r from-primary dark:from-gray-600 to-transparent">
             <div class="max-w-screen-xl mx-auto">
-                <form class="w-full " action="{{ url('/publications') }}">
+                <form class="w-full " action="{{ url('/journals') }}">
                     <div class="flex flex-wrap gap-2">
                         <!-- Search Database -->
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                             class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none   font-medium rounded-tl-lg rounded-tr-lg md:rounded-s-lg text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center md:rounded-tr-none border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
                             type="button">
-                            E-Publications
+                            Journals
                             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -50,7 +50,7 @@
                         <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
                             <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200" aria-labelledby="multiLevelDropdownButton">
                                 @forelse ($categories as $category)
-                                    @if (count($category->subCategories) < 1)
+                                    @if (!$category->subCategories)
                                         <li class="hover:underline" wire:key="{{ $category->id }}">
                                             <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                                 <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
@@ -176,7 +176,7 @@
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 bg-primary">
                         <p class="text-lg text-white capitalize">
-                            E-Publications
+                            Journals
                         </p>
                     </div>
                     @if ($selected_categories_item || $selected_sub_categories_item)
@@ -241,10 +241,10 @@
                         <!-- Card -->
                         @forelse ($items as $index => $item)
 
-                            <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('publications/'.$item->id) }}">
+                            <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('journals/'.$item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
                                     <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/publications/thumb/'.$item->image) }}"
+                                        src="{{ asset('assets/images/journals/thumb/'.$item->image) }}"
                                         alt="Image Description" />
                                 </div>
 

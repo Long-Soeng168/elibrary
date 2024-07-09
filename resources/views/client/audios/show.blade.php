@@ -1,7 +1,12 @@
 @extends('layouts.client')
 
 @section('content')
-    @include('client.components.search')
+    {{-- Start Search --}}
+    @include('client.components.search', [
+        'actionUrl' => url('/audios'),
+        'title' => 'Audios',
+    ])
+    {{-- End Search --}}
 
     <!-- Detail -->
     <div class="max-w-screen-xl mx-auto mt-6 lg:px-0">
@@ -10,8 +15,9 @@
                 <div class="flex flex-col w-full gap-2 ">
                     @if ($item->image)
                     <a href="{{ asset('assets/images/audios/'.$item->image) }}" class="glightbox">
-                        <img class="w-full aspect-[4/3] object-cover rounded-md cursor-pointer border"
+                        <img class="w-full aspect-[16/9] object-cover rounded-md cursor-pointer border"
                             src="{{ asset('assets/images/audios/'.$item->image) }}" alt="Book Cover" />
+
                     </a>
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
@@ -39,10 +45,16 @@
                                 @endif
                             @endforeach
                         </div>
+                    @else
+                    <a href="{{ asset('assets/icons/audio_placeholder.png') }}" class="glightbox">
+                        <img class="w-full aspect-[16/9] object-contain p-10 rounded-md cursor-pointer border"
+                        src="{{ asset('assets/icons/audio_placeholder.png') }}" alt="Book Cover" />
+                    </a>
+
                     @endif
                     <!-- Audio -->
                     <div
-                        class="audio-player bg-white shadow-lg border p-4 rounded-lg dark:bg-gray-500 dark:border-none w-full min-w-[400px]">
+                        class="audio-player bg-white shadow-lg border p-4 rounded-lg dark:bg-gray-700 dark:border-none w-full min-w-[400px]">
                         <audio controls class="w-full">
                             <source
                                 src="{{ asset('assets/audios/'.$item->file) }}"

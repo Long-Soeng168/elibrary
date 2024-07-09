@@ -1,7 +1,10 @@
 @extends('layouts.client')
 @section('content')
     {{-- Start Search --}}
-    @include('client.components.search')
+    @include('client.components.search', [
+        'actionUrl' => url('/publications'),
+        'title' => 'E-Publications',
+    ])
     {{-- End Search --}}
 
     <!-- Slide Show -->
@@ -34,6 +37,7 @@
                     {{-- loop="true" --}} init="false">
                     @forelse ($menu_databases as $index => $database)
                         <swiper-slide class="flex items-center justify-center object-contain rounded-xl">
+                            @if ($database->type == 'slug')
                             <a href="{{ url('/' . $database->slug) }}"
                                 class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
                                 <img class="object-contain h-20 aspect-square swiper-responsive-img"
@@ -44,6 +48,18 @@
                                     {{ $database->name }}
                                 </h3>
                             </a>
+                            @else
+                            <a href="{{ $database->link ? $database->link : '#' }}"
+                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                <img class="object-contain h-20 aspect-square swiper-responsive-img"
+                                    src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                    alt="">
+                                <h3
+                                    class="font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
+                                    {{ $database->name }}
+                                </h3>
+                            </a>
+                            @endif
                         </swiper-slide>
                     @empty
                     <p class="py-4">No Data...</p>
@@ -91,7 +107,7 @@
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">E-Publications</p>
-                        <a
+                        <a  href="{{ url('/publications') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -109,17 +125,17 @@
                                         alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-publication-{{ $item->id }}"
-                                        data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-publication-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -136,6 +152,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Videos</p>
                         <a
+                            href="{{ url('/videos') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -152,16 +169,17 @@
                                         src="{{ asset('assets/images/videos/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-video-{{ $item->id }}" data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-video-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -179,6 +197,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Images</p>
                         <a
+                            href="{{ url('/images') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -195,16 +214,17 @@
                                         src="{{ asset('assets/images/images/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-image-{{ $item->id }}" data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-image-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -222,6 +242,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Audios</p>
                         <a
+                            href="{{ url('/audios') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -233,21 +254,28 @@
                         <!-- Card -->
                         @forelse ($audios as $item)
                             <a class="block group" href="{{ url('/audios/' . $item->id) }}">
-                                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
+                                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-gray-800">
+                                    @if ($item->image)
+                                        <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
                                         src="{{ asset('assets/images/audios/thumb/' . $item->image) }}" alt="Image Description" />
+                                    @else
+                                        <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-contain p-8 rounded-md border"
+                                        src="{{ asset('assets/icons/audio_placeholder.png') }}" alt="Image Description" />
+                                    @endif
+
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-audio-{{ $item->id }}" data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-audio-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -265,6 +293,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Bulletins</p>
                         <a
+                            href="{{ url('/bulletins') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -281,17 +310,17 @@
                                         src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-publication-{{ $item->id }}"
-                                        data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-publication-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -309,6 +338,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Theses</p>
                         <a
+                            href="{{ url('/theses') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -325,16 +355,17 @@
                                         src="{{ asset('assets/images/theses/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-thesis-{{ $item->id }}" data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-thesis-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>
@@ -352,6 +383,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">Journals</p>
                         <a
+                            href="{{ url('/journals') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             See More
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -369,16 +401,17 @@
                                         alt="Image Description" />
                                 </div>
 
-                                <div class="pt-2">
-                                    <h3 data-tooltip-target="tooltip-journal-{{ $item->id }}" data-tooltip-placement="bottom"
-                                        class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                                         <p class="line-clamp-1">{{ $item->name }}</p>
                                     </h3>
 
-                                    <div id="tooltip-journal-{{ $item->id }}" role="tooltip"
-                                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
                                         {{ $item->name }}
-                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                        <div class="tooltip-arrow"></div>
                                     </div>
                                 </div>
                             </a>

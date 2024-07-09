@@ -1,7 +1,12 @@
 @extends('layouts.client')
 
 @section('content')
-    @include('client.components.search')
+    {{-- Start Search --}}
+    @include('client.components.search', [
+        'actionUrl' => url('/images'),
+        'title' => 'Images',
+    ])
+    {{-- End Search --}}
 
     <!-- Detail -->
     <div class="max-w-screen-xl mx-auto mt-6 lg:px-0">
