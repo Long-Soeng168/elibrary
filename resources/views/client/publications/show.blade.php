@@ -1,7 +1,12 @@
 @extends('layouts.client')
 
 @section('content')
-    @include('client.components.search')
+    {{-- Start Search --}}
+    @include('client.components.search', [
+        'actionUrl' => url('/publications'),
+        'title' => 'E-Publications',
+    ])
+    {{-- End Search --}}
 
     <!-- Detail -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">

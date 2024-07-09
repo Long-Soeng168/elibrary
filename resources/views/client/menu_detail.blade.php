@@ -1,7 +1,13 @@
 @extends('layouts.client')
 
 @section('content')
-    @include('client.components.search')
+    {{-- Start Search --}}
+    @include('client.components.search', [
+        'actionUrl' => url('/publications'),
+        'title' => 'E-Publications',
+    ])
+    {{-- End Search --}}
+
     <div class="max-w-screen-xl px-2 py-6 mx-auto min-h-[30vh]">
         <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-700 dark:text-gray-200 lg:mb-6 lg:text-4xlndark:text-white">
             {{ $item->name }}

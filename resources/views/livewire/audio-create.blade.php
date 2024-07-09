@@ -865,7 +865,7 @@
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload Image (Max: 2MB) <span class="text-red-500">*</span>
+                        Upload Image (Max: 2MB)
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"

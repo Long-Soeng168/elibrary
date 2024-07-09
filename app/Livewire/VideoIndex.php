@@ -6,11 +6,11 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 
-use App\Models\Publication as Archive;
-use App\Models\PublicationCategory as Category;
-use App\Models\PublicationSubCategory as SubCategory;
+use App\Models\Video as Archive;
+use App\Models\VideoCategory as Category;
+use App\Models\VideoSubCategory as SubCategory;
 
-class PublicationIndex extends Component
+class VideoIndex extends Component
 {
     // Start Category Filter
     public $selected_categories = [];
@@ -115,16 +115,16 @@ class PublicationIndex extends Component
 
         if (!empty($this->selected_categories) && empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
-                $subQuery->whereIn('publication_category_id', $this->selected_categories);
+                $subQuery->whereIn('video_category_id', $this->selected_categories);
             });
         }elseif (empty($this->selected_categories) && !empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
-                $subQuery->whereIn('publication_sub_category_id', $this->selected_sub_categories);
+                $subQuery->whereIn('video_sub_category_id', $this->selected_sub_categories);
             });
         }elseif(!empty($this->selected_categories) && !empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
-                $subQuery->whereIn('publication_category_id', $this->selected_categories)
-                         ->orWhereIn('publication_sub_category_id', $this->selected_sub_categories);
+                $subQuery->whereIn('video_category_id', $this->selected_categories)
+                         ->orWhereIn('video_sub_category_id', $this->selected_sub_categories);
             });
         }
 
@@ -133,7 +133,6 @@ class PublicationIndex extends Component
                 $subQuery->where('name', 'LIKE', "%{$this->search}%")
                          ->orWhere('description', 'LIKE', "%{$this->search}%")
                          ->orWhere('keywords', 'LIKE', "%{$this->search}%")
-                         ->orWhere('isbn', 'LIKE', "%{$this->search}%")
                          ->orWhere('year', 'LIKE', "%{$this->search}%")
                          ->orWhereHas('author', function ($q) {
                              $q->where('name', 'LIKE', "%{$this->search}%");
@@ -153,7 +152,7 @@ class PublicationIndex extends Component
         $items = $query->latest()->paginate($this->perPage);
 
         $categories = Category::latest()->get();
-        return view('livewire.publication-index', [
+        return view('livewire.video-index', [
             'items' => $items,
             'categories' => $categories,
         ]);
