@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name_kh')->nullable();
             $table->string('image')->nullable();
             $table->string('link')->nullable();
+            $table->integer('order_index')->nullable()->default(0);
 
             $table->timestamps();
         });

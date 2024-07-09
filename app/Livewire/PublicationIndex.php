@@ -13,6 +13,7 @@ use App\Models\PublicationSubCategory as SubCategory;
 class PublicationIndex extends Component
 {
     // Start Category Filter
+    // #[Url(history: true)]
     public $selected_categories = [];
     public $selected_categories_item = [];
 
@@ -30,6 +31,7 @@ class PublicationIndex extends Component
         }
     }
 
+    // #[Url(history: true)]
     public $selected_sub_categories = [];
     public $selected_sub_categories_item = [];
 
@@ -89,7 +91,7 @@ class PublicationIndex extends Component
     #[Url(history: true)]
     public $search = '';
 
-    public $perPage = 12;
+    public $perPage = 24;
 
     use WithPagination;
     public function updatedSearch()

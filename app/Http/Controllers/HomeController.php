@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\Audio;
 use App\Models\Thesis;
 use App\Models\Journal;
+use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
 
@@ -18,13 +19,14 @@ class HomeController extends Controller
 {
     public function index() {
         $slides = Slide::latest()->get();
-        $publications = Publication::latest()->limit(6)->get();
-        $videos = Video::latest()->limit(4)->get();
-        $images = Image::latest()->limit(4)->get();
-        $audios = Audio::latest()->limit(4)->get();
-        $bulletins = News::latest()->limit(4)->get();
-        $theses = Thesis::latest()->limit(6)->get();
-        $journals = Journal::latest()->limit(6)->get();
+        $publications = Publication::latest()->limit(12)->get();
+        $videos = Video::latest()->limit(8)->get();
+        $images = Image::latest()->limit(8)->get();
+        $audios = Audio::latest()->limit(8)->get();
+        $bulletins = News::latest()->limit(8)->get();
+        $theses = Thesis::latest()->limit(12)->get();
+        $journals = Journal::latest()->limit(12)->get();
+        $articles = Article::latest()->limit(12)->get();
         return view('client.home', [
             'slides' => $slides,
             'publications' => $publications,
@@ -34,6 +36,7 @@ class HomeController extends Controller
             'bulletins' => $bulletins,
             'theses' => $theses,
             'journals' => $journals,
+            'articles' => $articles,
         ]);
     }
 

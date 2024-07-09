@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('primary')->nullable();
             $table->string('primary_hover')->nullable();
             $table->string('banner_color')->nullable();
+            $table->boolean('show_bg_menu')->default(true);
 
             $table->timestamps();
         });

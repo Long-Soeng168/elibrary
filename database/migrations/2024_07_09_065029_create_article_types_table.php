@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('links', function (Blueprint $table) {
-            $table->integer('order_index')->nullable()->default(0)->after('id');
+        Schema::create('article_types', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name');
+            $table->string('name_kh')->nullable();
+
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('links', function (Blueprint $table) {
-            $table->dropColumn('order_index');
-        });
+        Schema::dropIfExists('article_types');
     }
 };

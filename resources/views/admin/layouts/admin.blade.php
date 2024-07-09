@@ -135,7 +135,7 @@
         let initialWidth = window.innerWidth;
         let initialHeight = window.innerHeight;
 
-        // Check if the window has been resized by at least 50 pixels
+        // Check if the window has been resized by at least 100 pixels
         window.addEventListener('resize', function() {
             let newWidth = window.innerWidth;
             let newHeight = window.innerHeight;
@@ -144,8 +144,8 @@
             let widthDifference = Math.abs(newWidth - initialWidth);
             let heightDifference = Math.abs(newHeight - initialHeight);
 
-            // Show modal if the difference is at least 50 pixels
-            if (widthDifference >= 50 || heightDifference >= 50) {
+            // Show modal if the difference is at least 100 pixels
+            if (widthDifference >= 100 || heightDifference >= 100) {
                 showReloadModal();
             }
         });
@@ -438,7 +438,7 @@
                                     @case('publications')
                                         <a href="{{ url('admin/publications') }}"
                                             class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Publications</div>
                                         </a>
@@ -447,7 +447,7 @@
                                     @case('videos')
                                         <a href="{{ url('admin/videos') }}"
                                             class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Videos</div>
                                         </a>
@@ -456,7 +456,7 @@
                                     @case('images')
                                         <a href="{{ url('admin/images') }}"
                                             class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Images</div>
                                         </a>
@@ -465,7 +465,7 @@
                                     @case('audios')
                                         <a href="{{ url('admin/audios') }}"
                                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Audios</div>
                                         </a>
@@ -474,7 +474,7 @@
                                     @case('bulletins')
                                         <a href="{{ url('admin/bulletins') }}"
                                             class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
                                         </a>
@@ -483,7 +483,7 @@
                                     @case('theses')
                                         <a href="{{ url('admin/theses') }}"
                                             class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Theses</div>
                                         </a>
@@ -492,9 +492,18 @@
                                     @case('journals')
                                         <a href="{{ url('admin/journals') }}"
                                             class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt="icon"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Journals</div>
+                                        </a>
+                                    @break
+
+                                    @case('articles')
+                                        <a href="{{ url('admin/articles') }}"
+                                            class="{{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Articles</div>
                                         </a>
                                     @break
                                 @endswitch
@@ -721,7 +730,7 @@
                 </div>
             </nav>
 
-            <!-- Sidebar -->
+            <!-- Start Sidebar -->
 
             <aside
                 class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 dark:bg-gray-800 dark:border-gray-700 "
@@ -810,8 +819,6 @@
                             <span class="ml-3">Customers</span>
                         </x-sidebar-item>
                     </li> --}}
-
-
                     </ul>
 
                     <ul class="pt-3 mt-5 border-t border-gray-200 dark:border-gray-700">
@@ -833,7 +840,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.publications.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -884,7 +891,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.videos.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -933,7 +940,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.images.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -982,7 +989,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.audios.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -1031,7 +1038,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.bulletins.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -1080,7 +1087,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.theses.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -1129,7 +1136,7 @@
                                             class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                             :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                             @click="open = !open; if (open) $nextTick(() => $refs.journals.scrollIntoView({ behavior: 'smooth' }))">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
                                                 alt="icon"
                                                 class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <span
@@ -1161,6 +1168,55 @@
                                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                         Sub-Categories</a>
                                 </li> --}}
+                                        </ul>
+                                    </li>
+                                @break
+
+                                @case('articles')
+                                    <li x-data="{
+                                        open: {{ request()->is('admin/articles*') ? 'true' : 'false' }},
+                                        init() {
+                                            if ({{ request()->is('admin/articles*') ? 'true' : 'false' }}) {
+                                                this.$nextTick(() => this.$refs.articles.scrollIntoView({ behavior: 'smooth' }));
+                                            }
+                                        }
+                                    }" x-ref="articles" class="pt-1">
+                                        <button type="button"
+                                            class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                                            :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                                            @click="open = !open; if (open) $nextTick(() => $refs.articles.scrollIntoView({ behavior: 'smooth' }))">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}"
+                                                alt="icon"
+                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <span
+                                                class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">{{ $database->name }}</span>
+                                            <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                                :class="{ 'rotate-180': open }" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="m1 1 4 4 4-4" />
+                                            </svg>
+                                        </button>
+                                        <ul x-show="open" x-transition class="py-2 ml-2 space-y-2">
+                                            <li>
+                                                <a href="{{ route('admin.articles.index') }}"
+                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">Articles</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url('admin/articles_types') }}"
+                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_types') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                    Types</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url('admin/articles_categories') }}"
+                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                    Categories</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url('admin/articles_sub_categories') }}"
+                                                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/articles_sub_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                    Sub-Categories</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 @break

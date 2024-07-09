@@ -85,7 +85,9 @@
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
-            <header class="md:absolute left-0 right-0 bottom-0 z-[30] bg-transparent">
+            <header class="md:absolute left-0 right-0 bottom-0 z-[30]
+                {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
+            ">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
                     <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
                         <div

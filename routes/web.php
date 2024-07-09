@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\PublicationController;
+use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\NewsController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\Admin\SlideController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Client\ClientPublicationController;
+use App\Http\Controllers\Client\ClientArticleController;
 use App\Http\Controllers\Client\ClientVideoController;
 use App\Http\Controllers\Client\ClientAudioController;
 use App\Http\Controllers\Client\ClientImageController;
@@ -77,6 +79,12 @@ Route::group([
     Route::get('publications_categories', [PublicationController::class, 'categories']);
     Route::get('publications_sub_categories', [PublicationController::class, 'sub_categories']);
     Route::get('publications_images/{id}', [PublicationController::class, 'images']);
+
+    Route::resource('articles', ArticleController::class);
+    Route::get('articles_types', [ArticleController::class, 'types']);
+    Route::get('articles_categories', [ArticleController::class, 'categories']);
+    Route::get('articles_sub_categories', [ArticleController::class, 'sub_categories']);
+    Route::get('articles_images/{id}', [ArticleController::class, 'images']);
 
     Route::resource('videos', VideoController::class);
     Route::get('videos_types', [VideoController::class, 'types']);
@@ -178,6 +186,9 @@ Route::get('/menu/{id}', [HomeController::class, 'menu']);
 // });
 Route::get('/publications', [ClientPublicationController::class, 'index']);
 Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
+
+Route::get('/articles', [ClientArticleController::class, 'index']);
+Route::get('/articles/{id}', [ClientArticleController::class, 'show']);
 
 Route::get('/videos', [ClientVideoController::class, 'index']);
 Route::get('/videos/{id}', [ClientVideoController::class, 'show']);
