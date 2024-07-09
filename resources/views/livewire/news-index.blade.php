@@ -1,6 +1,6 @@
 <div>
         <!-- Search -->
-        <div class="p-2 bg-gradient-to-r from-primary dark:from-gray-600 to-transparent">
+        <div class="p-2 bg-gradient-to-r from-primary to-transparent">
             <div class="max-w-screen-xl mx-auto">
                 <form class="w-full " action="{{ url('/bulletins') }}">
                     <div class="flex flex-wrap gap-2">

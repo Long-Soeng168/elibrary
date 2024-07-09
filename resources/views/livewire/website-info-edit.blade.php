@@ -81,15 +81,15 @@
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
         </div>
-        <div class="grid gap-5 mb-5 lg:grid-cols-3">
+        <div class="grid grid-cols-2 gap-5 mb-5 lg:grid-cols-3">
             <!-- Start Name -->
-            <div>
-                <x-input-label for="primary" :value="__('Primary Color')" /><span class="text-red-500">*</span>
+            <div class="">
+                <x-input-label for="primary" :value="__('Main Color')" /><span class="text-red-500">*</span>
                 <input type="color" class="block w-full mt-1" wire:model='primary'>
                 <x-input-error :messages="$errors->get('primary')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="primary_hover" :value="__('Primary Hover Color')" /><span class="text-red-500">*</span>
+                <x-input-label for="primary_hover" :value="__('Hover Color')" /><span class="text-red-500">*</span>
                 <input type="color" class="block w-full mt-1" wire:model='primary_hover'>
                 <x-input-error :messages="$errors->get('primary_hover')" class="mt-2" />
             </div>
@@ -98,6 +98,21 @@
                 <input type="color" class="block w-full mt-1" wire:model='banner_color'>
                 <x-input-error :messages="$errors->get('banner_color')" class="mt-2" />
             </div>
+
+            <div>
+                <x-input-label for="show_bg_menu" :value="__('Menu Background')" />
+                <span class="text-red-500">* </span>
+                <!-- Switch/Toggle -->
+                <label class="flex items-center mt-1 cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" wire:model='show_bg_menu'>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Off</span>
+                    <div class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">On</span>
+                </label>
+                <!-- End Switch/Toggle -->
+                <x-input-error :messages="$errors->get('show_bg_menu')" class="mt-2" />
+            </div>
+
 
             <!-- End Name -->
 

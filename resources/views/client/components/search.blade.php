@@ -1,5 +1,5 @@
 <!-- client/components/search.blade.php -->
-<div class="p-2 bg-gradient-to-r from-primary dark:from-gray-600 to-transparent">
+<div class="sticky top-0 z-10 p-2 bg-white bg-gradient-to-r from-primary dark:from-primary dark:bg-gray-800 to-transparent">
     <div class="max-w-screen-xl mx-auto">
         <form class="w-full" action="{{ $actionUrl }}">
             <div class="flex flex-wrap gap-2">

@@ -21,7 +21,7 @@ class DatabaseCreate extends Component
     public $name_kh = null;
     public $link = null;
     public $slug = null;
-    public $type = null;
+    public $type = 'link';
     public $order_index = 0;
     public $description = null;
     public $description_kh = null;
@@ -66,6 +66,7 @@ class DatabaseCreate extends Component
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
             'image' => 'required|file|max:2048',
+            'client_side_image' => 'required|file|max:2048',
             'link' => 'nullable|string|max:255',
             'type' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:databases,slug',

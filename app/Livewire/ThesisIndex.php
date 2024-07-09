@@ -89,7 +89,7 @@ class ThesisIndex extends Component
     #[Url(history: true)]
     public $search = '';
 
-    public $perPage = 12;
+    public $perPage = 24;
 
     use WithPagination;
     public function updatedSearch()

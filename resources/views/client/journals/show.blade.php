@@ -224,6 +224,7 @@
         <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
             <p class="text-lg text-white">Related</p>
             <a
+                href="{{ url('/journals') }}"
                 class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                 See More
                 <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />

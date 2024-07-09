@@ -80,22 +80,25 @@
                     required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
-            <div class="col-span-1">
-                <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Link') }}
-                </label>
-                <x-text-input id="link" class="block w-full mt-1" type="text" name="link" wire:model='link'
-                    required autofocus placeholder="Link or URL" />
-                <x-input-error :messages="$errors->get('link')" class="mt-2" />
-            </div>
-            <div class="col-span-1">
+            @if ($item->type !== 'slug')
+                <div class="col-span-1">
+                    <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                    {{ __('Link') }}
+                    </label>
+                    <x-text-input id="link" class="block w-full mt-1" type="text" name="link" wire:model='link'
+                        required autofocus placeholder="Link or URL" />
+                    <x-input-error :messages="$errors->get('link')" class="mt-2" />
+                </div>
+            @endif
+
+            {{-- <div class="col-span-1">
                 <label for="slug" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                    {{ __('Slug') }}
                 </label>
                 <x-text-input id="slug" class="block w-full mt-1" type="text" name="slug" wire:model='slug'
                     required autofocus placeholder="Slug" />
                 <x-input-error :messages="$errors->get('slug')" class="mt-2" />
-            </div>
+            </div> --}}
             <div class="col-span-1">
                 <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                    {{ __('Order Index') }}
@@ -104,7 +107,7 @@
                     required autofocus placeholder="Order Index" />
                 <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
             </div>
-            <div class="col-span-1">
+            {{-- <div class="col-span-1">
                 <label for="type"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
                     <select id="type" wire:model='type'
@@ -112,7 +115,7 @@
                     <option value="link">Link</option>
                     <option value="slug">Slug</option>
                 </select>
-            </div>
+            </div> --}}
             <!-- End Name -->
 
         </div>

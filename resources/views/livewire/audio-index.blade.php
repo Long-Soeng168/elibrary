@@ -1,6 +1,6 @@
 <div>
         <!-- Search -->
-        <div class="p-2 bg-gradient-to-r from-primary dark:from-gray-600 to-transparent">
+        <div class="p-2 bg-gradient-to-r from-primary to-transparent">
             <div class="max-w-screen-xl mx-auto">
                 <form class="w-full " action="{{ url('/audios') }}">
                     <div class="flex flex-wrap gap-2">
@@ -242,10 +242,16 @@
                         @forelse ($items as $index => $item)
 
                             <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('audios/'.$item->id) }}">
-                                <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
+                                <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-gray-800">
+                                   @if ($item->image)
                                     <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/audios/thumb/'.$item->image) }}"
-                                        alt="Image Description" />
+                                    src="{{ asset('assets/images/audios/thumb/'.$item->image) }}"
+                                    alt="Image Description" />
+                                   @else
+                                   <img class="w-full p-7 aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-contain rounded-md"
+                                   src="{{ asset('assets/icons/audio_placeholder.png') }}"
+                                   alt="Image Description" />
+                                   @endif
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">

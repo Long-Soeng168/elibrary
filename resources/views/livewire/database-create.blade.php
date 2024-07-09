@@ -108,11 +108,12 @@
             <div class="col-span-1">
                 <label for="type"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-                    <select id="type" wire:model='type'
+                    <select id="type" wire:model.live="type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
                     <option value="link">Link</option>
                     <option value="slug">Slug</option>
                 </select>
+                <x-input-error :messages="$errors->get('type')" class="mt-2" />
             </div>
             <!-- End Name -->
 

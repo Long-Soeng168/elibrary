@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->integer('order_index')->nullable()->default(0)->after('id');
+        Schema::create('article_images', function (Blueprint $table) {
+            $table->id();
+
+            $table->unsignedBigInteger('article_id')->nullable();
+            $table->string('image');
+
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('menus', function (Blueprint $table) {
-            $table->dropColumn('order_index');
-        });
+        Schema::dropIfExists('article_images');
     }
 };

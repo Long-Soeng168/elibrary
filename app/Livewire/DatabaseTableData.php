@@ -57,6 +57,8 @@ class DatabaseTableData extends Component
         $database->update([
             'status' => !$database->status,
         ]);
+        session()->flash('success', 'Successfully updated!');
+        return redirect('/admin/settings/databases');
     }
 
     public function render(){

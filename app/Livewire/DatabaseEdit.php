@@ -61,7 +61,7 @@ class DatabaseEdit extends Component
             'name_kh' => 'required|string|max:255',
             'link' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255|unique:databases,slug,'.$this->item->id,
-            'type' => 'required|string|max:255',
+            'type' => 'nullable|string|max:255',
             'order_index' => 'nullable||max:255',
         ]);
 

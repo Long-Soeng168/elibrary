@@ -21,6 +21,8 @@ class WebsiteInfoEdit extends Component
     public $primary;
     public $primary_hover;
     public $banner_color;
+    public $show_bg_menu;
+
     public $description;
     public $description_kh;
 
@@ -32,6 +34,7 @@ class WebsiteInfoEdit extends Component
         $this->primary = $item->primary;
         $this->primary_hover = $item->primary_hover;
         $this->banner_color = $item->banner_color;
+        $this->show_bg_menu = (bool) $item->show_bg_menu;
     }
 
     public function updatedImage()
@@ -59,6 +62,7 @@ class WebsiteInfoEdit extends Component
             'primary' => 'required|max:255',
             'primary_hover' => 'required|max:255',
             'banner_color' => 'required|max:255',
+            'show_bg_menu' => 'required|boolean',
         ]);
 
         // Update the existing item record
@@ -82,7 +86,7 @@ class WebsiteInfoEdit extends Component
 
         session()->flash('success', 'Info updated successfully!');
 
-        // return redirect('admin/settings/website_infos');
+        return redirect('admin/settings/website_infos/1/edit');
     }
 
     public function render()

@@ -27,7 +27,7 @@
 
     <!-- Start Database -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="text-2xl font-bold text-gray-700 uppercase dark:text-white xl:p-0">
+        <p class="mb-2 font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
             Databases
         </p>
         <!-- Icon Blocks -->
@@ -36,26 +36,26 @@
                 <swiper-container class="w-full swiper-responsive" effect="slide" pagination="true" {{-- space-between="30" --}}
                     {{-- loop="true" --}} init="false">
                     @forelse ($menu_databases as $index => $database)
-                        <swiper-slide class="flex items-center justify-center object-contain rounded-xl">
+                        <swiper-slide class="flex items-center justify-center object-contain py-1 rounded-xl">
                             @if ($database->type == 'slug')
                             <a href="{{ url('/' . $database->slug) }}"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
-                                <img class="object-contain h-20 aspect-square swiper-responsive-img"
+                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
                                 <h3
-                                    class="font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
+                                    class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
                                     {{ $database->name }}
                                 </h3>
                             </a>
                             @else
-                            <a href="{{ $database->link ? $database->link : '#' }}"
+                            <a href="{{ $database->link ? $database->link : '#' }}" target="_blank"
                                 class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
-                                <img class="object-contain h-20 aspect-square swiper-responsive-img"
+                                <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
                                 <h3
-                                    class="font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
+                                    class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
                                     {{ $database->name }}
                                 </h3>
                             </a>
@@ -71,20 +71,20 @@
                     const swiperEl = document.querySelector('.swiper-responsive')
                     Object.assign(swiperEl, {
                         slidesPerView: 3,
-                        spaceBetween: 10,
+                        spaceBetween: 5,
                         breakpoints: {
                             640: {
                                 slidesPerView: 3,
-                                spaceBetween: 10,
+                                spaceBetween: 5,
                             },
                             768: {
                                 slidesPerView: 4,
-                                spaceBetween: 20,
+                                spaceBetween: 5,
                             },
                             1024: {
                                 // slidesPerView: 7,
                                 slidesPerView: {{ count($menu_databases) }},
-                                spaceBetween: 20,
+                                spaceBetween: 5,
                             },
                         },
                     });
@@ -398,6 +398,52 @@
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/journals/thumb/' . $item->image) }}"
+                                        alt="Image Description" />
+                                </div>
+
+                                <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                                    <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                                        class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
+                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                    </h3>
+
+                                    <div x-show="tooltipVisible" x-transition
+                                        class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                                        style="display: none;">
+                                        {{ $item->name }}
+                                        <div class="tooltip-arrow"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        @empty
+                        @endforelse
+                    </div>
+                    <!-- End Card Grid -->
+                </div>
+                {{-- End Journal --}}
+            @break
+
+            @case('articles')
+                {{-- Start Journal --}}
+                <div class="max-w-screen-xl mx-auto mt-6">
+                    <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
+                        <p class="text-lg text-white">Articles</p>
+                        <a
+                            href="{{ url('/articles') }}"
+                            class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
+                            See More
+                            <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
+                        </a>
+                    </div>
+                    <!-- Card Grid -->
+                    <div
+                        class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
+                        <!-- Card -->
+                        @forelse ($articles as $item)
+                            <a class="block group" href="{{ url('/articles/' . $item->id) }}">
+                                <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
+                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                        src="{{ asset('assets/images/articles/thumb/' . $item->image) }}"
                                         alt="Image Description" />
                                 </div>
 
