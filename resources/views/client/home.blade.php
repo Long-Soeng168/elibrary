@@ -4,6 +4,7 @@
     @include('client.components.search', [
         'actionUrl' => url('/publications'),
         'title' => 'E-Publications',
+        'title_kh' => 'ឯកសារអេឡិចត្រូនិច',
     ])
     {{-- End Search --}}
 

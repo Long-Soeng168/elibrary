@@ -284,7 +284,7 @@ class ImageCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'file' => 'nullable|file|max:2048',
+            'file' => 'nullable|file|max:20480',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
             'image_category_id' => 'nullable|exists:image_categories,id',

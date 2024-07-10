@@ -45,4 +45,84 @@ class HomeController extends Controller
             'item' => Menu::findOrFail($id),
         ]);
     }
+
+    public function readCount($archive, $id) {
+
+        if ($archive == 'publication') {
+            $item = Publication::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'bulletin') {
+            $item = News::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'article') {
+            $item = Article::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'thesis') {
+            $item = Thesis::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'journal') {
+            $item = Journal::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }
+
+        else {
+            return response()->json(['success' => false], 404);
+        }
+
+    }
+
+    public function downloadCount($archive, $id) {
+
+        if ($archive == 'publication') {
+            $item = Publication::findOrFail($id);
+            $item->update([
+                'download_count' => $item->download_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'bulletin'){
+            $item = News::findOrFail($id);
+            $item->update([
+                'download_count' => $item->download_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'article'){
+            $item = Article::findOrFail($id);
+            $item->update([
+                'download_count' => $item->download_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'thesis'){
+            $item = Thesis::findOrFail($id);
+            $item->update([
+                'download_count' => $item->download_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }elseif($archive == 'journal'){
+            $item = Journal::findOrFail($id);
+            $item->update([
+                'download_count' => $item->download_count + 1,
+            ]);
+            return response()->json(['success' => true], 200);
+        }
+
+        else {
+            return response()->json(['success' => false], 404);
+        }
+
+    }
 }

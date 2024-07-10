@@ -39,4 +39,8 @@ class Publication extends Model
     public function location(){
         return $this->belongsTo(Location::class, 'location_id', 'id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'create_by_user_id', 'id');
+    }
 }

@@ -109,6 +109,10 @@ class ThesisEdit extends Component
         $this->location_id = $this->item->location_id;
         $this->language_id = $this->item->language_id;
         $this->author_id = $this->item->author_id;
+        $this->student_id = $this->item->student_id;
+        $this->major_id = $this->item->major_id;
+        $this->lecturer_id = $this->item->lecturer_id;
+        $this->supervisor_id = $this->item->supervisor_id;
 
         $this->name = $this->item->name;
         $this->pages_count = $this->item->pages_count;
@@ -125,7 +129,7 @@ class ThesisEdit extends Component
         $resourceLinks = ThesisResourceLink::where('thesis_id', $this->item->id)->get();
         $this->resourceLinks = $resourceLinks->pluck('link')->toArray();
 
-        $journalLinks = ThesisResourceLink::where('thesis_id', $this->item->id)->get();
+        $journalLinks = ThesisJournalLink::where('thesis_id', $this->item->id)->get();
         $this->journalLinks = $journalLinks->pluck('link')->toArray();
     }
 
@@ -421,7 +425,7 @@ class ThesisEdit extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:20480', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -444,16 +448,16 @@ class ThesisEdit extends Component
             'link' => 'nullable|string|max:255',
             'barcode' => 'nullable|integer',
             'published_date' => 'nullable',
-            'thesis_category_id' => 'nullable|exists:thesis_categories,id',
-            'thesis_type_id' => 'required|exists:thesis_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
-            'student_id' => 'nullable|exists:students,id',
-            'lecturer_id' => 'nullable|exists:lecturers,id',
-            'supervisor_id' => 'nullable|exists:supervisors,id',
-            'major_id' => 'nullable|exists:majors,id',
+            'thesis_category_id' => 'nullable',
+            'thesis_type_id' => 'required',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
+            'student_id' => 'nullable',
+            'lecturer_id' => 'nullable',
+            'supervisor_id' => 'nullable',
+            'major_id' => 'nullable',
             'description' => 'nullable',
             'short_description' => 'nullable',
         ]);

@@ -109,13 +109,13 @@
                                     </svg>
                                 </button>
                                 <!-- Start Language -->
-                                <a href="#" type="button"
-                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                                <a href="{{ route('switch-language', ['locale' => 'kh']) }}" type="button"
+                                    class="{{ app()->getLocale() == 'kh' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}"
                                         alt="" />
                                 </a>
-                                <a href="#" type="button"
-                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-200 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
+                                <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
+                                    class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:bg-gray-200 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
                                         alt="" />
                                 </a>
@@ -139,33 +139,33 @@
                             <ul
                                 class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                 <li
-                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('/') ? 'border-opacity-100' : '' }}  ">
+                                    class="transition-all hover:underline underline-offset-4 {{ request()->is('/') ? 'underline' : '' }}  ">
                                     <a href="/"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Home
+                                        {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
                                     </a>
                                 </li>
                                 @forelse ($menu_pages as $item)
                                     <li
-                                        class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('menu/' . $item->id) ? 'border-opacity-100' : '' }}   ">
+                                        class="transition-all hover:underline underline-offset-4 {{ request()->is('menu/' . $item->id) ? 'underline' : '' }}   ">
                                         <a href="{{ url('/menu/' . $item->id) }}"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ $item->name }}
+                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
                                         </a>
                                     </li>
                                 @empty
                                 @endforelse
                                 <li
-                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white">
+                                    class="transition-all hover:underline underline-offset-4 ">
                                     @if (auth()->check())
                                         <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            Admin
+                                            {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
                                         </a>
                                     @else
                                         <a href="{{ url('/login') }}"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            Login
+                                            {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
                                         </a>
                                     @endif
                                 </li>
@@ -197,7 +197,9 @@
                     <li>
                         <a href="/"
                             class="{{ request()->is('/') ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="ms-3">Home</span>
+                            <span class="ms-3">
+                                {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
+                            </span>
                         </a>
                     </li>
 
@@ -205,7 +207,9 @@
                         <li>
                             <a href="{{ url('/menu/' . $item->id) }}"
                                 class="{{ request()->is('menu/' . $item->id) ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">{{ $item->name }}</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                </span>
                             </a>
                         </li>
                     @empty
@@ -215,12 +219,16 @@
                         @if (auth()->check())
                             <a href="{{ url('/admin/dashboard') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">Admin</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
+                                </span>
                             </a>
                         @else
                             <a href="{{ url('/login') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">Login</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
+                                </span>
                             </a>
                         @endif
                     </li>

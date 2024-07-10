@@ -266,7 +266,7 @@ class PublicationCreate extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:20480', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -284,7 +284,7 @@ class PublicationCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'pdf' => 'required|file|mimes:pdf|max:2048',
+            'pdf' => 'required|file|mimes:pdf|max:20480',
             'pages_count' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'isbn' => 'nullable|string|max:30',

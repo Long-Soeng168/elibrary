@@ -44,6 +44,9 @@ return new class extends Migration
             $table->bigInteger('thesis_sub_category_id')->nullable();
             $table->bigInteger('create_by_user_id')->nullable();
 
+            $table->integer('read_count')->nullable();
+            $table->integer('download_count')->nullable();
+
             $table->integer('status')->default(1)->nullable();
 
             $table->timestamps();

@@ -425,8 +425,7 @@
                 <x-input-label for="student" :value="__('Student')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
-                        <x-select-option class="student-select" wire:model.live='student_id' id="student"
-                            name="student_id">
+                        <x-select-option class="student-select" wire:model.live='student_id' id="student">
                             <option wire:key='student' value="0">Select Student...</option>
                             @forelse ($students as $student)
                                 <option wire:key='{{ $student->id }}' value="{{ $student->id }}">
@@ -1298,7 +1297,7 @@
 
         <div class="mb-5" wire:ignore>
             <x-input-label for="description" :value="__('Description')" />
-            <textarea id="description" name="description"></textarea>
+            <textarea id="description" name="description" wire:model='description'></textarea>
         </div>
 
 
