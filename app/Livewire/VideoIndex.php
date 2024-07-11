@@ -49,7 +49,11 @@ class VideoIndex extends Component
 
     public function handleRemoveCategoryName($item)
     {
-        $this->dispatch('livewire:updatedName', $item['name']);
+         if (app()->getLocale() == 'kh' && $item['name_kh']) {
+            $this->dispatch('livewire:updatedName', $item['name_kh']);
+        } else {
+            $this->dispatch('livewire:updatedName', $item['name']);
+        }
         // Remove the item from the selected_categories_item array
         $this->selected_categories_item = array_filter($this->selected_categories_item, function ($i) use ($item) {
             return $i->id !== $item['id'];
@@ -62,7 +66,11 @@ class VideoIndex extends Component
 
     public function handleRemoveSubCategoryName($item)
     {
-        $this->dispatch('livewire:updatedName', $item['name']);
+         if (app()->getLocale() == 'kh' && $item['name_kh']) {
+            $this->dispatch('livewire:updatedName', $item['name_kh']);
+        } else {
+            $this->dispatch('livewire:updatedName', $item['name']);
+        }
         // Remove the item from the selected_sub_categories_item array
         $this->selected_sub_categories_item = array_filter($this->selected_sub_categories_item, function ($i) use ($item) {
             return $i->id !== $item['id'];

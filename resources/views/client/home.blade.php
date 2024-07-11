@@ -28,8 +28,8 @@
 
     <!-- Start Database -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="mb-2 font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
-            Databases
+        <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
+            {{ __('messages.databases') }}
         </p>
         <!-- Icon Blocks -->
         <div class="">
@@ -46,7 +46,11 @@
                                     alt="">
                                 <h3
                                     class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                                    {{ $database->name }}
+                                    @if (app()->getLocale() == 'kh' && $database->name_kh)
+                                        {{ $database->name_kh }}
+                                    @else
+                                        {{ $database->name }}
+                                    @endif
                                 </h3>
                             </a>
                             @else
@@ -107,10 +111,10 @@
                 {{-- E-Publications --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">E-Publications</p>
+                        <p class="text-lg text-white">{{ __('messages.ePublications') }}</p>
                         <a  href="{{ url('/publications') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -152,11 +156,11 @@
                 {{-- Videos --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Videos</p>
+                        <p class="text-lg text-white">{{ __('messages.videos') }}</p>
                         <a
                             href="{{ url('/videos') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -198,11 +202,11 @@
                 {{-- Images --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Images</p>
+                        <p class="text-lg text-white">{{ __('messages.images') }}</p>
                         <a
                             href="{{ url('/images') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -244,11 +248,11 @@
                 {{-- Audios --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Audios</p>
+                        <p class="text-lg text-white">{{ __('messages.audios') }}</p>
                         <a
                             href="{{ url('/audios') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -296,11 +300,11 @@
                 {{-- Start Bulletins --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Bulletins</p>
+                        <p class="text-lg text-white">{{ __('messages.bulletins') }}</p>
                         <a
                             href="{{ url('/bulletins') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -342,11 +346,11 @@
                 {{-- Start Theses --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Theses</p>
+                        <p class="text-lg text-white">{{ __('messages.theses') }}</p>
                         <a
                             href="{{ url('/theses') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -388,11 +392,11 @@
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Journals</p>
+                        <p class="text-lg text-white">{{ __('messages.journals') }}</p>
                         <a
                             href="{{ url('/journals') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -435,11 +439,11 @@
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Articles</p>
+                        <p class="text-lg text-white">{{ __('messages.articles') }}</p>
                         <a
                             href="{{ url('/articles') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>

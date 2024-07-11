@@ -115,7 +115,7 @@
                                         alt="" />
                                 </a>
                                 <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
-                                    class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:bg-gray-200 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
+                                    class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
                                         alt="" />
                                 </a>
@@ -148,10 +148,18 @@
                                 @forelse ($menu_pages as $item)
                                     <li
                                         class="transition-all hover:underline underline-offset-4 {{ request()->is('menu/' . $item->id) ? 'underline' : '' }}   ">
+                                        @if ($item->link)
+                                        <a href="{{ $item->link }}" target="_blank"
+                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                        </a>
+                                        @else
                                         <a href="{{ url('/menu/' . $item->id) }}"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                             {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
                                         </a>
+                                        @endif
+
                                     </li>
                                 @empty
                                 @endforelse
@@ -255,7 +263,11 @@
                         <div class="justify-between gap-6 lg:flex lg:gap-20">
                             <div class="max-w-[500px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
-                                    {{ $footer->name }}
+                                    @if (app()->getLocale() == 'kh' && $footer->name_kh)
+                                        {!! $footer->name_kh !!}
+                                    @else
+                                        {!! $footer->name !!}
+                                    @endif
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
@@ -266,13 +278,17 @@
                                         </p>
                                         <p>Phone Number : +855 99 999 999</p>
                                         <p>Email : beltei@beltei.kh</p> --}}
-                                        {!! $footer->description !!}
+                                        @if (app()->getLocale() == 'kh' && $footer->description_kh)
+                                            {!! $footer->description_kh !!}
+                                        @else
+                                            {!! $footer->description !!}
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
                             <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    Download App
+                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download App' }}
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
@@ -280,15 +296,15 @@
                                             class="bg-transparent hover:bg-white dark:hover:bg-gray-400 border-2 border-white dark:border-gray-400 focus:ring-4 font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center gap-2 hover:text-gray-600 dark:hover:text-white hover:scale-110 transition-all">
                                             <img src="{{ asset('assets/icons/mobile-app.png') }}" alt=""
                                                 class="h-8" />
-
-                                            Click Download
+                                                {{ app()->getLocale() == 'kh' ? 'ទាញយក' : 'Download' }}
                                         </button>
                                     </li>
                                 </ul>
                             </div>
                             <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    Social Links
+
+                                {{ app()->getLocale() == 'kh' ? 'តំណភ្ជាប់សង្គម' : 'Social Links' }}
                                 </h2>
 
                                 <div class="flex flex-wrap gap-2 mt-4 mb-4 lg:justify-center sm:mt-0">
@@ -325,11 +341,11 @@
                     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                     <div class="flex justify-between">
                         <span class="text-sm sm:text-center dark:text-gray-400">
-                            {{ $footer->copyright }}
+                            {{ app()->getLocale() == 'kh' ? $footer->copyright_kh : $footer->copyright }}
                         </span>
-                        <span class="text-sm sm:text-center dark:text-gray-400">Developed by Alphalib
+                        <span class="text-sm sm:text-center dark:text-gray-400">
+                            {{ app()->getLocale() == 'kh' ? 'អភិវឌ្ឍដោយ Alphalib' : 'Developed by Alphalib' }}
                         </span>
-                        @yield('HI')
                     </div>
                 </div>
             </footer>

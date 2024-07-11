@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Journal;
 use App\Models\JournalImage;
+use App\Models\ThesisJournalLink;
 
 class ClientJournalController extends Controller
 {
@@ -56,11 +57,14 @@ class ClientJournalController extends Controller
         ->limit(6)
         ->get();
 
+        $resourceLinks = ThesisJournalLink::where('thesis_id', $id)->get();
+
         // Return the view with the data
         return view('client.journals.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,
+            'resourceLinks' => $resourceLinks,
         ]);
     }
 

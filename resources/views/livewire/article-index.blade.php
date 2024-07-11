@@ -8,7 +8,7 @@
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                             class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none   font-medium rounded-tl-lg rounded-tr-lg md:rounded-s-lg text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center md:rounded-tr-none border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
                             type="button">
-                            Articles
+                            {{ __('messages.articles') }}
                             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -24,7 +24,12 @@
                                     <li>
                                         <a href="{{ url($item->slug) }}"
                                             class="block px-6 py-2 hover:bg-gray-100 {{ request()->is($item->slug) ? 'underline' : '' }} dark:hover:bg-gray-600 dark:hover:text-white">
+                                            @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                            {{ $item->name_kh }}
+                                            @else
                                             {{ $item->name }}
+                                            @endif
+
                                         </a>
                                     </li>
                                     @endif
@@ -39,7 +44,7 @@
                         <button id="multiLevelDropdownButton" data-dropdown-toggle="multi-dropdown"
                             class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none font-medium text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
                             type="button">
-                            Filter
+                            {{ __('messages.filter') }}
                             <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -54,7 +59,13 @@
                                         <li class="hover:underline" wire:key="{{ $category->id }}">
                                             <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                                 <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
-                                                <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">{{ $category->name }}</label>
+                                                <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
+                                                    @if (app()->getLocale() == 'kh' && $category->name_kh)
+                                                    {{ $category->name_kh }}
+                                                    @else
+                                                    {{ $category->name }}
+                                                    @endif
+                                                </label>
                                             </div>
                                         </li>
                                     @else
@@ -62,7 +73,13 @@
                                             <div class="flex">
                                                 <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                                     <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
-                                                    <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">{{ $category->name }}</label>
+                                                    <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
+                                                        @if (app()->getLocale() == 'kh' && $category->name_kh)
+                                                        {{ $category->name_kh }}
+                                                        @else
+                                                        {{ $category->name }}
+                                                        @endif
+                                                    </label>
                                                 </div>
                                                 <button id="doubleDropdownButton-{{ $category->id }}" data-dropdown-toggle="doubleDropdown-{{ $category->id }}"
                                                     data-dropdown-placement="bottom-start" type="button"
@@ -75,14 +92,24 @@
                                             <div id="doubleDropdown-{{ $category->id }}"
                                                 class="relative z-30 hidden bg-gray-50 divide-y divide-gray-200 border shadow-lg w-[250px]  dark:bg-gray-500 ml-2">
                                                 <div class="py-1 font-bold text-center underline bg-gray-200 border-b border-b-primary dark:border-b-white dark:bg-gray-600">
+                                                    @if (app()->getLocale() == 'kh' && $category->name_kh)
+                                                    {{ $category->name_kh }}
+                                                    @else
                                                     {{ $category->name }}
+                                                    @endif
                                                 </div>
                                                 <ul class="text-sm text-gray-700 dark:text-gray-100" aria-labelledby="doubleDropdownButton-{{ $category->id }}">
                                                     @forelse ($category->subCategories as $subCategory)
                                                         <li class="hover:underline" wire:key="{{ $subCategory->id }}">
                                                             <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectSubCategory({{ $subCategory->id }})">
                                                                 <input type="checkbox" id="subCategory-{{ $subCategory->id }}" name="selected_sub_categories[]" value="{{ $subCategory->id }}">
-                                                                <label class="flex-1 py-2 pr-2" for="subCategory-{{ $subCategory->id }}">{{ $subCategory->name }}</label>
+                                                                <label class="flex-1 py-2 pr-2" for="subCategory-{{ $subCategory->id }}">
+                                                                    @if (app()->getLocale() == 'kh' && $subCategory->name_kh)
+                                                                    {{ $subCategory->name_kh }}
+                                                                    @else
+                                                                    {{ $subCategory->name }}
+                                                                    @endif
+                                                                </label>
                                                             </div>
                                                         </li>
                                                     @empty
@@ -102,7 +129,7 @@
                         <div class="flex flex-1">
                             <input type="search" id="search-dropdown" wire:model.live.debounce.300ms='search'
                                 class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 border-gray-50 border-1 border  dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-400 dark:text-white rounded-bl-lg md:rounded-bl-none focus:outline-double dark:focus:outline-white focus:outline-primary  border-primary"
-                                placeholder="Search..." name="search"/>
+                                placeholder="{{ __('messages.search') }}..." name="search"/>
                             <button type="submit"
                                 class="top-0 end-0 p-2.5 text-md font-medium h-full text-white bg-primary rounded-e-lg border border-primary hover:bg-primaryHover focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-primary dark:focus:ring-primaryHover flex space-x-2 items-center justify-center ml-2 rounded-tr-none md:rounded-tr-lg">
                                 <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -110,7 +137,7 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
-                                <span>Search</span>
+                                <span>{{ __('messages.search') }}</span>
                             </button>
                         </div>
                     </div>
@@ -128,7 +155,7 @@
                         data-accordion-target="#accordion-collapse-body-2" aria-expanded="true"
                         aria-controls="accordion-collapse-body-2">
                         <p class="text-lg font-bold text-gray-700 uppercase dark:text-gray-200">
-                            Database
+                            {{ __('messages.databases') }}
                         </p>
                         <svg data-accordion-icon class="w-4 h-4 text-gray-700 rotate-180 shrink-0 dark:text-gray-300"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -153,13 +180,17 @@
                                             <div class="mt-1">
                                                 <h3
                                                     class="font-semibold text-center text-gray-800 group-hover:text-gray-600 text-md lg:text-lg dark:text-gray-300 dark:group-hover:text-gray-50">
+                                                    @if (app()->getLocale() == 'kh' && $database->name_kh)
+                                                    {{ $database->name_kh }}
+                                                    @else
                                                     {{ $database->name }}
+                                                    @endif
                                                 </h3>
                                             </div>
                                         </a>
                                     @endif
                                 @empty
-                                <p class="py-4">No Data...</p>
+                                <p class="py-4">{{ __('messages.noData') }}...</p>
                                 @endforelse
 
 
@@ -176,7 +207,7 @@
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 bg-primary">
                         <p class="text-lg text-white capitalize">
-                            Articles
+                            {{ __('messages.articles') }}
                         </p>
                     </div>
                     @if ($selected_categories_item || $selected_sub_categories_item)
@@ -184,7 +215,11 @@
                             @forelse ($selected_categories_item as $index => $item)
                                 <div class="relative flex gap-1 rounded-sm group dark:bg-blue-400/50 bg-blue-400/20" wire:key="{{ $item->id }}-{{ $index }}">
                                     <div class="flex items-center gap-2 p-2 text-gray-800 rounded-md dark:text-white">
+                                        @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                        {{ $item->name_kh }}
+                                        @else
                                         {{ $item->name }}
+                                        @endif
                                     </div>
                                     <button
                                         wire:click="handleRemoveCategoryName({{ $item }})"
@@ -202,7 +237,11 @@
                             @forelse ($selected_sub_categories_item as $index => $item)
                                 <div class="relative flex gap-1 rounded-sm group dark:bg-blue-400/30 bg-blue-400/10" wire:key="{{ $item->id }}-{{ $index }}">
                                     <div class="flex items-center gap-2 p-2 text-gray-800 rounded-md dark:text-white">
+                                        @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                        {{ $item->name_kh }}
+                                        @else
                                         {{ $item->name }}
+                                        @endif
                                     </div>
                                     <button
                                         wire:click="handleRemoveSubCategoryName({{ $item }})"
@@ -220,7 +259,7 @@
                             {{-- Filter top title --}}
                             <div
                                 class="absolute px-2 duration-300 bg-white border-l border-r dark:bg-gray-800 dark:text-white -top-2.5 left-2">
-                               <p class="text-sm font-bold">Filter</p>
+                               <p class="text-sm font-bold">{{ __('messages.filter') }}</p>
                             </div>
 
                             {{-- Button Clear all --}}
@@ -263,7 +302,7 @@
                                 </div>
                             </a>
                         @empty
-                            <p class="text-gray-700 dark:text-gray-200">No Data...</p>
+                            <p class="text-gray-700 dark:text-gray-200">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -273,8 +312,9 @@
                 <div>
                     <div class="max-w-[200px] my-2 flex gap-2 items-center">
                         <label for="countries"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
-                            page : </label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 whitespace-nowrap">
+                            {{ __('messages.recordsPerPage') }} :
+                        </label>
                         <select id="countries" wire:model.live='perPage'
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="6">6</option>
@@ -285,7 +325,8 @@
                         </select>
                     </div>
 
-                    {{ $items->links() }}
+                    {{ $items->links('vendor.pagination.custom') }}
+
                 </div>
                 <!-- End Pagination -->
             </div>
