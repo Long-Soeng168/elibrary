@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     <div class="relative w-full overflow-hidden rounded-md">
                         <img class="object-cover w-full border rounded-md cursor-pointer aspect-video"
-                            src="{{ asset('assets/images/videos/'.$item->image) }}" alt="Book Cover" />
+                            src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
 
                         <div class="absolute inset-0 border size-full">
                             <div class="flex flex-col items-center justify-center size-full">

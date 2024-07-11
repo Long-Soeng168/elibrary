@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md glightbox">
                         <img class="object-cover w-full h-auto border cursor-pointer"
-                            src="{{ asset('assets/images/images/'.$item->image) }}" alt="Book Cover" />
+                            src="{{ asset('assets/images/images/thumb/'.$item->image) }}" alt="Book Cover" />
                     </a>
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
