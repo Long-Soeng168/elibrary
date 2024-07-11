@@ -59,7 +59,7 @@
                             <a href="{{ $database->link ? $database->link : '#' }}" target="_blank"
                                 class="flex flex-col items-center justify-center w-full p-4 py-6
                                 {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
-                                 dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
                                 <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
