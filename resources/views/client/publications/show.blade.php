@@ -187,7 +187,7 @@
                         </div>
                     @endif
 
-                    @if ($item->publicationCategory?->name)
+                    @if ($item->publicationCategory?->name || $item->publicationSubCategory?->name)
                         <div class="flex nowrap">
                             <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
                                 {{ __('messages.category') }}
