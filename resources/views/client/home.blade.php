@@ -40,7 +40,7 @@
                         <swiper-slide class="flex items-center justify-center object-contain py-1 rounded-xl">
                             @if ($database->type == 'slug')
                             <a href="{{ url('/' . $database->slug) }}"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') && !request()->is('/') ? 'bg-gray-100' : '' }} dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
                                 <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
