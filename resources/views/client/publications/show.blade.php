@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
                         <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border"
-                            src="{{ asset('assets/images/publications/' . $item->image) }}" alt="Book Cover" />
+                            src="{{ asset('assets/images/publications/thumb/' . $item->image) }}" alt="Book Cover" />
                     </a>
                     <div class="grid grid-cols-4 gap-2">
                         @foreach ($multi_images as $index => $image)
@@ -187,7 +187,7 @@
                         </div>
                     @endif
 
-                    @if ($item->publicationCategory?->name || $item->publicationSubCategory?->name)
+                    @if ($item->publicationCategory?->name)
                         <div class="flex nowrap">
                             <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
                                 {{ __('messages.category') }}
