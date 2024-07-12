@@ -112,6 +112,9 @@
     @forelse ($menu_databases as $database)
         @switch($database->slug)
             @case('publications')
+                @if (count($publications))
+                    @continue
+                @endif
                 {{-- E-Publications --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -157,6 +160,9 @@
             @break
 
             @case('videos')
+                @if (count($videos))
+                    @continue
+                @endif
                 {{-- Videos --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -203,6 +209,9 @@
             @break
 
             @case('images')
+                @if (count($images))
+                    @continue
+                @endif
                 {{-- Images --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -249,6 +258,9 @@
             @break
 
             @case('audios')
+                @if (count($audios))
+                    @continue
+                @endif
                 {{-- Audios --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -301,6 +313,9 @@
             @break
 
             @case('bulletins')
+                @if (count($bulletins))
+                    @continue
+                @endif
                 {{-- Start Bulletins --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -347,6 +362,9 @@
             @break
 
             @case('theses')
+                @if (count($theses))
+                    @continue
+                @endif
                 {{-- Start Theses --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -393,6 +411,9 @@
             @break
 
             @case('journals')
+                @if (count($journals))
+                    @continue
+                @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
@@ -440,6 +461,9 @@
             @break
 
             @case('articles')
+                @if (count($articles))
+                    @continue
+                @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
