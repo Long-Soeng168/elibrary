@@ -80,6 +80,14 @@
                     required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
+            <div class="col-span-1">
+                <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                   {{ __('Order Index') }}
+                </label>
+                <x-text-input id="order_index" class="block w-full mt-1" type="text" name="order_index" wire:model='order_index'
+                    required autofocus placeholder="Order Index" />
+                <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
+            </div>
             @if ($item->type !== 'slug')
                 <div class="col-span-1">
                     <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
@@ -99,14 +107,7 @@
                     required autofocus placeholder="Slug" />
                 <x-input-error :messages="$errors->get('slug')" class="mt-2" />
             </div> --}}
-            <div class="col-span-1">
-                <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Order Index') }}
-                </label>
-                <x-text-input id="order_index" class="block w-full mt-1" type="text" name="order_index" wire:model='order_index'
-                    required autofocus placeholder="Order Index" />
-                <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
-            </div>
+
             {{-- <div class="col-span-1">
                 <label for="type"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
