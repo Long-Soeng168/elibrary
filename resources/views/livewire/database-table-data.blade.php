@@ -127,7 +127,7 @@
                             {{ $item->link ? $item->link : 'N/A' }}
                         </x-table-data>
                         <x-table-data>
-                            {{ $item->order_index ? $item->order_index : 'N/A' }}
+                            {{ $item->order_index || $item->order_index == 0 ? $item->order_index : 'N/A' }}
                         </x-table-data>
                         <x-table-data wire:click='toggleActive({{ $item->id }})' class="cursor-pointer">
                             @if ($item->status == 1)
