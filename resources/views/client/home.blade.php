@@ -71,7 +71,7 @@
                             @endif
                         </swiper-slide>
                     @empty
-                    <p class="py-4">No Data...</p>
+                    <p class="py-4">{{ __('messages.noData') }}...</p>
                     @endforelse
                 </swiper-container>
 
@@ -152,7 +152,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -200,7 +200,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -249,7 +249,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -304,7 +304,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -353,7 +353,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -402,7 +402,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -452,7 +452,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -502,7 +502,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -511,7 +511,7 @@
             @break
         @endswitch
         @empty
-            <p class="max-w-screen-xl py-6 mx-auto">No Data...</p>
+            <p class="max-w-screen-xl py-6 mx-auto">{{ __('messages.noData') }}...</p>
         @endforelse
 
         <!-- ===== End Items ===== -->
