@@ -126,9 +126,9 @@
                     </td>
                     <th scope="row" class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         @if ($user->image)
-                            <img src="{{ asset('assets/images/users/thumb/'.$user->image) }}" alt="iMac Front Image" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
+                            <img src="{{ asset('assets/images/users/thumb/'.$user->image) }}" alt="profile Image" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
                         @else
-                            <img src="{{ asset('assets/icons/profile.png') }}" alt="iMac Front Image" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
+                            <img src="{{ asset('assets/icons/profile.png') }}" alt="profile icon" class="object-cover w-auto h-10 mr-3 rounded-full aspect-square">
                         @endif
 
                     </th>
@@ -284,6 +284,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="p-2">
+            {{ $users->links() }}
+        </div>
     </div>
 </div>
 
