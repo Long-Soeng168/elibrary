@@ -112,7 +112,7 @@
     @forelse ($menu_databases as $database)
         @switch($database->slug)
             @case('publications')
-                @if (count($publications))
+                @if (count($publications) < 1)
                     @break
                 @endif
                 {{-- E-Publications --}}
@@ -160,7 +160,7 @@
             @break
 
             @case('videos')
-                @if (count($videos))
+                @if (count($videos) < 1)
                     @break
                 @endif
                 {{-- Videos --}}
@@ -209,7 +209,7 @@
             @break
 
             @case('images')
-                @if (count($images))
+                @if (count($images) < 1)
                     @break
                 @endif
                 {{-- Images --}}
@@ -258,7 +258,7 @@
             @break
 
             @case('audios')
-                @if (count($audios))
+                @if (count($audios) < 1)
                     @break
                 @endif
                 {{-- Audios --}}
@@ -313,7 +313,7 @@
             @break
 
             @case('bulletins')
-                @if (count($bulletins))
+                @if (count($bulletins) < 1)
                     @break
                 @endif
                 {{-- Start Bulletins --}}
@@ -362,7 +362,7 @@
             @break
 
             @case('theses')
-                @if (count($theses))
+                @if (count($theses) < 1)
                     @break
                 @endif
                 {{-- Start Theses --}}
@@ -411,7 +411,7 @@
             @break
 
             @case('journals')
-                @if (count($journals))
+                @if (count($journals) < 1)
                     @break
                 @endif
                 {{-- Start Journal --}}
@@ -461,7 +461,7 @@
             @break
 
             @case('articles')
-                @if (count($articles))
+                @if (count($articles) < 1)
                     @break
                 @endif
                 {{-- Start Journal --}}
