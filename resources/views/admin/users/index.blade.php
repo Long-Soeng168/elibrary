@@ -138,7 +138,7 @@
                     <x-table-data>
                         @if ($user->roles->count() > 0)
                             @forelse ($user->roles as $role)
-                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 m-1">
+                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
                                     {{ $role->name }}
                                 </span>
                             @empty
