@@ -113,7 +113,7 @@
         @switch($database->slug)
             @case('publications')
                 @if (count($publications))
-                    @continue
+                    @break
                 @endif
                 {{-- E-Publications --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -161,7 +161,7 @@
 
             @case('videos')
                 @if (count($videos))
-                    @continue
+                    @break
                 @endif
                 {{-- Videos --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -210,7 +210,7 @@
 
             @case('images')
                 @if (count($images))
-                    @continue
+                    @break
                 @endif
                 {{-- Images --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -259,7 +259,7 @@
 
             @case('audios')
                 @if (count($audios))
-                    @continue
+                    @break
                 @endif
                 {{-- Audios --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -314,7 +314,7 @@
 
             @case('bulletins')
                 @if (count($bulletins))
-                    @continue
+                    @break
                 @endif
                 {{-- Start Bulletins --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -363,7 +363,7 @@
 
             @case('theses')
                 @if (count($theses))
-                    @continue
+                    @break
                 @endif
                 {{-- Start Theses --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -412,7 +412,7 @@
 
             @case('journals')
                 @if (count($journals))
-                    @continue
+                    @break
                 @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
@@ -462,7 +462,7 @@
 
             @case('articles')
                 @if (count($articles))
-                    @continue
+                    @break
                 @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
