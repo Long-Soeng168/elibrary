@@ -52,10 +52,10 @@ class ClientArticleController extends Controller
         // Retrieve related articles excluding the item itself
         $related_items = Article::where(function($query) use ($item) {
             $query->where('author_id', $item->author_id)
-                ->orWhere('publisher_id', $item->publisher_id);
-                // ->orWhere('article_category_id', $item->article_category_id)
-                // ->orWhere('article_sub_category_id', $item->article_sub_category_id)
-                // ->orWhere('article_type_id', $item->article_type_id);
+                ->orWhere('publisher_id', $item->publisher_id)
+                ->orWhere('article_category_id', $item->article_category_id)
+                ->orWhere('article_sub_category_id', $item->article_sub_category_id)
+                ->orWhere('article_type_id', $item->article_type_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(6)
         ->get();
