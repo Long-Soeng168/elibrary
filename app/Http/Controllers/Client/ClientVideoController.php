@@ -50,8 +50,7 @@ class ClientVideoController extends Controller
         // Retrieve related Videos excluding the item itself
         $related_items = Video::where(function($query) use ($item) {
             $query->where('video_category_id', $item->video_category_id)
-                ->orWhere('video_sub_category_id', $item->video_sub_category_id)
-                ->orWhere('video_type_id', $item->video_type_id);
+                ->orWhere('video_sub_category_id', $item->video_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(4)
         ->get();

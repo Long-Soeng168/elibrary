@@ -51,8 +51,7 @@ class ClientJournalController extends Controller
         // Retrieve related Journals excluding the item itself
         $related_items = Journal::where(function($query) use ($item) {
             $query->where('journal_category_id', $item->journal_category_id)
-                ->orWhere('journal_sub_category_id', $item->journal_sub_category_id)
-                ->orWhere('journal_type_id', $item->journal_type_id);
+                ->orWhere('journal_sub_category_id', $item->journal_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(6)
         ->get();

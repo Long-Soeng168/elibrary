@@ -52,8 +52,7 @@ class ClientPublicationController extends Controller
         // Retrieve related publications excluding the item itself
         $related_items = Publication::where(function($query) use ($item) {
             $query->where('publication_category_id', $item->publication_category_id)
-                ->orWhere('publication_sub_category_id', $item->publication_sub_category_id)
-                ->orWhere('publication_type_id', $item->publication_type_id);
+                ->orWhere('publication_sub_category_id', $item->publication_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->limit(6)
         ->get();

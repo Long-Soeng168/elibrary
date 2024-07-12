@@ -50,8 +50,7 @@ class ClientNewsController extends Controller
          // Retrieve related Newss excluding the item itself
          $related_items = News::where(function($query) use ($item) {
              $query->where('news_category_id', $item->news_category_id)
-                 ->orWhere('news_sub_category_id', $item->news_sub_category_id)
-                 ->orWhere('news_type_id', $item->news_type_id);
+                 ->orWhere('news_sub_category_id', $item->news_sub_category_id);
          })->where('id', '!=', $item->id) // Exclude the item itself
          ->limit(6)
          ->get();
