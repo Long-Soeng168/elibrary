@@ -2,9 +2,9 @@
 @section('content')
     {{-- Start Search --}}
     @include('client.components.search', [
-        'actionUrl' => url('/publications'),
-        'title' => 'E-Publications',
-        'title_kh' => 'ឯកសារអេឡិចត្រូនិច',
+        'actionUrl' => url('/'.$menu_database_default->slug),
+        'title' => $menu_database_default->name,
+        'title_kh' => $menu_database_default->name_kh,
     ])
     {{-- End Search --}}
 
