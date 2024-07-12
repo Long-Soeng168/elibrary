@@ -282,9 +282,16 @@
 
                             <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('articles/'.$item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
-                                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    @if ($item->image)
+                                        <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/articles/thumb/'.$item->image) }}"
                                         alt="Image Description" />
+                                    @else
+                                        <img class="w-full aspect-[6/9] p-6 group-hover:scale-110 transition-transform duration-500 dark:bg-gray-300 ease-in-out object-contain rounded-md"
+                                        src="{{ asset('assets/icons/no-image.png') }}"
+                                        alt="Image Description" />
+                                    @endif
+
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
