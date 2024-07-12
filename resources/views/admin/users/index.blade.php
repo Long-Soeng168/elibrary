@@ -136,15 +136,17 @@
                     <x-table-data value="{{ $user->email ? $user->email : 'N/A' }}"/>
                     <x-table-data value="{{ $user->phone ? $user->phone : 'N/A'}}"/>
                     <x-table-data>
-                        @if ($user->roles->count() > 0)
-                            @forelse ($user->roles as $role)
-                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
-                                    {{ $role->name }}
-                                </span>
-                            @empty
-                                <span>N/A</span>
-                            @endforelse
-                        @endif
+                        <div class="flex flex-wrap gap-1">
+                            @if ($user->roles->count() > 0)
+                                @forelse ($user->roles as $role)
+                                    <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
+                                        {{ $role->name }}
+                                    </span>
+                                @empty
+                                    <span>N/A</span>
+                                @endforelse
+                            @endif
+                        </div>
                     </x-table-data>
                     <td class="px-6 py-4">
                         <div class="flex items-start justify-center gap-3">
