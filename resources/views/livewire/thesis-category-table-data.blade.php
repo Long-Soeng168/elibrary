@@ -93,7 +93,7 @@
                     <path clip-rule="evenodd" fill-rule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
-                Add Topic
+                Add Category
             </x-primary-button>
 
             <!-- Start Type modal -->
@@ -106,7 +106,7 @@
                         <div
                             class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create Topic
+                                Create Category
                             </h3>
                             <button type="button"
                                 class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"

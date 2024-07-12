@@ -18,6 +18,13 @@ use App\Models\Menu;
 class HomeController extends Controller
 {
     public function index() {
+        // $items = Article::with('subCategory')->get();
+        // foreach($items as $item){
+        //         $item->update([
+        //             'article_category_id' => $item->subCategory?->article_category_id,
+        //         ]);
+        // }
+        // return $items;
         $slides = Slide::latest()->get();
         $publications = Publication::latest()->limit(12)->get();
         $videos = Video::latest()->limit(8)->get();

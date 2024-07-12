@@ -236,7 +236,7 @@ class ThesisCreate extends Component
                 'name_kh' => $this->newCategoryNameKh,
             ]);
 
-            session()->flash('success', 'Add New Topic successfully!');
+            session()->flash('success', 'Add New Category successfully!');
 
             $this->reset(['newCategoryName', 'newCategoryNameKh']);
 

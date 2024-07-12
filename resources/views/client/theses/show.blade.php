@@ -281,7 +281,7 @@
                     @if ($item->category?->name)
                         <div class="flex nowrap">
                             <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                {{ __('messages.topic') }}
+                                {{ __('messages.category') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
                                 @if (app()->getLocale() == 'kh' && $item->category?->name_kh)

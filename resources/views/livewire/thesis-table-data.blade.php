@@ -152,7 +152,7 @@
                     <th scope="col" class="px-4 py-3">Student</th>
                     <th scope="col" class="px-4 py-3">Major</th>
                     <th scope="col" class="px-4 py-3">Type</th>
-                    <th scope="col" class="px-4 py-3">Topic</th>
+                    <th scope="col" class="px-4 py-3">Category</th>
                     <th scope="col" class="px-4 py-3">Published Date</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>

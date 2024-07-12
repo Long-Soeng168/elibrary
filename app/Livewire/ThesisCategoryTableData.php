@@ -51,7 +51,7 @@ class ThesisCategoryTableData extends Component
         $category = Category::find($id);
         $category->delete();
 
-        session()->flash('success', 'Topic successfully deleted!');
+        session()->flash('success', 'Category successfully deleted!');
     }
 
      // ==========Add New Category============
@@ -71,7 +71,7 @@ class ThesisCategoryTableData extends Component
                  'name_kh' => $this->newName_kh,
              ]);
 
-             session()->flash('success', 'Add New Topic successfully!');
+             session()->flash('success', 'Add New Category successfully!');
 
              $this->reset(['newName', 'newName_kh']);
 
@@ -111,7 +111,7 @@ class ThesisCategoryTableData extends Component
                 'name_kh' => $this->name_kh,
             ]);
 
-            session()->flash('success', 'Topic successfully edited!');
+            session()->flash('success', 'Category successfully edited!');
 
             $this->reset(['name', 'name_kh', 'editId']);
 
