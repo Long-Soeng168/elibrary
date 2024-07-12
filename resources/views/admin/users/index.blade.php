@@ -136,7 +136,7 @@
                     <x-table-data value="{{ $user->email ? $user->email : 'N/A' }}"/>
                     <x-table-data value="{{ $user->phone ? $user->phone : 'N/A'}}"/>
                     <x-table-data>
-                        <div class="flex flex-wrap gap-1">
+                        <div class="flex flex-wrap gap-1 whitespace-nowrap">
                             @if ($user->roles->count() > 0)
                                 @forelse ($user->roles as $role)
                                     <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
