@@ -54,6 +54,7 @@ class ClientThesisController extends Controller
             $query->where('major_id', $item->major_id)
                 ->orWhere('thesis_category_id', $item->thesis_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
 

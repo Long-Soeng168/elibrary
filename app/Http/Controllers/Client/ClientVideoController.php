@@ -52,7 +52,8 @@ class ClientVideoController extends Controller
             $query->where('video_category_id', $item->video_category_id)
                 ->orWhere('video_sub_category_id', $item->video_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
-        ->limit(4)
+        ->inRandomOrder()
+        ->limit(6)
         ->get();
 
         // Return the view with the data

@@ -53,6 +53,7 @@ class ClientJournalController extends Controller
             $query->where('journal_category_id', $item->journal_category_id)
                 ->orWhere('journal_sub_category_id', $item->journal_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
 

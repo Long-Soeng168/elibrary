@@ -53,7 +53,8 @@ class ClientImageController extends Controller
             $query->where('image_category_id', $item->image_category_id)
                 ->orWhere('image_sub_category_id', $item->image_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
-        ->limit(4)
+        ->inRandomOrder()
+        ->limit(6)
         ->get();
 
         // Return the view with the data

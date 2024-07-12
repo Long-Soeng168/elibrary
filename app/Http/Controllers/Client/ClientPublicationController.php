@@ -54,6 +54,7 @@ class ClientPublicationController extends Controller
             $query->where('publication_category_id', $item->publication_category_id)
                 ->orWhere('publication_sub_category_id', $item->publication_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
 

@@ -52,7 +52,8 @@ class ClientNewsController extends Controller
              $query->where('news_category_id', $item->news_category_id)
                  ->orWhere('news_sub_category_id', $item->news_sub_category_id);
          })->where('id', '!=', $item->id) // Exclude the item itself
-         ->limit(6)
+         ->inRandomOrder()
+        ->limit(6)
          ->get();
 
          // Return the view with the data

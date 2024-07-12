@@ -56,6 +56,7 @@ class ClientArticleController extends Controller
                 ->orWhere('article_category_id', $item->article_category_id)
                 ->orWhere('article_sub_category_id', $item->article_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
 
