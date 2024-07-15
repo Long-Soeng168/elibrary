@@ -1112,7 +1112,7 @@
                                             <li>
                                                 <a href="{{ url('admin/theses_categories') }}"
                                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Topics</a>
+                                                    Categories</a>
                                             </li>
                                             {{-- <li>
                                     <a href="{{ url('admin/theses_sub_categories') }}"
@@ -1161,7 +1161,7 @@
                                             <li>
                                                 <a href="{{ url('admin/journals_categories') }}"
                                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Topics</a>
+                                                    Categories</a>
                                             </li>
                                             {{-- <li>
                                     <a href="{{ url('admin/journals_sub_categories') }}"
