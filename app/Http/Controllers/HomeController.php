@@ -45,6 +45,7 @@ class HomeController extends Controller
 
             // Check if the file exists before processing
             if (file_exists($imagePath)) {
+                $imageContents = file_get_contents($imagePath);
                 // Create a name for the image
                 $imageName = basename($imagePath);
 
@@ -53,7 +54,7 @@ class HomeController extends Controller
                 $thumbPath = public_path('images/publications/thumb/' . $imageName);
 
                 // Create image instance from local path
-                $img = Image::make($imagePath);
+                $img = Image::make($imageContents);
 
                 // Save original image to new location
                 $img->save($newImagePath);
