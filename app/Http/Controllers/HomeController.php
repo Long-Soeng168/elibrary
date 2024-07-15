@@ -53,7 +53,7 @@ class HomeController extends Controller
                     $img = ImageCompress::make($imagePath);
 
                     // Resize the image (maintaining aspect ratio) and compress
-                    $img->resize(400, null, function ($constraint) {
+                    $img->resize(500, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->save($thumbPath, 75); // 75 is the quality percentage
 
