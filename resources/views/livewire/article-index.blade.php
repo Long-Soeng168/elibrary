@@ -206,7 +206,7 @@
             <div class="col-span-10">
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 bg-primary">
-                        <p class="text-lg text-white capitalize">
+                        <p class="text-lg text-white capitalize" id="top-title">
                             {{ __('messages.articles') }}
                         </p>
                     </div>
@@ -373,6 +373,22 @@
         uncheckAll();
 
         // console.log(removedName);
+        // console.log('updated');
+    });
+
+    $wire.on('livewire:updatedPage', function(event) {
+        const topTitleElement = document.getElementById('top-title');
+        if (topTitleElement) {
+            const offset = 20; // Adjust this value as needed
+            const elementPosition = topTitleElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+        console.log('updatedPage');
         // console.log('updated');
     });
 </script>

@@ -100,8 +100,14 @@ class PublicationIndex extends Component
     public $search = '';
 
     public $perPage = 24;
+    // public $perPage = 1;
 
     use WithPagination;
+
+    public function updatingPage(){
+        $this->dispatch('livewire:updatedPage');
+    }
+
     public function updatedSearch()
     {
         $this->resetPage();

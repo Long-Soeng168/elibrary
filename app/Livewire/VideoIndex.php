@@ -100,6 +100,10 @@ class VideoIndex extends Component
     public $perPage = 24;
 
     use WithPagination;
+    public function updatingPage(){
+        $this->dispatch('livewire:updatedPage');
+    }
+
     public function updatedSearch()
     {
         $this->resetPage();
