@@ -14,6 +14,7 @@ use App\Models\Journal;
 use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
+use Image as ImageCompress;
 
 class HomeController extends Controller
 {
@@ -49,7 +50,7 @@ class HomeController extends Controller
                     $thumbPath = public_path('assets/images/publications/thumb/' . $item->image);
 
                     // Create image instance from local path
-                    $img = Image::make($imagePath);
+                    $img = ImageCompress::make($imagePath);
 
                     // Resize the image (maintaining aspect ratio) and compress
                     $img->resize(400, null, function ($constraint) {
