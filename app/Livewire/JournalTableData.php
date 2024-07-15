@@ -10,6 +10,7 @@ use App\Models\Journal;
 use App\Models\JournalImage;
 use App\Models\JournalResourceLink;
 use App\Models\JournalType as Type;
+use App\Models\JournalCategory as Category;
 use Illuminate\Support\Facades\File;
 
 class JournalTableData extends Component
@@ -103,12 +104,12 @@ class JournalTableData extends Component
                                     ->orWhere('isbn', 'LIKE', "%$this->search%");
                             })
                             ->when($this->filter != 0, function($query){
-                                $query->where('journal_type_id', $this->filter);
+                                $query->where('journal_category_id', $this->filter);
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
-        $types = Type::latest()->get();
-        $selectedType = Type::find($this->filter);
+        $types = Category::latest()->get();
+        $selectedType = Category::find($this->filter);
 
         return view('livewire.journal-table-data', [
             'items' => $items,

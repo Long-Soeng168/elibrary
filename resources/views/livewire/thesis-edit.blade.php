@@ -803,18 +803,18 @@
 
             {{-- Start Category Select --}}
             <div class="relative w-full mb-5 group">
-                <x-input-label for="publication_category_id" :value="__('Topic')" />
+                <x-input-label for="publication_category_id" :value="__('Category')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='thesis_category_id' id="publication_category_id"
                             name="publication_category_id" class="category-select">
-                            <option wire:key='category' value="0">Select Topic...</option>
+                            <option wire:key='category' value="0">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
                                     {{ $category->name }}
                                 </option>
                             @empty
-                                <option wire:key='nocateogry' value="0"> --No Topic--</option>
+                                <option wire:key='nocateogry' value="0"> --No Category--</option>
                             @endforelse
                         </x-select-option>
                     </div>

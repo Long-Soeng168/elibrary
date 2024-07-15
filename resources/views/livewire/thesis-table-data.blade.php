@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                        class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-[200px] focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-[200px] focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 "
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-4 mr-2 text-gray-400"
                             viewbox="0 0 20 20" fill="currentColor">
@@ -53,7 +53,9 @@
                                 d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                 clip-rule="evenodd" />
                         </svg>
-                        {{ $selectedType ? $selectedType->name : 'Types' }}
+                        <p class="w-full text-left line-clamp-1">
+                            {{ $selectedType ? $selectedType->name : 'Categories' }}
+                        </p>
                         <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -61,23 +63,23 @@
                         </svg>
                     </button>
                     <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Type</h6>
+                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Categories</h6>
                         <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                             <li class="flex items-center">
                                 <button wire:click="setFilter(0)">
                                     <label for="apple"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $filter == 0 ? 'underline' : '' }}">
-                                        All Type
+                                        All Category
                                     </label>
                                 </button>
                             </li>
                             @foreach ($types as $type)
                                 <li class="flex items-center">
                                     <button wire:click.prevent='setFilter("{{ $type->id }}")'>
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $type->id == $filter ? 'underline' : '' }}">
+                                        <p
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $type->id == $filter ? 'underline' : '' }}">
                                             {{ $type->name }}
-                                        </label>
+                                        </p>
 
                                     </button>
                                 </li>

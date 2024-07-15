@@ -266,7 +266,7 @@ class AudioCreate extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:20480', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'File successfully uploaded!');
@@ -284,7 +284,7 @@ class AudioCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|image|max:2048',
-            'file' => 'required|file|max:20480',
+            'file' => 'required|file|max:51200',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
             'audio_category_id' => 'nullable|exists:audio_categories,id',

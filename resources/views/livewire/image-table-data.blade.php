@@ -53,7 +53,9 @@
                                 d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                 clip-rule="evenodd" />
                         </svg>
-                        {{ $selectedCategory ? $selectedCategory->name : 'Categories' }}
+                        <p class="w-full text-left line-clamp-1">
+                            {{ $selectedCategory ? $selectedCategory->name : 'Categories' }}
+                        </p>
                         <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -74,10 +76,10 @@
                             @foreach ($categories as $category)
                                 <li class="flex items-center">
                                     <button wire:click.prevent='setFilter("{{ $category->id }}")'>
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $category->id == $filter ? 'underline' : '' }}">
+                                        <p
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $category->id == $filter ? 'underline' : '' }}">
                                             {{ $category->name }}
-                                        </label>
+                                        </p>
 
                                     </button>
                                 </li>
