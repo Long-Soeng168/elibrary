@@ -151,7 +151,7 @@
                     @endif
                     @if ($item->author?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.author') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -161,7 +161,7 @@
                     @endif
                     @if ($item->student?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.student') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -171,7 +171,7 @@
                     @endif
                     @if ($item->lecturer?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.lecturer') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -181,7 +181,7 @@
                     @endif
                     @if ($item->supervisor?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.supervisor') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -191,7 +191,7 @@
                     @endif
                     @if ($item->major?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.major') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -203,7 +203,7 @@
 
                     @if ($item->edition)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.edition') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -213,7 +213,7 @@
                     @endif
                     @if ($item->barcode)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.barcode') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -223,7 +223,7 @@
                     @endif
                     @if ($item->volume)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.volume') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -233,7 +233,7 @@
                     @endif
                     @if ($item->issue)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.issue') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -243,7 +243,7 @@
                     @endif
                     @if ($item->doi)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.doi') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -253,7 +253,7 @@
                     @endif
                     @if ($item->inventory_number)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.inventory_number') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -264,7 +264,7 @@
 
                     @if ($item->year)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.year') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -274,7 +274,7 @@
                     @endif
                     @if ($item->published_date)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.publishDate') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -285,7 +285,7 @@
 
                     @if ($item->publisher?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.publisher') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -296,7 +296,7 @@
 
                     @if ($item->type?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.type') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -307,7 +307,7 @@
 
                     @if ($item->category?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.topic') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -329,7 +329,7 @@
 
                     @if ($item->language?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.language') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -340,7 +340,7 @@
 
                     @if ($item->pages_count)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.pages') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -351,7 +351,7 @@
 
                     @if ($item->isbn)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.isbn') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -362,7 +362,7 @@
 
                     @if ($item->location?->name)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.location') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -373,7 +373,7 @@
 
                     @if ($item->link)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.link') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
@@ -412,7 +412,7 @@
 
                     @if ($item->user?->name)
                     <div class="flex nowrap">
-                        <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                        <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.postBy') }}
                         </p>
                         <p class="flex text-sm text-gray-600 dark:text-gray-200">
@@ -422,7 +422,7 @@
                 @endif
                     @if ($item->updated_at)
                     <div class="flex nowrap">
-                        <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                        <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.lastUpdate') }}
                         </p>
                         <p class="text-sm text-gray-600 dark:text-gray-200">
@@ -432,7 +432,7 @@
                 @endif
                     @if ($item->keywords)
                         <div class="flex nowrap">
-                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                            <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.keywords') }}
                             </p>
                             <p class="space-x-1 space-y-1 text-sm text-gray-600 dark:text-gray-200">
@@ -481,22 +481,23 @@
             <!-- Card -->
             @forelse ($related_items as $item)
                 <a class="block group" href="{{ url('theses/' . $item->id) }}">
-                    <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
+                    <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800" >
                         <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                             src="{{ asset('assets/images/journals/thumb/' . $item->image) }}"
                             alt="Image Description" />
                     </div>
 
-                    <div class="pt-2">
-                        <h3 data-tooltip-target="tooltip-item-{{ $item->id }}" data-tooltip-placement="bottom"
-                            class="relative inline-block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white">
+                    <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                        <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                            class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
                             <p class="line-clamp-1">{{ $item->name }}</p>
                         </h3>
 
-                        <div id="tooltip-item-{{ $item->id }}" role="tooltip"
-                            class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        <div x-show="tooltipVisible" x-transition
+                            class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                            style="display: none;">
                             {{ $item->name }}
-                            <div class="tooltip-arrow" data-popper-arrow></div>
+                            <div class="tooltip-arrow"></div>
                         </div>
                     </div>
                 </a>
