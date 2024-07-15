@@ -37,32 +37,29 @@ class HomeController extends Controller
 
         $items = Publication::all();
         foreach($items as $item){
-            // Image URL
-            $imageUrl = 'http://192.168.1.123/assets/images/publications/'.$item->image;
-
-            // Get the content of the image
-            $imageContents = file_get_contents($imageUrl);
+            // Image local path
+            $imagePath = public_path('assets/images/publications/'.$item->image);
 
             // Create a name for the image
-            $imageName = basename($imageUrl);
+            $imageName = basename($imagePath);
 
-            // Define paths
-            $imagePath = public_path('assets/images/publications/' . $imageName);
-            $thumbPath = public_path('assets/images/publications/thumb/' . $imageName);
+            // Define new paths for saving
+            $newImagePath = public_path('images/publications/' . $imageName);
+            $thumbPath = public_path('images/publications/thumb/' . $imageName);
 
-            // Create image instance from URL content
-            $img = Image::make($imageContents);
+            // Create image instance from local path
+            $img = Image::make($imagePath);
 
-            // Save original image
-            $img->save($imagePath);
+            // Save original image to new location
+            $img->save($newImagePath);
 
             // Resize and save thumbnail
-            $img->resize(500, null, function ($constraint) {
+            $img->resize(400, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save($thumbPath);
 
             // Optionally, you can also compress the image
-            $img->save($imagePath, 75); // 75 is the quality percentage
+            $img->save($newImagePath, 75); // 75 is the quality percentage
 
         }
         return 'Success';
