@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2 ">
                     @if ($item->image)
                     <a href="{{ asset('assets/images/audios/'.$item->image) }}" class="glightbox">
-                        <img class="w-full aspect-[16/9] object-cover rounded-md cursor-pointer border"
+                        <img class="w-full aspect-[16/9] object-cover rounded-md cursor-pointer border shadow"
                             src="{{ asset('assets/images/audios/thumb/'.$item->image) }}" alt="Book Cover" />
 
                     </a>
@@ -48,7 +48,7 @@
                         </div>
                     @else
                     <a href="{{ asset('assets/icons/audio_placeholder.png') }}" class="glightbox">
-                        <img class="w-full aspect-[16/9] object-contain p-10 rounded-md cursor-pointer border"
+                        <img class="w-full aspect-[16/9] object-contain p-10 rounded-md cursor-pointer border shadow"
                         src="{{ asset('assets/icons/audio_placeholder.png') }}" alt="Book Cover" />
                     </a>
 

@@ -11,6 +11,7 @@ class MenuEdit extends Component
     public $name;
     public $name_kh;
     public $link;
+    public $order_index;
     public $description;
     public $description_kh;
 
@@ -20,6 +21,7 @@ class MenuEdit extends Component
         $this->name = $menu->name;
         $this->name_kh = $menu->name_kh;
         $this->link = $menu->link;
+        $this->order_index = $menu->order_index;
         $this->description = $menu->description;
         $this->description_kh = $menu->description_kh;
     }
@@ -30,6 +32,7 @@ class MenuEdit extends Component
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
             'link' => 'nullable|string|max:255',
+            'order_index' => 'nullable',
             'description' => 'nullable',
             'description_kh' => 'nullable',
         ]);

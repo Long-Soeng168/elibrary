@@ -95,6 +95,7 @@
                     </th>
 
                     <th scope="col" class="px-4 py-3">Name_kh</th>
+                    <th scope="col" class="px-4 py-3">Order_Index</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -114,13 +115,14 @@
                             </a>
                         </th> --}}
                         <x-table-data value="{{ $item->name }}" />
-                        {{-- <x-table-data value="{{ $item->description }}" /> --}}
-                        <x-table-data>
-                            <span
-                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->name_kh }}
-                            </span>
-                        </x-table-data>
+                            {{-- <x-table-data value="{{ $item->description }}" /> --}}
+                                <x-table-data>
+                                    <span
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                    {{ $item->name_kh }}
+                                </span>
+                            </x-table-data>
+                        <x-table-data value="{{ $item->order_index }}" />
                         <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
 
 

@@ -14,10 +14,17 @@
         <div class="min-[800px]:grid grid-cols-12 gap-4">
             <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
                 <div class="flex flex-col w-full gap-2">
+                    @if ($item->image)
                     <a href="{{ asset('assets/images/news/' . $item->image) }}" class="glightbox">
-                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border"
+                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border shadow"
                             src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Book Cover" />
                     </a>
+                    @else
+                    <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
+                        <img class="w-full aspect-[6/9] object-contain p-10 rounded-md cursor-pointer border shadow"
+                        src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
+                    </a>
+                    @endif
                     <div class="grid grid-cols-4 gap-2">
                         @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)

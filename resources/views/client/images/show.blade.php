@@ -14,10 +14,17 @@
         <div class="min-[800px]:grid grid-cols-12 gap-4 px-2">
             <div class="flex flex-col items-center col-span-5 mb-6">
                 <div class="flex flex-col w-full gap-2">
-                    <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md glightbox">
-                        <img class="object-cover w-full h-auto border cursor-pointer"
-                            src="{{ asset('assets/images/images/thumb/'.$item->image) }}" alt="Book Cover" />
-                    </a>
+                    @if ($item->image)
+                        <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md shadow glightbox">
+                            <img class="object-cover w-full h-auto border cursor-pointer"
+                                src="{{ asset('assets/images/images/thumb/'.$item->image) }}" alt="Book Cover" />
+                        </a>
+                    @else
+                        <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
+                            <img class="w-full aspect-[16/9] object-contain p-10 rounded-md cursor-pointer border shadow"
+                            src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
+                        </a>
+                    @endif
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)

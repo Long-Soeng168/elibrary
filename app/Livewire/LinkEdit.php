@@ -18,6 +18,7 @@ class LinkEdit extends Component
     public $name;
     public $name_kh;
     public $link;
+    public $order_index;
     public $description;
     public $description_kh;
 
@@ -27,6 +28,7 @@ class LinkEdit extends Component
         $this->name = $item->name;
         $this->name_kh = $item->name_kh;
         $this->link = $item->link;
+        $this->order_index = $item->order_index;
     }
 
     public function updatedImage()
@@ -42,8 +44,9 @@ class LinkEdit extends Component
     {
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'name_kh' => 'required|string|max:255',
+            'name_kh' => 'nullable|string|max:255',
             'link' => 'required|url|max:255',
+            'order_index' => 'nullable',
         ]);
 
         // Update the existing item record

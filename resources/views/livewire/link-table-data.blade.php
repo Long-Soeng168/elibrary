@@ -97,6 +97,7 @@
 
                     <th scope="col" class="px-4 py-3">Name_kh</th>
                     <th scope="col" class="px-4 py-3">Link</th>
+                    <th scope="col" class="px-4 py-3">Order_Index</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -124,6 +125,7 @@
                                 {{ $item->link }}
                             </span>
                         </x-table-data>
+                        <x-table-data value="{{ $item->order_index }}" />
                         <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
 
 
