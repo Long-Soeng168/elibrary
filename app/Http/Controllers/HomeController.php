@@ -37,44 +37,34 @@ class HomeController extends Controller
 
         $items = Publication::all();
 
-    foreach ($items as $item) {
-        // Ensure the image attribute is set and valid
-        if (!empty($item->image)) {
-            // Image local path
-            $imagePath = public_path('assets/images/publications/' . $item->image);
+        foreach ($items as $item) {
+            // Ensure the image attribute is set and valid
+            if (!empty($item->image)) {
+                // Image local path
+                $imagePath = public_path('assets/images/publications/' . $item->image);
 
-            // Check if the file exists before processing
-            if (file_exists($imagePath)) {
-                $imageContents = file_get_contents($imagePath);
-                // Create a name for the image
-                $imageName = basename($imagePath);
+                // Check if the file exists before processing
+                if (file_exists($imagePath)) {
+                    // Define new path for saving the compressed image
+                    $thumbPath = public_path('assets/images/publications/thumb/' . $item->image);
 
-                // Define new paths for saving
-                $newImagePath = public_path('images/publications/' . $imageName);
-                $thumbPath = public_path('images/publications/thumb/' . $imageName);
+                    // Create image instance from local path
+                    $img = Image::make($imagePath);
 
-                // Create image instance from local path
-                $img = Image::make($imageContents);
+                    // Resize the image (maintaining aspect ratio) and compress
+                    $img->resize(400, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->save($thumbPath, 75); // 75 is the quality percentage
 
-                // Save original image to new location
-                $img->save($newImagePath);
-
-                // Resize and save thumbnail
-                $img->resize(400, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($thumbPath);
-
-                // Optionally, you can also compress the image
-                $img->save($newImagePath, 75); // 75 is the quality percentage
+                } else {
+                    // Handle the case where the file does not exist
+                    \Log::warning("Image file does not exist: " . $imagePath);
+                }
             } else {
-                // Handle the case where the file does not exist
-                \Log::warning("Image file does not exist: " . $imagePath);
+                // Handle the case where the image attribute is missing or empty
+                \Log::warning("Publication item missing image attribute: " . $item->id);
             }
-        } else {
-            // Handle the case where the image attribute is missing or empty
-            \Log::warning("Publication item missing image attribute: " . $item->id);
         }
-    }
 
     return 'Success';
         $slides = Slide::latest()->get();
