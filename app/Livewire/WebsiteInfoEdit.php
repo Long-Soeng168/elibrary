@@ -40,7 +40,7 @@ class WebsiteInfoEdit extends Component
     public function updatedImage()
     {
         $this->validate([
-            'image' => 'image|max:2048', // 2MB Max
+            'image' => 'image|mimes:png|max:2048', // 2MB Max
         ]);
 
         session()->flash('success', 'Image successfully uploaded!');
@@ -65,17 +65,17 @@ class WebsiteInfoEdit extends Component
             'show_bg_menu' => 'required|boolean',
         ]);
 
-        // Update the existing item record
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = 'logo.png';
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
         }
-        // Update the existing item record
         if(!empty($this->banner)){
-            $filename = time() . '_' . $this->banner->getClientOriginalName();
+            // $filename = time() . '_' . $this->banner->getClientOriginalName();
+            $filename = 'banner.png';
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
             $imageUpload = Image::make($this->banner->getRealPath())->save($image_path);

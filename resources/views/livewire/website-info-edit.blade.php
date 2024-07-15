@@ -177,10 +177,10 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG (MAX. 2MB)</p>
 
                             </div>
-                            <input wire:model="image" accept="image/png, image/jpeg, image/gif" id="dropzone-file"
+                            <input wire:model="image" accept="image/png" id="dropzone-file"
                                 type="file" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
@@ -228,7 +228,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or GIF (MAX. 2MB)</p>
 
                             </div>
                             <input wire:model="banner" accept="image/png, image/jpeg, image/gif" id="dropzone-file"

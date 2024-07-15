@@ -332,10 +332,10 @@ class VideoEdit extends Component
 
             $image_path = public_path('assets/images/videos/' . $filename);
             $image_thumb_path = public_path('assets/images/videos/thumb/' . $filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $imageUpload = Image::make($this->image->getRealPath())->save($image_path, 70);
             $imageUpload->resize(400, null, function ($resize) {
                 $resize->aspectRatio();
-            })->save($image_thumb_path);
+            })->save($image_thumb_path, 70);
             $validated['image'] = $filename;
 
             $old_path = public_path('assets/images/videos/' . $this->item->image);

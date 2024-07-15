@@ -16,7 +16,8 @@
                 <swiper-slide class="swiper-slide-item">
                     <a href="{{ asset('assets/images/slides/' . $slide->image) }}" class="w-full glightbox">
                         <img class="object-cover w-full swiper-slide-img"
-                            src="{{ asset('assets/images/slides/' . $slide->image) }}" alt="" /></a>
+                            src="{{ asset('assets/images/slides/thumb/' . $slide->image) }}" alt="" />
+                    </a>
                 </swiper-slide>
             @empty
             @endforelse
