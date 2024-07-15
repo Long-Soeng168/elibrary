@@ -152,7 +152,7 @@
 
                     <th scope="col" class="px-4 py-3">Author</th>
                     <th scope="col" class="px-4 py-3">Publisher</th>
-                    <th scope="col" class="px-4 py-3">Topic</th>
+                    <th scope="col" class="px-4 py-3">Category</th>
                     {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
                     <th scope="col" class="px-4 py-3">Type</th>
                     <th scope="col" class="px-4 py-3">Published Date</th>

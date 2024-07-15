@@ -15,7 +15,7 @@ class Journal extends Model
     }
 
     public function category(){
-        return $this->belongsTo(ThesisCategory::class, 'journal_category_id', 'id');
+        return $this->belongsTo(JournalCategory::class, 'journal_category_id', 'id');
     }
 
     public function publisher(){
