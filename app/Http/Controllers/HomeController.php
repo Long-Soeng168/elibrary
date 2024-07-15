@@ -18,13 +18,54 @@ use App\Models\Menu;
 class HomeController extends Controller
 {
     public function index() {
-        // $items = Article::with('subCategory')->get();
+
+        // $items = Publication::with('publicationSubCategory')->get();
         // foreach($items as $item){
         //         $item->update([
-        //             'article_category_id' => $item->subCategory?->article_category_id,
+        //             'publication_category_id' => $item->publicationSubCategory?->publication_category_id,
         //         ]);
         // }
-        // return $items;
+        // $items = Thesis::with('major')->get();
+        // foreach($items as $item){
+            //         $item->update([
+                //             'thesis_category_id' => $item->major?->thesis_category_id,
+                //         ]);
+                // }
+
+        // return ($items);
+
+
+        $items = Publication::all();
+        foreach($items as $item){
+            // Image URL
+            $imageUrl = 'http://192.168.1.123/assets/images/publications/'.$item->image;
+
+            // Get the content of the image
+            $imageContents = file_get_contents($imageUrl);
+
+            // Create a name for the image
+            $imageName = basename($imageUrl);
+
+            // Define paths
+            $imagePath = public_path('assets/images/publications/' . $imageName);
+            $thumbPath = public_path('assets/images/publications/thumb/' . $imageName);
+
+            // Create image instance from URL content
+            $img = Image::make($imageContents);
+
+            // Save original image
+            $img->save($imagePath);
+
+            // Resize and save thumbnail
+            $img->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($thumbPath);
+
+            // Optionally, you can also compress the image
+            $img->save($imagePath, 75); // 75 is the quality percentage
+
+        }
+        return 'Success';
         $slides = Slide::latest()->get();
         $publications = Publication::latest()->limit(12)->get();
         $videos = Video::latest()->limit(8)->get();
