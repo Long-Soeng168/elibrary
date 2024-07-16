@@ -7,6 +7,7 @@ use App\Models\WebsiteInfo;
 use Livewire\WithFileUploads;
 
 use Image;
+use Illuminate\Support\Facades\File;
 
 class WebsiteInfoEdit extends Component
 {
