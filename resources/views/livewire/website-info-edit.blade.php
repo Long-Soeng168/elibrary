@@ -235,7 +235,7 @@
                                 type="file" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
-                    <div wire:loading wire:target="image" class="text-blue-700">
+                    <div wire:loading wire:target="banner" class="text-blue-700">
                         <span>
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
