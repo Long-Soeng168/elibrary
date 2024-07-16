@@ -169,16 +169,29 @@ class HomeController extends Controller
         // if (!auth()->check()) {
         //     abort(403);
         // }
+
+        $filePath = '';
+        $item = null;
+
         if ($archive == 'publication') {
             $filePath = public_path('assets/pdf/publications/'.$file_name);
+            $item = Publication::findOrFail($id);
         }elseif($archive == 'bulletin') {
             $filePath = public_path('assets/pdf/news/'.$file_name);
+            $item = News::findOrFail($id);
         }elseif($archive == 'article') {
             $filePath = public_path('assets/pdf/articles/'.$file_name);
+            $item = Article::findOrFail($id);
         }elseif($archive == 'thesis') {
             $filePath = public_path('assets/pdf/theses/'.$file_name);
+            $item = Thesis::findOrFail($id);
         }elseif($archive == 'journal') {
             $filePath = public_path('assets/pdf/journals/'.$file_name);
+            $item = Journal::findOrFail($id);
+        }
+
+        if (!$item->can_download && !auth()->check()) {
+            abort(403);
         }
 
         if (!file_exists($filePath)) {
