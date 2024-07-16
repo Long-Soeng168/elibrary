@@ -192,6 +192,9 @@ Route::group([
     Route::get('/add_read_count/{archive}/{id}', [HomeController::class, 'readCount']);
     Route::get('/add_download_count/{archive}/{id}', [HomeController::class, 'downloadCount']);
 
+    Route::get('stream_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'stream'])->name('pdf.stream');
+    Route::get('view_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'viewPdf'])->name('pdf.view');
+    Route::get('download_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'downloadPdf'])->name('pdf.download');
 
 
     // Route::get('/publications', function () {

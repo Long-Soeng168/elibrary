@@ -143,4 +143,111 @@ class HomeController extends Controller
         }
 
     }
+
+    public function stream($archive,$id, $file_name)
+    {
+        // Ensure that only authorized users can access the stream
+        // if (!auth()->check()) {
+        //     abort(403);
+        // }
+        if ($archive == 'publication') {
+            $filePath = public_path('assets/pdf/publications/'.$file_name);
+        }elseif($archive == 'bulletin') {
+            $filePath = public_path('assets/pdf/news/'.$file_name);
+        }elseif($archive == 'article') {
+            $filePath = public_path('assets/pdf/articles/'.$file_name);
+        }elseif($archive == 'thesis') {
+            $filePath = public_path('assets/pdf/theses/'.$file_name);
+        }elseif($archive == 'journal') {
+            $filePath = public_path('assets/pdf/journal/'.$file_name);
+        }
+
+        if (!file_exists($filePath)) {
+            abort(404); // File not found
+        }
+
+        $stream = new \Symfony\Component\HttpFoundation\StreamedResponse(function () use ($filePath) {
+            $stream = fopen($filePath, 'r');
+            fpassthru($stream);
+            fclose($stream);
+        });
+
+        $stream->headers->set('Content-Type', 'application/pdf');
+        $stream->headers->set('Content-Length', filesize($filePath));
+
+        return $stream;
+    }
+
+    public function viewPdf($archive, $id, $file_name)
+    {
+        // Ensure that only authorized users can access the stream
+        // if (!auth()->check()) {
+        //     abort(403);
+        // }
+        // dd($id, $archive);
+        if ($archive == 'publication') {
+            $item = Publication::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+        }elseif($archive == 'bulletin') {
+            $item = News::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+        }elseif($archive == 'article') {
+            $item = Article::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+        }elseif($archive == 'thesis') {
+            $item = Thesis::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+        }elseif($archive == 'journal') {
+            $item = Journal::findOrFail($id);
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
+        }
+
+        return view('client.view_pdf', [
+            'archive' => $archive,
+            'id' => $id,
+            'file_name' => $file_name
+        ]);
+
+    }
+
+    public function downloadPdf($archive, $id, $file_name)
+    {
+        // Ensure that only authorized users can access the download
+        // if (!auth()->check()) {
+        //     abort(403);
+        //     return;
+        // }
+
+        if ($archive == 'publication') {
+            $filePath = public_path('assets/pdf/publications/'.$file_name);
+        } elseif ($archive == 'bulletin') {
+            $filePath = public_path('assets/pdf/news/'.$file_name);
+        } elseif ($archive == 'article') {
+            $filePath = public_path('assets/pdf/articles/'.$file_name);
+        } elseif ($archive == 'thesis') {
+            $filePath = public_path('assets/pdf/theses/'.$file_name);
+        } elseif ($archive == 'journal') {
+            $filePath = public_path('assets/pdf/journal/'.$file_name);
+        }
+
+        if (!file_exists($filePath)) {
+            abort(404); // File not found
+        }
+
+        return response()->download($filePath, $file_name, [
+            'Content-Type' => 'application/pdf',
+        ]);
+
+    }
+
 }
