@@ -205,47 +205,47 @@ class HomeController extends Controller
         // }
         // dd($id, $archive);
 
+        $filePath = '';
+        $item = null;
+
         if ($archive == 'publication') {
             $filePath = public_path('assets/pdf/publications/'.$file_name);
-        }elseif($archive == 'bulletin') {
-            $filePath = public_path('assets/pdf/news/'.$file_name);
-        }elseif($archive == 'article') {
-            $filePath = public_path('assets/pdf/articles/'.$file_name);
-        }elseif($archive == 'thesis') {
-            $filePath = public_path('assets/pdf/theses/'.$file_name);
-        }elseif($archive == 'journal') {
-            $filePath = public_path('assets/pdf/journals/'.$file_name);
-        }
-
-        if (!file_exists($filePath)) {
-            abort(404); // File not found
-        }
-
-        if ($archive == 'publication') {
             $item = Publication::findOrFail($id);
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
         }elseif($archive == 'bulletin') {
+            $filePath = public_path('assets/pdf/news/'.$file_name);
             $item = News::findOrFail($id);
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
         }elseif($archive == 'article') {
+            $filePath = public_path('assets/pdf/articles/'.$file_name);
             $item = Article::findOrFail($id);
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
         }elseif($archive == 'thesis') {
+            $filePath = public_path('assets/pdf/theses/'.$file_name);
             $item = Thesis::findOrFail($id);
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
         }elseif($archive == 'journal') {
+            $filePath = public_path('assets/pdf/journals/'.$file_name);
             $item = Journal::findOrFail($id);
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
+        }
+
+        if (!$item->can_read && !auth()->check()) {
+            abort(403);
+        }
+
+        if (!file_exists($filePath)) {
+            abort(404); // File not found
         }
 
 
@@ -265,16 +265,28 @@ class HomeController extends Controller
         //     return;
         // }
 
+        $filePath = '';
+        $item = null;
+
         if ($archive == 'publication') {
             $filePath = public_path('assets/pdf/publications/'.$file_name);
-        } elseif ($archive == 'bulletin') {
+            $item = Publication::findOrFail($id);
+        }elseif($archive == 'bulletin') {
             $filePath = public_path('assets/pdf/news/'.$file_name);
-        } elseif ($archive == 'article') {
+            $item = News::findOrFail($id);
+        }elseif($archive == 'article') {
             $filePath = public_path('assets/pdf/articles/'.$file_name);
-        } elseif ($archive == 'thesis') {
+            $item = Article::findOrFail($id);
+        }elseif($archive == 'thesis') {
             $filePath = public_path('assets/pdf/theses/'.$file_name);
-        } elseif ($archive == 'journal') {
-            $filePath = public_path('assets/pdf/journal/'.$file_name);
+            $item = Thesis::findOrFail($id);
+        }elseif($archive == 'journal') {
+            $filePath = public_path('assets/pdf/journals/'.$file_name);
+            $item = Journal::findOrFail($id);
+        }
+
+        if (!$item->can_download && !auth()->check()) {
+            abort(403);
         }
 
         if (!file_exists($filePath)) {

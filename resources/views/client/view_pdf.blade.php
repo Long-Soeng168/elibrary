@@ -50,7 +50,7 @@
                 <button id="zoom-in" class="px-4 py-2 bg-gray-700 hover:bg-gray-600">+ Zoom In</button>
             </div> --}}
         </header>
-        <main id="pdf-viewer" class="relative overflow-auto h-5/6"></main>
+        <main id="pdf-viewer" class="relative px-1 overflow-auto h-5/6"></main>
     </div>
 
     <script src="{{ asset('assets/js/pdf.js') }}"></script>
