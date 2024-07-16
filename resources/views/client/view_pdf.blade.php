@@ -53,10 +53,10 @@
         <main id="pdf-viewer" class="relative overflow-auto h-5/6"></main>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.min.js"></script>
+    <script src="{{ asset('assets/js/pdf.js') }}"></script>
     <script>
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.13.216/pdf.worker.min.js';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '{{ asset('assets/js/pdf-worker.js') }}';
 
         const pdfViewerContainer = document.getElementById('pdf-viewer');
         const pageInfo = document.getElementById('page-info');

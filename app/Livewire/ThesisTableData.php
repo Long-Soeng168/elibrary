@@ -98,6 +98,22 @@ class ThesisTableData extends Component
         session()->flash('success', 'Delete Successfully!');
     }
 
+    public function updateRead($id)
+    {
+        $item = Thesis::findOrFail($id);
+        $item->update([
+            'can_read' => $item->can_read == 0 ? 1 : 0
+        ]);
+    }
+
+    public function updateDownload($id)
+    {
+        $item = Thesis::findOrFail($id);
+        $item->update([
+            'can_download' => $item->can_download == 0 ? 1 : 0
+        ]);
+    }
+
 
     public function render(){
 

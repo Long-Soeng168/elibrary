@@ -90,6 +90,7 @@
 </head>
 
 <body class="w-full overflow-x-hidden dark:bg-gray-800">
+    @include('components.success-message')
     <!-- Head -->
     <div>
         <div class="relative w-full px-2 bg-bannerColor xl:px-0">

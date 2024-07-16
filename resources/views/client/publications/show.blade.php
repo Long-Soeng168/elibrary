@@ -58,13 +58,18 @@
                         <div class="flex-1">
                             {{-- Start Read Button --}}
                             <a
+                                @if (!$item->can_read && !auth()->check())
+                                 href="{{ route('client.login', ['path' => 'publications-'.$item->id]) }}"
+                                @else
                                 href="{{ route('pdf.view', [
                                         'archive' => 'publication',
                                         'id' => $item->id,
                                         'file_name' => $item->pdf
                                     ])
                                 }}"
-                                class="inline-flex items-center justify-center w-full gap-2 px-4 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+                                @endif
+
+                                class="relative inline-flex items-center justify-center w-full h-full gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -80,6 +85,12 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if (!$item->can_read)
+                                <span class="absolute bg-red-500 border rounded-full -top-1.5 -right-1.5">
+                                    <img class="w-6 h-6 " src="{{ asset('assets/icons/lock.png') }}" alt="">
+                                </span>
+                                @endif
+
                             </a>
                             {{-- End Read Button --}}
 
@@ -119,7 +130,11 @@
 
                         <div class="flex-1">
                             {{-- Start Download Button --}}
-                            <a  href="{{ route('pdf.download', [
+                            <a
+                                @if (!$item->can_download && !auth()->check())
+                                href="{{ route('client.login', ['path' => 'publications-'.$item->id]) }}"
+                                @else
+                                href="{{ route('pdf.download', [
                                         'archive' => 'publication',
                                         'id' => $item->id,
                                         'file_name' => $item->pdf
@@ -140,7 +155,8 @@
                                         });
                                     })();
                                 "
-                                class="inline-flex items-center justify-center w-full gap-2 px-2 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                                @endif
+                                class="relative inline-flex items-center justify-center w-full h-full gap-2 px-2 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-arrow-down-to-line">
@@ -154,6 +170,11 @@
                                     <p>( {{ $item->download_count }} )</p>
                                     @endif
                                 </div>
+                                @if (!$item->can_download)
+                                <span class="absolute bg-red-500 border rounded-full -top-1.5 -right-1.5">
+                                    <img class="w-6 h-6 " src="{{ asset('assets/icons/lock.png') }}" alt="">
+                                </span>
+                                @endif
                             </a>
                             {{-- End Download Button --}}
 

@@ -153,9 +153,10 @@
 
                     <th scope="col" class="px-4 py-3">Student</th>
                     <th scope="col" class="px-4 py-3">Major</th>
-                    <th scope="col" class="px-4 py-3">Type</th>
                     <th scope="col" class="px-4 py-3">Category</th>
-                    <th scope="col" class="px-4 py-3">Published Date</th>
+                    {{-- <th scope="col" class="px-4 py-3">Published Date</th> --}}
+                    <th scope="col" class="py-3 text-center">Read</th>
+                    <th scope="col" class="py-3 text-center">Download</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -178,14 +179,38 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->student?->name ? $item->student?->name : 'N/A' }}
+                                {{ $item->student?->name ? $item->student?->name : 'N/A' }} {{ $item->student_name ? $item->student_name : '' }}
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />
-                        {{-- <x-table-data value="{{ $item->publisher?->name }}" /> --}}
-                            <x-table-data value="{{ $item->type?->name ? $item->type?->name : 'N/A' }}" />
-                            <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
-                        <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" />
+                        <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
+                        {{-- <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" /> --}}
+                        <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
+                            @if ($item->can_read)
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                Allow
+                            </span>
+                            @else
+                            <span
+                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                Not-Allow
+                            </span>
+                            @endif
+                        </x-table-data>
+                        <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
+                            @if ($item->can_download)
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                Allow
+                            </span>
+                            @else
+                            <span
+                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                Not-Allow
+                            </span>
+                            @endif
+                        </x-table-data>
 
 
                         <td class="px-6 py-4">
@@ -220,7 +245,7 @@
 
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('theses/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

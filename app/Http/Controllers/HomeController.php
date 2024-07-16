@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Auth\LoginRequest;
 
 use App\Models\Slide;
 use App\Models\Publication;
@@ -35,7 +36,6 @@ class HomeController extends Controller
 
         // return ($items);
 
-
         $slides = Slide::latest()->get();
         $publications = Publication::latest()->limit(12)->get();
         $videos = Video::latest()->limit(8)->get();
@@ -56,6 +56,25 @@ class HomeController extends Controller
             'journals' => $journals,
             'articles' => $articles,
         ]);
+    }
+
+    public function clientLogin($path){
+        return view('client.client_login', [
+            'path' => $path,
+        ]);
+    }
+
+    public function clientLoginStore(LoginRequest $request, $path)
+    {
+        // dd($request, $path);
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        $pathRedirect = str_replace('-', '/', $path);
+
+        return redirect($pathRedirect);
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     public function menu($id) {
@@ -159,7 +178,7 @@ class HomeController extends Controller
         }elseif($archive == 'thesis') {
             $filePath = public_path('assets/pdf/theses/'.$file_name);
         }elseif($archive == 'journal') {
-            $filePath = public_path('assets/pdf/journal/'.$file_name);
+            $filePath = public_path('assets/pdf/journals/'.$file_name);
         }
 
         if (!file_exists($filePath)) {
@@ -185,6 +204,23 @@ class HomeController extends Controller
         //     abort(403);
         // }
         // dd($id, $archive);
+
+        if ($archive == 'publication') {
+            $filePath = public_path('assets/pdf/publications/'.$file_name);
+        }elseif($archive == 'bulletin') {
+            $filePath = public_path('assets/pdf/news/'.$file_name);
+        }elseif($archive == 'article') {
+            $filePath = public_path('assets/pdf/articles/'.$file_name);
+        }elseif($archive == 'thesis') {
+            $filePath = public_path('assets/pdf/theses/'.$file_name);
+        }elseif($archive == 'journal') {
+            $filePath = public_path('assets/pdf/journals/'.$file_name);
+        }
+
+        if (!file_exists($filePath)) {
+            abort(404); // File not found
+        }
+
         if ($archive == 'publication') {
             $item = Publication::findOrFail($id);
             $item->update([
@@ -211,6 +247,7 @@ class HomeController extends Controller
                 'read_count' => $item->read_count + 1,
             ]);
         }
+
 
         return view('client.view_pdf', [
             'archive' => $archive,
