@@ -66,14 +66,23 @@ class WebsiteInfoEdit extends Component
         ]);
 
         if(!empty($this->image)){
+            $old_path = public_path('assets/images/website_infos/' .  $this->item->image);
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = 'logo.png';
+
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $validated['image'] = $filename;
         }
         if(!empty($this->banner)){
+            $old_path = public_path('assets/images/website_infos/' . $this->item->image);
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
             // $filename = time() . '_' . $this->banner->getClientOriginalName();
             $filename = 'banner.png';
 
