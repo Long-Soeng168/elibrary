@@ -83,7 +83,7 @@
    <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
    <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
 
-   <link rel="manifest" href="{{ asset('manifest.json') }}">
+   <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
 
    {{-- End PWA --}}
