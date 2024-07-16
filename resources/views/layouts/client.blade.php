@@ -74,6 +74,19 @@
     <script defer src="{{ asset('assets/js/glightbox.js') }}"></script>
     <script defer src="{{ asset('assets/js/glightbox.config.js') }}"></script>
     <!-- End JS -->
+
+   {{-- Start PWA --}}
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
+   <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+   <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
+   <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+
+   <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+
+   {{-- End PWA --}}
 </head>
 
 <body class="w-full overflow-x-hidden dark:bg-gray-800">
@@ -286,7 +299,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div>
+                            <div id="add-to-home-screen">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
                                     {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download App' }}
                                 </h2>
@@ -353,6 +366,56 @@
     </div>
     <!-- End Footer -->
 
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+          });
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+          });
+        }
+    </script>
+    <script>
+        let deferredPrompt;
+        const addBtn = document.getElementById('add-to-home-screen');
+        addBtn.style.display = 'none';
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can add to home screen
+        addBtn.style.display = 'block';
+
+        addBtn.addEventListener('click', () => {
+            // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+                });
+            });
+        });
+    </script>
 
 </body>
 
