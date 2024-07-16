@@ -83,8 +83,8 @@ class WebsiteInfoEdit extends Component
             if (File::exists($old_path)) {
                 File::delete($old_path);
             }
-            // $filename = time() . '_' . $this->banner->getClientOriginalName();
-            $filename = 'banner.png';
+            $filename = time() . '_' . $this->banner->getClientOriginalName();
+            // $filename = 'banner.png';
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
             $imageUpload = Image::make($this->banner->getRealPath())->save($image_path);
