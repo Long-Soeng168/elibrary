@@ -3,7 +3,7 @@
 /public/build
 /public/hot
 /public/livewire/preview-file
-# /public/assets/images
+/public/assets/images
 /storage/*.key
 /storage/app/livewire-tmp
 /vendor
