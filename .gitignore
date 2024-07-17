@@ -5,6 +5,7 @@
 /public/livewire/preview-file
 /public/assets/images
 /public/assets/pdf
+/public/assets/audios
 /storage/*.key
 /storage/app/livewire-tmp
 /vendor
