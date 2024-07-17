@@ -357,9 +357,9 @@
                         <span class="text-sm sm:text-center dark:text-gray-400">
                             {{ app()->getLocale() == 'kh' ? $footer->copyright_kh : $footer->copyright }}
                         </span>
-                        <span class="text-sm sm:text-center dark:text-gray-400">
-                            {{ app()->getLocale() == 'kh' ? 'អភិវឌ្ឍដោយ Alphalib' : 'Developed by Alphalib' }}
-                        </span>
+                        <a href="https://alphalib.org/" class="text-sm sm:text-center dark:text-gray-400">
+                            {{ app()->getLocale() == 'kh' ? 'អភិវឌ្ឍដោយ Alphalib' : 'Powered by Alphalib' }}
+                        </a>
                     </div>
                 </div>
             </footer>
