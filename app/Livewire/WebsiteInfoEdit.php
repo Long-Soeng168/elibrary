@@ -71,11 +71,17 @@ class WebsiteInfoEdit extends Component
             if (File::exists($old_path)) {
                 File::delete($old_path);
             }
+            $old_path192 = public_path('assets/images/website_infos/logo192.png');
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = 'logo.png';
+            $filename192 = 'logo192.png';
 
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
+            $image_path192 = public_path('assets/images/website_infos/'.$filename192);
             // $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $imageUpload = Image::make($this->image->getRealPath())
                                     ->resize(512, 512, function ($constraint) {
@@ -83,6 +89,11 @@ class WebsiteInfoEdit extends Component
                                         $constraint->upsize(); // Prevents upsizing
                                     })
                                     ->save($image_path);
+
+            $imageUpload->resize(192,192,function($resize){
+                    $resize->aspectRatio();
+                })->save($image_path192);
+
             $validated['image'] = $filename;
         }
         if(!empty($this->banner)){
