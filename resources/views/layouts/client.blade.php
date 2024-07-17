@@ -81,7 +81,7 @@
    <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
    <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
    <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
-   <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+   <link rel="icon" href="{{ asset('assets/images/website_infos/logo192.png') }}">
 
    <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
@@ -95,7 +95,7 @@
     <div>
         <div class="relative w-full px-2 bg-bannerColor xl:px-0">
             <a href="/">
-                <img class="max-w-screen-xl mx-auto w-full max-h-[300px] dark:saturate-500"
+                <img class="max-w-screen-xl mx-auto w-full max-h-[300px] object-contain"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
