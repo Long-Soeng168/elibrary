@@ -76,7 +76,13 @@ class WebsiteInfoEdit extends Component
 
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            // $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $imageUpload = Image::make($this->image->getRealPath())
+                                    ->resize(512, 512, function ($constraint) {
+                                        $constraint->aspectRatio(); // Maintains the aspect ratio
+                                        $constraint->upsize(); // Prevents upsizing
+                                    })
+                                    ->save($image_path);
             $validated['image'] = $filename;
         }
         if(!empty($this->banner)){
