@@ -92,6 +92,7 @@ class WebsiteInfoEdit extends Component
 
             $imageUpload->resize(192,192,function($resize){
                     $resize->aspectRatio();
+                    $resize->upsize();
                 })->save($image_path192);
 
             $validated['image'] = $filename;
