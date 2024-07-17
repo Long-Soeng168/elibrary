@@ -84,10 +84,10 @@ class WebsiteInfoEdit extends Component
             $image_path192 = public_path('assets/images/website_infos/'.$filename192);
             // $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $imageUpload = Image::make($this->image->getRealPath())
-                                    ->resize(512, 512)
+                                    ->fit(512, 512)
                                     ->save($image_path);
 
-            $imageUpload->resize(192, 192)->save($image_path192);
+            $imageUpload->fit(192, 192)->save($image_path192);
 
 
             $validated['image'] = $filename;
