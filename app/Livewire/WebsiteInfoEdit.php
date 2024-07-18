@@ -71,12 +71,25 @@ class WebsiteInfoEdit extends Component
             if (File::exists($old_path)) {
                 File::delete($old_path);
             }
+            $old_path192 = public_path('assets/images/website_infos/logo192.png');
+            if (File::exists($old_path)) {
+                File::delete($old_path);
+            }
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = 'logo.png';
+            $filename192 = 'logo192.png';
 
 
             $image_path = public_path('assets/images/website_infos/'.$filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $image_path192 = public_path('assets/images/website_infos/'.$filename192);
+            // $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $imageUpload = Image::make($this->image->getRealPath())
+                                    ->fit(512, 512)
+                                    ->save($image_path, 80);
+
+            $imageUpload->fit(192, 192)->save($image_path192, 80);
+
+
             $validated['image'] = $filename;
         }
         if(!empty($this->banner)){

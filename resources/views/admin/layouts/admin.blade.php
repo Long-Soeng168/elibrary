@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>One Digital Library</title>
 
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
     <script defer src="{{ asset('assets/js/alpine31.js') }}"></script>
+
+    <link rel="icon" href="{{ asset('assets/images/website_infos/logo192.png') }}">
 
     <style>
         .select2-selection {
@@ -203,7 +205,7 @@
                     </button>
                     <a href="/" class="flex items-center justify-center mr-4">
                         @if ($websiteInfo->image)
-                            <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
+                            <img src="{{ asset('assets/images/website_infos/logo192.png') }}"
                                 class="h-8 mr-3" alt="Flowbite Logo" />
                         @endif
                         <span
@@ -737,7 +739,7 @@
                 aria-label="Sidenav" id="drawer-navigation">
                 <a href="/" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
                     @if ($websiteInfo->image)
-                        <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
+                        <img src="{{ asset('assets/images/website_infos/logo192.png') }}"
                             class="object-cover h-8 mr-3 rounded-full aspect-square" alt="Flowbite Logo" />
                     @endif
                     <span class="self-center text-2xl font-semibold line-clamp-1 dark:text-white">

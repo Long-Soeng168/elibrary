@@ -9,8 +9,8 @@
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                    {{-- :value="old('email')"  --}}
-                    value="superadmin@gmail.com"
+                    :value="old('email')"
+                    {{-- value="superadmin@gmail.com" --}}
                     required
                     autofocus
                     autocomplete="username" />
@@ -24,7 +24,7 @@
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
                             name="password"
-                            value="superadmin@123"
+                            {{-- value="superadmin@123" --}}
                             required autocomplete="current-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
