@@ -53,7 +53,7 @@
                     </button>
                     <!-- Dropdown menu -->
                     <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
-                        <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200" aria-labelledby="multiLevelDropdownButton">
+                        <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
                             @forelse ($categories as $category)
                                 <li class="hover:underline" wire:key="{{ $category->id }}">
                                     <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
