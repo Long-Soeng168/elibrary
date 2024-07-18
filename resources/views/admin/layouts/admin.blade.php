@@ -27,6 +27,11 @@
 
     <script defer src="{{ asset('assets/js/alpine31.js') }}"></script>
 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+    <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
     <link rel="icon" href="{{ asset('assets/images/website_infos/logo192.png') }}">
 
     <style>
