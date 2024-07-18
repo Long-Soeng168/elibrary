@@ -32,7 +32,7 @@
     <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
     <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
     <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
-    <link rel="icon" href="{{ asset('assets/images/website_infos/logo192.png') }}">
+    <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
 
     <style>
         .select2-selection {
