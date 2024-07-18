@@ -271,7 +271,7 @@
                         <div class="mb-6 min-[1300px]:mb-0">
                             <a href="#" class="flex items-center">
                                 <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
-                                    class="h-24 max-w-[250px] object-contain me-3" alt="Logo" />
+                                    class="h-24 max-w-[250px] object-contain me-3 rounded-md" alt="Logo" />
                             </a>
                         </div>
                         <div class="justify-between gap-6 lg:flex lg:gap-20">
