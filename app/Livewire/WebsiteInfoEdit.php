@@ -66,6 +66,7 @@ class WebsiteInfoEdit extends Component
             'show_bg_menu' => 'required|boolean',
         ]);
 
+
         if (!empty($this->image)) {
             $old_path = public_path('assets/images/website_infos/logo.png');
             if (File::exists($old_path)) {
