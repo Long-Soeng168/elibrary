@@ -66,32 +66,33 @@ class WebsiteInfoEdit extends Component
             'show_bg_menu' => 'required|boolean',
         ]);
 
-        if(!empty($this->image)){
+
+        if (!empty($this->image)) {
             $old_path = public_path('assets/images/website_infos/logo.png');
             if (File::exists($old_path)) {
                 File::delete($old_path);
             }
+
             $old_path192 = public_path('assets/images/website_infos/logo192.png');
-            if (File::exists($old_path)) {
-                File::delete($old_path);
+            if (File::exists($old_path192)) {
+                File::delete($old_path192);
             }
-            // $filename = time() . '_' . $this->image->getClientOriginalName();
+
             $filename = 'logo.png';
             $filename192 = 'logo192.png';
 
+            $image_path = public_path('assets/images/website_infos/' . $filename);
+            $image_path192 = public_path('assets/images/website_infos/' . $filename192);
 
-            $image_path = public_path('assets/images/website_infos/'.$filename);
-            $image_path192 = public_path('assets/images/website_infos/'.$filename192);
-            // $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
             $imageUpload = Image::make($this->image->getRealPath())
-                                    ->fit(512, 512)
-                                    ->save($image_path, 80);
+                ->fit(512, 512)
+                ->save($image_path, 80);
 
             $imageUpload->fit(192, 192)->save($image_path192, 80);
 
-
             $validated['image'] = $filename;
         }
+
         if(!empty($this->banner)){
             $old_path = public_path('assets/images/website_infos/' . $this->item->image);
             if (File::exists($old_path)) {
