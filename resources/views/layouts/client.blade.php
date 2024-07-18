@@ -391,6 +391,40 @@
     </script>
     <script>
         let deferredPrompt;
+const addBtn = document.getElementById('add-to-home-screen');
+
+// Check if the browser supports the beforeinstallprompt event
+if ('onbeforeinstallprompt' in window) {
+    addBtn.style.display = 'none';
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        addBtn.style.display = 'block';
+
+        addBtn.addEventListener('click', () => {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+    });
+} else {
+    // Fallback for browsers that don't support the beforeinstallprompt event (e.g., Safari on iOS)
+    addBtn.style.display = 'block';
+    addBtn.addEventListener('click', () => {
+        alert('To add this app to your home screen, open the browser menu and select "Add to Home Screen".');
+    });
+}
+
+    </script>
+    {{-- <script>
+        let deferredPrompt;
         const addBtn = document.getElementById('add-to-home-screen');
         addBtn.style.display = 'none';
 
@@ -416,7 +450,7 @@
                 });
             });
         });
-    </script>
+    </script> --}}
 
 </body>
 

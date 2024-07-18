@@ -16,6 +16,7 @@ use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
 use Image as ImageCompress;
+use DB;
 
 class HomeController extends Controller
 {
@@ -33,7 +34,15 @@ class HomeController extends Controller
                 //             'thesis_category_id' => $item->major?->thesis_category_id,
                 //         ]);
                 // }
-
+        // $items = DB::table('article_meta_data_subject')->get();
+        // foreach ($items as $key => $item) {
+        //     $archive = Publication::find($item->article_meta_data_id);
+        //     if($archive) {
+        //         $archive->update([
+        //             'publication_category_id' => $item->subject_id,
+        //         ]);
+        //     }
+        // }
         // return ($items);
 
         $slides = Slide::latest()->get();
