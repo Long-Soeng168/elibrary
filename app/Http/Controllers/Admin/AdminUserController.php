@@ -42,7 +42,7 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        $authUser = $request->user();
+        // $authUser = $request->user();
         // return $authUser;
         // dd($request->all());
         $request->validate([
@@ -68,24 +68,24 @@ class AdminUserController extends Controller
             $user->syncRoles($roles);
         }
 
-        if($authUser->shop_id == null) {
-            $createdShop = Shop::create([
-                'name' => $request->name . ' Shop',
-                'owner_user_id' => $user->id,
-                'description' => 'Your shop description'
-            ]);
+        // if($authUser->shop_id == null) {
+        //     $createdShop = Shop::create([
+        //         'name' => $request->name . ' Shop',
+        //         'owner_user_id' => $user->id,
+        //         'description' => 'Your shop description'
+        //     ]);
 
-            if ($createdShop) {
-                // Update the user's shop_id
-                $user->update([
-                    'shop_id' => $createdShop->id,
-                ]);
-            }
-        }else {
-            $user->update([
-                'shop_id' => $authUser->shop_id,
-            ]);
-        }
+        //     if ($createdShop) {
+        //         // Update the user's shop_id
+        //         $user->update([
+        //             'shop_id' => $createdShop->id,
+        //         ]);
+        //     }
+        // }else {
+        //     $user->update([
+        //         'shop_id' => $authUser->shop_id,
+        //     ]);
+        // }
 
 
         return redirect('/admin/users')->with('success', 'User Created Successfully');

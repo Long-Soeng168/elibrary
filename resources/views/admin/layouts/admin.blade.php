@@ -762,6 +762,8 @@
                                 <span class="ml-3">Dashboard</span>
                             </x-sidebar-item>
                         </li>
+
+                        @can('view user')
                         <li x-data="{
                                 open: {{ request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') ? 'true' : 'false' }},
                                 init() {
@@ -800,15 +802,17 @@
                                         Roles
                                     </a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="{{ url('admin/permissions') }}"
                                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/permissions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                         Permissions
                                     </a>
-                                </li>
+                                </li> --}}
 
                             </ul>
                         </li>
+                        @endcan
+
 
 
                         {{-- <li>
@@ -835,6 +839,7 @@
                             @endif
                             @switch($database->slug)
                                 @case('publications')
+                                    @can('view epublication')
                                     <li x-data="{
                                         open: {{ request()->is('admin/publications*') ? 'true' : 'false' }},
                                         init() {
@@ -883,9 +888,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('videos')
+                                    @can('view video')
                                     <li x-data="{
                                         open: {{ request()->is('admin/videos*') ? 'true' : 'false' }},
                                         init() {
@@ -932,9 +939,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('images')
+                                    @can('view image')
                                     <li x-data="{
                                         open: {{ request()->is('admin/images*') ? 'true' : 'false' }},
                                         init() {
@@ -981,9 +990,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('audios')
+                                    @can('view audio')
                                     <li x-data="{
                                         open: {{ request()->is('admin/audios*') ? 'true' : 'false' }},
                                         init() {
@@ -1030,9 +1041,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('bulletins')
+                                    @can('view bulletin')
                                     <li x-data="{
                                         open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }},
                                         init() {
@@ -1079,9 +1092,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('theses')
+                                    @can('view thesis')
                                     <li x-data="{
                                         open: {{ request()->is('admin/theses*') ? 'true' : 'false' }},
                                         init() {
@@ -1128,9 +1143,11 @@
                                 </li> --}}
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('journals')
+                                    @can('view journal')
                                     <li x-data="{
                                         open: {{ request()->is('admin/journals*') ? 'true' : 'false' }},
                                         init() {
@@ -1177,9 +1194,11 @@
                                 </li> --}}
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('articles')
+                                    @can('view article')
                                     <li x-data="{
                                         open: {{ request()->is('admin/articles*') ? 'true' : 'false' }},
                                         init() {
@@ -1226,6 +1245,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
                             @endswitch
                             @empty
@@ -1235,6 +1255,7 @@
                         </ul>
 
                         <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
+                            @can('view keyword')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/keywords*') ? 'true' : 'false' }}) {
@@ -1249,6 +1270,9 @@
                                     <span class="ml-3">Keywords</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view location')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/locations*') ? 'true' : 'false' }}) {
@@ -1263,6 +1287,9 @@
                                     <span class="ml-3">Locations</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view language')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/languages*') ? 'true' : 'false' }}) {
@@ -1277,6 +1304,9 @@
                                     <span class="ml-3">Languages</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view major')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
@@ -1291,6 +1321,8 @@
                                     <span class="ml-3">Majors</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
                             {{-- <li>
                         <x-sidebar-item href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -1303,6 +1335,7 @@
                             <span class="ml-3">Reports</span>
                         </x-sidebar-item>
                     </li> --}}
+                            @can('view people')
                             <ul>
                                 <li x-data="{
                                     open: {{ request()->is('admin/people*') ? 'true' : 'false' }},
@@ -1360,7 +1393,10 @@
                                     </ul>
                                 </li>
                             </ul>
+                            @endcan
                         </ul>
+
+                        @can('view setting')
                         <ul class="pt-5 pb-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                             <li x-data="{
                                 open: {{ request()->is('admin/settings*') ? 'true' : 'false' }},
@@ -1409,12 +1445,15 @@
                                             Footer
                                         </a>
                                     </li>
+                                    @can('view database')
                                     <li>
                                         <a href="{{ url('admin/settings/databases') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/databases*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                             Databases
                                         </a>
                                     </li>
+                                    @endcan
+
                                     <li>
                                         <a href="{{ url('admin/settings/website_infos/1/edit') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/website_infos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
@@ -1424,6 +1463,7 @@
                                 </ul>
                             </li>
                         </ul>
+                        @endcan
 
                     </div>
                     <div

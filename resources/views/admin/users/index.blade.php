@@ -82,13 +82,14 @@
         </div>
         <div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create user')
             <x-primary-button href="{{ route('admin.users.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
                 Add User
             </x-primary-button>
-
+            @endcan
             <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton" class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-up">
@@ -118,6 +119,9 @@
             </thead>
             <tbody>
             @foreach ($users as $user)
+                @if ($user->hasRole('super-admin') && !auth()->user()->hasRole('super-admin'))
+                    @continue
+                @endif
             <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="w-4 px-4 py-3">
                     <div class="flex items-center">
@@ -136,7 +140,7 @@
                     <x-table-data value="{{ $user->email ? $user->email : 'N/A' }}"/>
                     <x-table-data value="{{ $user->phone ? $user->phone : 'N/A'}}"/>
                     <x-table-data>
-                        <div class="flex flex-wrap w-full gap-1">
+                        <div class="flex flex-wrap w-full gap-1 uppercase">
                             @if ($user->roles->count() > 0)
                                 @forelse ($user->roles as $role)
                                     <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
@@ -150,6 +154,7 @@
                     </x-table-data>
                     <td class="px-6 py-4">
                         <div class="flex items-start justify-center gap-3">
+                            @can('view user')
                             <a href="#profileFrame{{ $user->id }}" class="glightbox4" data-gallery="gallery1">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
                                     <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
@@ -266,18 +271,26 @@
                                     </div>
                                 </div>
                             </div>
+                            @endcan
+
+                            @can('delete user')
                             <x-delete-confirm-button
                             identifier="{{ $user->id }}"
                             deleteUrl="{{ route('admin.users.destroy', $user->id) }}"
                             message="Are you sure you want to delete this User"
                             tooltipText="Delete User"
                             />
+                            @endcan
+
+                            @can('update user')
                             <x-edit-button
                             identifier="{{ $user->id }}"
                             {{-- editUrl="{{ route('admin.users.edit', $user->id) }}" --}}
                             editUrl="{{ url('admin/users/'.$user->id.'/edit') }}"
                             tooltipText="Edit User"
                             />
+                            @endcan
+
                         </div>
                     </td>
                 </tr>
