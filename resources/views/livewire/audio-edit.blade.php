@@ -901,7 +901,7 @@
             <div class="flex items-center space-4" wire:key='uploadfile'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Uploa Audio File (Max : 2MB) <span class="text-red-500">*</span>
+                        Uploa Audio File (Max : 50MB) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="file"
@@ -915,7 +915,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">mp3 (MAX. 2MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">mp3 (MAX. 50MB)</p>
                                 @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>

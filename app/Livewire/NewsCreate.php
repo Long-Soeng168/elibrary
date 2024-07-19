@@ -266,7 +266,7 @@ class NewsCreate extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:20480', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
@@ -284,7 +284,7 @@ class NewsCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'file' => 'nullable|file|max:20480',
+            'file' => 'nullable|file|max:51200',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
             'news_category_id' => 'nullable|exists:news_categories,id',
