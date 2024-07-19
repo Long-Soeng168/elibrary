@@ -413,7 +413,7 @@ class ThesisCreate extends Component
             'barcode' => 'nullable|integer',
             'published_date' => 'nullable',
             'thesis_category_id' => 'nullable|exists:thesis_categories,id',
-            'thesis_type_id' => 'required|exists:thesis_types,id',
+            'thesis_type_id' => 'nullable|exists:thesis_types,id',
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',

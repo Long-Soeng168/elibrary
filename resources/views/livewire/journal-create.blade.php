@@ -794,7 +794,7 @@
         {{-- Start Add Resource Links --}}
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <div>
-                <x-input-label for="link" :value="__('Resource Link')" /><span class="text-red-500">*</span>
+                <x-input-label for="link" :value="__('Resource Link')" />
                 <div class="flex flex-col gap-1">
                     @foreach($resourceLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">

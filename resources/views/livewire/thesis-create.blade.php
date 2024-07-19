@@ -128,7 +128,7 @@
 
             {{-- Start Major --}}
             <div class="relative w-full group">
-                <x-input-label for="majors" :value="__('Majors')" /><span class="text-red-600">*</span>
+                <x-input-label for="majors" :value="__('Majors')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model='major_id' id="majors"
@@ -710,7 +710,7 @@
 
             {{-- Start Type Select --}}
             <div class="relative w-full mb-5 group">
-                <x-input-label for="types" :value="__('Types')" /><span class="text-red-600">*</span>
+                <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='thesis_type_id' id="types"
@@ -1155,7 +1155,7 @@
         {{-- Start Add Resource Links --}}
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <div>
-                <x-input-label for="link" :value="__('Resource Link')" /><span class="text-red-500">*</span>
+                <x-input-label for="link" :value="__('Resource Link')" />
                 <div class="flex flex-col gap-1">
                     @foreach($resourceLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">
@@ -1182,7 +1182,7 @@
         {{-- Start Add Journal Links --}}
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <div>
-                <x-input-label for="link" :value="__('Journal Link')" /><span class="text-red-500">*</span>
+                <x-input-label for="link" :value="__('Journal Link')" />
                 <div class="flex flex-col gap-1">
                     @foreach($journalLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">

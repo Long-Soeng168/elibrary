@@ -449,7 +449,7 @@ class ThesisEdit extends Component
             'barcode' => 'nullable|integer',
             'published_date' => 'nullable',
             'thesis_category_id' => 'nullable',
-            'thesis_type_id' => 'required',
+            'thesis_type_id' => 'nullable',
             'publisher_id' => 'nullable',
             'location_id' => 'nullable',
             'language_id' => 'nullable',
