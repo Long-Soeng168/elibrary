@@ -1305,9 +1305,8 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save" wire:target="save, pdf, image" wire:loading.attr="disabled"
+            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
                 class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-
                 Save
             </button>
             <span wire:target="save" wire:loading>
@@ -1320,7 +1319,6 @@
                     src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 On Uploading File...
             </span>
-
         </div>
     </form>
 
