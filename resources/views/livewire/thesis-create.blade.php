@@ -1280,7 +1280,7 @@
                                 accept="application/pdf" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
-                    <div wire:loading wire:target="pdf" class="text-blue-700">
+                    <div wire:loading wire:target="pdf" class="text-blue-700" wire:key='loadingIndicator'>
                         <span>
                             <img class="inline w-6 h-6 text-white me-2 animate-spin"
                                 src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
@@ -1306,15 +1306,19 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save" wire:target="save" wire:loading.attr="disabled"
+            <button wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
                 class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-
                 Save
             </button>
             <span wire:target="save" wire:loading>
                 <img class="inline w-6 h-6 text-white me-2 animate-spin"
                     src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
+            </span>
+            <span wire:target="pdf,image"  wire:loading>
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                On Uploading File...
             </span>
 
         </div>
