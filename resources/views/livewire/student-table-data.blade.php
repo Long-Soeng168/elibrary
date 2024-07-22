@@ -49,6 +49,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create people')
             <x-primary-button href="{{ url('admin/people/students/create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -57,6 +58,8 @@
                 </svg>
                 Add
             </x-primary-button>
+            @endcan
+
 
             {{-- <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -133,7 +136,7 @@
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
-
+                                @can('delete people')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:click="delete({{ $item->id }})"
@@ -156,7 +159,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update people')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/people/students/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -176,6 +181,8 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
+
                             </div>
                         </td>
                     </tr>

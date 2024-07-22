@@ -273,6 +273,7 @@
             {{-- <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button> --}}
+            @can('update setting')
             <button wire:click.prevent="save"
                     wire:target="save"
                     wire:loading.attr="disabled"
@@ -280,6 +281,8 @@
 
                     Save Update
             </button>
+            @endcan
+
             <span wire:target="save" wire:loading>
                 <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving

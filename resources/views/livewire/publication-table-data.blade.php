@@ -93,6 +93,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create epublication')
             <x-primary-button href="{{ route('admin.publications.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -101,6 +102,7 @@
                 </svg>
                 Add Item
             </x-primary-button>
+            @endcan
 
             <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -154,8 +156,10 @@
                     <th scope="col" class="px-4 py-3">Author</th>
                     <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">Category</th>
+                    @can('update epublication')
                     <th scope="col" class="py-3 text-center">Read</th>
                     <th scope="col" class="py-3 text-center">Download</th>
+                    @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -182,6 +186,7 @@
                         </x-table-data>
                         <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->publicationCategory?->name ? $item->publicationCategory?->name : 'N/A' }}" />
+                        @can('update epublication')
                         <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
                             @if ($item->can_read)
                             <span
@@ -208,10 +213,11 @@
                             </span>
                             @endif
                         </x-table-data>
-
+                        @endcan
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
+                                @can('update epublication')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/publications_images/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
@@ -236,10 +242,10 @@
                                             Add Images
                                         </div>
                                     </a>
-
-
                                 </div>
+                                @endcan
 
+                                @can('view epublication')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('publications/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -264,7 +270,9 @@
                                         View
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('delete epublication')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
@@ -293,7 +301,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update epublication')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/publications/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -318,6 +328,8 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
+
                             </div>
                         </td>
                     </tr>

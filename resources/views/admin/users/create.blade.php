@@ -77,18 +77,20 @@
 
             <div class="grid grid-cols-4 gap-4">
                 @foreach ($roles as $role)
-                <div class="flex items-center">
-                    <input
-                        type="checkbox"
-                        id="permission_{{ $role->id }}"
-                        name="roles[]"
-                        value="{{ $role->name }}"
-                        class="mr-2"
-                        {{-- {{ in_array($permission->id, $rolePermissions) ? "checked" : '' }} --}}
-                    >
-                    <label class="text-slate-800 dark:text-white" for="permission_{{ $role->id }}">{{ $role->name }}</label>
-                </div>
-
+                    @if ($role->name == 'super-admin' && !auth()->user()->hasRole('super-admin'))
+                        @continue
+                    @endif
+                    <div class="flex items-center">
+                        <input
+                            type="checkbox"
+                            id="permission_{{ $role->id }}"
+                            name="roles[]"
+                            value="{{ $role->name }}"
+                            class="mr-2"
+                            {{-- {{ in_array($permission->id, $rolePermissions) ? "checked" : '' }} --}}
+                        >
+                        <label class="text-slate-800 dark:text-white" for="permission_{{ $role->id }}">{{ $role->name }}</label>
+                    </div>
                 @endforeach
             </div>
             <x-input-error :messages="$errors->get('roles')" class="mt-2" />
