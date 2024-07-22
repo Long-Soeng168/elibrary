@@ -13,7 +13,7 @@ class WebsiteInfoController extends Controller
     {
         $this->middleware('permission:view setting', ['only' => ['index', 'show']]);
         $this->middleware('permission:create setting', ['only' => ['create', 'store']]);
-        $this->middleware('permission:update setting', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:update setting', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete setting', ['only' => ['destroy']]);
     }
     /**

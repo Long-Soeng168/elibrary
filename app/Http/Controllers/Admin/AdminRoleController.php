@@ -49,6 +49,9 @@ class AdminRoleController extends Controller
         $permissions = $request->only('permissions');
         $role->syncPermissions($permissions);
 
+
+        //  app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+
         return redirect('admin/roles')->with('success', 'Give Permissions Successfully!');
     }
 
