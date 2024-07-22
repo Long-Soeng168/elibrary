@@ -16,6 +16,13 @@ use App\Models\Author;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view dashboard', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create dashboard', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update dashboard', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete dashboard', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

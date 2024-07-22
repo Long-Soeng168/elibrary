@@ -9,6 +9,13 @@ use App\Models\Audio;
 
 class AudioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view audio', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create audio', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update audio', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete audio', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

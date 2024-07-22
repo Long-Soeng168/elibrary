@@ -8,6 +8,13 @@ use App\Models\Footer;
 
 class FooterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view footer', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create footer', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update footer', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete footer', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

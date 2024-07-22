@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class KeywordController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view keyword', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create keyword', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update keyword', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete keyword', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

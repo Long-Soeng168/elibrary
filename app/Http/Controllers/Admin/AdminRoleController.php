@@ -11,6 +11,11 @@ use DB;
 
 class AdminRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view role', ['only' => ['index']]);
+        $this->middleware('permission:update role', ['only' => ['givePermissionsToRole', 'updatePermissionsToRole']]);
+    }
     /**
      * Display a listing of the resource.
      */

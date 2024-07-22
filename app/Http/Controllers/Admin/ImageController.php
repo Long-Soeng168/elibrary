@@ -9,6 +9,13 @@ use App\Models\Image;
 
 class ImageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view image', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create image', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update image', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete image', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
