@@ -100,7 +100,7 @@
                     <th scope="col" class="px-4 py-3">Name_kh</th>
                     <th scope="col" class="px-4 py-3">Slug</th>
                     <th scope="col" class="px-4 py-3">Link</th>
-                    <th scope="col" class="px-4 py-3">Order Index</th>
+                    <th scope="col" class="px-4 py-3 text-center">Order</th>
 
                     <th scope="col" class="px-4 py-3">Status</th>
                     <th scope="col" class="py-3 text-center">Action</th>
@@ -129,7 +129,7 @@
                         <x-table-data>
                             {{ $item->link ? $item->link : 'N/A' }}
                         </x-table-data>
-                        <x-table-data>
+                        <x-table-data class="text-center">
                             {{ $item->order_index || $item->order_index == 0 ? $item->order_index : 'N/A' }}
                         </x-table-data>
                         @if (auth()->user()->hasRole('super-admin'))
