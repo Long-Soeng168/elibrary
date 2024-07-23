@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Carbon\Carbon;
 use DB;
 
 class AdminUserController extends Controller
@@ -60,6 +61,8 @@ class AdminUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed'],
             'roles' => ['required'],
+            'started_at' => 'nullable|date',
+            'expired_at' => 'nullable|date|after:started_at',
         ]);
 
         $user = User::create([
@@ -70,6 +73,8 @@ class AdminUserController extends Controller
             'gender' => $request->gender,
             'date_of_birth' => $request->date_of_birth,
             'add_by_user_id' => $request->user()->id,
+            'started_at' => $request->started_at,
+            'expired_at' => $request->expired_at,
         ]);
 
         $roles = $request->only('roles');
@@ -128,16 +133,22 @@ class AdminUserController extends Controller
         ]);
     }
     public function update(Request $request, User $user) {
-        // return $request->all();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'roles' => ['required'],
+            'started_at' => 'nullable|date',
+            'expired_at' => 'nullable|date|after:started_at',
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+            'started_at' => $request->started_at,
+            'expired_at' => $request->expired_at,
         ]);
 
         $roles = $request->only('roles');

@@ -8,14 +8,14 @@
         <div class="grid md:grid-cols-2 md:gap-6">
             <!-- Name Address -->
             <div>
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="name" :value="__('Name')" /><span class="text-red-500">*</span>
                 <x-text-input id="name" class="block w-full mt-1" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <!-- Email Address -->
             <div>
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" :value="__('Email')" /><span class="text-red-500">*</span>
                 <x-text-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
@@ -23,7 +23,7 @@
         <div class="grid pt-4 md:grid-cols-2 md:gap-6">
             {{-- Password --}}
             <div>
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" :value="__('Password')" /><span class="text-red-500">*</span>
 
                 <x-text-input id="password" class="block w-full mt-1" type="password" name="password" required autocomplete="new-password" />
 
@@ -32,7 +32,7 @@
 
             <!-- Confirm Password -->
             <div>
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-label for="password_confirmation" :value="__('Confirm Password')" /><span class="text-red-500">*</span>
 
                 <x-text-input id="password_confirmation" class="block w-full mt-1" type="password" name="password_confirmation" required autocomplete="new-password" />
 
@@ -71,9 +71,30 @@
                 </div>
             </div>
         </div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+            {{-- Started At --}}
+            <div>
+                <x-input-label for="started_at" :value="__('Started At')" /><span class="text-red-500">*</span>
+
+                <x-text-input id="started_at" class="block w-full mt-1" type="date" name="started_at" value="{{ old('started_at', \Carbon\Carbon::today()->toDateString()) }}" />
+
+                <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
+            </div>
+
+            <!-- Expired At -->
+            <div>
+                <x-input-label for="expired_at" :value="__('Expired At')" /><span class="text-red-500">*</span>
+
+                <x-text-input id="expired_at" class="block w-full mt-1" type="date" name="expired_at" value="{{ old('expired_at') }}"/>
+
+                <x-input-error :messages="$errors->get('expired_at')" class="mt-2" />
+            </div>
+        </div>
+
+
 
         <div class="mt-4 mb-6">
-            <x-input-label for="password_confirmation" :value="__('Give Role')" />
+            <x-input-label for="password_confirmation" :value="__('Give Role')" /><span class="text-red-500">*</span>
 
             <div class="grid grid-cols-4 gap-4">
                 @foreach ($roles as $role)

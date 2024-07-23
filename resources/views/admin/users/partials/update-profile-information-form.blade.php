@@ -64,6 +64,25 @@
                 </div>
             </div>
         </div>
+        <div class="grid md:grid-cols-2 md:gap-6">
+            {{-- Started At --}}
+            <div>
+                <x-input-label for="started_at" :value="__('Started At')" />
+
+                <x-text-input id="started_at" class="block w-full mt-1" type="date" name="started_at" value="{{ $user->started_at }}" />
+
+                <x-input-error :messages="$errors->get('started_at')" class="mt-2" />
+            </div>
+
+            <!-- Expired At -->
+            <div>
+                <x-input-label for="expired_at" :value="__('Expired At')" />
+
+                <x-text-input id="expired_at" value="{{ $user->expired_at }}" class="block w-full mt-1" type="date" name="expired_at"/>
+
+                <x-input-error :messages="$errors->get('expired_at')" class="mt-2" />
+            </div>
+        </div>
 
         <div>
             <x-input-label :value="__('User Roles')" />

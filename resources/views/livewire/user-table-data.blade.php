@@ -140,7 +140,7 @@
                 @if ($item->hasRole('super-admin') && !auth()->user()->hasRole('super-admin'))
                     @continue
                 @endif
-            <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+            <tr wire:key='{{ $item->id }}' class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
                 <td class="w-4 px-4 py-3">
                     <div class="flex items-center">
                         {{ $loop->iteration }}
