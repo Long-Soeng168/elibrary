@@ -443,75 +443,91 @@
                                 @endif
                                 @switch($database->slug)
                                     @case('publications')
-                                        <a href="{{ url('admin/publications') }}"
-                                            class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <div class="text-sm text-gray-900 dark:text-white">Publications</div>
-                                        </a>
+                                        @can('view epublication')
+                                            <a href="{{ url('admin/publications') }}"
+                                                class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                                <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                    class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                <div class="text-sm text-gray-900 dark:text-white">Publications</div>
+                                            </a>
+                                        @endcan
                                     @break
 
                                     @case('videos')
+                                        @can('view video')
                                         <a href="{{ url('admin/videos') }}"
                                             class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Videos</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('images')
+                                        @can('view image')
                                         <a href="{{ url('admin/images') }}"
                                             class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Images</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('audios')
+                                        @can('view audio')
                                         <a href="{{ url('admin/audios') }}"
                                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Audios</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('bulletins')
+                                        @can('view bulletin')
                                         <a href="{{ url('admin/bulletins') }}"
                                             class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('theses')
+                                        @can('view thesis')
                                         <a href="{{ url('admin/theses') }}"
                                             class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Theses</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('journals')
+                                        @can('view journal')
                                         <a href="{{ url('admin/journals') }}"
                                             class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Journals</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('articles')
+                                        @can('view article')
                                         <a href="{{ url('admin/articles') }}"
                                             class="{{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Articles</div>
                                         </a>
+                                        @endcan
                                     @break
                                 @endswitch
                                 @empty

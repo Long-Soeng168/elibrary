@@ -10,9 +10,14 @@ use App\Models\Video;
 use App\Models\Image;
 use App\Models\Audio;
 use App\Models\News;
+use App\Models\Thesis;
+use App\Models\Journal;
+use App\Models\Article;
 use App\Models\User;
 use App\Models\Publisher;
 use App\Models\Author;
+use App\Models\Database;
+
 
 class DashboardController extends Controller
 {
@@ -33,10 +38,34 @@ class DashboardController extends Controller
         $imagesCount = Image::count();
         $audiosCount = Audio::count();
         $bulletinsCount = News::count();
+        $thesesCount = Thesis::count();
+        $journalsCount = Journal::count();
+        $articlesCount = Article::count();
 
         $usersCount = User::count();
         $publishersCount = Publisher::count();
         $authorsCount = Author::count();
+
+        $label = [];
+        $data = [
+            $publicationsCount,
+            $videosCount,
+            $imagesCount,
+            $audiosCount,
+            $bulletinsCount,
+            $thesesCount,
+            $journalsCount,
+            $articlesCount,
+        ];
+
+        $menu_databases = Database::where('status', 1)->orderBy('order_index', 'ASC')->get() ?? new Database;
+
+        foreach($menu_databases as $database){
+            if($database->type == 'slug' && $database->status){
+                $label[] = $database->name;
+            }
+        }
+
         return view('admin.dashboard.index', [
             'title' => 'Records',
             'publicationsCount' => $publicationsCount,
@@ -47,6 +76,11 @@ class DashboardController extends Controller
             'usersCount' => $usersCount,
             'publishersCount' => $publishersCount,
             'authorsCount' => $authorsCount,
+            'thesesCount' => $thesesCount,
+            'journalsCount' => $journalsCount,
+            'articlesCount' => $articlesCount,
+            'label' => $label,
+            'data' => $data
         ]);
     }
 
