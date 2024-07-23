@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view major', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create major', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update major', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete major', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

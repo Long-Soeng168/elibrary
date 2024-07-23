@@ -87,6 +87,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create role')
             <x-primary-button data-modal-target="Role_modal" data-modal-toggle="Role_modal">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -95,6 +96,8 @@
                 </svg>
                 Add Role
             </x-primary-button>
+            @endcan
+
 
             <!-- Start Role modal -->
             <div id="Role_modal" tabindex="-1" aria-hidden="true"
@@ -193,6 +196,9 @@
             </thead>
             <tbody>
                 @forelse ($items as $item)
+                    @if ($item->name == 'super-admin' && !auth()->user()->hasRole('super-admin'))
+                        @continue
+                    @endif
                     <tr wire:key='{{ $item->id }}'
                         class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 {{ $editId == $item->id ? 'bg-gray-50' : '' }}">
                         <td class="w-4 px-4 py-3">
@@ -206,7 +212,7 @@
                             </td>
                             <td></td>
                         @else
-                            <x-table-data value="{{ $item->name }}" />
+                            <x-table-data class="uppercase" value="{{ $item->name }}" />
                                 <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
                         @endif
 
@@ -224,6 +230,7 @@
                                         Update
                                     </button>
                                 @else
+                                    @can('update role')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <a href="{{ url('admin/roles/'.$item->id.'/give-permissions') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -244,6 +251,9 @@
                                             Role's Permissions
                                         </div>
                                     </div>
+                                    @endcan
+
+                                    @can('delete role')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -272,7 +282,9 @@
                                             Delete
                                         </div>
                                     </div>
+                                    @endcan
 
+                                    @can('update role')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <a data-modal-target="edit_Role_modal" data-modal-toggle="edit_Role_modal"
@@ -300,6 +312,8 @@
                                         </div>
 
                                     </div>
+                                    @endcan
+
                                 @endif
 
                             </div>

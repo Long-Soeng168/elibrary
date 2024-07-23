@@ -128,7 +128,7 @@
 
             {{-- Start Major --}}
             <div class="relative w-full group">
-                <x-input-label for="majors" :value="__('Majors')" /><span class="text-red-600">*</span>
+                <x-input-label for="majors" :value="__('Majors')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model='major_id' id="majors"
@@ -710,7 +710,7 @@
 
             {{-- Start Type Select --}}
             <div class="relative w-full mb-5 group">
-                <x-input-label for="types" :value="__('Types')" /><span class="text-red-600">*</span>
+                <x-input-label for="types" :value="__('Types')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='thesis_type_id' id="types"
@@ -1155,7 +1155,7 @@
         {{-- Start Add Resource Links --}}
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <div>
-                <x-input-label for="link" :value="__('Resource Link')" /><span class="text-red-500">*</span>
+                <x-input-label for="link" :value="__('Resource Link')" />
                 <div class="flex flex-col gap-1">
                     @foreach($resourceLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">
@@ -1182,7 +1182,7 @@
         {{-- Start Add Journal Links --}}
         <div class="grid gap-5 mb-5 lg:grid-cols-1">
             <div>
-                <x-input-label for="link" :value="__('Journal Link')" /><span class="text-red-500">*</span>
+                <x-input-label for="link" :value="__('Journal Link')" />
                 <div class="flex flex-col gap-1">
                     @foreach($journalLinks as $index => $link)
                         <div class="flex justify-start flex-1 gap-2">
@@ -1254,7 +1254,7 @@
             <div class="flex items-center space-4" wire:key='uploadpdf'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload PDF File (Max : 10MB) <span class="text-red-500">*</span>
+                        Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="pdf"
@@ -1268,7 +1268,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 50MB)</p>
                                 @if ($pdf)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
@@ -1280,7 +1280,7 @@
                                 accept="application/pdf" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
-                    <div wire:loading wire:target="pdf" class="text-blue-700">
+                    <div wire:loading wire:target="pdf" class="text-blue-700" wire:key='loadingIndicator'>
                         <span>
                             <img class="inline w-6 h-6 text-white me-2 animate-spin"
                                 src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
@@ -1306,9 +1306,8 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save" wire:target="save" wire:loading.attr="disabled"
+            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
                 class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-
                 Save
             </button>
             <span wire:target="save" wire:loading>
@@ -1316,7 +1315,11 @@
                     src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
-
+            <span wire:target="pdf,image"  wire:loading class="dark:text-white">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                On Uploading File...
+            </span>
         </div>
     </form>
 

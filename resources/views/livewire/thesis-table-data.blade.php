@@ -93,6 +93,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create thesis')
             <x-primary-button href="{{ route('admin.theses.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -101,6 +102,7 @@
                 </svg>
                 Add Item
             </x-primary-button>
+            @endcan
 
             <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -155,8 +157,10 @@
                     <th scope="col" class="px-4 py-3">Major</th>
                     <th scope="col" class="px-4 py-3">Category</th>
                     {{-- <th scope="col" class="px-4 py-3">Published Date</th> --}}
+                    @can('update thesis')
                     <th scope="col" class="py-3 text-center">Read</th>
                     <th scope="col" class="py-3 text-center">Download</th>
+                    @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -185,6 +189,7 @@
                         <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
                         {{-- <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" /> --}}
+                        @can('update thesis')
                         <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
                             @if ($item->can_read)
                             <span
@@ -211,10 +216,12 @@
                             </span>
                             @endif
                         </x-table-data>
+                        @endcan
 
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
+                                @can('update thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/theses_images/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
@@ -239,10 +246,10 @@
                                             Add Image
                                         </div>
                                     </a>
-
-
                                 </div>
+                                @endcan
 
+                                @can('view thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('theses/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -267,7 +274,9 @@
                                         View
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('delete thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
@@ -296,7 +305,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/theses/'.$item->id . '/edit') }}"  @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -321,6 +332,7 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
                             </div>
                         </td>
                     </tr>
@@ -340,7 +352,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
                     page : </label>
                 <select id="countries" wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>

@@ -425,7 +425,7 @@ class ThesisEdit extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:20480', // 2MB Max
+            'pdf' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -449,7 +449,7 @@ class ThesisEdit extends Component
             'barcode' => 'nullable|integer',
             'published_date' => 'nullable',
             'thesis_category_id' => 'nullable',
-            'thesis_type_id' => 'required',
+            'thesis_type_id' => 'nullable',
             'publisher_id' => 'nullable',
             'location_id' => 'nullable',
             'language_id' => 'nullable',

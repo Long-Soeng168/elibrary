@@ -49,6 +49,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create database')
             <x-primary-button href="{{ url('admin/settings/databases/create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -57,6 +58,7 @@
                 </svg>
                 Add
             </x-primary-button>
+            @endcan
 
             {{-- <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -98,7 +100,8 @@
                     <th scope="col" class="px-4 py-3">Name_kh</th>
                     <th scope="col" class="px-4 py-3">Slug</th>
                     <th scope="col" class="px-4 py-3">Link</th>
-                    <th scope="col" class="px-4 py-3">Order Index</th>
+                    <th scope="col" class="px-4 py-3 text-center">Order</th>
+
                     <th scope="col" class="px-4 py-3">Status</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -126,23 +129,41 @@
                         <x-table-data>
                             {{ $item->link ? $item->link : 'N/A' }}
                         </x-table-data>
-                        <x-table-data>
+                        <x-table-data class="text-center">
                             {{ $item->order_index || $item->order_index == 0 ? $item->order_index : 'N/A' }}
                         </x-table-data>
-                        <x-table-data wire:click='toggleActive({{ $item->id }})' class="cursor-pointer">
-                            @if ($item->status == 1)
-                                <span
-                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                    Active
-                                </span>
-                            @else
-                                <span
-                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                    InActive
-                                </span>
-                            @endif
+                        @if (auth()->user()->hasRole('super-admin'))
+                            <x-table-data wire:click='toggleActive({{ $item->id }})' class="cursor-pointer">
+                                @if ($item->status == 1)
+                                    <span
+                                        class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                        Active
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        InActive
+                                    </span>
+                                @endif
 
-                        </x-table-data>
+                            </x-table-data>
+                        @else
+                            <x-table-data>
+                                @if ($item->status == 1)
+                                    <span
+                                        class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                        Active
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        InActive
+                                    </span>
+                                @endif
+
+                            </x-table-data>
+                        @endif
+
 
 
                         <td class="px-6 py-4">
@@ -168,6 +189,7 @@
                                     </div>
                                 </div> --}}
 
+                                @can('delete database')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:click="delete({{ $item->id }})"
@@ -190,7 +212,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update database')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/settings/databases/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -210,6 +234,8 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
+
                             </div>
                         </td>
                     </tr>

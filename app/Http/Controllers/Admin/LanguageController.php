@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view language', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create language', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update language', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete language', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

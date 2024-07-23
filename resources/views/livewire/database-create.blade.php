@@ -111,7 +111,9 @@
                     <select id="type" wire:model.live="type"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
                     <option value="link">Link</option>
-                    <option value="slug">Slug</option>
+                    @if (auth()->user()->hasRole('super-admin'))
+                        <option value="slug">Slug</option>
+                    @endif
                 </select>
                 <x-input-error :messages="$errors->get('type')" class="mt-2" />
             </div>
@@ -168,7 +170,7 @@
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Admin Side Image (Max: 2MB) <span class="text-red-500">*</span>
+                        Admin Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels)<span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
@@ -208,7 +210,7 @@
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Client Side Image (Max: 2MB) <span class="text-red-500">*</span>
+                        Client Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels)<span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"

@@ -9,6 +9,13 @@ use App\Models\Video;
 
 class VideoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view video', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create video', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update video', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete video', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

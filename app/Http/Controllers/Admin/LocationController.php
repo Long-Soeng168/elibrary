@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class LocationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view location', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create location', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update location', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete location', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

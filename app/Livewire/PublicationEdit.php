@@ -291,7 +291,7 @@ class PublicationEdit extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');

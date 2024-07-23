@@ -87,6 +87,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create video')
             <x-primary-button data-modal-target="create_modal" data-modal-toggle="create_modal">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -95,6 +96,7 @@
                 </svg>
                 Add Sub-Category
             </x-primary-button>
+            @endcan
 
             <!-- Start Type modal -->
             <div id="create_modal" tabindex="-1" aria-hidden="true"
@@ -267,6 +269,7 @@
                                         Update
                                     </button>
                                 @else
+                                    @can('delete video')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -295,7 +298,9 @@
                                             Delete
                                         </div>
                                     </div>
+                                    @endcan
 
+                                    @can('update video')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <a
@@ -323,6 +328,8 @@
                                         </div>
 
                                     </div>
+                                    @endcan
+
                                 @endif
 
                             </div>
