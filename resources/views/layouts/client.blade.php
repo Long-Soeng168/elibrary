@@ -89,24 +89,24 @@
    {{-- End PWA --}}
 </head>
 
-<body class="w-full overflow-x-hidden dark:bg-gray-800">
+<body class="w-full overflow-x-hidden dark:bg-gray-800 {{ app()->getLocale() == 'kh' ? 'font-siemreap' : 'font-poppins' }}">
     @include('components.success-message')
     <!-- Head -->
     <div>
-        <div class="relative w-full px-2 bg-bannerColor xl:px-0">
+        <div class="relative w-full bg-bannerColor xl:px-0">
             <a href="/">
                 <img class="max-w-screen-xl mx-auto w-full max-h-[300px] object-cover"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
-            <header class="md:absolute left-0 right-0 bottom-0 z-[30]
+            <header class="md:absolute left-0 right-0 bottom-0  z-[30]
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
                     <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
                         <div
                             class="py-1.5 lg:order-2 justify-items-end max-[1280px]:w-full max-[1280px]:flex max-[1280px]:justify-end max-[1280px]:items-center">
-                            <div class="shrink-0">
+                            <div class="min-[1280px]:px-2 shrink-0">
                                 <!-- Toggle Dark mode -->
                                 <button id="theme-toggle" type="button"
                                     class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none ">
@@ -259,8 +259,10 @@
         </aside>
     </div>
     <!-- End Head -->
+    <div class="font-siemreap">
 
-    @yield('content')
+        @yield('content')
+    </div>
 
     <!-- Footer -->
     <div class="text-white bg-primary dark:bg-gray-900">

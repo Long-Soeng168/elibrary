@@ -1,4 +1,4 @@
-<div>
+<div class="relative">
     @if (session('success'))
         <div class="fixed top-[5rem] right-4 z-[999999] " wire:key="{{ rand() }}" x-data="{ show: true }"
             x-init="setTimeout(() => show = false, 7000)">
@@ -163,7 +163,7 @@
 
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload Logo (Max: 2MB) (Recommend : 1x1 or 512px x 512px) <span class="text-red-500">*</span>
+                        Upload Logo (Max: 2MB) (Recommend : 1x1 or 512x512 pixels)<span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
@@ -214,7 +214,7 @@
             <div class="items-center gap-5 mb-5 lg:flex space-4" wire:key='uploadbanner'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload Banner (Max: 2MB) <span class="text-red-500">*</span>
+                        Upload Banner (Max: 2MB) (Recommend : 40x9 or 1440x324 pixels) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
@@ -256,9 +256,18 @@
                 @endif
             </div>
             {{-- End Image Upload --}}
+
         </div>
         {{-- End Banner --}}
 
+        <div class="absolute bottom-0 right-0 flex items-center justify-center gap-2 text-blue-600 hover:underline dark:text-white">
+            <a target="_blank" href="https://www.canva.com/design/DAGLu5qz3w4/0sg-8UOUVqHCp_JIyXUMlw/view?utm_content=DAGLu5qz3w4&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink&mode=preview">Banner Template</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-arrow-out-up-right">
+                <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"></path>
+                <path d="m21 3-9 9"></path>
+                <path d="M15 3h6v6"></path>
+            </svg>
+        </div>
 
         {{-- <div class="mb-5" wire:ignore>
             <x-input-label for="description" :value="__('Description')" />
