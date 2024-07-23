@@ -11,7 +11,115 @@
     </div>
 
     <div class="p-4">
-        <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+
+        <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            @forelse ($menu_databases as $database)
+                                @if ($database->type !== 'slug')
+                                    @continue
+                                @endif
+                                @switch($database->slug)
+                                    @case('publications')
+                                        @can('view epublication')
+                                            <a href="{{ url('admin/publications') }}"
+                                                class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                                <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                    class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                <div class="text-sm text-gray-900 dark:text-white">Publications</div>
+                                                <p class="text-center text-gray-700 dark:text-gray-200">{{ $publicationsCount }}</p>
+                                            </a>
+                                        @endcan
+                                    @break
+
+                                    @case('videos')
+                                        @can('view video')
+                                        <a href="{{ url('admin/videos') }}"
+                                            class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Videos</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $videosCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('images')
+                                        @can('view image')
+                                        <a href="{{ url('admin/images') }}"
+                                            class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Images</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $imagesCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('audios')
+                                        @can('view audio')
+                                        <a href="{{ url('admin/audios') }}"
+                                            class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Audios</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $audiosCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('bulletins')
+                                        @can('view bulletin')
+                                        <a href="{{ url('admin/bulletins') }}"
+                                            class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $bulletinsCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('theses')
+                                        @can('view thesis')
+                                        <a href="{{ url('admin/theses') }}"
+                                            class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Theses</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $thesesCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('journals')
+                                        @can('view journal')
+                                        <a href="{{ url('admin/journals') }}"
+                                            class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Journals</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $journalsCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+
+                                    @case('articles')
+                                        @can('view article')
+                                        <a href="{{ url('admin/articles') }}"
+                                            class="{{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                            <div class="text-sm text-gray-900 dark:text-white">Articles</div>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $articlesCount }}</p>
+                                        </a>
+                                        @endcan
+                                    @break
+                                @endswitch
+                                @empty
+                                @endforelse
+
+                            </div>
+        </div>
+        {{-- <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             <a href="{{ url('/admin/publications') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
                 <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
                     <img src="{{ asset('assets/icons/epublication.png') }}" alt="" class="object-contain h-full">
@@ -67,7 +175,7 @@
                     <p class="text-center text-gray-700 dark:text-gray-200">{{ $bulletinsCount }}</p>
                 </div>
             </a>
-        </div>
+        </div> --}}
     </div>
 </div>
 
@@ -79,17 +187,10 @@
         var chartBar = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['E-Publications', 'Videos', 'Images', 'Audios', 'Bulletins/News'],
+                labels: @json($label),
                 datasets: [{
                     label: "Records",
-                    data: [
-                        {{ $publicationsCount }},
-                        {{ $videosCount }},
-                        {{ $imagesCount }},
-                        {{ $audiosCount }},
-                        {{ $bulletinsCount }},
-
-                    ],
+                    data: @json($data),
                     backgroundColor: [
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(255, 99, 132, 0.2)',

@@ -53,7 +53,9 @@
                                 d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                 clip-rule="evenodd" />
                         </svg>
-                        {{ $selectedCategory ? $selectedCategory->name : 'Categories' }}
+                        <p class="w-full text-left line-clamp-1">
+                            {{ $selectedCategory ? $selectedCategory->name : 'Categories' }}
+                        </p>
                         <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -74,10 +76,10 @@
                             @foreach ($categories as $category)
                                 <li class="flex items-center">
                                     <button wire:click.prevent='setFilter("{{ $category->id }}")'>
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $category->id == $filter ? 'underline' : '' }}">
+                                        <p
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $category->id == $filter ? 'underline' : '' }}">
                                             {{ $category->name }}
-                                        </label>
+                                        </p>
 
                                     </button>
                                 </li>
@@ -91,6 +93,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create image')
             <x-primary-button href="{{ route('admin.images.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -99,6 +102,8 @@
                 </svg>
                 Add Item
             </x-primary-button>
+            @endcan
+
 
             <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -189,6 +194,7 @@
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
+                                @can('update image')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/images_images/' . $item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
@@ -213,13 +219,13 @@
                                             Add Image
                                         </div>
                                     </a>
-
-
                                 </div>
+                                @endcan
 
+                                @can('view image')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('images/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -241,7 +247,9 @@
                                         View
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('delete image')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
@@ -270,7 +278,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update image')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/images/' . $item->id . '/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -295,6 +305,8 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
+
                             </div>
                         </td>
                     </tr>

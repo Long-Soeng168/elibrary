@@ -50,10 +50,10 @@ class ClientAudioController extends Controller
         // Retrieve related Audios excluding the item itself
         $related_items = Audio::where(function($query) use ($item) {
             $query->where('audio_category_id', $item->audio_category_id)
-                ->orWhere('audio_sub_category_id', $item->audio_sub_category_id)
-                ->orWhere('audio_type_id', $item->audio_type_id);
+                ->orWhere('audio_sub_category_id', $item->audio_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
-        ->limit(4)
+        ->inRandomOrder()
+        ->limit(6)
         ->get();
 
         // Return the view with the data

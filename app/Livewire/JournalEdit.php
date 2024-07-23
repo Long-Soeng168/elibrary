@@ -291,7 +291,7 @@ class JournalEdit extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -316,12 +316,12 @@ class JournalEdit extends Component
             'volume' => 'nullable|integer',
             'issue' => 'nullable|integer',
             'published_date' => 'nullable',
-            'journal_category_id' => 'nullable|exists:journal_categories,id',
-            'journal_type_id' => 'nullable|exists:journal_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
+            'journal_category_id' => 'nullable',
+            'journal_type_id' => 'nullable',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
             'description' => 'nullable',
             'short_description' => 'nullable',
             'doi' => 'nullable',

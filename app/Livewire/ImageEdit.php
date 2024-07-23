@@ -289,7 +289,7 @@ class ImageEdit extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:2048', // 2MB Max
+            'file' => 'file|max:20480', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
@@ -308,13 +308,13 @@ class ImageEdit extends Component
             'name' => 'required|string|max:255',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
-            'image_category_id' => 'nullable|exists:image_categories,id',
-            'image_sub_category_id' => 'nullable|exists:image_sub_categories,id',
-            'image_type_id' => 'nullable|exists:image_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
+            'image_category_id' => 'nullable',
+            'image_sub_category_id' => 'nullable',
+            'image_type_id' => 'nullable',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
             'description' => 'nullable',
         ]);
 

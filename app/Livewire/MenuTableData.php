@@ -19,10 +19,10 @@ class MenuTableData extends Component
     public $perPage = 10;
 
     #[Url(history: true)]
-    public $sortBy = 'created_at';
+    public $sortBy = 'order_index';
 
     #[Url(history: true)]
-    public $sortDir = 'DESC';
+    public $sortDir = 'ASC';
 
     public function setFilter($value) {
         $this->filter = $value;

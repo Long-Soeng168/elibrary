@@ -266,7 +266,7 @@ class VideoCreate extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:2048', // 2MB Max
+            'file' => 'file|max:20480', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
@@ -284,7 +284,7 @@ class VideoCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'file' => 'nullable|file|max:2048',
+            'file' => 'nullable|file|max:20480',
             'duration' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',

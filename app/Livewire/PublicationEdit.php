@@ -291,7 +291,7 @@ class PublicationEdit extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -315,13 +315,13 @@ class PublicationEdit extends Component
             'isbn' => 'nullable|string|max:30',
             'link' => 'nullable|string|max:255',
             'edition' => 'nullable|integer',
-            'publication_category_id' => 'nullable|exists:publication_categories,id',
-            'publication_sub_category_id' => 'nullable|exists:publication_sub_categories,id',
-            'publication_type_id' => 'nullable|exists:publication_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
+            'publication_category_id' => 'nullable',
+            'publication_sub_category_id' => 'nullable',
+            'publication_type_id' => 'nullable',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
             'description' => 'nullable',
         ]);
 

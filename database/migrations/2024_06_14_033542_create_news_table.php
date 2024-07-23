@@ -31,6 +31,8 @@ return new class extends Migration
             $table->bigInteger('news_category_id')->nullable();
             $table->bigInteger('news_sub_category_id')->nullable();
             $table->bigInteger('create_by_user_id')->nullable();
+            $table->integer('read_count')->nullable();
+            $table->integer('download_count')->nullable();
 
             $table->timestamps();
         });

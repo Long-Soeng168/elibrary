@@ -11,6 +11,7 @@ use App\Models\ThesisImage;
 use App\Models\ThesisResourceLink;
 use App\Models\ThesisJournalLink;
 use App\Models\ThesisType as Type;
+use App\Models\ThesisCategory as Category;
 use Illuminate\Support\Facades\File;
 
 class ThesisTableData extends Component
@@ -97,6 +98,22 @@ class ThesisTableData extends Component
         session()->flash('success', 'Delete Successfully!');
     }
 
+    public function updateRead($id)
+    {
+        $item = Thesis::findOrFail($id);
+        $item->update([
+            'can_read' => $item->can_read == 0 ? 1 : 0
+        ]);
+    }
+
+    public function updateDownload($id)
+    {
+        $item = Thesis::findOrFail($id);
+        $item->update([
+            'can_download' => $item->can_download == 0 ? 1 : 0
+        ]);
+    }
+
 
     public function render(){
 
@@ -106,12 +123,12 @@ class ThesisTableData extends Component
                                     ->orWhere('isbn', 'LIKE', "%$this->search%");
                             })
                             ->when($this->filter != 0, function($query){
-                                $query->where('thesis_type_id', $this->filter);
+                                $query->where('thesis_category_id', $this->filter);
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
-        $types = Type::latest()->get();
-        $selectedType = Type::find($this->filter);
+        $types = Category::latest()->get();
+        $selectedType = Category::find($this->filter);
 
         return view('livewire.thesis-table-data', [
             'items' => $items,

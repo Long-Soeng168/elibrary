@@ -11,6 +11,11 @@ use DB;
 
 class AdminRoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view role', ['only' => ['index']]);
+        $this->middleware('permission:update role', ['only' => ['givePermissionsToRole', 'updatePermissionsToRole']]);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -43,6 +48,9 @@ class AdminRoleController extends Controller
         $role = Role::findOrFail($id);
         $permissions = $request->only('permissions');
         $role->syncPermissions($permissions);
+
+
+        //  app()->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
 
         return redirect('admin/roles')->with('success', 'Give Permissions Successfully!');
     }

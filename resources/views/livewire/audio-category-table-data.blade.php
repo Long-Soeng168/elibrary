@@ -87,14 +87,16 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
-            <x-primary-button data-modal-target="create_modal" data-modal-toggle="create_modal">
-                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                </svg>
-                Add Category
-            </x-primary-button>
+            @can('create audio')
+                <x-primary-button data-modal-target="create_modal" data-modal-toggle="create_modal">
+                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                    </svg>
+                    Add Category
+                </x-primary-button>
+            @endcan
 
             <!-- Start Type modal -->
             <div id="create_modal" tabindex="-1" aria-hidden="true"
@@ -134,7 +136,8 @@
                             <div class="grid grid-cols-2 gap-4 mb-4 ">
                                 <div class="col-span-2">
                                     <label for="name_kh"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name KH</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name
+                                        KH</label>
                                     <input wire:key="{{ rand() }}" type="text" name="name_kh"
                                         id="name_kh" wire:model='newName_kh'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -143,8 +146,7 @@
                             </div>
                             <div class="text-right">
                                 <button data-modal-target="create_modal" data-modal-toggle="create_modal"
-                                    type="button" wire:click='save' wire:target="save"
-                                    wire:loading.attr="disabled"
+                                    type="button" wire:click='save' wire:target="save" wire:loading.attr="disabled"
                                     class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -245,62 +247,65 @@
                                         Update
                                     </button>
                                 @else
-                                    <div class="pb-1" x-data="{ tooltip: false }">
-                                        <!-- Modal toggle -->
-                                        <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
-                                            <button class="text-red-600" wire:click='delete({{ $item->id }})'
-                                                wire:confirm='Are you sure? You want to delete {{ $item->name }}'>
+                                    @can('delete audio')
+                                        <div class="pb-1" x-data="{ tooltip: false }">
+                                            <!-- Modal toggle -->
+                                            <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                                <button class="text-red-600" wire:click='delete({{ $item->id }})'
+                                                    wire:confirm='Are you sure? You want to delete {{ $item->name }}'>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-trash">
+                                                        <path d="M3 6h18" />
+                                                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+
+                                            <!-- View tooltip -->
+                                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 transform scale-90"
+                                                x-transition:enter-end="opacity-100 transform scale-100"
+                                                x-transition:leave="transition ease-in duration-75"
+                                                x-transition:leave-start="opacity-100 transform scale-100"
+                                                x-transition:leave-end="opacity-0 transform scale-90"
+                                                class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                                style="display: none;">
+                                                Delete
+                                            </div>
+                                        </div>
+                                    @endcan
+
+                                    @can('update audio')
+                                        <div class="pb-1" x-data="{ tooltip: false }">
+                                            <!-- Modal toggle -->
+                                            <a @mouseenter="tooltip = true" @mouseleave="tooltip = false"
+                                                wire:click='setEdit({{ $item->id }})'>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="lucide lucide-trash">
-                                                    <path d="M3 6h18" />
-                                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                                    class="lucide lucide-file-pen-line">
+                                                    <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
+                                                    <path d="M8 18h1" />
+                                                    <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
                                                 </svg>
-                                            </button>
-                                        </div>
+                                            </a>
+                                            <!-- View tooltip -->
+                                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 transform scale-90"
+                                                x-transition:enter-end="opacity-100 transform scale-100"
+                                                x-transition:leave="transition ease-in duration-75"
+                                                x-transition:leave-start="opacity-100 transform scale-100"
+                                                x-transition:leave-end="opacity-0 transform scale-90"
+                                                class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                                style="display: none;">
+                                                Edit
+                                            </div>
 
-                                        <!-- View tooltip -->
-                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 transform scale-90"
-                                            x-transition:enter-end="opacity-100 transform scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="opacity-100 transform scale-100"
-                                            x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                            style="display: none;">
-                                            Delete
                                         </div>
-                                    </div>
-
-                                    <div class="pb-1" x-data="{ tooltip: false }">
-                                        <!-- Modal toggle -->
-                                        <a
-                                            @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                            wire:click='setEdit({{ $item->id }})'>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-file-pen-line">
-                                                <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
-                                                <path d="M8 18h1" />
-                                                <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
-                                            </svg>
-                                        </a>
-                                        <!-- View tooltip -->
-                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                            x-transition:enter-start="opacity-0 transform scale-90"
-                                            x-transition:enter-end="opacity-100 transform scale-100"
-                                            x-transition:leave="transition ease-in duration-75"
-                                            x-transition:leave-start="opacity-100 transform scale-100"
-                                            x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                            style="display: none;">
-                                            Edit
-                                        </div>
-
-                                    </div>
+                                    @endcan
                                 @endif
 
                             </div>
@@ -322,7 +327,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
                     page : </label>
                 <select id="countries" wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>

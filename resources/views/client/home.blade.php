@@ -2,8 +2,9 @@
 @section('content')
     {{-- Start Search --}}
     @include('client.components.search', [
-        'actionUrl' => url('/publications'),
-        'title' => 'E-Publications',
+        'actionUrl' => url('/'.$menu_database_default->slug),
+        'title' => $menu_database_default->name,
+        'title_kh' => $menu_database_default->name_kh,
     ])
     {{-- End Search --}}
 
@@ -15,7 +16,8 @@
                 <swiper-slide class="swiper-slide-item">
                     <a href="{{ asset('assets/images/slides/' . $slide->image) }}" class="w-full glightbox">
                         <img class="object-cover w-full swiper-slide-img"
-                            src="{{ asset('assets/images/slides/' . $slide->image) }}" alt="" /></a>
+                            src="{{ asset('assets/images/slides/thumb/' . $slide->image) }}" alt="" />
+                    </a>
                 </swiper-slide>
             @empty
             @endforelse
@@ -27,8 +29,8 @@
 
     <!-- Start Database -->
     <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="mb-2 font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
-            Databases
+        <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
+            {{ __('messages.databases') }}
         </p>
         <!-- Icon Blocks -->
         <div class="">
@@ -39,18 +41,26 @@
                         <swiper-slide class="flex items-center justify-center object-contain py-1 rounded-xl">
                             @if ($database->type == 'slug')
                             <a href="{{ url('/' . $database->slug) }}"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                class="flex flex-col items-center justify-center w-full p-4 py-6
+                                {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
+                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
                                 <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
                                 <h3
                                     class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                                    {{ $database->name }}
+                                    @if (app()->getLocale() == 'kh' && $database->name_kh)
+                                        {{ $database->name_kh }}
+                                    @else
+                                        {{ $database->name }}
+                                    @endif
                                 </h3>
                             </a>
                             @else
                             <a href="{{ $database->link ? $database->link : '#' }}" target="_blank"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6 {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }} dark:bg-gray-700 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                class="flex flex-col items-center justify-center w-full p-4 py-6
+                                {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
+                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
                                 <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                     src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                     alt="">
@@ -62,7 +72,7 @@
                             @endif
                         </swiper-slide>
                     @empty
-                    <p class="py-4">No Data...</p>
+                    <p class="py-4">{{ __('messages.noData') }}...</p>
                     @endforelse
                 </swiper-container>
 
@@ -103,13 +113,16 @@
     @forelse ($menu_databases as $database)
         @switch($database->slug)
             @case('publications')
+                @if (count($publications) < 1)
+                    @break
+                @endif
                 {{-- E-Publications --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">E-Publications</p>
+                        <p class="text-lg text-white">{{ __('messages.ePublications') }}</p>
                         <a  href="{{ url('/publications') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -140,7 +153,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -148,14 +161,17 @@
             @break
 
             @case('videos')
+                @if (count($videos) < 1)
+                    @break
+                @endif
                 {{-- Videos --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Videos</p>
+                        <p class="text-lg text-white">{{ __('messages.videos') }}</p>
                         <a
                             href="{{ url('/videos') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -185,7 +201,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -194,14 +210,17 @@
             @break
 
             @case('images')
+                @if (count($images) < 1)
+                    @break
+                @endif
                 {{-- Images --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Images</p>
+                        <p class="text-lg text-white">{{ __('messages.images') }}</p>
                         <a
                             href="{{ url('/images') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -231,7 +250,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -240,14 +259,17 @@
             @break
 
             @case('audios')
+                @if (count($audios) < 1)
+                    @break
+                @endif
                 {{-- Audios --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Audios</p>
+                        <p class="text-lg text-white">{{ __('messages.audios') }}</p>
                         <a
                             href="{{ url('/audios') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -283,7 +305,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
 
                     </div>
@@ -292,14 +314,17 @@
             @break
 
             @case('bulletins')
+                @if (count($bulletins) < 1)
+                    @break
+                @endif
                 {{-- Start Bulletins --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Bulletins</p>
+                        <p class="text-lg text-white">{{ __('messages.bulletins') }}</p>
                         <a
                             href="{{ url('/bulletins') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -329,7 +354,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -338,14 +363,17 @@
             @break
 
             @case('theses')
+                @if (count($theses) < 1)
+                    @break
+                @endif
                 {{-- Start Theses --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Theses</p>
+                        <p class="text-lg text-white">{{ __('messages.theses') }}</p>
                         <a
                             href="{{ url('/theses') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -375,7 +403,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -384,14 +412,17 @@
             @break
 
             @case('journals')
+                @if (count($journals) < 1)
+                    @break
+                @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Journals</p>
+                        <p class="text-lg text-white">{{ __('messages.journals') }}</p>
                         <a
                             href="{{ url('/journals') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -422,7 +453,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -431,14 +462,17 @@
             @break
 
             @case('articles')
+                @if (count($articles) < 1)
+                    @break
+                @endif
                 {{-- Start Journal --}}
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
-                        <p class="text-lg text-white">Articles</p>
+                        <p class="text-lg text-white">{{ __('messages.articles') }}</p>
                         <a
                             href="{{ url('/articles') }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
-                            See More
+                            {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
                         </a>
                     </div>
@@ -469,7 +503,7 @@
                                 </div>
                             </a>
                         @empty
-                        <p class="p-2">No Data...</p>
+                        <p class="p-2">{{ __('messages.noData') }}...</p>
                         @endforelse
                     </div>
                     <!-- End Card Grid -->
@@ -478,7 +512,7 @@
             @break
         @endswitch
         @empty
-            <p class="max-w-screen-xl py-6 mx-auto">No Data...</p>
+            <p class="max-w-screen-xl py-6 mx-auto">{{ __('messages.noData') }}...</p>
         @endforelse
 
         <!-- ===== End Items ===== -->

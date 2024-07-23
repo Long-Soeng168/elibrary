@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Thesis;
 use App\Models\ThesisImage;
+use App\Models\ThesisResourceLink;
+use App\Models\ThesisJournalLink;
 
 class ClientThesisController extends Controller
 {
@@ -49,18 +51,24 @@ class ClientThesisController extends Controller
 
         // Retrieve related Thesiss excluding the item itself
         $related_items = Thesis::where(function($query) use ($item) {
-            $query->where('thesis_category_id', $item->thesis_category_id)
-                ->orWhere('thesis_sub_category_id', $item->thesis_sub_category_id)
-                ->orWhere('thesis_type_id', $item->thesis_type_id);
+            $query->where('major_id', $item->major_id)
+                ->orWhere('thesis_category_id', $item->thesis_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
+
+        $resourceLinks = ThesisResourceLink::where('thesis_id', $id)->get();
+
+        $journalLinks = ThesisJournalLink::where('thesis_id', $id)->get();
 
         // Return the view with the data
         return view('client.theses.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,
+            'resourceLinks' => $resourceLinks,
+            'journalLinks' => $journalLinks,
         ]);
     }
 

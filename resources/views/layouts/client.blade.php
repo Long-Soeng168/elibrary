@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ebooks</title>
+    <title>{{ $websiteInfo->name }}</title>
 
     <!-- Start CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/swiper.css') }}" />
@@ -74,25 +74,39 @@
     <script defer src="{{ asset('assets/js/glightbox.js') }}"></script>
     <script defer src="{{ asset('assets/js/glightbox.config.js') }}"></script>
     <!-- End JS -->
+
+   {{-- Start PWA --}}
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="apple-mobile-web-app-status-bar-style" content="black">
+   <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
+   <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+   <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
+   <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+
+   <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
+
+   {{-- End PWA --}}
 </head>
 
-<body class="w-full overflow-x-hidden dark:bg-gray-800">
+<body class="w-full overflow-x-hidden dark:bg-gray-800 {{ app()->getLocale() == 'kh' ? 'font-siemreap' : 'font-poppins' }}">
+    @include('components.success-message')
     <!-- Head -->
     <div>
-        <div class="relative w-full px-2 bg-bannerColor xl:px-0">
+        <div class="relative w-full bg-bannerColor xl:px-0">
             <a href="/">
-                <img class="max-w-screen-xl mx-auto w-full max-h-[300px] dark:saturate-500"
+                <img class="max-w-screen-xl mx-auto w-full max-h-[300px] object-cover"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
-            <header class="md:absolute left-0 right-0 bottom-0 z-[30]
+            <header class="md:absolute left-0 right-0 bottom-0  z-[30]
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
                     <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
                         <div
                             class="py-1.5 lg:order-2 justify-items-end max-[1280px]:w-full max-[1280px]:flex max-[1280px]:justify-end max-[1280px]:items-center">
-                            <div class="shrink-0">
+                            <div class="min-[1280px]:px-2 shrink-0">
                                 <!-- Toggle Dark mode -->
                                 <button id="theme-toggle" type="button"
                                     class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none ">
@@ -109,13 +123,13 @@
                                     </svg>
                                 </button>
                                 <!-- Start Language -->
-                                <a href="#" type="button"
-                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                                <a href="{{ route('switch-language', ['locale' => 'kh']) }}" type="button"
+                                    class="{{ app()->getLocale() == 'kh' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}"
                                         alt="" />
                                 </a>
-                                <a href="#" type="button"
-                                    class="inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 bg-gray-100 rounded-lg cursor-pointer dark:bg-gray-200 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
+                                <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
+                                    class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
                                     <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
                                         alt="" />
                                 </a>
@@ -139,33 +153,41 @@
                             <ul
                                 class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                 <li
-                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('/') ? 'border-opacity-100' : '' }}  ">
+                                    class="transition-all hover:underline underline-offset-4 {{ request()->is('/') ? 'underline' : '' }}  ">
                                     <a href="/"
                                         class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        Home
+                                        {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
                                     </a>
                                 </li>
                                 @forelse ($menu_pages as $item)
                                     <li
-                                        class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white {{ request()->is('menu/' . $item->id) ? 'border-opacity-100' : '' }}   ">
+                                        class="transition-all hover:underline underline-offset-4 {{ request()->is('menu/' . $item->id) ? 'underline' : '' }}   ">
+                                        @if ($item->link)
+                                        <a href="{{ $item->link }}" target="_blank"
+                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                        </a>
+                                        @else
                                         <a href="{{ url('/menu/' . $item->id) }}"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ $item->name }}
+                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
                                         </a>
+                                        @endif
+
                                     </li>
                                 @empty
                                 @endforelse
                                 <li
-                                    class="transition-all border-b-2 border-opacity-0 hover:border-opacity-100 border-b-white">
+                                    class="transition-all hover:underline underline-offset-4 ">
                                     @if (auth()->check())
                                         <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            Admin
+                                            {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
                                         </a>
                                     @else
                                         <a href="{{ url('/login') }}"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            Login
+                                            {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
                                         </a>
                                     @endif
                                 </li>
@@ -197,7 +219,9 @@
                     <li>
                         <a href="/"
                             class="{{ request()->is('/') ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <span class="ms-3">Home</span>
+                            <span class="ms-3">
+                                {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
+                            </span>
                         </a>
                     </li>
 
@@ -205,7 +229,9 @@
                         <li>
                             <a href="{{ url('/menu/' . $item->id) }}"
                                 class="{{ request()->is('menu/' . $item->id) ? 'underline' : '' }} flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">{{ $item->name }}</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                </span>
                             </a>
                         </li>
                     @empty
@@ -215,12 +241,16 @@
                         @if (auth()->check())
                             <a href="{{ url('/admin/dashboard') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">Admin</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
+                                </span>
                             </a>
                         @else
                             <a href="{{ url('/login') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <span class="ms-3">Login</span>
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
+                                </span>
                             </a>
                         @endif
                     </li>
@@ -229,8 +259,10 @@
         </aside>
     </div>
     <!-- End Head -->
+    <div class="font-siemreap">
 
-    @yield('content')
+        @yield('content')
+    </div>
 
     <!-- Footer -->
     <div class="text-white bg-primary dark:bg-gray-900">
@@ -241,13 +273,17 @@
                         <div class="mb-6 min-[1300px]:mb-0">
                             <a href="#" class="flex items-center">
                                 <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
-                                    class="h-24 max-w-[250px] object-contain me-3" alt="Logo" />
+                                    class="h-24 max-w-[250px] object-contain me-3 rounded-md" alt="Logo" />
                             </a>
                         </div>
                         <div class="justify-between gap-6 lg:flex lg:gap-20">
                             <div class="max-w-[500px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
-                                    {{ $footer->name }}
+                                    @if (app()->getLocale() == 'kh' && $footer->name_kh)
+                                        {!! $footer->name_kh !!}
+                                    @else
+                                        {!! $footer->name !!}
+                                    @endif
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
@@ -258,13 +294,17 @@
                                         </p>
                                         <p>Phone Number : +855 99 999 999</p>
                                         <p>Email : beltei@beltei.kh</p> --}}
-                                        {!! $footer->description !!}
+                                        @if (app()->getLocale() == 'kh' && $footer->description_kh)
+                                            {!! $footer->description_kh !!}
+                                        @else
+                                            {!! $footer->description !!}
+                                        @endif
                                     </li>
                                 </ul>
                             </div>
-                            <div>
+                            <div id="add-to-home-screen">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    Download App
+                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download App' }}
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
@@ -272,15 +312,15 @@
                                             class="bg-transparent hover:bg-white dark:hover:bg-gray-400 border-2 border-white dark:border-gray-400 focus:ring-4 font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center gap-2 hover:text-gray-600 dark:hover:text-white hover:scale-110 transition-all">
                                             <img src="{{ asset('assets/icons/mobile-app.png') }}" alt=""
                                                 class="h-8" />
-
-                                            Click Download
+                                                {{ app()->getLocale() == 'kh' ? 'ទាញយក' : 'Download' }}
                                         </button>
                                     </li>
                                 </ul>
                             </div>
                             <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    Social Links
+
+                                {{ app()->getLocale() == 'kh' ? 'តំណភ្ជាប់សង្គម' : 'Social Links' }}
                                 </h2>
 
                                 <div class="flex flex-wrap gap-2 mt-4 mb-4 lg:justify-center sm:mt-0">
@@ -317,11 +357,11 @@
                     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                     <div class="flex justify-between">
                         <span class="text-sm sm:text-center dark:text-gray-400">
-                            {{ $footer->copyright }}
+                            {{ app()->getLocale() == 'kh' ? $footer->copyright_kh : $footer->copyright }}
                         </span>
-                        <span class="text-sm sm:text-center dark:text-gray-400">Developed by Alphalib
-                        </span>
-                        @yield('HI')
+                        <a href="https://alphalib.org/" class="text-sm hover:underline sm:text-center dark:text-gray-400">
+                            {{ app()->getLocale() == 'kh' ? 'អភិវឌ្ឍដោយ Alphalib' : 'Powered by Alphalib' }}
+                        </a>
                     </div>
                 </div>
             </footer>
@@ -329,6 +369,90 @@
     </div>
     <!-- End Footer -->
 
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+          });
+        }
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js').then(registration => {
+              console.log('Service Worker registered with scope:', registration.scope);
+            }).catch(error => {
+              console.log('Service Worker registration failed:', error);
+            });
+          });
+        }
+    </script>
+    <script>
+        let deferredPrompt;
+        const addBtn = document.getElementById('add-to-home-screen');
+
+        // Check if the browser supports the beforeinstallprompt event
+        if ('onbeforeinstallprompt' in window) {
+            addBtn.style.display = 'none';
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                addBtn.style.display = 'block';
+
+                addBtn.addEventListener('click', () => {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the A2HS prompt');
+                        } else {
+                            console.log('User dismissed the A2HS prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                });
+            });
+        } else {
+            // Fallback for browsers that don't support the beforeinstallprompt event (e.g., Safari on iOS)
+            addBtn.style.display = 'block';
+            addBtn.addEventListener('click', () => {
+                alert(`{{ app()->getLocale() == 'kh' ? 'ដើម្បីតម្លើងកម្មវិធីនេះ សូមបើកម៉ឺនុយកម្មវិធីរុករក ហើយជ្រើសរើស "Add to Home Screen"' : 'To intall this app, open the browser menu and select "Add to Home Screen".' }}`);
+            });
+        }
+
+    </script>
+    {{-- <script>
+        let deferredPrompt;
+        const addBtn = document.getElementById('add-to-home-screen');
+        addBtn.style.display = 'none';
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can add to home screen
+        addBtn.style.display = 'block';
+
+        addBtn.addEventListener('click', () => {
+            // Show the install prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+                });
+            });
+        });
+    </script> --}}
 
 </body>
 

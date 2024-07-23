@@ -77,7 +77,7 @@ class PublicationSubCategoryTableData extends Component
 
              session()->flash('success', 'Add new Sub-Category successfully!');
 
-             $this->reset(['newName', 'new_category_id']);
+             $this->reset(['newName', 'newName_kh', 'new_category_id']);
 
          } catch (\Illuminate\Validation\ValidationException $e) {
              session()->flash('error', $e->validator->errors()->all());

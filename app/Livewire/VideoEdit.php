@@ -311,13 +311,13 @@ class VideoEdit extends Component
             'duration' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
-            'video_category_id' => 'nullable|exists:video_categories,id',
-            'video_sub_category_id' => 'nullable|exists:video_sub_categories,id',
-            'video_type_id' => 'nullable|exists:video_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
+            'video_category_id' => 'nullable',
+            'video_sub_category_id' => 'nullable',
+            'video_type_id' => 'nullable',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
             'description' => 'nullable',
         ]);
 
@@ -332,10 +332,10 @@ class VideoEdit extends Component
 
             $image_path = public_path('assets/images/videos/' . $filename);
             $image_thumb_path = public_path('assets/images/videos/thumb/' . $filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
+            $imageUpload = Image::make($this->image->getRealPath())->save($image_path, 70);
             $imageUpload->resize(400, null, function ($resize) {
                 $resize->aspectRatio();
-            })->save($image_thumb_path);
+            })->save($image_thumb_path, 70);
             $validated['image'] = $filename;
 
             $old_path = public_path('assets/images/videos/' . $this->item->image);

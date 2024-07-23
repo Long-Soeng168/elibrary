@@ -236,7 +236,7 @@ class ThesisCreate extends Component
                 'name_kh' => $this->newCategoryNameKh,
             ]);
 
-            session()->flash('success', 'Add New Topic successfully!');
+            session()->flash('success', 'Add New Category successfully!');
 
             $this->reset(['newCategoryName', 'newCategoryNameKh']);
 
@@ -387,7 +387,7 @@ class ThesisCreate extends Component
     public function updatedPdf()
     {
         $this->validate([
-            'pdf' => 'file|max:2048', // 2MB Max
+            'pdf' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'PDF successfully uploaded!');
@@ -405,7 +405,7 @@ class ThesisCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'pdf' => 'required|file|mimes:pdf|max:2048',
+            'pdf' => 'required|file|mimes:pdf|max:51200',
             'pages_count' => 'nullable|integer|min:1',
             'inventory_number' => 'nullable|integer',
             'isbn' => 'nullable|string|max:30',
@@ -413,7 +413,7 @@ class ThesisCreate extends Component
             'barcode' => 'nullable|integer',
             'published_date' => 'nullable',
             'thesis_category_id' => 'nullable|exists:thesis_categories,id',
-            'thesis_type_id' => 'required|exists:thesis_types,id',
+            'thesis_type_id' => 'nullable|exists:thesis_types,id',
             'publisher_id' => 'nullable|exists:publishers,id',
             'location_id' => 'nullable|exists:locations,id',
             'language_id' => 'nullable|exists:languages,id',

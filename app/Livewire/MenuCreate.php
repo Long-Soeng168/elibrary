@@ -16,6 +16,7 @@ class MenuCreate extends Component
     // public $pdf;
 
 
+    public $order_index = 0;
     public $name = null;
     public $name_kh = null;
     public $link = null;
@@ -53,6 +54,7 @@ class MenuCreate extends Component
             'name' => 'required|string|max:255',
             'name_kh' => 'required|string|max:255',
             'link' => 'nullable|string|max:255',
+            'order_index' => 'nullable',
             'description' => 'nullable',
             'description_kh' => 'nullable',
         ]);

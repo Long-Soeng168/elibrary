@@ -9,6 +9,13 @@ use App\Models\Publication;
 
 class PublicationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view epublication', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create epublication', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update epublication', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete epublication', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

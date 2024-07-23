@@ -9,6 +9,13 @@ use App\Models\Journal;
 
 class JournalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view journal', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create journal', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update journal', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete journal', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

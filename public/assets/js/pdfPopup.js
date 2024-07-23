@@ -1,4 +1,17 @@
-function openPdfPopup(pdfUrl) {
+function openPdfPopup(pdfUrl, archive = '', id = 0) {
+
+    fetch(`/add_read_count/${archive}/${id}`)
+    .then(response => {
+        if (response.ok) {
+            console.log('success')
+        } else {
+            console.error('Error:', response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
   var popupOverlay = document.getElementById("popupOverlay");
   var pdfEmbed = document.getElementById("pdfEmbed");
   pdfEmbed.src = pdfUrl; // Set PDF source
@@ -20,4 +33,6 @@ function closeIfOutside(event) {
   if (!popupContent.contains(event.target)) {
     closePdfPopup();
   }
+
+
 }

@@ -291,7 +291,7 @@ class AudioEdit extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:2048', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'File successfully uploaded!');
@@ -310,13 +310,13 @@ class AudioEdit extends Component
             'name' => 'required|string|max:255',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
-            'audio_category_id' => 'nullable|exists:audio_categories,id',
-            'audio_sub_category_id' => 'nullable|exists:audio_sub_categories,id',
-            'audio_type_id' => 'nullable|exists:audio_types,id',
-            'publisher_id' => 'nullable|exists:publishers,id',
-            'location_id' => 'nullable|exists:locations,id',
-            'language_id' => 'nullable|exists:languages,id',
-            'author_id' => 'nullable|exists:authors,id',
+            'audio_category_id' => 'nullable',
+            'audio_sub_category_id' => 'nullable',
+            'audio_type_id' => 'nullable',
+            'publisher_id' => 'nullable',
+            'location_id' => 'nullable',
+            'language_id' => 'nullable',
+            'author_id' => 'nullable',
             'description' => 'nullable',
         ]);
 

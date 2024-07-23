@@ -80,7 +80,15 @@
                     required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
-            <div class="col-span-2">
+            <div class="col-span-1">
+                <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                   {{ __('Order Index') }}
+                </label>
+                <x-text-input id="order_index" class="block w-full mt-1" type="number" name="order_index" wire:model='order_index'
+                    required autofocus placeholder="Order Index" />
+                <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
+            </div>
+            <div class="col-span-1">
                 <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                    {{ __('Link') }}
                 </label>
@@ -141,7 +149,7 @@
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload Image (Max: 2MB) <span class="text-red-500">*</span>
+                        Upload Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"

@@ -86,10 +86,10 @@ class VideoImage extends Component
                 $imageThumbPath = $fileThumbPath . '/' . $filename;
 
                 try {
-                    $imageUpload = Image::make($image->getRealPath())->save($imagePath);
+                    $imageUpload = Image::make($image->getRealPath())->save($imagePath, 70);
                     $imageUpload->resize(400, null, function ($resize) {
                         $resize->aspectRatio();
-                    })->save($imageThumbPath);
+                    })->save($imageThumbPath, 70);
 
                     MultiImage::create([
                         'video_id' => $this->item->id,

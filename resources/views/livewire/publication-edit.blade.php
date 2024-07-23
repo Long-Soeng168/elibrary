@@ -124,12 +124,12 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option class="author-select" wire:model.live='author_id' id="author"
                             name="author_id">
-                            <option wire:key='author' value="">Select Author...</option>
+                            <option wire:key='author' value="0">Select Author...</option>
                             @forelse ($authors as $author)
                                 <option wire:key='{{ $author->id }}' value="{{ $author->id }}">{{ $author->name }}
                                 </option>
                             @empty
-                                <option wire:key='noauthor' value=""> --No Author--</option>
+                                <option wire:key='noauthor' value="0"> --No Author--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -179,7 +179,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
                                             <select id="category" wire:model='newAuthorGender'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select gender</option>
+                                                <option value="0">Select gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="n/a">N/A</option>
@@ -216,7 +216,7 @@
                 <div class="flex flex-1 gap-1 mt-1 min-h-[2.5rem]">
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='year' id="year" name="year" class="year-select">
-                            <option wire:key='year-select' value="">Select Year...</option>
+                            <option wire:key='year-select' value="0">Select Year...</option>
 
                             @for ($year = date('Y'); $year >= 1980; $year--)
                                 <option wire:key='{{ $year }}' value="{{ $year }}">{{ $year }}</option>
@@ -242,13 +242,13 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_category_id' id="publication_category_id"
                             name="publication_category_id" class="category-select">
-                            <option wire:key='category' value="">Select Category...</option>
+                            <option wire:key='category' value="0">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
                                     {{ $category->name }}
                                 </option>
                             @empty
-                                <option wire:key='nocateogry' value=""> --No Category--</option>
+                                <option wire:key='nocateogry' value="0"> --No Category--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -336,14 +336,14 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_sub_category_id'
                             id="publication_sub_category_id" name="category_id" class="sub-category-select">
-                            <option wire:key='sub-category' value="">
+                            <option wire:key='sub-category' value="0">
                                 {{ $publication_category_id ? 'Select Sub-Category...' : 'Select Category First' }}
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
                                     {{ $subCategory->name }}</option>
                             @empty
-                                <option wire:key='nosub-category' value="">--No Category--</option>
+                                <option wire:key='nosub-category' value="0">--No Category--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -403,12 +403,12 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                             <select id="category" wire:model='selectedCategoryId'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option wire:key='modalcate' value="">Select Category</option>
+                                                <option wire:key='modalcate' value="0">Select Category</option>
                                                 @forelse ($categories as $category)
                                                     <option wire:key='{{ $category->name }}' value="{{ $category->id }}">{{ $category->name }}
                                                     </option>
                                                 @empty
-                                                    <option wire:key='nomodalcate' value="">--No Category--</option>
+                                                    <option wire:key='nomodalcate' value="0">--No Category--</option>
                                                 @endforelse
                                             </select>
                                         </div>
@@ -447,11 +447,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publication_type_id' id="types"
                             name="publication_type_id" class="type-select">
-                            <option wire:key='type' value="">Select Type...</option>
+                            <option wire:key='type' value="0">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
                             @empty
-                                <option wire:key='notype' value="">--No Type--</option>
+                                <option wire:key='notype' value="0">--No Type--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -540,11 +540,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='publisher_id' id="publisher" name="publisher_id"
                             class="publisher-select">
-                            <option wire:key='publisher' value="">Select Publisher...</option>
+                            <option wire:key='publisher' value="0">Select Publisher...</option>
                             @forelse ($publishers as $publisher)
                                 <option wire:key='{{ $publisher->id }}' value="{{ $publisher->id }}">{{ $publisher->name }}</option>
                             @empty
-                                <option wire:key='nopublisher' value=""> --No Publisher--</option>
+                                <option wire:key='nopublisher' value="0"> --No Publisher--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -594,7 +594,7 @@
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
                                             <select id="category" wire:model='newPublisherGender'
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select gender</option>
+                                                <option value="0">Select gender</option>
                                                 <option value="male">Male</option>
                                                 <option value="female">Female</option>
                                                 <option value="n/a">N/A</option>
@@ -636,11 +636,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='location_id' id="location" name="location_id"
                             class="location-select">
-                            <option  wire:key='location' value="">Select Location...</option>
+                            <option  wire:key='location' value="0">Select Location...</option>
                             @forelse ($locations as $location)
                                 <option wire:key='{{ $location->id }}' value="{{ $location->id }}">{{ $location->name }}</option>
                             @empty
-                                <option wire:key='nolocation' value=""> --No Location--</option>
+                                <option wire:key='nolocation' value="0"> --No Location--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -716,11 +716,11 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='language_id' id="language" name="language_id"
                             class="language-select">
-                            <option wire:key='language' value="">Select Language...</option>
+                            <option wire:key='language' value="0">Select Language...</option>
                             @forelse ($languages as $language)
                                 <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }}</option>
                             @empty
-                                <option wire:key='nolanguage' value=""> --No Language--</option>
+                                <option wire:key='nolanguage' value="0"> --No Language--</option>
                             @endforelse
                         </x-select-option>
                     </div>
@@ -811,7 +811,7 @@
                             <option wire:key='{{ $keyword->id }}' value="{{ $keyword->name }}">
                                 {{ $keyword->name }}</option>
                         @empty
-                            <option wire:key=nokeyword' value=""> --No Keyword--</option>
+                            <option wire:key=nokeyword' value="0"> --No Keyword--</option>
                         @endforelse
                     </select>
                 </div>
@@ -927,7 +927,7 @@
             <div class="flex items-center space-4" wire:key='uploadpdf'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload PDF File (Max : 10MB) <span class="text-red-500">*</span>
+                        Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="pdf"
@@ -941,7 +941,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 10MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 50MB)</p>
                                 @if ($pdf)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
@@ -976,18 +976,20 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save"
-                    wire:target="save"
-                    wire:loading.attr="disabled"
-                    class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-
-                    Save
+            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
+                class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                Save
             </button>
             <span wire:target="save" wire:loading>
-                <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
-
+            <span wire:target="pdf,image"  wire:loading class="dark:text-white">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                On Uploading File...
+            </span>
         </div>
     </form>
 

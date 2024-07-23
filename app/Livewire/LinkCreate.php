@@ -19,6 +19,7 @@ class LinkCreate extends Component
     public $name = null;
     public $name_kh = null;
     public $link = null;
+    public $order_index = 0;
     public $description = null;
     public $description_kh = null;
 
@@ -54,6 +55,7 @@ class LinkCreate extends Component
             'name_kh' => 'required|string|max:255',
             'image' => 'required|file|max:2048',
             'link' => 'required|url|max:255',
+            'order_index' => 'nullable',
         ]);
 
         // $validated['create_by_user_id'] = request()->user()->id;

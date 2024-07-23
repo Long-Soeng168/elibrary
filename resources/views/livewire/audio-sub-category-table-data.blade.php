@@ -87,6 +87,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create audio')
             <x-primary-button data-modal-target="create_modal" data-modal-toggle="create_modal">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -95,6 +96,7 @@
                 </svg>
                 Add Sub-Category
             </x-primary-button>
+            @endcan
 
             <!-- Start Type modal -->
             <div id="create_modal" tabindex="-1" aria-hidden="true"
@@ -143,7 +145,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
                                         <select id="category" wire:model='new_category_id'
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 w-full">
-                                        <option value="">Select Category</option>
+                                        <option wire:key="selectCate" {{ !$new_category_id ? 'selected' : '' }} value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
                                             {{ $category->name }}</option>
@@ -267,6 +269,7 @@
                                         Update
                                     </button>
                                 @else
+                                    @can('delete audio')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -295,7 +298,10 @@
                                             Delete
                                         </div>
                                     </div>
+                                    @endcan
 
+
+                                    @can('update audio')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <a
@@ -323,6 +329,8 @@
                                         </div>
 
                                     </div>
+                                    @endcan
+
                                 @endif
 
                             </div>
@@ -344,7 +352,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
                     page : </label>
                 <select id="countries" wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>

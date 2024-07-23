@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Journal;
 use App\Models\JournalImage;
+use App\Models\ThesisJournalLink;
 
 class ClientJournalController extends Controller
 {
@@ -50,17 +51,20 @@ class ClientJournalController extends Controller
         // Retrieve related Journals excluding the item itself
         $related_items = Journal::where(function($query) use ($item) {
             $query->where('journal_category_id', $item->journal_category_id)
-                ->orWhere('journal_sub_category_id', $item->journal_sub_category_id)
-                ->orWhere('journal_type_id', $item->journal_type_id);
+                ->orWhere('journal_sub_category_id', $item->journal_sub_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
+        ->inRandomOrder()
         ->limit(6)
         ->get();
+
+        $resourceLinks = ThesisJournalLink::where('thesis_id', $id)->get();
 
         // Return the view with the data
         return view('client.journals.show', [
             'item' => $item,
             'multi_images' => $multi_images,
             'related_items' => $related_items,
+            'resourceLinks' => $resourceLinks,
         ]);
     }
 

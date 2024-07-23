@@ -49,6 +49,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create setting')
             <x-primary-button href="{{ url('admin/settings/menus/create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -57,6 +58,7 @@
                 </svg>
                 Add
             </x-primary-button>
+            @endcan
 
             {{-- <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -95,6 +97,7 @@
                     </th>
 
                     <th scope="col" class="px-4 py-3">Name_kh</th>
+                    <th scope="col" class="px-4 py-3">Order_Index</th>
                     <th scope="col" class="px-4 py-3">Created_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -114,22 +117,24 @@
                             </a>
                         </th> --}}
                         <x-table-data value="{{ $item->name }}" />
-                        {{-- <x-table-data value="{{ $item->description }}" /> --}}
-                        <x-table-data>
-                            <span
-                                class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->name_kh }}
-                            </span>
-                        </x-table-data>
+                            {{-- <x-table-data value="{{ $item->description }}" /> --}}
+                                <x-table-data>
+                                    <span
+                                    class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
+                                    {{ $item->name_kh }}
+                                </span>
+                            </x-table-data>
+                        <x-table-data value="{{ $item->order_index }}" />
                         <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
 
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
 
+                                @can('view setting')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('menu/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -146,7 +151,9 @@
                                         View
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('delete setting')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:click="delete({{ $item->id }})"
@@ -169,7 +176,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update setting')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/settings/menus/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -189,6 +198,8 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
+
                             </div>
                         </td>
                     </tr>
@@ -208,7 +219,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
                     page : </label>
                 <select id="countries" wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>

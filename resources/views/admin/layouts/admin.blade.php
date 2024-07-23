@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>One Digital Library</title>
 
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
@@ -26,6 +26,13 @@
     <link rel="stylesheet" href="{{ asset('/assets/css/glightbox.css') }}">
 
     <script defer src="{{ asset('assets/js/alpine31.js') }}"></script>
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="{{ $websiteInfo->name }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
+    <link rel="apple-touch-startup-image" href="{{ asset('assets/images/website_infos/logo.png') }}">
+    <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
 
     <style>
         .select2-selection {
@@ -203,7 +210,7 @@
                     </button>
                     <a href="/" class="flex items-center justify-center mr-4">
                         @if ($websiteInfo->image)
-                            <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
+                            <img src="{{ asset('assets/images/website_infos/logo192.png') }}"
                                 class="h-8 mr-3" alt="Flowbite Logo" />
                         @endif
                         <span
@@ -436,75 +443,91 @@
                                 @endif
                                 @switch($database->slug)
                                     @case('publications')
-                                        <a href="{{ url('admin/publications') }}"
-                                            class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
-                                            <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
-                                            <div class="text-sm text-gray-900 dark:text-white">Publications</div>
-                                        </a>
+                                        @can('view epublication')
+                                            <a href="{{ url('admin/publications') }}"
+                                                class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
+                                                <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
+                                                    class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                <div class="text-sm text-gray-900 dark:text-white">Publications</div>
+                                            </a>
+                                        @endcan
                                     @break
 
                                     @case('videos')
+                                        @can('view video')
                                         <a href="{{ url('admin/videos') }}"
                                             class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Videos</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('images')
+                                        @can('view image')
                                         <a href="{{ url('admin/images') }}"
                                             class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Images</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('audios')
+                                        @can('view audio')
                                         <a href="{{ url('admin/audios') }}"
                                             class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Audios</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('bulletins')
+                                        @can('view bulletin')
                                         <a href="{{ url('admin/bulletins') }}"
                                             class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('theses')
+                                        @can('view thesis')
                                         <a href="{{ url('admin/theses') }}"
                                             class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Theses</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('journals')
+                                        @can('view journal')
                                         <a href="{{ url('admin/journals') }}"
                                             class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Journals</div>
                                         </a>
+                                        @endcan
                                     @break
 
                                     @case('articles')
+                                        @can('view article')
                                         <a href="{{ url('admin/articles') }}"
                                             class="{{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
-                                                class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
+                                                class="object-contain h-8 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Articles</div>
                                         </a>
+                                        @endcan
                                     @break
                                 @endswitch
                                 @empty
@@ -737,7 +760,7 @@
                 aria-label="Sidenav" id="drawer-navigation">
                 <a href="/" class="flex items-center justify-center p-3.5 border-b dark:border-b-slate-600">
                     @if ($websiteInfo->image)
-                        <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
+                        <img src="{{ asset('assets/images/website_infos/logo192.png') }}"
                             class="object-cover h-8 mr-3 rounded-full aspect-square" alt="Flowbite Logo" />
                     @endif
                     <span class="self-center text-2xl font-semibold line-clamp-1 dark:text-white">
@@ -755,6 +778,8 @@
                                 <span class="ml-3">Dashboard</span>
                             </x-sidebar-item>
                         </li>
+
+                        @can('view user')
                         <li x-data="{
                                 open: {{ request()->is('admin/users*') || request()->is('admin/roles*') || request()->is('admin/permissions*') ? 'true' : 'false' }},
                                 init() {
@@ -787,21 +812,25 @@
                                         Users
                                     </a>
                                 </li>
+                                @can('view role')
                                 <li>
                                     <a href="{{ url('admin/roles') }}"
                                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/roles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                         Roles
                                     </a>
                                 </li>
-                                <li>
+                                @endcan
+                                {{-- <li>
                                     <a href="{{ url('admin/permissions') }}"
                                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/permissions*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                         Permissions
                                     </a>
-                                </li>
+                                </li> --}}
 
                             </ul>
                         </li>
+                        @endcan
+
 
 
                         {{-- <li>
@@ -828,6 +857,7 @@
                             @endif
                             @switch($database->slug)
                                 @case('publications')
+                                    @can('view epublication')
                                     <li x-data="{
                                         open: {{ request()->is('admin/publications*') ? 'true' : 'false' }},
                                         init() {
@@ -876,9 +906,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('videos')
+                                    @can('view video')
                                     <li x-data="{
                                         open: {{ request()->is('admin/videos*') ? 'true' : 'false' }},
                                         init() {
@@ -925,9 +957,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('images')
+                                    @can('view image')
                                     <li x-data="{
                                         open: {{ request()->is('admin/images*') ? 'true' : 'false' }},
                                         init() {
@@ -974,9 +1008,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('audios')
+                                    @can('view audio')
                                     <li x-data="{
                                         open: {{ request()->is('admin/audios*') ? 'true' : 'false' }},
                                         init() {
@@ -1023,9 +1059,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('bulletins')
+                                    @can('view bulletin')
                                     <li x-data="{
                                         open: {{ request()->is('admin/bulletins*') ? 'true' : 'false' }},
                                         init() {
@@ -1072,9 +1110,11 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('theses')
+                                    @can('view thesis')
                                     <li x-data="{
                                         open: {{ request()->is('admin/theses*') ? 'true' : 'false' }},
                                         init() {
@@ -1112,7 +1152,7 @@
                                             <li>
                                                 <a href="{{ url('admin/theses_categories') }}"
                                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/theses_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Topics</a>
+                                                    Categories</a>
                                             </li>
                                             {{-- <li>
                                     <a href="{{ url('admin/theses_sub_categories') }}"
@@ -1121,9 +1161,11 @@
                                 </li> --}}
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('journals')
+                                    @can('view journal')
                                     <li x-data="{
                                         open: {{ request()->is('admin/journals*') ? 'true' : 'false' }},
                                         init() {
@@ -1161,7 +1203,7 @@
                                             <li>
                                                 <a href="{{ url('admin/journals_categories') }}"
                                                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/journals_categories') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
-                                                    Topics</a>
+                                                    Categories</a>
                                             </li>
                                             {{-- <li>
                                     <a href="{{ url('admin/journals_sub_categories') }}"
@@ -1170,9 +1212,11 @@
                                 </li> --}}
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
 
                                 @case('articles')
+                                    @can('view article')
                                     <li x-data="{
                                         open: {{ request()->is('admin/articles*') ? 'true' : 'false' }},
                                         init() {
@@ -1219,6 +1263,7 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    @endcan
                                 @break
                             @endswitch
                             @empty
@@ -1228,6 +1273,7 @@
                         </ul>
 
                         <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
+                            @can('view keyword')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/keywords*') ? 'true' : 'false' }}) {
@@ -1242,6 +1288,9 @@
                                     <span class="ml-3">Keywords</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view location')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/locations*') ? 'true' : 'false' }}) {
@@ -1256,6 +1305,9 @@
                                     <span class="ml-3">Locations</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view language')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/languages*') ? 'true' : 'false' }}) {
@@ -1270,6 +1322,9 @@
                                     <span class="ml-3">Languages</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
+                            @can('view major')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
@@ -1284,6 +1339,8 @@
                                     <span class="ml-3">Majors</span>
                                 </x-sidebar-item>
                             </li>
+                            @endcan
+
                             {{-- <li>
                         <x-sidebar-item href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -1296,6 +1353,7 @@
                             <span class="ml-3">Reports</span>
                         </x-sidebar-item>
                     </li> --}}
+                            @can('view people')
                             <ul>
                                 <li x-data="{
                                     open: {{ request()->is('admin/people*') ? 'true' : 'false' }},
@@ -1353,7 +1411,10 @@
                                     </ul>
                                 </li>
                             </ul>
+                            @endcan
                         </ul>
+
+                        @can('view setting')
                         <ul class="pt-5 pb-5 mt-5 space-y-2 border-t border-gray-200 dark:border-gray-700">
                             <li x-data="{
                                 open: {{ request()->is('admin/settings*') ? 'true' : 'false' }},
@@ -1402,12 +1463,15 @@
                                             Footer
                                         </a>
                                     </li>
+                                    @can('view database')
                                     <li>
                                         <a href="{{ url('admin/settings/databases') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/databases*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                             Databases
                                         </a>
                                     </li>
+                                    @endcan
+
                                     <li>
                                         <a href="{{ url('admin/settings/website_infos/1/edit') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/website_infos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
@@ -1417,6 +1481,7 @@
                                 </ul>
                             </li>
                         </ul>
+                        @endcan
 
                     </div>
                     <div

@@ -87,14 +87,16 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create thesis')
             <x-primary-button data-modal-target="create_modal" data-modal-toggle="create_modal">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"
                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                 </svg>
-                Add Topic
+                Add Category
             </x-primary-button>
+            @endcan
 
             <!-- Start Type modal -->
             <div id="create_modal" tabindex="-1" aria-hidden="true"
@@ -106,7 +108,7 @@
                         <div
                             class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create Topic
+                                Create Category
                             </h3>
                             <button type="button"
                                 class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
@@ -228,7 +230,7 @@
                                     {{ $item->name_kh ? $item->name_kh : 'N/A' }}
                                 </span>
                             </x-table-data>
-                            <x-table-data class=" whitespace-nowrap" value="{{ $item->created_at->format('d-M-Y') }}" />
+                            <x-table-data class=" whitespace-nowrap" value="{{ $item->created_at?->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">
@@ -245,6 +247,7 @@
                                         Update
                                     </button>
                                 @else
+                                    @can('delete thesis')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <div @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -273,7 +276,9 @@
                                             Delete
                                         </div>
                                     </div>
+                                    @endcan
 
+                                    @can('update thesis')
                                     <div class="pb-1" x-data="{ tooltip: false }">
                                         <!-- Modal toggle -->
                                         <a
@@ -301,6 +306,8 @@
                                         </div>
 
                                     </div>
+                                    @endcan
+
                                 @endif
 
                             </div>

@@ -45,7 +45,7 @@
                 </div>
                 <div>
                     <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                        class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-[200px] focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-[200px] focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 "
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-4 mr-2 text-gray-400"
                             viewbox="0 0 20 20" fill="currentColor">
@@ -53,7 +53,9 @@
                                 d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
                                 clip-rule="evenodd" />
                         </svg>
-                        {{ $selectedType ? $selectedType->name : 'Types' }}
+                        <p class="w-full text-left line-clamp-1">
+                            {{ $selectedType ? $selectedType->name : 'Categories' }}
+                        </p>
                         <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -61,23 +63,23 @@
                         </svg>
                     </button>
                     <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Type</h6>
+                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Categories</h6>
                         <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                             <li class="flex items-center">
                                 <button wire:click="setFilter(0)">
                                     <label for="apple"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $filter == 0 ? 'underline' : '' }}">
-                                        All Type
+                                        All Category
                                     </label>
                                 </button>
                             </li>
                             @foreach ($types as $type)
                                 <li class="flex items-center">
                                     <button wire:click.prevent='setFilter("{{ $type->id }}")'>
-                                        <label for="apple"
-                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $type->id == $filter ? 'underline' : '' }}">
+                                        <p
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $type->id == $filter ? 'underline' : '' }}">
                                             {{ $type->name }}
-                                        </label>
+                                        </p>
 
                                     </button>
                                 </li>
@@ -91,6 +93,7 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
+            @can('create thesis')
             <x-primary-button href="{{ route('admin.theses.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
@@ -99,6 +102,7 @@
                 </svg>
                 Add Item
             </x-primary-button>
+            @endcan
 
             <div class="flex items-center w-full space-x-3 md:w-auto">
                 <button id="filterDropdownButton"
@@ -151,9 +155,12 @@
 
                     <th scope="col" class="px-4 py-3">Student</th>
                     <th scope="col" class="px-4 py-3">Major</th>
-                    <th scope="col" class="px-4 py-3">Type</th>
-                    <th scope="col" class="px-4 py-3">Topic</th>
-                    <th scope="col" class="px-4 py-3">Published Date</th>
+                    <th scope="col" class="px-4 py-3">Category</th>
+                    {{-- <th scope="col" class="px-4 py-3">Published Date</th> --}}
+                    @can('update thesis')
+                    <th scope="col" class="py-3 text-center">Read</th>
+                    <th scope="col" class="py-3 text-center">Download</th>
+                    @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -176,18 +183,45 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->student?->name ? $item->student?->name : 'N/A' }}
+                                {{ $item->student?->name ? $item->student?->name : 'N/A' }} {{ $item->student_name ? $item->student_name : '' }}
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />
-                        {{-- <x-table-data value="{{ $item->publisher?->name }}" /> --}}
-                            <x-table-data value="{{ $item->type?->name ? $item->type?->name : 'N/A' }}" />
-                            <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
-                        <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" />
+                        <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
+                        {{-- <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" /> --}}
+                        @can('update thesis')
+                        <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
+                            @if ($item->can_read)
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                Allow
+                            </span>
+                            @else
+                            <span
+                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                Not-Allow
+                            </span>
+                            @endif
+                        </x-table-data>
+                        <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
+                            @if ($item->can_download)
+                            <span
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                Allow
+                            </span>
+                            @else
+                            <span
+                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                Not-Allow
+                            </span>
+                            @endif
+                        </x-table-data>
+                        @endcan
 
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
+                                @can('update thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/theses_images/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
@@ -212,13 +246,13 @@
                                             Add Image
                                         </div>
                                     </a>
-
-
                                 </div>
+                                @endcan
 
+                                @can('view thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="#" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('theses/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -240,7 +274,9 @@
                                         View
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('delete thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
@@ -269,7 +305,9 @@
                                         Delete
                                     </div>
                                 </div>
+                                @endcan
 
+                                @can('update thesis')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a href="{{ url('admin/theses/'.$item->id . '/edit') }}"  @mouseenter="tooltip = true" @mouseleave="tooltip = false">
@@ -294,6 +332,7 @@
                                         Edit
                                     </div>
                                 </div>
+                                @endcan
                             </div>
                         </td>
                     </tr>
@@ -313,7 +352,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white whitespace-nowrap">Record per
                     page : </label>
                 <select id="countries" wire:model.live='perPage'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-10">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>

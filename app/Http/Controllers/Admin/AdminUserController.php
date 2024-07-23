@@ -9,20 +9,31 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Carbon\Carbon;
 use DB;
 
 class AdminUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view user', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create user', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:update user', ['only' => ['edit', 'update', 'updateUserPassword']]);
+        $this->middleware('permission:delete user', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::with('roles')->get();
+        // $users = User::with('roles')->paginate(10);
+        // // return $users;
+        // return view('admin.users.index', [
+        //     'users' => $users,
+        // ]);
+        $users = User::with('roles')->paginate(10);
         // return $users;
-        return view('admin.users.index', [
-            'users' => $users,
-        ]);
+        return view('admin.users.index');
     }
 
     /**
@@ -42,7 +53,7 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        $authUser = $request->user();
+        // $authUser = $request->user();
         // return $authUser;
         // dd($request->all());
         $request->validate([
@@ -50,6 +61,8 @@ class AdminUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed'],
             'roles' => ['required'],
+            'started_at' => 'nullable|date',
+            'expired_at' => 'nullable|date|after:started_at',
         ]);
 
         $user = User::create([
@@ -60,6 +73,8 @@ class AdminUserController extends Controller
             'gender' => $request->gender,
             'date_of_birth' => $request->date_of_birth,
             'add_by_user_id' => $request->user()->id,
+            'started_at' => $request->started_at,
+            'expired_at' => $request->expired_at,
         ]);
 
         $roles = $request->only('roles');
@@ -68,24 +83,24 @@ class AdminUserController extends Controller
             $user->syncRoles($roles);
         }
 
-        if($authUser->shop_id == null) {
-            $createdShop = Shop::create([
-                'name' => $request->name . ' Shop',
-                'owner_user_id' => $user->id,
-                'description' => 'Your shop description'
-            ]);
+        // if($authUser->shop_id == null) {
+        //     $createdShop = Shop::create([
+        //         'name' => $request->name . ' Shop',
+        //         'owner_user_id' => $user->id,
+        //         'description' => 'Your shop description'
+        //     ]);
 
-            if ($createdShop) {
-                // Update the user's shop_id
-                $user->update([
-                    'shop_id' => $createdShop->id,
-                ]);
-            }
-        }else {
-            $user->update([
-                'shop_id' => $authUser->shop_id,
-            ]);
-        }
+        //     if ($createdShop) {
+        //         // Update the user's shop_id
+        //         $user->update([
+        //             'shop_id' => $createdShop->id,
+        //         ]);
+        //     }
+        // }else {
+        //     $user->update([
+        //         'shop_id' => $authUser->shop_id,
+        //     ]);
+        // }
 
 
         return redirect('/admin/users')->with('success', 'User Created Successfully');
@@ -118,16 +133,22 @@ class AdminUserController extends Controller
         ]);
     }
     public function update(Request $request, User $user) {
-        // return $request->all();
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'roles' => ['required'],
+            'started_at' => 'nullable|date',
+            'expired_at' => 'nullable|date|after:started_at',
         ]);
 
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+            'started_at' => $request->started_at,
+            'expired_at' => $request->expired_at,
         ]);
 
         $roles = $request->only('roles');

@@ -24,14 +24,14 @@ use App\Http\Controllers\Admin\SupervisorController;
 use App\Http\Controllers\Admin\LecturerController;
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\AdminPermissionController;
+use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ItemController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Admin\AdminPermissionController;
-use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -61,6 +61,8 @@ use App\Http\Controllers\Client\ClientJournalController;
 //    symlink($target, $link);
 //    echo "Done";
 // });
+
+
 
 
 /*
@@ -177,37 +179,55 @@ Route::group([
 | Start Client Routes
 |--------------------------------------------------------------------------
 */
+Route::get('/switch-language/{locale}', function($locale){
+    session(['locale' => $locale]);
+    return redirect()->back();
+})->name('switch-language');
 
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/menu/{id}', [HomeController::class, 'menu']);
+Route::group([
+    'middleware' => 'setLang',
+], function () {
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/client_login/{path}', [HomeController::class, 'clientLogin'])->name('client.login');
+    Route::post('/client_login/{path}', [HomeController::class, 'clientLoginStore'])->name('client.login.store');
+    Route::get('/menu/{id}', [HomeController::class, 'menu']);
+    Route::get('/add_read_count/{archive}/{id}', [HomeController::class, 'readCount']);
+    Route::get('/add_download_count/{archive}/{id}', [HomeController::class, 'downloadCount']);
 
-// Route::get('/publications', function () {
-//     return view('client.publications.index');
-// });
-Route::get('/publications', [ClientPublicationController::class, 'index']);
-Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
+    Route::get('stream_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'stream'])->name('pdf.stream');
+    Route::get('view_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'viewPdf'])->name('pdf.view');
+    Route::get('download_pdf/{archive}/{id}/{file_name}/', [HomeController::class, 'downloadPdf'])->name('pdf.download');
 
-Route::get('/articles', [ClientArticleController::class, 'index']);
-Route::get('/articles/{id}', [ClientArticleController::class, 'show']);
 
-Route::get('/videos', [ClientVideoController::class, 'index']);
-Route::get('/videos/{id}', [ClientVideoController::class, 'show']);
+    // Route::get('/publications', function () {
+    //     return view('client.publications.index');
+    // });
+    Route::get('/publications', [ClientPublicationController::class, 'index']);
+    Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
 
-Route::get('/audios', [ClientAudioController::class, 'index']);
-Route::get('/audios/{id}', [ClientAudioController::class, 'show']);
+    Route::get('/articles', [ClientArticleController::class, 'index']);
+    Route::get('/articles/{id}', [ClientArticleController::class, 'show']);
 
-Route::get('/images', [ClientImageController::class, 'index']);
-Route::get('/images/{id}', [ClientImageController::class, 'show']);
+    Route::get('/videos', [ClientVideoController::class, 'index']);
+    Route::get('/videos/{id}', [ClientVideoController::class, 'show']);
 
-Route::get('/bulletins', [ClientNewsController::class, 'index']);
-Route::get('/bulletins/{id}', [ClientNewsController::class, 'show']);
+    Route::get('/audios', [ClientAudioController::class, 'index']);
+    Route::get('/audios/{id}', [ClientAudioController::class, 'show']);
 
-Route::get('/theses', [ClientThesisController::class, 'index']);
-Route::get('/theses/{id}', [ClientThesisController::class, 'show']);
+    Route::get('/images', [ClientImageController::class, 'index']);
+    Route::get('/images/{id}', [ClientImageController::class, 'show']);
 
-Route::get('/journals', [ClientJournalController::class, 'index']);
-Route::get('/journals/{id}', [ClientJournalController::class, 'show']);
+    Route::get('/bulletins', [ClientNewsController::class, 'index']);
+    Route::get('/bulletins/{id}', [ClientNewsController::class, 'show']);
 
+    Route::get('/theses', [ClientThesisController::class, 'index']);
+    Route::get('/theses/{id}', [ClientThesisController::class, 'show']);
+
+    Route::get('/journals', [ClientJournalController::class, 'index']);
+    Route::get('/journals/{id}', [ClientJournalController::class, 'show']);
+
+
+});
 
 
 // Route::get('publications/{id}', function () {

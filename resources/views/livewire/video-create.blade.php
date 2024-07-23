@@ -91,7 +91,7 @@
             <div>
                 <x-input-label for="link" :value="__('Link')" />
                 <x-text-input id="link" class="block w-full" type="text" name="link" wire:model='link'
-                    placeholder="Link" />
+                    placeholder="Link (ex: https://youtu.be/zijUjJdegI8?si=UI390df0TBPpgPxU)" />
                 <x-input-error :messages="$errors->get('link')" class="mt-2" />
             </div>
             <!-- End Link -->
