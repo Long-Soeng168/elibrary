@@ -205,7 +205,7 @@
                                 </a>
                                 <div x-show="showPopup" x-cloak class="z-[999999] maxw--full fixed top-0 bottom-0 left-0 right-0 bg-black/60">
                                     <div x-show="showPopup" id="profileFrame{{ $item->id }}" class="absolute p-8 mx-auto transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-md top-1/2 left-1/2 dark:bg-gray-800" @click.away="showPopup = false">
-                                        <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
+                                        <div class="max-w-screen-xl px-2 mx-auto lg:px-0">
                                             <div class="min-[1000px]:flex">
                                                 <div class="flex flex-col items-center mb-6">
                                                     <div class="max-w-[200px] w-full lg:w-auto flex flex-col gap-2 px-2 lg:px-0 border rounded-lg overflow-hidden shardow-md">
