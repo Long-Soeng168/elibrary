@@ -308,7 +308,8 @@ class AudioCreate extends Component
         // dd($validated);
 
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $audio_path = public_path('assets/images/audios/'.$filename);
             $audio_thumb_path = public_path('assets/images/audios/thumb/'.$filename);
@@ -320,7 +321,8 @@ class AudioCreate extends Component
         }
 
         if (!empty($this->file)) {
-            $filename = time() . '_' . $this->file->getClientOriginalName();
+            // $filename = time() . '_' . $this->file->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
             $this->file->storeAs('/', $filename, 'publicForAudio');
             $validated['file'] = $filename;
         }

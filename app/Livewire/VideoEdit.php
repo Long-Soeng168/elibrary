@@ -328,7 +328,8 @@ class VideoEdit extends Component
         }
 
         if (!empty($this->image)) {
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/videos/' . $filename);
             $image_thumb_path = public_path('assets/images/videos/thumb/' . $filename);
@@ -351,7 +352,8 @@ class VideoEdit extends Component
         }
 
         if (!empty($this->file)) {
-            $filename = time() . '_' . $this->file->getClientOriginalName();
+            // $filename = time() . '_' . $this->file->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
             $this->file->storeAs('videos', $filename, 'publicForPdf');
             $validated['file'] = $filename;
 

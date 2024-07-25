@@ -325,7 +325,8 @@ class ImageEdit extends Component
         }
 
         if (!empty($this->image)) {
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/images/' . $filename);
             $image_thumb_path = public_path('assets/images/images/thumb/' . $filename);
