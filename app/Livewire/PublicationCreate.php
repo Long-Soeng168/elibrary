@@ -322,8 +322,8 @@ class PublicationCreate extends Component
         }
 
         if (!empty($this->pdf)) {
-            // $filename = time() . '_' . $this->pdf->getClientOriginalName();
-            $filename = time() . '.' . $this->pdf->getClientOriginalExtension();
+            $filename = time() . '_' . $this->pdf->getClientOriginalName();
+            // $filename = time() . '.' . $this->pdf->getClientOriginalExtension();
             $this->pdf->storeAs('publications', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
         }
