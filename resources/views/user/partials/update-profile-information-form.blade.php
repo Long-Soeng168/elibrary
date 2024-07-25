@@ -46,7 +46,9 @@
         </div>
 
         <div class="flex items-center gap-4">
+            @if (auth()->user()->hasRole('super-admin'))
             <button>{{ __('Save') }}</button>
+            @endif
 
             @if (session('status') === 'profile-updated')
                 <p
