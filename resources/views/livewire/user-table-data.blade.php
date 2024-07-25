@@ -132,6 +132,7 @@
                     <th scope="col" class="px-4 py-3">Email</th>
                     <th scope="col" class="px-4 py-3">Phone</th>
                     <th scope="col" class="px-4 py-3">Roles</th>
+                    <th scope="col" class="px-4 py-3">Expired_at</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -157,19 +158,41 @@
                     <x-table-data value="{{ $item->name ? $item->name : 'N/A' }}"/>
                     <x-table-data value="{{ $item->email ? $item->email : 'N/A' }}"/>
                     <x-table-data value="{{ $item->phone ? $item->phone : 'N/A'}}"/>
-                    <x-table-data>
-                        <div class="flex flex-wrap w-full gap-1 uppercase">
-                            @if ($item->roles->count() > 0)
+                        <x-table-data>
+                            <div class="flex flex-wrap w-full gap-1 uppercase">
+                                @if ($item->roles->count() > 0)
                                 @forelse ($item->roles as $role)
-                                    <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
-                                        {{ $role->name }}
-                                    </span>
+                                <span class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded whitespace-nowrap dark:bg-primary-900 dark:text-primary-300 m-1">
+                                    {{ $role->name }}
+                                </span>
                                 @empty
-                                    <span>N/A</span>
+                                <span>N/A</span>
                                 @endforelse
-                            @endif
-                        </div>
-                    </x-table-data>
+                                @endif
+                            </div>
+                        </x-table-data>
+                        @php
+                            $now = \Carbon\Carbon::now();
+                            $expiredAt = $item->expired_at ? \Carbon\Carbon::parse($item->expired_at) : null;
+                            $diffInDays = $expiredAt ? $now->diffInDays($expiredAt, false) : null;
+                            $class = '';
+
+                            if (is_null($expiredAt)) {
+                                $class = 'text-green-500';
+                            } elseif ($expiredAt->isPast()) {
+                                $class = 'text-red-500';
+                            } elseif ($diffInDays <= 30) {
+                                $class = 'text-yellow-500';
+                            } else {
+                                $class = 'text-green-500';
+                            }
+                        @endphp
+
+                        <x-table-data
+                            class="{{ $class }}"
+                            value="{{ $item->expired_at ? $item->expired_at : 'No Expire' }}"
+                        />
+
                     <td class="px-6 py-4">
                         <div class="flex items-start justify-center gap-3">
                             @can('view user')
@@ -266,6 +289,15 @@
                                                         @endforelse
                                                     </p>
                                                 </div>
+                                                <div class="flex nowrap">
+                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                        Start-Expire
+                                                    </p>
+                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                        {{ $item->expired_at ? $item->started_at.' => '.$item->expired_at : 'No Expire' }}
+                                                    </p>
+                                                </div>
+
                                                 <div class="flex nowrap">
                                                     <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
                                                         Created At
