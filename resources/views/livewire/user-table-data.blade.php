@@ -194,133 +194,130 @@
                         />
 
                     <td class="px-6 py-4">
-                        <div class="flex items-start justify-center gap-3">
+                        <div class="flex items-start justify-center gap-3" x-data="{ open: false }">
                             @can('view user')
-                            <a wire:key='{{ rand() }}' href="#profileFrame{{ $item->id }}" class="glightbox4" data-gallery="gallery1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
-                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
-                            </a>
-                            <div id="profileFrame{{ $item->id }}" class="hidden dark:bg-gray-800">
-                                <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
-                                    <div class="min-[1000px]:flex">
-                                        <div class="flex flex-col items-center mb-6">
-                                            <div class="max-w-[400px] w-full lg:w-auto flex flex-col gap-2 px-2 lg:px-0 border rounded-lg overflow-hidden shardow-md">
-                                                @if ($item->image)
-                                                    <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
-                                                    src="{{ asset('assets/images/users/thumb/'.$item->image) }}"
-                                                    alt="User photo">
-
-                                                @else
-                                                <img class="max-w-[400px] h-auto aspect-square object-cover rounded-md cursor-pointer"
-                                                src="{{ asset('assets/icons/profile.png') }}"
-                                                alt="User photo">
-                                                @endif
+                            <div x-data="{ showPopup: false }">
+                                <a @click.prevent="showPopup = !showPopup" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                </a>
+                                <div x-show="showPopup" x-cloak class="z-[999999] maxw--full fixed top-0 bottom-0 left-0 right-0 bg-black/60">
+                                    <div x-show="showPopup" id="profileFrame{{ $item->id }}" class="absolute p-8 mx-auto transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-md top-1/2 left-1/2 dark:bg-gray-800" @click.away="showPopup = false">
+                                        <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
+                                            <div class="min-[1000px]:flex">
+                                                <div class="flex flex-col items-center mb-6">
+                                                    <div class="max-w-[200px] w-full lg:w-auto flex flex-col gap-2 px-2 lg:px-0 border rounded-lg overflow-hidden shardow-md">
+                                                        @if ($item->image)
+                                                            <img class="max-w-[200px] text-center h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                            src="{{ asset('assets/images/users/thumb/'.$item->image) }}"
+                                                            alt="User photo">
+                                                        @else
+                                                            <img class="max-w-[200px] text-center h-auto aspect-square object-cover rounded-md cursor-pointer"
+                                                            src="{{ asset('assets/icons/profile.png') }}"
+                                                            alt="User photo">
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="lg:ml-4">
+                                                    <div class="mb-4 text-sm font-semibold tracking-wide text-blue-600 uppercase">
+                                                        User Informations
+                                                    </div>
+                                                    <div class="flex flex-col gap-2">
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Name
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->name }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                gender
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->gender ? $item->gender : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Phone
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->phone ? $item->phone : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Email
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->email ? $item->email : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Birth Date
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->date_of_birth ? $item->date_of_birth : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Address
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->address ? $item->address : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Roles
+                                                            </p>
+                                                            <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-600">
+                                                                @forelse ($item->roles as $role)
+                                                                    <span class="bg-blue-200 ">{{ $role->name }}</span>
+                                                                @empty
+                                                                    <span>N/A</span>
+                                                                @endforelse
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] flex-shrink-0 uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Start-Expire
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->expired_at ? $item->started_at.' => '.$item->expired_at : 'No Expire' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Created At
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->created_at ? $item->created_at : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Updated At
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ $item->updated_at ? $item->updated_at : 'N/A' }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="lg:ml-4">
-                                            <div class="mb-4 text-sm font-semibold tracking-wide text-blue-600 uppercase">
-                                                User Informations
-                                            </div>
-                                            {{-- <h1 class="block mt-1 mb-2 text-2xl font-medium leading-tight text-gray-800 dark:text-gray-100">
-                                                Your subtitle or any other text goes here Implementation of Title,
-                                                Subtitle and Author name as well as any other text you like to the
-                                                book cover design.
-                                            </h1> --}}
-                                            <div class="flex flex-col gap-2">
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Name
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->name }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        gender
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->gender ? $item->gender : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Phone
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->phone ? $item->phone : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Email
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->email ? $item->email : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Birth Date
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->date_of_birth ? $item->date_of_birth : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Address
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->address ? $item->address : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Roles
-                                                    </p>
-                                                    <p class="flex flex-wrap gap-1.5 text-sm text-gray-600 uppercase dark:text-gray-600">
-                                                        @forelse ($item->roles as $role)
-                                                            <span class="bg-blue-200 ">{{ $role->name }}</span>
-                                                        @empty
-                                                            <span>N/A</span>
-                                                        @endforelse
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Start-Expire
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->expired_at ? $item->started_at.' => '.$item->expired_at : 'No Expire' }}
-                                                    </p>
-                                                </div>
-
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Created At
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->created_at ? $item->created_at : 'N/A' }}
-                                                    </p>
-                                                </div>
-                                                <div class="flex nowrap">
-                                                    <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
-                                                        Updated At
-                                                    </p>
-                                                    <p class="text-sm text-gray-600 dark:text-gray-200">
-                                                        {{ $item->updated_at ? $item->updated_at : 'N/A' }}
-                                                    </p>
-                                                </div>
-
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
+
                             @endcan
 
                             @can('delete user')
@@ -389,3 +386,12 @@
         </div>
     </div>
 </div>
+
+@script
+<script>
+    $wire.on('livewire:updated', function(event) {
+        console.log('updatedPage');
+        // console.log('updated');
+    });
+</script>
+@endscript
