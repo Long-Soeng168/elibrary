@@ -21,7 +21,7 @@ class UserTableData extends Component
     public $perPage = 10;
 
     #[Url(history: true)]
-    public $filter = 0;
+    public $filter = '';
 
     #[Url(history: true)]
     public $sortBy = 'created_at';
