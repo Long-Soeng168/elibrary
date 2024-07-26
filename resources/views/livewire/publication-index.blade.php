@@ -1,6 +1,6 @@
 <div>
     <!-- Search -->
-    <div class="p-2 bg-gradient-to-r from-primary to-transparent">
+    <div class="p-2 bg-gradient-to-r from-primary to-transparent"  id="top-title">
         <div class="max-w-screen-xl mx-auto">
             <form class="w-full " action="{{ url('/publications') }}">
                 <div class="flex flex-wrap gap-2">
@@ -206,7 +206,7 @@
         <div class="col-span-10">
             <div class="max-w-screen-xl mx-auto mt-6">
                 <div class="flex justify-between px-2 py-1 bg-primary">
-                    <p class="text-lg text-white capitalize" id="top-title">
+                    <p class="text-lg text-white capitalize">
                         {{ __('messages.ePublications') }}
                     </p>
                 </div>
