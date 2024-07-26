@@ -382,7 +382,7 @@ $wire.on('livewire:updatedClearAllFilter', function(event) {
 $wire.on('livewire:updatedPage', function(event) {
     const topTitleElement = document.getElementById('top-title');
     if (topTitleElement) {
-        const offset = 20; // Adjust this value as needed
+        const offset = 0; // Adjust this value as needed
         const elementPosition = topTitleElement.getBoundingClientRect().top + window.pageYOffset;
         const offsetPosition = elementPosition - offset;
 
