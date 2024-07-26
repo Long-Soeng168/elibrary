@@ -66,7 +66,8 @@ class StudentCreate extends Component
         // dd($validated);
 
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/students/'.$filename);
             $image_thumb_path = public_path('assets/images/students/thumb/'.$filename);

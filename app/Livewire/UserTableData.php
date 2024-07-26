@@ -21,7 +21,7 @@ class UserTableData extends Component
     public $perPage = 10;
 
     #[Url(history: true)]
-    public $filter = 0;
+    public $filter = '';
 
     #[Url(history: true)]
     public $sortBy = 'created_at';
@@ -45,8 +45,14 @@ class UserTableData extends Component
 
     // ResetPage when updated search
     public function updatedSearch() {
+        $this->dispatch('livewire:updated');
         $this->resetPage();
+
     }
+    public function updatingPage(){
+        $this->dispatch('livewire:updated');
+    }
+
 
     public function delete($id) {
         $user = User::findOrFail($id);

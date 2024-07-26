@@ -436,7 +436,8 @@ class ThesisCreate extends Component
         // dd($validated);
 
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/theses/'.$filename);
             $image_thumb_path = public_path('assets/images/theses/thumb/'.$filename);
@@ -448,7 +449,8 @@ class ThesisCreate extends Component
         }
 
         if (!empty($this->pdf)) {
-            $filename = time() . '_' . $this->pdf->getClientOriginalName();
+            // $filename = time() . '_' . $this->pdf->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->pdf->getClientOriginalExtension();
             $this->pdf->storeAs('theses', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
         }

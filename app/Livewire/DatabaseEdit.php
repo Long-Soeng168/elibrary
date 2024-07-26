@@ -67,7 +67,8 @@ class DatabaseEdit extends Component
 
         // Update the existing item record
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/databases/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
@@ -75,7 +76,8 @@ class DatabaseEdit extends Component
         }
 
         if(!empty($this->client_side_image)){
-            $filename = time() . '_' . $this->client_side_image->getClientOriginalName();
+            // $filename = time() . '_' . $this->client_side_image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->client_side_image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/databases/'.$filename);
             $imageUpload = Image::make($this->client_side_image->getRealPath())->save($image_path);

@@ -80,7 +80,8 @@ class JournalImage extends Component
 
         foreach ($this->images as $image) {
             if (!empty($image)) {
-                $filename = time() . '_' . $image->getClientOriginalName();
+                // $filename = time() . '_' . $image->getClientOriginalName();
+                $filename = time() . str()->random(10) . '.' . $image->getClientOriginalExtension();
 
                 $imagePath = $filePath . '/' . $filename;
                 $imageThumbPath = $fileThumbPath . '/' . $filename;

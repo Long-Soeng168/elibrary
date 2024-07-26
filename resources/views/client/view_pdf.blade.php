@@ -30,6 +30,16 @@
         .loading-indicator.hidden {
             display: none;
         }
+        .page-container {
+            position: relative;
+        }
+        .page-loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -37,18 +47,12 @@
         <header id="toolbar" class="flex items-center justify-between w-full p-2 text-white bg-gray-800">
             <div id="back-btn" class="flex items-center gap-2">
                 <a class="p-2 border" href="{{ url()->previous() }}">Back</a>
-                {{-- Start Loading Indicator File --}}
                 <div id="loading-indicator" class="loading-indicator animate-pulse">
                     <img class="w-6 h-6 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="">
                     loading...
                 </div>
-                {{-- End Loading Indicator File --}}
             </div>
             <span id="page-info">Page 1/1</span>
-            {{-- <div>
-                <button id="zoom-out" class="px-4 py-2 bg-gray-700 hover:bg-gray-600">- Zoom Out</button>
-                <button id="zoom-in" class="px-4 py-2 bg-gray-700 hover:bg-gray-600">+ Zoom In</button>
-            </div> --}}
         </header>
         <main id="pdf-viewer" class="relative px-1 overflow-auto h-5/6"></main>
     </div>
@@ -64,13 +68,9 @@
 
         let pdfDoc = null;
         let scale = 1.5;
-        let currentScrollOffset = 0;
-
-        // document.getElementById('zoom-in').addEventListener('click', onZoomIn);
-        // document.getElementById('zoom-out').addEventListener('click', onZoomOut);
+        let renderedPages = new Map();
 
         const pdfUrl = "{{ route('pdf.stream', ['archive' => $archive, 'id' => $id, 'file_name' => $file_name]) }}";
-        // const pdfUrl = "https://www.aeee.in/wp-content/uploads/2020/08/Sample-pdf.pdf";
         openPdf(pdfUrl);
 
         function openPdf(url) {
@@ -78,60 +78,62 @@
             pdfjsLib.getDocument(url).promise.then(pdf => {
                 pdfDoc = pdf;
                 pageInfo.textContent = `Page 1/${pdfDoc.numPages}`;
-                renderPages().then(hideLoadingIndicator);
+                renderVisiblePages().then(hideLoadingIndicator);
             }).catch(error => {
                 console.error('Error loading PDF: ', error);
                 hideLoadingIndicator();
             });
         }
 
-        function renderPage(page, pageNumber) {
-            const viewport = page.getViewport({ scale });
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.height = viewport.height;
-            canvas.width = viewport.width;
-            canvas.setAttribute('data-page-number', pageNumber);
+        function renderPage(pageNumber) {
+            if (renderedPages.has(pageNumber)) {
+                return Promise.resolve();
+            }
+            return pdfDoc.getPage(pageNumber).then(page => {
+                const viewport = page.getViewport({ scale });
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                canvas.setAttribute('data-page-number', pageNumber);
 
-            pdfViewerContainer.appendChild(canvas);
+                const pageContainer = document.createElement('div');
+                pageContainer.classList.add('page-container');
+                pageContainer.appendChild(canvas);
 
-            const renderContext = {
-                canvasContext: context,
-                viewport: viewport
-            };
-            return page.render(renderContext).promise.then(() => {
-                console.log('Page rendered', pageNumber);
+                const pageLoadingIndicator = document.createElement('div');
+                pageLoadingIndicator.classList.add('page-loading-indicator');
+                pageLoadingIndicator.textContent = 'Loading...';
+                pageContainer.appendChild(pageLoadingIndicator);
+
+                pdfViewerContainer.appendChild(pageContainer);
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                pageLoadingIndicator.style.display = 'block';
+                return page.render(renderContext).promise.then(() => {
+                    console.log('Page rendered', pageNumber);
+                    pageLoadingIndicator.style.display = 'none';
+                    renderedPages.set(pageNumber, canvas);
+                });
             });
         }
 
-        function renderPages() {
-            pdfViewerContainer.innerHTML = '';
+        function renderVisiblePages() {
+            const scrollTop = pdfViewerContainer.scrollTop;
+            const containerHeight = pdfViewerContainer.clientHeight;
+            const startPage = Math.floor(scrollTop / (containerHeight / pdfDoc.numPages)) + 1;
+            const endPage = Math.min(pdfDoc.numPages, startPage + 3);
+
             const promises = [];
-            for (let pageNumber = 1; pageNumber <= pdfDoc.numPages; pageNumber++) {
-                promises.push(pdfDoc.getPage(pageNumber).then(page => renderPage(page, pageNumber)));
+            for (let pageNumber = startPage; pageNumber <= endPage; pageNumber++) {
+                promises.push(renderPage(pageNumber));
             }
             return Promise.all(promises).then(() => {
-                console.log('All pages rendered');
+                console.log('Visible pages rendered');
             });
-        }
-
-        function onZoomIn() {
-            currentScrollOffset = pdfViewerContainer.scrollTop / pdfViewerContainer.scrollHeight;
-            scale += 0.25;
-            renderPages().then(restoreScrollPosition);
-        }
-
-        function onZoomOut() {
-            if (scale <= 0.5) {
-                return;
-            }
-            currentScrollOffset = pdfViewerContainer.scrollTop / pdfViewerContainer.scrollHeight;
-            scale -= 0.25;
-            renderPages().then(restoreScrollPosition);
-        }
-
-        function restoreScrollPosition() {
-            pdfViewerContainer.scrollTop = currentScrollOffset * pdfViewerContainer.scrollHeight;
         }
 
         function updatePageInfo() {
@@ -149,9 +151,10 @@
             loadingIndicator.classList.add('hidden');
         }
 
-        pdfViewerContainer.addEventListener('scroll', updatePageInfo);
+        pdfViewerContainer.addEventListener('scroll', () => {
+            updatePageInfo();
+            renderVisiblePages();
+        });
     </script>
 </body>
 </html>
-
-

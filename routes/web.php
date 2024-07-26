@@ -62,6 +62,9 @@ use App\Http\Controllers\Client\ClientJournalController;
 //    echo "Done";
 // });
 
+Route::get('/expired', function () {
+    return view('auth.expired');
+})->name('expired');
 
 
 

@@ -308,7 +308,8 @@ class NewsCreate extends Component
         // dd($validated);
 
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $news_path = public_path('assets/images/news/'.$filename);
             $news_thumb_path = public_path('assets/images/news/thumb/'.$filename);
@@ -320,7 +321,8 @@ class NewsCreate extends Component
         }
 
         if (!empty($this->file)) {
-            $filename = time() . '_' . $this->file->getClientOriginalName();
+            // $filename = time() . '_' . $this->file->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
             $this->file->storeAs('news', $filename, 'publicForPdf');
             $validated['pdf'] = $filename;
         }

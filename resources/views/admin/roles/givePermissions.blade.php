@@ -1,36 +1,37 @@
-@extends('layouts.default')
+@extends('admin.layouts.admin')
 
 @section('content')
-<div class="bg-white">
+<div class="overflow-hidden bg-white ">
     @if (session('status'))
-    <div class="bg-blue-100 border border-blue-500 text-blue-700 px-4 py-3 relative" role="alert">
+    <div class="relative px-4 py-3 text-blue-700 bg-blue-100 border border-blue-500" role="alert">
         <p>{{ session('status') }}</p>
     </div>
-
     @endif
-    <div class="p-4 border-b border-gray-200">
-        <h4 class="text-lg font-semibold">
-            Role : {{ $role->name }}
-            <a href="{{ url('roles') }}" class="bg-red-500 text-white px-4 rounded-md float-right">
-                Back
-            </a>
-        </h4>
+
+    <div class="p-6 border-b border-gray-200 bg-gray-50">
+        <div class="flex items-center justify-between">
+            <h4 class="text-xl font-semibold text-gray-800">
+                Role:
+                <span class="font-bold text-blue-700 uppercase">{{ $role->name }}</span>
+            </h4>
+        </div>
     </div>
-    <div class="p-4">
-        <form action='{{ url("roles/$role->id/give-permissions") }}' method="POST" class="max-w-3xl mx-auto">
+
+    <div class="p-6 ">
+        <form action='{{ url("admin/roles/$role->id/give-permissions") }}' method="POST" class="w-auto p-4 mx-auto rounded-lg shadow-lg">
             @csrf
             @method('PUT')
 
             <div class="mb-6">
-                <div class="flex gap-10">
-                    <label for="permissions" class="block mb-2 text-lg font-bold">Permissions</label>
-                    <div class="flex items-center gap-2">
-                        <input type="checkbox" id="toggle_all_permissions">
-                        <label for="toggle_all_permissions">Give All Permissions</label>
+                <div class="flex items-center justify-between pb-2 mb-6 border-b">
+                    <label for="permissions" class="text-lg font-bold text-gray-700">Permissions</label>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="toggle_all_permissions" class="w-5 h-5 text-blue-600 form-checkbox">
+                        <label for="toggle_all_permissions" class="ml-2 text-sm text-gray-600">Give All Permissions</label>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-4 gap-4" id="permissionsContainer">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4" id="permissionsContainer">
                     @foreach ($permissions as $permission)
                     <div class="flex items-center">
                         <input
@@ -38,10 +39,10 @@
                             id="permission_{{ $permission->id }}"
                             name="permissions[]"
                             value="{{ $permission->name }}"
-                            class="mr-2 permission-checkbox"
-                            {{ in_array($permission->id, $rolePermissions) ? "checked" : '' }}
+                            class="w-5 h-5 mr-2 text-blue-600 form-checkbox permission-checkbox"
+                            {{ in_array($permission->id, $rolePermissions) ? 'checked' : '' }}
                         >
-                        <label for="permission_{{ $permission->id }}">{{ $permission->name }}</label>
+                        <label for="permission_{{ $permission->id }}" class="text-gray-700">{{ $permission->name }}</label>
                     </div>
                     @endforeach
                 </div>
@@ -72,17 +73,20 @@
                         });
                     });
                 </script>
-
             </div>
 
             <div class="mb-6">
-                <button type="submit" class="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
-                    Save
+                <x-outline-button href="{{ URL::previous() }}">
+                    Go back
+                </x-outline-button>
+                <button type="submit"
+                        class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+
+                        Save
                 </button>
+
             </div>
         </form>
-
-
     </div>
 </div>
 @endsection
