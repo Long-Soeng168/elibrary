@@ -32,7 +32,7 @@ class AdminRoleController extends Controller
                                 ->where('role_has_permissions.role_id', $id)
                                 ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
                                 ->all();
-        return view('role-permission.role.givePermissions', [
+        return view('admin.roles.givePermissions', [
             'role' => $role,
             'permissions' => $permissions,
             'rolePermissions' => $rolePermissions,
