@@ -51,7 +51,8 @@ class LinkEdit extends Component
 
         // Update the existing item record
         if(!empty($this->image)){
-            $filename = time() . '_' . $this->image->getClientOriginalName();
+            // $filename = time() . '_' . $this->image->getClientOriginalName();
+            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
             $image_path = public_path('assets/images/links/'.$filename);
             $imageUpload = Image::make($this->image->getRealPath())->save($image_path);

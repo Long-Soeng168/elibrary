@@ -663,6 +663,14 @@
                                                             </p>
                                                         </div>
                                                         <div class="flex nowrap">
+                                                            <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
+                                                                Start-Expire
+                                                            </p>
+                                                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                                                {{ auth()->user()->expired_at ? auth()->user()->started_at.' => '.auth()->user()->expired_at : 'No Expire' }}
+                                                            </p>
+                                                        </div>
+                                                        <div class="flex nowrap">
                                                             <p
                                                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5">
                                                                 Created At

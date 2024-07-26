@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-white">
     @if (session('status'))
-    <div class="bg-blue-100 border border-blue-500 text-blue-700 px-4 py-3 relative" role="alert">
+    <div class="relative px-4 py-3 text-blue-700 bg-blue-100 border border-blue-500" role="alert">
         <p>{{ session('status') }}</p>
     </div>
 
@@ -11,22 +11,22 @@
     <div class="p-4 border-b border-gray-200">
         <h4 class="text-lg font-semibold">
             Roles
-            @can('create role')
-            <a href="{{ url('roles/create') }}" class="bg-slate-500 text-white px-4 rounded-md float-right">
+            @if(auth()->user()->hasRole('super-admin'))
+            <a href="{{ url('roles/create') }}" class="float-right px-4 text-white rounded-md bg-slate-500">
                 Add Role
             </a>
-            @endcan
+            @endif
         </h4>
     </div>
     <div class="p-4">
         <table class="min-w-full divide-y divide-gray-200">
             <thead>
                 <tr>
-                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
                         ID</th>
-                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase bg-gray-50">
                         Name</th>
-                    <th scope="col" class="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-center text-gray-500 uppercase bg-gray-50">
                         Action</th>
                 </tr>
             </thead>
@@ -35,25 +35,25 @@
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $loop->iteration }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $role->name }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center">
-                        @can('view role')
+                    <td class="px-6 py-4 text-center whitespace-nowrap">
+                        @if(auth()->user()->hasRole('super-admin'))
                         <a href='{{ url("/roles/$role->id/give-permissions") }}'
-                            class="bg-green-600 cursor-pointer hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            class="px-4 py-2 font-bold text-white bg-green-600 rounded cursor-pointer hover:bg-green-700">
                             Permissions
                         </a>
-                        @endcan
-                        @can('update role')
+                        @endif
+                        @if(auth()->user()->hasRole('super-admin'))
                         <a href='{{ url("/roles/$role->id/edit") }}'
-                            class="bg-blue-500 cursor-pointer hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-4">
+                            class="px-4 py-2 mx-4 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
                             Edit
                         </a>
-                        @endcan
-                        @can('delete role')
+                        @endif
+                        @if(auth()->user()->hasRole('super-admin'))
                         <a href='{{ url("/roles/$role->id/delete") }}'
-                            class="bg-red-500 cursor-pointer hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            class="px-4 py-2 font-bold text-white bg-red-500 rounded cursor-pointer hover:bg-red-700">
                             Delete
                         </a>
-                        @endcan
+                        @endif
                     </td>
                 </tr>
                 @endforeach

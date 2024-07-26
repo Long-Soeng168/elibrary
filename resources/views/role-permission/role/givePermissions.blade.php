@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('layouts.default')
 
 @section('content')
 <div class="overflow-hidden bg-white ">
@@ -18,7 +18,7 @@
     </div>
 
     <div class="p-6 ">
-        <form action='{{ url("admin/roles/$role->id/give-permissions") }}' method="POST" class="w-auto p-4 mx-auto rounded-lg shadow-lg">
+        <form action='{{ url("roles/$role->id/give-permissions") }}' method="POST" class="w-auto p-4 mx-auto rounded-lg shadow-lg">
             @csrf
             @method('PUT')
 

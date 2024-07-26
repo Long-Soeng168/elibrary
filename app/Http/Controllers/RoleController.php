@@ -84,6 +84,6 @@ class RoleController extends Controller
         $permissions = $request->only('permissions');
         $role->syncPermissions($permissions);
 
-        return redirect()->back()->with('status', 'Update permissions successfully!');
+        return redirect('/roles')->with('status', 'Update permissions successfully!');
     }
 }

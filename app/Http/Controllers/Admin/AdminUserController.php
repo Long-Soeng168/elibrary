@@ -138,7 +138,7 @@ class AdminUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'roles' => ['required'],
             'started_at' => 'nullable|date',
-            'expired_at' => 'nullable|date|after:started_at',
+            'expired_at' => 'nullable|date',
         ]);
 
         $user->update([
