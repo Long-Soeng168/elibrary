@@ -261,7 +261,11 @@
                                 {{ __('messages.major') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->major?->name_kh : $item->major?->name }}
+                                @if (app()->getLocale() == 'kh')
+                                    {{ $item->major?->name_kh ? $item->major?->name_kh : $item->major?->name }}
+                                @else
+                                    {{ $item->major?->name ? $item->major?->name : '' }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -369,7 +373,11 @@
                                 {{ __('messages.language') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->language?->name_kh : $item->language?->name }}
+                                @if (app()->getLocale() == 'kh')
+                                    {{ $item->language?->name_kh ? $item->language?->name_kh : $item->language?->name }}
+                                @else
+                                    {{ $item->language?->name ? $item->language?->name : '' }}
+                                @endif
                             </p>
                         </div>
                     @endif
