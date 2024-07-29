@@ -49,7 +49,7 @@ class DashboardController extends Controller
         $label = [];
         $data = [];
 
-        $menu_databases = Database::where('status', 1)->orderBy('id', 'ASC')->get() ?? new Database;
+        $menu_databases = Database::where('status', 1)->orderBy('order_index', 'ASC')->get() ?? new Database;
 
         foreach($menu_databases as $database){
             if($database->type == 'slug' && $database->status){
