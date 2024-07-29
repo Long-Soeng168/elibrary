@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
                     <a href="{{ asset('assets/images/news/' . $item->image) }}" class="glightbox">
-                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border shadow"
+                        <img class="w-full bg-white border rounded-md shadow cursor-pointer"
                             src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Book Cover" />
                     </a>
                     @else

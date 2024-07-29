@@ -31,7 +31,10 @@ class AppServiceProvider extends ServiceProvider
         $menu_databases = Database::where('status', 1)->orderBy('order_index', 'ASC')->get() ?? new Database;
         View::share('menu_databases', $menu_databases);
 
-        $menu_database_default = Database::where([['status', 1], ['type', 'slug']])->orderBy('order_index', 'ASC')->first() ?? new Database;
+        $menu_database_default = new Database;
+        $menu_database_default['name'] = 'All';
+        $menu_database_default['name_kh'] = 'ទាំងអស់';
+        $menu_database_default['slug'] = 'one_search';
         View::share('menu_database_default', $menu_database_default);
 
         $footer = Footer::first() ?? new Footer;

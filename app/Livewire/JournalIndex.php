@@ -146,6 +146,7 @@ class JournalIndex extends Component
                          ->orWhere('description', 'LIKE', "%{$this->search}%")
                          ->orWhere('keywords', 'LIKE', "%{$this->search}%")
                          ->orWhere('isbn', 'LIKE', "%{$this->search}%")
+                         ->orWhere('published_date', 'LIKE', "%{$this->search}%")
                          ->orWhereHas('author', function ($q) {
                              $q->where('name', 'LIKE', "%{$this->search}%");
                          })

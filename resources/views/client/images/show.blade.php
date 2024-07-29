@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
                         <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md shadow glightbox">
-                            <img class="object-cover w-full h-auto border cursor-pointer"
+                            <img class="w-full h-auto border cursor-pointer "
                                 src="{{ asset('assets/images/images/thumb/'.$item->image) }}" alt="Book Cover" />
                         </a>
                     @else

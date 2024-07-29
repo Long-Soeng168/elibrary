@@ -191,6 +191,7 @@ Route::group([
     'middleware' => 'setLang',
 ], function () {
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/one_search', [HomeController::class, 'oneSearch']);
     Route::get('/client_login/{path}', [HomeController::class, 'clientLogin'])->name('client.login');
     Route::post('/client_login/{path}', [HomeController::class, 'clientLoginStore'])->name('client.login.store');
     Route::get('/menu/{id}', [HomeController::class, 'menu']);
