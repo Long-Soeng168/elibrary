@@ -47,22 +47,39 @@ class DashboardController extends Controller
         $authorsCount = Author::count();
 
         $label = [];
-        $data = [
-            $publicationsCount,
-            $videosCount,
-            $imagesCount,
-            $audiosCount,
-            $bulletinsCount,
-            $thesesCount,
-            $journalsCount,
-            $articlesCount,
-        ];
+        $data = [];
 
         $menu_databases = Database::where('status', 1)->orderBy('id', 'ASC')->get() ?? new Database;
 
         foreach($menu_databases as $database){
             if($database->type == 'slug' && $database->status){
                 $label[] = $database->name;
+                switch ($database->slug) {
+                    case 'publications':
+                        $data[] = $publicationsCount;
+                        break;
+                    case 'videos':
+                        $data[] = $videosCount;
+                        break;
+                    case 'images':
+                        $data[] = $imagesCount;
+                        break;
+                    case 'audios':
+                        $data[] = $audiosCount;
+                        break;
+                    case 'bulletins':
+                        $data[] = $bulletinsCount;
+                        break;
+                    case 'theses':
+                        $data[] = $thesesCount;
+                        break;
+                    case 'journals':
+                        $data[] = $journalsCount;
+                        break;
+                    case 'articles':
+                        $data[] = $articlesCount;
+                        break;
+                }
             }
         }
 
