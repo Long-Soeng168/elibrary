@@ -308,7 +308,7 @@ class VideoEdit extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'duration' => 'nullable|integer|min:1',
+            'duration' => 'nullable',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
             'video_category_id' => 'nullable',

@@ -1,6 +1,6 @@
 <div>
     <!-- Search -->
-    <div class="p-2 bg-gradient-to-r from-primary to-transparent" id="top-title">
+    <div class="p-2 bg-gradient-to-r from-primary to-transparent"  id="top-title">
         <div class="max-w-screen-xl mx-auto">
             <form class="w-full " action="{{ url('/theses') }}">
                 <div class="flex flex-wrap gap-2">
@@ -51,23 +51,11 @@
                                 d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <!-- Dropdown menu -->
+                    {{-- <!-- Dropdown menu -->
                     <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
                         <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
                             @forelse ($categories as $category)
-                                <li class="hover:underline" wire:key="{{ $category->id }}">
-                                    <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
-                                        <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
-                                        <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
-                                            @if (app()->getLocale() == 'kh' && $category->name_kh)
-                                            {{ $category->name_kh }}
-                                            @else
-                                            {{ $category->name }}
-                                            @endif
-                                        </label>
-                                    </div>
-                                </li>
-                                {{-- @if (count($category->subCategories) < 1)
+                                @if (count($category->subCategories) < 1)
                                     <li class="hover:underline" wire:key="{{ $category->id }}">
                                         <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                             <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
@@ -130,12 +118,12 @@
                                             </ul>
                                         </div>
                                     </li>
-                                @endif --}}
+                                @endif
                             @empty
                                 <li class="py-2 text-center">No categories available</li>
                             @endforelse
                         </ul>
-                    </div>
+                    </div> --}}
 
 
                     <div class="flex flex-1">
@@ -158,12 +146,12 @@
     </div>
     <!-- End Search -->
 
-    <div class="max-w-screen-xl grid-cols-12 gap-4 px-2 mx-auto lg:grid xl:px-0">
+    <div class="max-w-screen-xl grid-cols-12 px-2 mx-auto lg:grid xl:px-0">
         <!-- Start Database -->
-        <div wire:ignore id="accordion-collapse" data-accordion="collapse" class="col-span-2 mt-6">
+        <div wire:ignore id="accordion-collapse" data-accordion="collapse" class="col-span-1 mt-6">
             <h2 id="accordion-collapse-heading-2" >
                 <button
-                    class="flex items-center justify-between w-full gap-2 px-2 py-[3px] mb-4 border bg-inherit"
+                    class="flex items-center justify-between w-full gap-2 px-2 py-[3px] mb-4 border bg-inherit lg:hidden"
                     data-accordion-target="#accordion-collapse-body-2" aria-expanded="true"
                     aria-controls="accordion-collapse-body-2">
                     <p class="text-lg font-bold text-gray-700 uppercase dark:text-gray-200">
@@ -176,7 +164,7 @@
                     </svg>
                 </button>
             </h2>
-            <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+            <div id="accordion-collapse-body-2" class="hidden lg:block" aria-labelledby="accordion-collapse-heading-2">
                 <div>
                     <!-- Icon Blocks -->
                     <div class="">
@@ -185,13 +173,13 @@
                                 @if ($database->type == 'slug')
                                     <a class="{{ request()->is($database->slug) ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
                                     href="{{ url('/' . $database->slug) }}">
-                                        <div class="flex items-center justify-center object-contain w-20 aspect-square rounded-xl">
+                                        <div class="flex items-center justify-center object-contain w-12 aspect-square rounded-xl">
                                             <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt=""
                                                 class="object-contain w-full" />
                                         </div>
                                         <div class="mt-1">
                                             <h3
-                                                class="font-semibold text-center text-gray-800 group-hover:text-gray-600 text-md lg:text-lg dark:text-gray-300 dark:group-hover:text-gray-50">
+                                                class="text-sm text-center text-gray-800 group-hover:text-gray-600 dark:text-gray-300 dark:group-hover:text-gray-50">
                                                 @if (app()->getLocale() == 'kh' && $database->name_kh)
                                                 {{ $database->name_kh }}
                                                 @else
@@ -215,10 +203,10 @@
         <!-- End Database -->
 
         <!-- Items -->
-        <div class="col-span-10">
+        <div class="col-span-11 lg:pl-4">
             <div class="max-w-screen-xl mx-auto mt-6">
                 <div class="flex justify-between px-2 py-1 bg-primary">
-                    <p class="text-lg text-white capitalize" >
+                    <p class="text-lg text-white capitalize">
                         {{ __('messages.theses') }}
                     </p>
                 </div>
@@ -288,16 +276,16 @@
                 @endif
 
                 <div
-                    class="grid grid-cols-2 gap-2 py-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-6">
+                    class="grid grid-cols-2 gap-2 py-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 sm:gap-2 md:gap-4 lg:gap-6">
                     <!-- Card -->
                     @forelse ($items as $index => $item)
 
                         <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('theses/'.$item->id) }}">
                             <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
                                 @if ($item->image)
-                                    <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                    src="{{ asset('assets/images/theses/thumb/'.$item->image) }}"
-                                    alt="Image Description" />
+                                        <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                        src="{{ asset('assets/images/theses/thumb/'.$item->image) }}"
+                                        alt="Image Description" />
                                 @else
                                     <img class="w-full aspect-[6/9] p-6 group-hover:scale-110 transition-transform duration-500 dark:bg-gray-300 ease-in-out object-contain rounded-md"
                                     src="{{ asset('assets/icons/no-image.png') }}"
@@ -336,11 +324,11 @@
                     </label>
                     <select id="countries" wire:model.live='perPage'
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="6">6</option>
-                        <option value="12" {{ $perPage == 12 ? 'checked' : '' }}>12</option>
-                        <option value="24">24</option>
-                        <option value="48">48</option>
-                        <option value="96">96</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
                     </select>
                 </div>
 
@@ -351,6 +339,9 @@
         </div>
     </div>
 @script
+            $wire.on('livewire:updatedPage', () => {
+                window.location.reload();
+            });
 <script>
 
 $wire.on('livewire:updatedName', function(name) {
@@ -369,7 +360,7 @@ $wire.on('livewire:updatedName', function(name) {
     let removedName = name[0];
     uncheckSpecificText(removedName);
 
-    // console.log(removedName);
+    console.log(removedName);
     // console.log('updated');
 });
 
@@ -387,6 +378,7 @@ $wire.on('livewire:updatedClearAllFilter', function(event) {
     // console.log(removedName);
     // console.log('updated');
 });
+
 $wire.on('livewire:updatedPage', function(event) {
     const topTitleElement = document.getElementById('top-title');
     if (topTitleElement) {

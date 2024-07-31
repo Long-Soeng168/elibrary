@@ -185,7 +185,8 @@
                                 {{ __('messages.duration') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ $item->duration }} {{ __('messages.minutes') }}
+                                {{ $item->duration }}
+                                {{-- {{ __('messages.minutes') }} --}}
                             </p>
                         </div>
                     @endif

@@ -147,63 +147,63 @@
     <!-- End Search -->
 
     <div class="max-w-screen-xl grid-cols-12 gap-4 px-2 mx-auto lg:grid xl:px-0">
-        <!-- Start Database -->
-        <div wire:ignore id="accordion-collapse" data-accordion="collapse" class="col-span-2 mt-6">
-            <h2 id="accordion-collapse-heading-2" >
-                <button
-                    class="flex items-center justify-between w-full gap-2 px-2 py-[3px] mb-4 border bg-inherit"
-                    data-accordion-target="#accordion-collapse-body-2" aria-expanded="true"
-                    aria-controls="accordion-collapse-body-2">
-                    <p class="text-lg font-bold text-gray-700 uppercase dark:text-gray-200">
-                        {{ __('messages.databases') }}
-                    </p>
-                    <svg data-accordion-icon class="w-4 h-4 text-gray-700 rotate-180 shrink-0 dark:text-gray-300"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 5 5 1 1 5" />
-                    </svg>
-                </button>
-            </h2>
-            <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
-                <div>
-                    <!-- Icon Blocks -->
-                    <div class="">
-                        <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-1">
-                            @forelse ($menu_databases as $index => $database)
-                                @if ($database->type == 'slug')
-                                    <a class="{{ request()->is($database->slug) ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
-                                    href="{{ url('/' . $database->slug) }}">
-                                        <div class="flex items-center justify-center object-contain w-20 aspect-square rounded-xl">
-                                            <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt=""
-                                                class="object-contain w-full" />
-                                        </div>
-                                        <div class="mt-1">
-                                            <h3
-                                                class="font-semibold text-center text-gray-800 group-hover:text-gray-600 text-md lg:text-lg dark:text-gray-300 dark:group-hover:text-gray-50">
-                                                @if (app()->getLocale() == 'kh' && $database->name_kh)
-                                                {{ $database->name_kh }}
-                                                @else
-                                                {{ $database->name }}
-                                                @endif
-                                            </h3>
-                                        </div>
-                                    </a>
-                                @endif
-                            @empty
-                            <p class="py-4">{{ __('messages.noData') }}...</p>
-                            @endforelse
+<!-- Start Database -->
+<div wire:ignore id="accordion-collapse" data-accordion="collapse" class="col-span-1 mt-6">
+    <h2 id="accordion-collapse-heading-2" >
+        <button
+            class="flex items-center justify-between w-full gap-2 px-2 py-[3px] mb-4 border bg-inherit lg:hidden"
+            data-accordion-target="#accordion-collapse-body-2" aria-expanded="true"
+            aria-controls="accordion-collapse-body-2">
+            <p class="text-lg font-bold text-gray-700 uppercase dark:text-gray-200">
+                {{ __('messages.databases') }}
+            </p>
+            <svg data-accordion-icon class="w-4 h-4 text-gray-700 rotate-180 shrink-0 dark:text-gray-300"
+                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5 5 1 1 5" />
+            </svg>
+        </button>
+    </h2>
+    <div id="accordion-collapse-body-2" class="hidden lg:block" aria-labelledby="accordion-collapse-heading-2">
+        <div>
+            <!-- Icon Blocks -->
+            <div class="">
+                <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-1">
+                    @forelse ($menu_databases as $index => $database)
+                        @if ($database->type == 'slug')
+                            <a class="{{ request()->is($database->slug) ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
+                            href="{{ url('/' . $database->slug) }}">
+                                <div class="flex items-center justify-center object-contain w-12 aspect-square rounded-xl">
+                                    <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt=""
+                                        class="object-contain w-full" />
+                                </div>
+                                <div class="mt-1">
+                                    <h3
+                                        class="text-sm text-center text-gray-800 group-hover:text-gray-600 dark:text-gray-300 dark:group-hover:text-gray-50">
+                                        @if (app()->getLocale() == 'kh' && $database->name_kh)
+                                        {{ $database->name_kh }}
+                                        @else
+                                        {{ $database->name }}
+                                        @endif
+                                    </h3>
+                                </div>
+                            </a>
+                        @endif
+                    @empty
+                    <p class="py-4">{{ __('messages.noData') }}...</p>
+                    @endforelse
 
 
-                        </div>
-                    </div>
-                    <!-- End Icon Blocks -->
                 </div>
             </div>
+            <!-- End Icon Blocks -->
         </div>
-        <!-- End Database -->
+    </div>
+</div>
+<!-- End Database -->
 
         <!-- Items -->
-        <div class="col-span-10">
+        <div class="col-span-11 lg:pl-4">
             <div class="max-w-screen-xl mx-auto mt-6">
                 <div class="flex justify-between px-2 py-1 bg-primary">
                     <p class="text-lg text-white capitalize" >
