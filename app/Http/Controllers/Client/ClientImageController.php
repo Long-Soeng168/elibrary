@@ -42,6 +42,9 @@ class ClientImageController extends Controller
 
         // Find the main Image item
         $item = Image::findOrFail($id);
+        $item->update([
+            'read_count' => $item->read_count + 1,
+        ]);
 
         // Retrieve images related to the Image
         $multi_images = ImageImage::where('image_id', $id)
