@@ -183,7 +183,13 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->student?->name ? $item->student?->name : 'N/A' }} {{ $item->student_name ? $item->student_name : '' }}
+                                @if ($item->student?->name)
+                                    {{ $item->student?->name }}
+                                @elseif ($item->student_name)
+                                    {{ $item->student_name }}
+                                @else
+                                    NA
+                                @endif
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />
