@@ -309,7 +309,7 @@
                                     @endif
                                 </h2>
                                 <ul class="mb-8 font-medium dark:text-gray-400">
-                                    <li class="mb-4">
+                                    <li class="mb-4 no-tailwind">
                                         {{-- <p>
                                             Building (5th Floor), St,National Assembly, Sangkat
                                             Tonle Basac, Khan Chamka Mon, Phnom Penh, Cambodia
