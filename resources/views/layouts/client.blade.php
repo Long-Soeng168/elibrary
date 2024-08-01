@@ -89,7 +89,7 @@
    {{-- End PWA --}}
 </head>
 
-<body class="w-full overflow-x-hidden dark:bg-gray-800 {{ app()->getLocale() == 'kh' ? 'font-siemreap' : 'font-poppins' }}">
+<body class="w-full overflow-x-hidden leading-7 dark:bg-gray-800 {{ app()->getLocale() == 'kh' ? 'font-siemreap' : 'font-poppins' }}">
     @include('components.success-message')
     <!-- Head -->
     <div>

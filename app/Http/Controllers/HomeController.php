@@ -17,6 +17,7 @@ use App\Models\News;
 use App\Models\Menu;
 use Image as ImageCompress;
 use DB;
+use Illuminate\Support\Facades\Schema;
 
 class HomeController extends Controller
 {
@@ -46,14 +47,14 @@ class HomeController extends Controller
         // return ($items);
 
         $slides = Slide::latest()->get();
-        $publications = Publication::latest()->limit(12)->get();
+        $publications = Publication::latest()->limit(10)->get();
         $videos = Video::latest()->limit(8)->get();
         $images = Image::latest()->limit(8)->get();
         $audios = Audio::latest()->limit(8)->get();
         $bulletins = News::latest()->limit(8)->get();
-        $theses = Thesis::latest()->limit(12)->get();
-        $journals = Journal::latest()->limit(12)->get();
-        $articles = Article::latest()->limit(12)->get();
+        $theses = Thesis::latest()->limit(10)->get();
+        $journals = Journal::latest()->limit(10)->get();
+        $articles = Article::latest()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
             'publications' => $publications,
@@ -67,165 +68,65 @@ class HomeController extends Controller
         ]);
     }
 
-    public function oneSearch(Request $request){
+    public function oneSearch(Request $request)
+    {
         $search = $request->input('search');
+        $searchableFields = ['name', 'description', 'keywords'];
+        $models = [
+            'publications' => Publication::class,
+            'videos' => Video::class,
+            'images' => Image::class,
+            'audios' => Audio::class,
+            'bulletins' => News::class,
+            'theses' => Thesis::class,
+            'journals' => Journal::class,
+            'articles' => Article::class,
+        ];
+        $limitMapping = [
+            'publications' => 10,
+            'videos' => 8,
+            'images' => 8,
+            'audios' => 8,
+            'bulletins' => 8,
+            'theses' => 10,
+            'journals' => 10,
+            'articles' => 10,
+        ];
+        $results = [];
 
-        $publications = Publication::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('isbn', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(12)->get();
-        $videos = Video::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(8)->get();
-        $images = Image::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(8)->get();
-        $audios = Audio::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(8)->get();
-        $bulletins = News::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(8)->get();
-        $theses = Thesis::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('published_date', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(12)->get();
-        $journals = Journal::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('published_date', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(12)->get();
-        $articles = Article::when($search, function($subQuery) use ($search){
-            $subQuery->where('name', 'LIKE', "%{$search}%")
-                         ->orWhere('description', 'LIKE', "%{$search}%")
-                         ->orWhere('keywords', 'LIKE', "%{$search}%")
-                         ->orWhere('year', 'LIKE', "%{$search}%")
-                         ->orWhereHas('author', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('publisher', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('language', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         })
-                         ->orWhereHas('location', function ($q) use ($search) {
-                             $q->where('name', 'LIKE', "%{$search}%");
-                         });
-        })->latest()->limit(12)->get();
-        return view('client.one_search', [
-            'publications' => $publications,
-            'videos' => $videos,
-            'images' => $images,
-            'audios' => $audios,
-            'bulletins' => $bulletins,
-            'theses' => $theses,
-            'journals' => $journals,
-            'articles' => $articles,
-        ]);
+        foreach ($models as $key => $model) {
+            $results[$key] = $model::when($search, function($query) use ($search, $searchableFields, $model) {
+                foreach ($searchableFields as $field) {
+                    if (Schema::hasColumn((new $model)->getTable(), $field)) {
+                        $query->orWhere($field, 'LIKE', "%{$search}%");
+                    }
+                }
+                // Check for 'year' column
+                if (Schema::hasColumn((new $model)->getTable(), 'year')) {
+                    $query->orWhere('year', 'LIKE', "%{$search}%");
+                }
+                // Check for 'published_date' column
+                if (Schema::hasColumn((new $model)->getTable(), 'published_date')) {
+                    $query->orWhere('published_date', 'LIKE', "%{$search}%");
+                }
+                $query->orWhereHas('author', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%");
+                })
+                ->orWhereHas('publisher', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%");
+                })
+                ->orWhereHas('language', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%");
+                })
+                ->orWhereHas('location', function ($q) use ($search) {
+                    $q->where('name', 'LIKE', "%{$search}%");
+                });
+            })->latest()->limit($limitMapping[$key])->get();
+        }
+
+        return view('client.one_search', $results);
     }
+
 
     public function clientLogin($path){
         return view('client.client_login', [

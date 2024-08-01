@@ -51,11 +51,23 @@
                                 d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    {{-- <!-- Dropdown menu -->
+                    <!-- Dropdown menu -->
                     <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
                         <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
                             @forelse ($categories as $category)
-                                @if (count($category->subCategories) < 1)
+                                <li class="hover:underline" wire:key="{{ $category->id }}">
+                                    <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
+                                        <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
+                                        <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
+                                            @if (app()->getLocale() == 'kh' && $category->name_kh)
+                                            {{ $category->name_kh }}
+                                            @else
+                                            {{ $category->name }}
+                                            @endif
+                                        </label>
+                                    </div>
+                                </li>
+                                {{-- @if (count($category->subCategories) < 1)
                                     <li class="hover:underline" wire:key="{{ $category->id }}">
                                         <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                             <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
@@ -118,12 +130,12 @@
                                             </ul>
                                         </div>
                                     </li>
-                                @endif
+                                @endif --}}
                             @empty
                                 <li class="py-2 text-center">No categories available</li>
                             @endforelse
                         </ul>
-                    </div> --}}
+                    </div>
 
 
                     <div class="flex flex-1">
