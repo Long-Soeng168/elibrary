@@ -127,8 +127,8 @@ class ThesisTableData extends Component
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
-        $types = Category::latest()->get();
-        $selectedType = Category::find($this->filter);
+        $types = Type::latest()->get();
+        $selectedType = Type::find($this->filter);
 
         return view('livewire.thesis-table-data', [
             'items' => $items,

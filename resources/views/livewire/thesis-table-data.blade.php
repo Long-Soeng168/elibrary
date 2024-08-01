@@ -54,7 +54,7 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <p class="w-full text-left line-clamp-1">
-                            {{ $selectedType ? $selectedType->name : 'Categories' }}
+                            {{ $selectedType ? $selectedType->name : 'Types' }}
                         </p>
                         <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -63,13 +63,13 @@
                         </svg>
                     </button>
                     <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Categories</h6>
+                        <h6 class="mb-3 text-sm font-bold text-gray-900 dark:text-white">Filter by Types</h6>
                         <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                             <li class="flex items-center">
                                 <button wire:click="setFilter(0)">
                                     <label for="apple"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 {{ $filter == 0 ? 'underline' : '' }}">
-                                        All Category
+                                        All Type
                                     </label>
                                 </button>
                             </li>
