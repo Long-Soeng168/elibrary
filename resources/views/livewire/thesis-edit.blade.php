@@ -84,7 +84,7 @@
             </div>
 
         </div>
-        <div class="grid gap-5 mb-5 lg:grid-cols-3 lg:gap-6">
+        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
             <!-- Start Pages -->
             <div>
                 <x-input-label for="pages_count" :value="__('Pages')" />
@@ -105,12 +105,12 @@
             <!-- End Edition -->
 
              <!-- Start isbn -->
-             <div>
+             {{-- <div>
                 <x-input-label for="isbn" :value="__('ISBN')" />
                 <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
                     placeholder="ISBN" />
                 <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
-            </div>
+            </div> --}}
             <!-- End isbn -->
         </div>
         <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">

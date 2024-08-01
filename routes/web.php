@@ -176,6 +176,30 @@ Route::group([
 |--------------------------------------------------------------------------
 */
 
+/*
+|--------------------------------------------------------------------------
+| Start Koha Routes
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\KohaSearchController;
+
+Route::get('/search', [KohaSearchController::class, 'search']);
+Route::view('/search-form', 'search');
+
+use App\Http\Controllers\KohaController;
+
+Route::get('/biblios', [KohaController::class, 'getBiblios']);
+
+
+/*
+|--------------------------------------------------------------------------
+| End Koha Routes
+|--------------------------------------------------------------------------
+*/
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -191,6 +215,7 @@ Route::group([
     'middleware' => 'setLang',
 ], function () {
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/one_search', [HomeController::class, 'oneSearch']);
     Route::get('/client_login/{path}', [HomeController::class, 'clientLogin'])->name('client.login');
     Route::post('/client_login/{path}', [HomeController::class, 'clientLoginStore'])->name('client.login.store');
     Route::get('/menu/{id}', [HomeController::class, 'menu']);

@@ -285,7 +285,7 @@ class VideoCreate extends Component
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
             'file' => 'nullable|file|max:20480',
-            'duration' => 'nullable|integer|min:1',
+            'duration' => 'nullable',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
             'video_category_id' => 'nullable|exists:video_categories,id',

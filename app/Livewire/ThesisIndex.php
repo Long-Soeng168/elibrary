@@ -97,7 +97,7 @@ class ThesisIndex extends Component
     #[Url(history: true)]
     public $search = '';
 
-    public $perPage = 24;
+    public $perPage = 25;
 
     use WithPagination;
     public function updatingPage(){
@@ -146,6 +146,7 @@ class ThesisIndex extends Component
                          ->orWhere('description', 'LIKE', "%{$this->search}%")
                          ->orWhere('keywords', 'LIKE', "%{$this->search}%")
                          ->orWhere('isbn', 'LIKE', "%{$this->search}%")
+                         ->orWhere('published_date', 'LIKE', "%{$this->search}%")
                          ->orWhereHas('author', function ($q) {
                              $q->where('name', 'LIKE', "%{$this->search}%");
                          })

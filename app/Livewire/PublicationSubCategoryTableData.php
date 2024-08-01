@@ -75,7 +75,7 @@ class PublicationSubCategoryTableData extends Component
                  'publication_category_id' => $this->new_category_id,
              ]);
 
-             session()->flash('success', 'Add new Sub-Category successfully!');
+             return redirect('admin/publications_sub_categories')->with('success', 'Add new Sub-Category successfully!');
 
              $this->reset(['newName', 'newName_kh', 'new_category_id']);
 
