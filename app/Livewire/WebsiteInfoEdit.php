@@ -99,7 +99,7 @@ class WebsiteInfoEdit extends Component
         }
 
         if(!empty($this->banner)){
-            $old_path = public_path('assets/images/website_infos/' . $this->item->image);
+            $old_path = public_path('assets/images/website_infos/' . $this->item->banner);
             if (File::exists($old_path)) {
                 File::delete($old_path);
             }
