@@ -133,7 +133,7 @@
                         @forelse ($publications as $item)
                             <a class="block group" href="{{ url('/publications/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full border aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
                                         alt="Image Description" />
                                 </div>
@@ -182,7 +182,7 @@
                         @forelse ($videos as $item)
                             <a class="block group" href="{{ url('/videos/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
+                                    <img class="w-full aspect-[{{ env('VIDEO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
                                         src="{{ asset('assets/images/videos/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
@@ -231,7 +231,7 @@
                         @forelse ($images as $item)
                             <a class="block group" href="{{ url('/images/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
+                                    <img class="w-full aspect-[{{ env('IMAGE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
                                         src="{{ asset('assets/images/images/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
@@ -281,10 +281,10 @@
                             <a class="block group" href="{{ url('/audios/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-gray-800">
                                     @if ($item->image)
-                                        <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
+                                        <img class="w-full aspect-[{{ env('AUDIO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
                                         src="{{ asset('assets/images/audios/thumb/' . $item->image) }}" alt="Image Description" />
                                     @else
-                                        <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-contain p-8 rounded-md border"
+                                        <img class="w-full aspect-[{{ env('AUDIO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-contain p-8 rounded-md border"
                                         src="{{ asset('assets/icons/audio_placeholder.png') }}" alt="Image Description" />
                                     @endif
 
@@ -335,7 +335,7 @@
                         @forelse ($bulletins as $item)
                             <a class="block group" href="{{ url('/bulletins/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full border aspect-[{{ env('BULLETIN_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
@@ -384,7 +384,7 @@
                         @forelse ($theses as $item)
                             <a class="block group" href="{{ url('/theses/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full border aspect-[{{ env('THESIS_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/theses/thumb/' . $item->image) }}" alt="Image Description" />
                                 </div>
 
@@ -433,7 +433,7 @@
                         @forelse ($journals as $item)
                             <a class="block group" href="{{ url('/journals/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full border aspect-[{{ env('JOURNAL_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/journals/thumb/' . $item->image) }}"
                                         alt="Image Description" />
                                 </div>
@@ -483,7 +483,7 @@
                         @forelse ($articles as $item)
                             <a class="block group" href="{{ url('/articles/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
-                                    <img class="w-full border aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full border aspect-[{{ env('ARTICLE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                         src="{{ asset('assets/images/articles/thumb/' . $item->image) }}"
                                         alt="Image Description" />
                                 </div>

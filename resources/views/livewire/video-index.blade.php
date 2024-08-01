@@ -283,11 +283,11 @@
                         <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('videos/'.$item->id) }}">
                             <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
                                 @if ($item->image)
-                                    <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    <img class="w-full aspect-[{{ env('VIDEO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
                                     src="{{ asset('assets/images/videos/thumb/'.$item->image) }}"
                                     alt="Image Description" />
                                 @else
-                                    <img class="w-full aspect-[16/9] p-6 group-hover:scale-110 transition-transform duration-500 dark:bg-gray-300 ease-in-out object-contain rounded-md"
+                                    <img class="w-full aspect-[{{ env('VIDEO_ASPECT') }}] p-6 group-hover:scale-110 transition-transform duration-500 dark:bg-gray-300 ease-in-out object-contain rounded-md"
                                     src="{{ asset('assets/icons/no-image.png') }}"
                                     alt="Image Description" />
                                 @endif
