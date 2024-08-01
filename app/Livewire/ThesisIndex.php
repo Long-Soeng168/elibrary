@@ -135,7 +135,7 @@ class ThesisIndex extends Component
             });
         }elseif(!empty($this->selected_categories) && !empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
-                $subQuery->whereIn('thesis_category_id', $this->selected_categories)
+                $subQuery->whereIn('major_id', $this->selected_categories)
                          ->orWhereIn('thesis_sub_category_id', $this->selected_sub_categories);
             });
         }
