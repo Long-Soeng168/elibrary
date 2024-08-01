@@ -23,6 +23,7 @@ class WebsiteInfoEdit extends Component
     public $primary_hover;
     public $banner_color;
     public $show_bg_menu;
+    public $pdf_viewer_default;
 
     public $description;
     public $description_kh;
@@ -36,6 +37,7 @@ class WebsiteInfoEdit extends Component
         $this->primary_hover = $item->primary_hover;
         $this->banner_color = $item->banner_color;
         $this->show_bg_menu = (bool) $item->show_bg_menu;
+        $this->pdf_viewer_default = (bool) $item->pdf_viewer_default;
     }
 
     public function updatedImage()
@@ -64,6 +66,7 @@ class WebsiteInfoEdit extends Component
             'primary_hover' => 'required|max:255',
             'banner_color' => 'required|max:255',
             'show_bg_menu' => 'required|boolean',
+            'pdf_viewer_default' => 'required|boolean',
         ]);
 
 

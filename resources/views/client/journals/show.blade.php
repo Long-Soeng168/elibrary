@@ -61,12 +61,21 @@
                                 @if (!$item->can_read && !auth()->check())
                                  href="{{ route('client.login', ['path' => 'journals-'.$item->id]) }}"
                                 @else
-                                href="{{ route('pdf.view', [
-                                        'archive' => 'journal',
-                                        'id' => $item->id,
-                                        'file_name' => $item->pdf
-                                    ])
-                                }}"
+                                    @if ($websiteInfo->pdf_viewer_default == 1)
+                                        href="{{ route('pdf.stream', [
+                                                'archive' => 'journal',
+                                                'id' => $item->id,
+                                                'file_name' => $item->pdf
+                                            ])
+                                        }}"
+                                    @else
+                                        href="{{ route('pdf.view', [
+                                                'archive' => 'journal',
+                                                'id' => $item->id,
+                                                'file_name' => $item->pdf
+                                            ])
+                                        }}"
+                                    @endif
                                 @endif
 
                                 class="relative inline-flex items-center justify-center w-full h-full gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
