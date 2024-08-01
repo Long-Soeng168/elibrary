@@ -123,7 +123,7 @@ class ThesisTableData extends Component
                                     ->orWhere('isbn', 'LIKE', "%$this->search%");
                             })
                             ->when($this->filter != 0, function($query){
-                                $query->where('thesis_category_id', $this->filter);
+                                $query->where('major_id', $this->filter);
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
