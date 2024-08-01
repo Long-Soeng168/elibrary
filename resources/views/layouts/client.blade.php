@@ -95,7 +95,7 @@
     <div>
         <div class="relative w-full bg-bannerColor xl:px-0">
             <a href="/">
-                <img class="mx-auto w-full max-h-[300px] object-cover"
+                <img class="mx-auto w-full max-h-[350px] object-cover"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
@@ -187,17 +187,17 @@
 
                                         </li>
                                         <li
-                                            class="transition-all hover:underline underline-offset-4 ">
+                                            class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
                                             <a href="{{ url('/logout') }}" {{-- <a href="{{ url('/logout') }}" --}}
-                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 ">
                                                 {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
                                             </a>
                                         </li>
                                     @else
                                         <li
-                                            class="transition-all hover:underline underline-offset-4 ">
+                                            class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
                                             <a href="{{ url('/login') }}"
-                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 ">
                                                 {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
                                             </a>
                                         </li>
@@ -249,23 +249,34 @@
                     @empty
                     @endforelse
 
-                    <li>
-                        @if (auth()->check())
+                    @if (auth()->check())
+                        <li>
                             <a href="{{ url('/admin/dashboard') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <span class="ms-3">
                                     {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
                                 </span>
                             </a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/logout') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <span class="ms-3">
+                                    {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
+                                </span>
+                            </a>
+                        </li>
                         @else
+                        <li>
                             <a href="{{ url('/login') }}"
                                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <span class="ms-3">
                                     {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
                                 </span>
                             </a>
+                        </li>
+
                         @endif
-                    </li>
                 </ul>
             </div>
         </aside>
@@ -282,13 +293,13 @@
             <footer class="m-2 xl:m-0">
                 <div class="w-full max-w-screen-xl py-6 mx-auto lg:py-8">
                     <div class="min-[1300px]:flex md:justify-between">
-                        <div class="mb-6 min-[1300px]:mb-0">
+                        {{-- <div class="mb-6 min-[1300px]:mb-0">
                             <a href="#" class="flex items-center">
                                 <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
                                     class="h-24 max-w-[250px] object-contain me-3 rounded-md" alt="Logo" />
                             </a>
-                        </div>
-                        <div class="justify-between gap-6 lg:flex lg:gap-20">
+                        </div> --}}
+                        <div class="justify-between w-full gap-6 lg:flex lg:gap-20">
                             <div class="max-w-[500px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
                                     @if (app()->getLocale() == 'kh' && $footer->name_kh)
@@ -316,15 +327,21 @@
                             </div>
                             <div id="add-to-home-screen">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download App' }}
+                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download (App) NEC Library' }}
                                 </h2>
-                                <ul class="mb-8 font-medium dark:text-gray-400">
+                                <ul class="flex gap-4 mb-8 font-medium dark:text-gray-400">
                                     <li class="mb-4">
                                         <button type="button"
-                                            class="bg-transparent hover:bg-white dark:hover:bg-gray-400 border-2 border-white dark:border-gray-400 focus:ring-4 font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center gap-2 hover:text-gray-600 dark:hover:text-white hover:scale-110 transition-all">
-                                            <img src="{{ asset('assets/icons/mobile-app.png') }}" alt=""
-                                                class="h-8" />
-                                                {{ app()->getLocale() == 'kh' ? 'ទាញយក' : 'Download' }}
+                                            class="overflow-hidden duration-300 rounded-sm hover:scale-105">
+                                            <img src="{{ asset('assets/icons/play_store.png') }}" alt=""
+                                                class="h-14" />
+                                        </button>
+                                    </li>
+                                    <li class="mb-4">
+                                        <button type="button"
+                                            class="overflow-hidden duration-300 hover:scale-105 rounded-[9px]">
+                                            <img src="{{ asset('assets/icons/app_store.png') }}" alt=""
+                                                class="h-14" />
                                         </button>
                                     </li>
                                 </ul>
