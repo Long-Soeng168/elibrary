@@ -113,7 +113,7 @@
                 <x-input-error :messages="$errors->get('show_bg_menu')" class="mt-2" />
             </div>
             <div>
-                <x-input-label for="pdf_viewer_default" :value="__('PDF Viewer Default')" />
+                <x-input-label for="pdf_viewer_default" :value="__('PDF Viewer')" />
                 <span class="text-red-500">* </span>
                 <!-- Switch/Toggle -->
                 <label class="flex items-center mt-1 cursor-pointer">
