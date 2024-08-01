@@ -41,6 +41,9 @@ class ClientAudioController extends Controller
     {
         // Find the main Audio item
         $item = Audio::findOrFail($id);
+        $item->update([
+            'read_count' => $item->read_count + 1,
+        ]);
 
         // Retrieve images related to the Audio
         $multi_images = AudioImage::where('audio_id', $id)
