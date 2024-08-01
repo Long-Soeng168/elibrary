@@ -426,7 +426,7 @@
 
         // Check if the browser supports the beforeinstallprompt event
         if ('onbeforeinstallprompt' in window) {
-            addBtn.style.display = 'none';
+            // addBtn.style.display = 'none';
 
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
