@@ -51,7 +51,7 @@
                                 d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    {{-- <!-- Dropdown menu -->
+                    <!-- Dropdown menu -->
                     <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
                         <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
                             @forelse ($categories as $category)
@@ -123,7 +123,7 @@
                                 <li class="py-2 text-center">No categories available</li>
                             @endforelse
                         </ul>
-                    </div> --}}
+                    </div>
 
 
                     <div class="flex flex-1">

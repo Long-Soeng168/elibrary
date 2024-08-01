@@ -40,34 +40,22 @@
                     </div>
                     <!-- End Search Database -->
 
-                    <!-- Start Filter -->
-                    <button id="multiLevelDropdownButton" data-dropdown-toggle="multi-dropdown"
-                        class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none font-medium text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
-                        type="button">
-                        {{ __('messages.filter') }}
-                        <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
-                        <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
-                            @forelse ($categories as $category)
-                                <li class="hover:underline" wire:key="{{ $category->id }}">
-                                    <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
-                                        <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
-                                        <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
-                                            @if (app()->getLocale() == 'kh' && $category->name_kh)
-                                            {{ $category->name_kh }}
-                                            @else
-                                            {{ $category->name }}
-                                            @endif
-                                        </label>
-                                    </div>
-                                </li>
-                                {{-- @if (count($category->subCategories) < 1)
+                    <!-- Start Filter Major -->
+                    <div class="flex w-full gap-2 md:w-auto">
+                        <button id="multiLevelDropdownButton" data-dropdown-toggle="multi-dropdown"
+                            class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none font-medium text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
+                            type="button">
+                            {{ __('messages.major') }}
+                            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
+                            <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButton">
+                                @forelse ($categories as $category)
                                     <li class="hover:underline" wire:key="{{ $category->id }}">
                                         <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
                                             <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
@@ -80,61 +68,43 @@
                                             </label>
                                         </div>
                                     </li>
-                                @else
-                                    <li class="hover:underline" wire:key="{{ $category->id }}">
-                                        <div class="flex">
-                                            <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectCategory({{ $category->id }})">
-                                                <input type="checkbox" id="category-{{ $category->id }}" name="selected_categories[]" value="{{ $category->id }}">
-                                                <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
-                                                    @if (app()->getLocale() == 'kh' && $category->name_kh)
-                                                    {{ $category->name_kh }}
-                                                    @else
-                                                    {{ $category->name }}
-                                                    @endif
-                                                </label>
-                                            </div>
-                                            <button id="doubleDropdownButton-{{ $category->id }}" data-dropdown-toggle="doubleDropdown-{{ $category->id }}"
-                                                data-dropdown-placement="bottom-start" type="button"
-                                                class="flex items-center justify-between px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                <svg class="w-3 h-3 rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        <div id="doubleDropdown-{{ $category->id }}"
-                                            class="relative z-30 hidden bg-gray-50 divide-y divide-gray-200 border shadow-lg w-[250px]  dark:bg-gray-500 ml-2">
-                                            <div class="py-1 font-bold text-center underline bg-gray-200 border-b border-b-primary dark:border-b-white dark:bg-gray-600">
-                                                @if (app()->getLocale() == 'kh' && $category->name_kh)
-                                                {{ $category->name_kh }}
+                                @empty
+                                    <li class="py-2 text-center">No categories available</li>
+                                @endforelse
+                            </ul>
+                        </div>
+                        <!-- Start Filter Type -->
+                        <button id="multiLevelDropdownButtonType" data-dropdown-toggle="type-multi-dropdown"
+                            class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none font-medium text-md px-5 py-2.5 text-center inline-flex items-center  w-full md:w-auto justify-center border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
+                            type="button">
+                            {{ __('messages.type') }}
+                            <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="type-multi-dropdown" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-[250px] dark:bg-gray-700 border" wire:ignore>
+                            <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll" aria-labelledby="multiLevelDropdownButtonType">
+                                @forelse ($subCategories as $subCategory)
+                                    <li class="hover:underline" wire:key="{{ $subCategory->id }}">
+                                        <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectSubCategory({{ $subCategory->id }})">
+                                            <input type="checkbox" id="subCategory-{{ $subCategory->id }}" name="selected_sub_categories[]" value="{{ $subCategory->id }}">
+                                            <label class="flex-1 py-2 pr-2" for="subCategory-{{ $subCategory->id }}">
+                                                @if (app()->getLocale() == 'kh' && $subCategory->name_kh)
+                                                {{ $subCategory->name_kh }}
                                                 @else
-                                                {{ $category->name }}
+                                                {{ $subCategory->name }}
                                                 @endif
-                                            </div>
-                                            <ul class="text-sm text-gray-700 dark:text-gray-100" aria-labelledby="doubleDropdownButton-{{ $category->id }}">
-                                                @forelse ($category->subCategories as $subCategory)
-                                                    <li class="hover:underline" wire:key="{{ $subCategory->id }}">
-                                                        <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-white" wire:change="handleSelectSubCategory({{ $subCategory->id }})">
-                                                            <input type="checkbox" id="subCategory-{{ $subCategory->id }}" name="selected_sub_categories[]" value="{{ $subCategory->id }}">
-                                                            <label class="flex-1 py-2 pr-2" for="subCategory-{{ $subCategory->id }}">
-                                                                @if (app()->getLocale() == 'kh' && $subCategory->name_kh)
-                                                                {{ $subCategory->name_kh }}
-                                                                @else
-                                                                {{ $subCategory->name }}
-                                                                @endif
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                @empty
-                                                    <li class="py-2 text-center">No subcategories available</li>
-                                                @endforelse
-                                            </ul>
+                                            </label>
                                         </div>
                                     </li>
-                                @endif --}}
-                            @empty
-                                <li class="py-2 text-center">No categories available</li>
-                            @endforelse
-                        </ul>
+                                @empty
+                                    <li class="py-2 text-center">No subcategories available</li>
+                                @endforelse
+                            </ul>
+                        </div>
                     </div>
 
 
