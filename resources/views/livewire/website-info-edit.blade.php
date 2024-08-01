@@ -112,6 +112,19 @@
                 <!-- End Switch/Toggle -->
                 <x-input-error :messages="$errors->get('show_bg_menu')" class="mt-2" />
             </div>
+            <div>
+                <x-input-label for="pdf_viewer_default" :value="__('PDF Viewer Default')" />
+                <span class="text-red-500">* </span>
+                <!-- Switch/Toggle -->
+                <label class="flex items-center mt-1 cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" wire:model='pdf_viewer_default'>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Custom</span>
+                    <div class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Default</span>
+                </label>
+                <!-- End Switch/Toggle -->
+                <x-input-error :messages="$errors->get('pdf_viewer_default')" class="mt-2" />
+            </div>
 
 
             <!-- End Name -->

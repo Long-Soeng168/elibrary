@@ -15,6 +15,7 @@ use App\Models\Journal;
 use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
+use App\Models\WebsiteInfo;
 use Image as ImageCompress;
 use DB;
 use Illuminate\Support\Facades\Schema;
@@ -195,40 +196,27 @@ class HomeController extends Controller
 
     public function downloadCount($archive, $id) {
 
+        $item = null;
         if ($archive == 'publication') {
             $item = Publication::findOrFail($id);
-            $item->update([
-                'download_count' => $item->download_count + 1,
-            ]);
-            return response()->json(['success' => true], 200);
         }elseif($archive == 'bulletin'){
             $item = News::findOrFail($id);
-            $item->update([
-                'download_count' => $item->download_count + 1,
-            ]);
-            return response()->json(['success' => true], 200);
         }elseif($archive == 'article'){
             $item = Article::findOrFail($id);
-            $item->update([
-                'download_count' => $item->download_count + 1,
-            ]);
-            return response()->json(['success' => true], 200);
         }elseif($archive == 'thesis'){
             $item = Thesis::findOrFail($id);
-            $item->update([
-                'download_count' => $item->download_count + 1,
-            ]);
-            return response()->json(['success' => true], 200);
         }elseif($archive == 'journal'){
             $item = Journal::findOrFail($id);
+        }
+        else {
+            return response()->json(['success' => false], 404);
+        }
+
+        if($item){
             $item->update([
                 'download_count' => $item->download_count + 1,
             ]);
             return response()->json(['success' => true], 200);
-        }
-
-        else {
-            return response()->json(['success' => false], 404);
         }
 
     }
@@ -258,6 +246,13 @@ class HomeController extends Controller
         }elseif($archive == 'journal') {
             $filePath = public_path('assets/pdf/journals/'.$file_name);
             $item = Journal::findOrFail($id);
+        }
+
+        $websiteInfo = WebsiteInfo::first() ?? new WebsiteInfo;
+        if($websiteInfo->pdf_viewer_default == 1){
+            $item->update([
+                'read_count' => $item->read_count + 1,
+            ]);
         }
 
         if (!$item->can_download && !auth()->check()) {
@@ -294,30 +289,21 @@ class HomeController extends Controller
         if ($archive == 'publication') {
             $filePath = public_path('assets/pdf/publications/'.$file_name);
             $item = Publication::findOrFail($id);
-            $item->update([
-                'read_count' => $item->read_count + 1,
-            ]);
         }elseif($archive == 'bulletin') {
             $filePath = public_path('assets/pdf/news/'.$file_name);
             $item = News::findOrFail($id);
-            $item->update([
-                'read_count' => $item->read_count + 1,
-            ]);
         }elseif($archive == 'article') {
             $filePath = public_path('assets/pdf/articles/'.$file_name);
             $item = Article::findOrFail($id);
-            $item->update([
-                'read_count' => $item->read_count + 1,
-            ]);
         }elseif($archive == 'thesis') {
             $filePath = public_path('assets/pdf/theses/'.$file_name);
             $item = Thesis::findOrFail($id);
-            $item->update([
-                'read_count' => $item->read_count + 1,
-            ]);
         }elseif($archive == 'journal') {
             $filePath = public_path('assets/pdf/journals/'.$file_name);
             $item = Journal::findOrFail($id);
+        }
+
+        if($item){
             $item->update([
                 'read_count' => $item->read_count + 1,
             ]);
@@ -330,7 +316,6 @@ class HomeController extends Controller
         if (!file_exists($filePath)) {
             abort(404); // File not found
         }
-
 
         return view('client.view_pdf', [
             'archive' => $archive,
