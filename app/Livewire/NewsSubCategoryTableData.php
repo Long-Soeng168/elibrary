@@ -75,6 +75,7 @@ class NewsSubCategoryTableData extends Component
                  'news_category_id' => $this->new_category_id,
              ]);
 
+             return redirect('admin/bulletins_sub_categories')->with('success', 'Add new Sub-Category successfully!');
              session()->flash('success', 'Add new Sub-Category successfully!');
 
              $this->reset(['newName', 'newName_kh', 'new_category_id']);

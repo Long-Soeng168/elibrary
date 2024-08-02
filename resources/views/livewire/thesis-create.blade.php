@@ -84,7 +84,7 @@
             </div>
 
         </div>
-        <div class="grid gap-5 mb-5 lg:grid-cols-3 lg:gap-6">
+        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
             <!-- Start Pages -->
             <div>
                 <x-input-label for="pages_count" :value="__('Pages')" />
@@ -105,12 +105,12 @@
             <!-- End Edition -->
 
              <!-- Start isbn -->
-             <div>
+             {{-- <div>
                 <x-input-label for="isbn" :value="__('ISBN')" />
                 <x-text-input id="isbn" class="block w-full" type="text" name="isbn" wire:model='isbn'
                     placeholder="ISBN" />
                 <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
-            </div>
+            </div> --}}
             <!-- End isbn -->
         </div>
         <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
@@ -327,7 +327,7 @@
 
         <div class="grid lg:grid-cols-2 lg:gap-6">
             {{-- Start Author Select --}}
-            <div class="relative w-full mb-5 group">
+            {{-- <div class="relative w-full mb-5 group">
                 <x-input-label for="author" :value="__('Author')" />
                 <div class="flex flex-1 gap-1 mt-1">
                     <div class="flex justify-start flex-1">
@@ -417,7 +417,7 @@
                     <!-- End Author modal -->
                 </div>
                 <x-input-error :messages="$errors->get('author_id')" class="mt-2" />
-            </div>
+            </div> --}}
             {{-- End Author Select --}}
 
             {{-- Start Student Select --}}
@@ -512,106 +512,6 @@
                 </div>
                 <x-input-error :messages="$errors->get('student_id')" class="mt-2" />
             </div>
-            {{-- End Author Select --}}
-
-        </div>
-
-        <div class="grid lg:grid-cols-2 lg:gap-6">
-            {{-- Start Lecturer Select --}}
-            <div class="relative w-full mb-5 group">
-                <x-input-label for="lecturer" :value="__('lecturer')" />
-                <div class="flex flex-1 gap-1 mt-1">
-                    <div class="flex justify-start flex-1">
-                        <x-select-option class="lecturer-select" wire:model.live='lecturer_id' id="lecturer"
-                            name="lecturer_id">
-                            <option wire:key='lecturer' value="">Select Lecturer...</option>
-                            @forelse ($lecturers as $lecturer)
-                                <option wire:key='{{ $lecturer->id }}' value="{{ $lecturer->id }}">
-                                    {{ $lecturer->name }}
-                                </option>
-                            @empty
-                                <option wire:key='nolecturer' value=""> --No Lecturer--</option>
-                            @endforelse
-                        </x-select-option>
-                    </div>
-                    <button type="button" data-modal-target="lecturer_modal" data-modal-toggle="lecturer_modal"
-                        class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
-                        Add
-                    </button>
-
-                    <!-- Start Lecturer modal -->
-                    <div id="lecturer_modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative w-full max-w-md max-h-full p-4">
-                            <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <!-- Modal header -->
-                                <div
-                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                        Create Lecturer
-                                    </h3>
-                                    <button type="button"
-                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-toggle="lecturer_modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-4 lg:p-5">
-                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
-                                        <div class="col-span-2">
-                                            <label for="name"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                            <input wire:key="{{ rand() }}" type="text" name="name"
-                                                id="name" wire:model='newLecturerName'
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Name">
-                                        </div>
-
-                                        <div class="col-span-2 sm:col-span-2">
-                                            <label for="lecturer"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                                            <select id="lecturer" wire:model='newLecturerGender'
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                <option value="">Select gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="n/a">N/A</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <button data-modal-target="lecturer_modal" data-modal-toggle="lecturer_modal"
-                                            type="button" wire:click='saveNewLecturer' wire:target="saveNewLecturer"
-                                            wire:loading.attr="disabled"
-                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            Add New
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End lecturer modal -->
-                </div>
-                <x-input-error :messages="$errors->get('lecturer_id')" class="mt-2" />
-            </div>
-            {{-- End Lecturer Select --}}
-
-            {{-- Start Supervisor Select --}}
             <div class="relative w-full mb-5 group">
                 <x-input-label for="supervisor" :value="__('Supervisor')" />
                 <div class="flex flex-1 gap-1 mt-1">
@@ -703,6 +603,107 @@
                 </div>
                 <x-input-error :messages="$errors->get('supervisor_id')" class="mt-2" />
             </div>
+            {{-- End Author Select --}}
+
+        </div>
+
+        <div class="grid lg:grid-cols-2 lg:gap-6">
+            {{-- Start Lecturer Select --}}
+            {{-- <div class="relative w-full mb-5 group">
+                <x-input-label for="lecturer" :value="__('lecturer')" />
+                <div class="flex flex-1 gap-1 mt-1">
+                    <div class="flex justify-start flex-1">
+                        <x-select-option class="lecturer-select" wire:model.live='lecturer_id' id="lecturer"
+                            name="lecturer_id">
+                            <option wire:key='lecturer' value="">Select Lecturer...</option>
+                            @forelse ($lecturers as $lecturer)
+                                <option wire:key='{{ $lecturer->id }}' value="{{ $lecturer->id }}">
+                                    {{ $lecturer->name }}
+                                </option>
+                            @empty
+                                <option wire:key='nolecturer' value=""> --No Lecturer--</option>
+                            @endforelse
+                        </x-select-option>
+                    </div>
+                    <button type="button" data-modal-target="lecturer_modal" data-modal-toggle="lecturer_modal"
+                        class="rounded-md text-sm p-2.5 font-medium text-center text-white bg-blue-700 ">
+                        Add
+                    </button>
+
+                    <!-- Start Lecturer modal -->
+                    <div id="lecturer_modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full lg:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative w-full max-w-md max-h-full p-4">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 border-b rounded-t lg:p-5 dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Create Lecturer
+                                    </h3>
+                                    <button type="button"
+                                        class="inline-flex items-center justify-center w-8 h-8 text-sm text-gray-400 bg-transparent rounded-lg hover:bg-gray-200 hover:text-gray-900 ms-auto dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="lecturer_modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4 lg:p-5">
+                                    <div class="grid grid-cols-2 gap-4 mb-4 ">
+                                        <div class="col-span-2">
+                                            <label for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                                            <input wire:key="{{ rand() }}" type="text" name="name"
+                                                id="name" wire:model='newLecturerName'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Name">
+                                        </div>
+
+                                        <div class="col-span-2 sm:col-span-2">
+                                            <label for="lecturer"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                                            <select id="lecturer" wire:model='newLecturerGender'
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                <option value="">Select gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="n/a">N/A</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <button data-modal-target="lecturer_modal" data-modal-toggle="lecturer_modal"
+                                            type="button" wire:click='saveNewLecturer' wire:target="saveNewLecturer"
+                                            wire:loading.attr="disabled"
+                                            class="text-white mt-2 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="w-5 h-5 me-1 -ms-1" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Add New
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End lecturer modal -->
+                </div>
+                <x-input-error :messages="$errors->get('lecturer_id')" class="mt-2" />
+            </div> --}}
+            {{-- End Lecturer Select --}}
+
+            {{-- Start Supervisor Select --}}
+
             {{-- End Supervisor Select --}}
         </div>
 

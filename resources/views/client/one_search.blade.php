@@ -1,112 +1,78 @@
 @extends('layouts.client')
 @section('content')
-    {{-- Start Search --}}
-    @include('client.components.search', [
-        'actionUrl' => url('/'.$menu_database_default->slug),
-        'title' => $menu_database_default->name,
-        'title_kh' => $menu_database_default->name_kh,
-    ])
-    {{-- End Search --}}
-
-    <!-- Slide Show -->
-    <div class="max-w-screen-xl p-2 mx-auto">
-        <swiper-container autoplay="true" autoplay-delay="2000" speed="1000" effect="slide" class="mySwiper" pagination="true"
-            pagination-clickable="true" space-between="30" loop="true">
-            @forelse ($slides as $slide)
-                <swiper-slide class="swiper-slide-item">
-                    <a href="{{ asset('assets/images/slides/' . $slide->image) }}" class="w-full glightbox">
-                        <img class="object-cover w-full swiper-slide-img"
-                            src="{{ asset('assets/images/slides/thumb/' . $slide->image) }}" alt="" />
-                    </a>
-                </swiper-slide>
-            @empty
-            @endforelse
-        </swiper-container>
-
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-    </div>
-    <!-- End Slide Show -->
-
-    <!-- Start Database -->
-    <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
-            {{ __('messages.databases') }}
-        </p>
-        <!-- Icon Blocks -->
-        <div class="">
-            <div>
-                <swiper-container class="w-full swiper-responsive" effect="slide" pagination="true" {{-- space-between="30" --}}
-                    {{-- loop="true" --}} init="false">
-                    @forelse ($menu_databases as $index => $database)
-                        <swiper-slide class="flex items-center justify-center object-contain py-1 rounded-xl">
-                            @if ($database->type == 'slug')
-                            <a href="{{ url('/' . $database->slug) }}"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6
-                                {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
-                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
-                                <img class="object-contain h-16 aspect-square swiper-responsive-img"
-                                    src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
-                                    alt="">
-                                <h3
-                                    class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                                    @if (app()->getLocale() == 'kh' && $database->name_kh)
-                                        {{ $database->name_kh }}
-                                    @else
-                                        {{ $database->name }}
-                                    @endif
-                                </h3>
-                            </a>
-                            @else
-                            <a href="{{ $database->link ? $database->link : '#' }}" target="_blank"
-                                class="flex flex-col items-center justify-center w-full p-4 py-6
-                                {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
-                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
-                                <img class="object-contain h-16 aspect-square swiper-responsive-img"
-                                    src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
-                                    alt="">
-                                <h3
-                                    class="mt-1 font-semibold text-gray-800 group-hover:text-gray-600 text-md lg:text-lg whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                                    {{ $database->name }}
-                                </h3>
-                            </a>
+    <!-- client/components/search.blade.php -->
+<div class="sticky top-0 z-10 p-2 bg-white bg-gradient-to-r from-primary dark:from-primary dark:bg-gray-800 to-transparent">
+    <div class="max-w-screen-xl mx-auto">
+        <form class="w-full" action="{{ url('/one_search') }}">
+            <div class="flex flex-wrap gap-2">
+                <!-- Search Database -->
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                    class="text-gray-900 bg-gray-100 hover:bg-gray-200 focus:outline-none font-medium rounded-tl-lg rounded-tr-lg md:rounded-s-lg text-md px-5 py-2.5 text-center inline-flex items-center w-full md:w-auto justify-center md:rounded-tr-none border border-primary dark:bg-gray-700 dark:text-gray-200 dark:border-white dark:hover:bg-gray-600"
+                    type="button">
+                    @if (app()->getLocale() == 'kh' && 'ទាំងអស់')
+                        {{ 'ទាំងអស់' }}
+                    @else
+                        {{ 'All' }}
+                    @endif
+                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div id="dropdown"
+                    class="z-30 hidden w-auto bg-white border divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
+                    <ul class="py-2 text-gray-700 text-md dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        @forelse ($menu_databases as $item)
+                            @if ($item->type == 'slug')
+                                <li>
+                                    <a href="{{ url($item->slug) }}" class="menu-item-link block px-6 py-2 hover:bg-gray-100 {{ $item->name == 'All' ? 'underline' : '' }} dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                    </a>
+                                </li>
                             @endif
-                        </swiper-slide>
-                    @empty
-                    <p class="py-4">{{ __('messages.noData') }}...</p>
-                    @endforelse
-                </swiper-container>
+                        @empty
+                            <li>{{ __('messages.noData') }}...</li>
+                        @endforelse
+                    </ul>
+                </div>
+                <!-- End Search Database -->
 
-
-                <script>
-                    const swiperEl = document.querySelector('.swiper-responsive')
-                    Object.assign(swiperEl, {
-                        slidesPerView: 3,
-                        spaceBetween: 5,
-                        breakpoints: {
-                            640: {
-                                slidesPerView: 3,
-                                spaceBetween: 5,
-                            },
-                            768: {
-                                slidesPerView: 4,
-                                spaceBetween: 5,
-                            },
-                            1024: {
-                                // slidesPerView: 7,
-                                slidesPerView: {{ count($menu_databases) }},
-                                spaceBetween: 5,
-                            },
-                        },
-                    });
-                    swiperEl.initialize();
-
-                </script>
+                <div class="flex flex-1">
+                    <input type="search" id="search-dropdown" wire:model.live.debounce.300ms='search'
+                        class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 border-gray-50 border-1 border dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-400 dark:text-white rounded-bl-lg md:rounded-bl-none focus:outline-double dark:focus:outline-white focus:outline-primary border-primary"
+                        placeholder="{{ __('messages.search') }}..." name="search" value="{{ request()->query('search') }}"/>
+                    <button type="submit"
+                        class="top-0 end-0 p-2.5 text-md font-medium h-full text-white bg-primary rounded-e-lg border border-primary hover:bg-primaryHover focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-primary dark:focus:ring-primaryHover flex space-x-2 items-center justify-center ml-2 rounded-tr-none md:rounded-tr-lg">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                        <span>{{ __('messages.search') }}</span>
+                    </button>
+                </div>
             </div>
-
-        </div>
-        <!-- End Icon Blocks -->
+        </form>
     </div>
-    <!-- End Database -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-dropdown');
+            const menuItems = document.querySelectorAll('.menu-item-link');
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value;
+                menuItems.forEach(function(item) {
+                    const baseUrl = item.getAttribute('href').split('?')[0];
+                    item.setAttribute('href', baseUrl + '?search=' + encodeURIComponent(query));
+                });
+            });
+        });
+    </script>
+</div>
+
+    {{-- End Search --}}
 
     <!-- ====== Start Items ====== -->
 
@@ -120,7 +86,7 @@
                 <div class="max-w-screen-xl mx-auto mt-6">
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.ePublications') }}</p>
-                        <a  href="{{ url('/publications') }}"
+                        <a  href="{{ url('/publications?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -169,7 +135,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.videos') }}</p>
                         <a
-                            href="{{ url('/videos') }}"
+                            href="{{ url('/videos?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -218,7 +184,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.images') }}</p>
                         <a
-                            href="{{ url('/images') }}"
+                            href="{{ url('/images?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -267,7 +233,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.audios') }}</p>
                         <a
-                            href="{{ url('/audios') }}"
+                            href="{{ url('/audios?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -322,7 +288,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.bulletins') }}</p>
                         <a
-                            href="{{ url('/bulletins') }}"
+                            href="{{ url('/bulletins?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -371,7 +337,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.theses') }}</p>
                         <a
-                            href="{{ url('/theses') }}"
+                            href="{{ url('/theses?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -420,7 +386,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.journals') }}</p>
                         <a
-                            href="{{ url('/journals') }}"
+                            href="{{ url('/journals?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
@@ -470,7 +436,7 @@
                     <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
                         <p class="text-lg text-white">{{ __('messages.articles') }}</p>
                         <a
-                            href="{{ url('/articles') }}"
+                            href="{{ url('/articles?search='.request()->query('search')) }}"
                             class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
                             {{ __('messages.seeMore') }}
                             <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />

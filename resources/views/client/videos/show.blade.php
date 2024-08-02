@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     <div class="relative w-full overflow-hidden rounded-md">
                         @if ($item->image)
-                            <img class="object-cover w-full border rounded-md cursor-pointer aspect-video"
+                            <img class="w-full border rounded-md cursor-pointer"
                                 src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
                         @else
                             <img class="object-contain w-full p-10 border rounded-md cursor-pointer aspect-video"
@@ -185,7 +185,8 @@
                                 {{ __('messages.duration') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ $item->duration }} {{ __('messages.minutes') }}
+                                {{ $item->duration }}
+                                {{-- {{ __('messages.minutes') }} --}}
                             </p>
                         </div>
                     @endif

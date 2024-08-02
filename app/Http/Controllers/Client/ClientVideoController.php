@@ -41,6 +41,9 @@ class ClientVideoController extends Controller
     {
         // Find the main Video item
         $item = Video::findOrFail($id);
+        $item->update([
+            'read_count' => $item->read_count + 1,
+        ]);
 
         // Retrieve images related to the Video
         $multi_images = VideoImage::where('video_id', $id)

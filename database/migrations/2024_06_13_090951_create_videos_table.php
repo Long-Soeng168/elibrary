@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('name_kh')->nullable();
             $table->integer('year')->nullable();
-            $table->integer('duration')->nullable();
+            $table->string('duration')->nullable();
             $table->integer('resolution')->nullable();
             $table->string('link')->nullable();
             $table->text('description')->nullable();

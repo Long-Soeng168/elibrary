@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('primary_hover')->nullable();
             $table->string('banner_color')->nullable();
             $table->boolean('show_bg_menu')->default(true);
+            $table->boolean('pdf_viewer_default')->default(true);
 
             $table->timestamps();
         });

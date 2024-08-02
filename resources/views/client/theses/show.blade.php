@@ -16,7 +16,7 @@
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
                     <a href="{{ asset('assets/images/theses/' . $item->image) }}" class="glightbox">
-                        <img class="bg-white  w-full aspect-[6/9] object-cover rounded-md cursor-pointer border shadow"
+                        <img class="w-full bg-white border rounded-md shadow cursor-pointer"
                             src="{{ asset('assets/images/theses/thumb/' . $item->image) }}" alt="Book Cover" />
                     </a>
                     @else
@@ -61,12 +61,21 @@
                                 @if (!$item->can_read && !auth()->check())
                                  href="{{ route('client.login', ['path' => 'theses-'.$item->id]) }}"
                                 @else
-                                href="{{ route('pdf.view', [
-                                        'archive' => 'thesis',
-                                        'id' => $item->id,
-                                        'file_name' => $item->pdf
-                                    ])
-                                }}"
+                                    @if ($websiteInfo->pdf_viewer_default == 1)
+                                        href="{{ route('pdf.stream', [
+                                                'archive' => 'thesis',
+                                                'id' => $item->id,
+                                                'file_name' => $item->pdf
+                                            ])
+                                        }}"
+                                    @else
+                                        href="{{ route('pdf.view', [
+                                                'archive' => 'thesis',
+                                                'id' => $item->id,
+                                                'file_name' => $item->pdf
+                                            ])
+                                        }}"
+                                    @endif
                                 @endif
 
                                 class="relative inline-flex items-center justify-center w-full h-full gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
@@ -261,7 +270,11 @@
                                 {{ __('messages.major') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->major?->name_kh : $item->major?->name }}
+                                @if (app()->getLocale() == 'kh')
+                                    {{ $item->major?->name_kh ? $item->major?->name_kh : $item->major?->name }}
+                                @else
+                                    {{ $item->major?->name ? $item->major?->name : '' }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -369,7 +382,11 @@
                                 {{ __('messages.language') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->language?->name_kh : $item->language?->name }}
+                                @if (app()->getLocale() == 'kh')
+                                    {{ $item->language?->name_kh ? $item->language?->name_kh : $item->language?->name }}
+                                @else
+                                    {{ $item->language?->name ? $item->language?->name : '' }}
+                                @endif
                             </p>
                         </div>
                     @endif

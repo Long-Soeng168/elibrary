@@ -81,8 +81,8 @@
             <!-- Start Duration -->
             <div>
                 <x-input-label for="duration" :value="__('Duration (Minutes)')" />
-                <x-text-input id="duration" class="block w-full" type="number" name="duration"
-                    wire:model='duration' autofocus placeholder="Number of Duration" />
+                <x-text-input id="duration" class="block w-full" type="text" name="duration"
+                    wire:model='duration' autofocus placeholder="Duration" />
                 <x-input-error :messages="$errors->get('duration')" class="mt-2" />
             </div>
             <!-- End Duration -->
