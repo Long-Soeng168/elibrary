@@ -177,20 +177,32 @@
                                     </li>
                                 @empty
                                 @endforelse
-                                <li
-                                    class="transition-all hover:underline underline-offset-4 ">
                                     @if (auth()->check())
-                                        <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
-                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
-                                        </a>
+                                        <li
+                                            class="transition-all hover:underline underline-offset-4 ">
+                                                <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                                    class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                    {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
+                                                </a>
+
+                                        </li>
+                                        <li
+                                            class="transition-all hover:underline underline-offset-4 ">
+                                            <a href="{{ url('/logout') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
+                                            </a>
+                                        </li>
                                     @else
-                                        <a href="{{ url('/login') }}"
-                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
-                                        </a>
+                                        <li
+                                            class="transition-all hover:underline underline-offset-4 ">
+                                            <a href="{{ url('/login') }}"
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
+                                            </a>
+                                        </li>
+
                                     @endif
-                                </li>
                             </ul>
                         </nav>
                     </div>
