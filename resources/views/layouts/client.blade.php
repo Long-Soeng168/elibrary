@@ -462,7 +462,7 @@
             // Fallback for browsers that don't support the beforeinstallprompt event (e.g., Safari on iOS)
             addBtn.style.display = 'block';
             addBtn.addEventListener('click', () => {
-                alert(`{{ app()->getLocale() == 'kh' ? 'ដើម្បីតម្លើងកម្មវិធីនេះ សូមបើកម៉ឺនុយកម្មវិធីរុករក ហើយជ្រើសរើស "Add to Home Screen"' : 'To intall this app, open the browser menu and select "Add to Home Screen".' }}`);
+                alert(`{{ app()->getLocale() == 'kh' ? 'ដើម្បីតម្លើងកម្មវិធីនេះ សូមបើកម៉ឺនុយកម្មវិធីរុករក ហើយជ្រើសរើស : Add to Home Screen' : 'To intall this app, open the browser menu and select : Add to Home Screen' }}`);
             });
         }
 
