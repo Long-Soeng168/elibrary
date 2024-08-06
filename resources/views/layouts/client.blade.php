@@ -331,10 +331,11 @@
                             </div>
                             <div id="add-to-home-screen">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
-                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download (App) NEC Library' }}
+                                    {{-- {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download (App) NEC Library' }} --}}
+                                    {{ app()->getLocale() == 'kh' ? 'ទាញយកកម្មវិធី' : 'Download (App)' }}
                                 </h2>
                                 <ul class="flex gap-4 mb-8 font-medium dark:text-gray-400">
-                                    <li class="mb-4">
+                                    {{-- <li class="mb-4">
                                         <button type="button"
                                             class="overflow-hidden duration-300 rounded-sm hover:scale-105">
                                             <img src="{{ asset('assets/icons/play_store.png') }}" alt=""
@@ -346,6 +347,14 @@
                                             class="overflow-hidden duration-300 hover:scale-105 rounded-[9px]">
                                             <img src="{{ asset('assets/icons/app_store.png') }}" alt=""
                                                 class="h-14" />
+                                        </button>
+                                    </li> --}}
+                                    <li class="mb-4">
+                                        <button type="button"
+                                            class="bg-transparent hover:bg-white dark:hover:bg-gray-400 border-2 border-white dark:border-gray-400 focus:ring-4 font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center gap-2 hover:text-gray-600 dark:hover:text-white hover:scale-110 transition-all">
+                                            <img src="{{ asset('assets/icons/mobile-app.png') }}" alt=""
+                                                class="h-8" />
+                                                {{ app()->getLocale() == 'kh' ? 'ទាញយក' : 'Download' }}
                                         </button>
                                     </li>
                                 </ul>
