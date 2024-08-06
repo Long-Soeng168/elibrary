@@ -907,10 +907,10 @@
             {{-- End Image Upload --}}
 
             {{-- Start file Upload --}}
-            {{-- <div class="flex items-center space-4" wire:key='uploadfile'>
+            <div class="flex items-center space-4" wire:key='uploadfile'>
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload File (Max : 10MB) <span class="text-red-500">*</span>
+                        Video File, Max : 50MB (Optional) : <span class="text-yellow-600">Video file not required if using a YouTube link.</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="file"
@@ -924,7 +924,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 10MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 50MB)</p>
                                 @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
@@ -933,7 +933,7 @@
                                 @endif
                             </div>
                             <input type="file" wire:model="file" id="file" name="file"
-                                accept="application/file" class="absolute h-[140%] w-[100%]" />
+                                accept="video/*" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="file" class="text-blue-700">
@@ -944,7 +944,7 @@
                     </div>
                     <x-input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
-            </div> --}}
+            </div>
             {{-- End file Upload --}}
 
 
@@ -955,7 +955,7 @@
             <textarea id="description" name="description"></textarea>
         </div>
 
-        <div>
+        {{-- <div>
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
@@ -963,7 +963,6 @@
                     wire:target="save"
                     wire:loading.attr="disabled"
                     class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-
                     Save
             </button>
             <span wire:target="save" wire:loading>
@@ -971,6 +970,25 @@
                 Saving
             </span>
 
+        </div> --}}
+        <div>
+            <x-outline-button wire:ignore href="{{ URL::previous() }}">
+                Go back
+            </x-outline-button>
+            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
+                class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                Save
+            </button>
+            <span wire:target="save" wire:loading>
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                Saving
+            </span>
+            <span wire:target="pdf,image"  wire:loading class="dark:text-white">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                On Uploading File...
+            </span>
         </div>
     </form>
 
