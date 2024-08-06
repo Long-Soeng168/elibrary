@@ -95,9 +95,13 @@
     <div>
         <div class="relative w-full bg-bannerColor xl:px-0">
             <a href="/">
-                <img class="mx-auto w-full max-h-[350px] object-cover"
+                <img class="mx-auto max-h-[350px] object-cover"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
+            {{-- <a href="/">
+                <img class="mx-auto w-full max-h-[350px] object-cover"
+                    src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
+            </a> --}}
 
             <header class="md:absolute left-0 right-0 bottom-0  z-[30]
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
