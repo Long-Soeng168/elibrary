@@ -163,7 +163,7 @@ class ImageIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.image-index', [
             'items' => $items,
             'categories' => $categories,

@@ -163,7 +163,7 @@ class VideoIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.video-index', [
             'items' => $items,
             'categories' => $categories,

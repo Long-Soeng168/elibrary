@@ -163,7 +163,7 @@ class NewsIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.news-index', [
             'items' => $items,
             'categories' => $categories,
