@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Article;
 use App\Models\ArticleCategory;
-use App\Models\ArticlesubCategory;
+use App\Models\ArticleSubCategory;
 use App\Models\ArticleType;
 use App\Models\Publisher;
 use App\Models\Location;
@@ -155,7 +155,7 @@ class ArticleEdit extends Component
                 'selectedCategoryId' => 'required|exists:article_categories,id',
             ]);
 
-            ArticlesubCategory::create([
+            ArticleSubCategory::create([
                 'name' => $this->newSubCategoryName,
                 'name_kh' => $this->newSubCategoryNameKh,
                 'article_category_id' => $this->selectedCategoryId,
@@ -377,7 +377,7 @@ class ArticleEdit extends Component
     public function render()
     {
         $categories = ArticleCategory::latest()->get();
-        $subCategories = ArticlesubCategory::where('article_category_id', $this->article_category_id)->latest()->get();
+        $subCategories = ArticleSubCategory::where('article_category_id', $this->article_category_id)->latest()->get();
         $types = ArticleType::latest()->get();
         $publishers = Publisher::latest()->get();
         $locations = Location::latest()->get();
