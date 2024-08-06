@@ -304,7 +304,7 @@
                             </a>
                         </div> --}}
                         <div class="justify-between w-full gap-6 lg:flex lg:gap-20">
-                            <div class="max-w-[500px]">
+                            <div class="max-w-[450px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
                                     @if (app()->getLocale() == 'kh' && $footer->name_kh)
                                         {!! $footer->name_kh !!}
