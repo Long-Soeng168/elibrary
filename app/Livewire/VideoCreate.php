@@ -14,7 +14,6 @@ use App\Models\Language;
 use App\Models\Author;
 use App\Models\Keyword;
 
-use Storage;
 use Image;
 
 class VideoCreate extends Component
@@ -271,7 +270,7 @@ class VideoCreate extends Component
         ]);
 
         if(!$this->name){
-            $name = $this->file->getClientOriginalName();
+            $this->name = $this->file->getClientOriginalName();
         }
 
         session()->flash('success', 'file successfully uploaded!');
@@ -289,7 +288,7 @@ class VideoCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'file' => 'nullable|file|max:51200',
+            'file' => 'nullable|file|max:20480',
             'duration' => 'nullable',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
@@ -326,24 +325,11 @@ class VideoCreate extends Component
         }
 
         if (!empty($this->file)) {
-            // Define the directory path (root directory in this case)
-            $directory = '';
-
-            // Check if the directory exists, if not, create it
-            if (!Storage::disk('publicForVideo')->exists($directory)) {
-                Storage::disk('publicForVideo')->makeDirectory($directory);
-            }
-
-            // Generate a unique filename
+            // $filename = time() . '_' . $this->file->getClientOriginalName();
             $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
-
-            // Store the file
-            $this->file->storeAs($directory, $filename, 'publicForVideo');
-
-            // Save the filename to the validated array
+            $this->file->storeAs('videos', $filename, 'publicForPdf');
             $validated['file'] = $filename;
         }
-
 
         $createdVideo = Video::create($validated);
 
