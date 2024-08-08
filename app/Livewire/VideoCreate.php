@@ -266,7 +266,7 @@ class VideoCreate extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:20480', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
