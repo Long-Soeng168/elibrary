@@ -52,7 +52,7 @@ class HomeController extends Controller
         $videos = Video::latest()->limit(8)->get();
         $images = Image::latest()->limit(8)->get();
         $audios = Audio::latest()->limit(8)->get();
-        $bulletins = News::latest()->limit(8)->get();
+        $bulletins = News::latest()->limit(10)->get();
         $theses = Thesis::latest()->limit(10)->get();
         $journals = Journal::latest()->limit(10)->get();
         $articles = Article::latest()->limit(10)->get();
@@ -88,7 +88,7 @@ class HomeController extends Controller
             'videos' => 8,
             'images' => 8,
             'audios' => 8,
-            'bulletins' => 8,
+            'bulletins' => 10,
             'theses' => 10,
             'journals' => 10,
             'articles' => 10,
