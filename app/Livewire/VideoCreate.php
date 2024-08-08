@@ -14,6 +14,7 @@ use App\Models\Language;
 use App\Models\Author;
 use App\Models\Keyword;
 
+use Storage;
 use Image;
 
 class VideoCreate extends Component
@@ -288,7 +289,7 @@ class VideoCreate extends Component
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'image' => 'required|image|max:2048',
-            'file' => 'nullable|file|max:20480',
+            'file' => 'nullable|file|max:51200',
             'duration' => 'nullable',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
             'link' => 'nullable|string|max:255',
@@ -325,11 +326,24 @@ class VideoCreate extends Component
         }
 
         if (!empty($this->file)) {
-            // $filename = time() . '_' . $this->file->getClientOriginalName();
+            // Define the directory path (root directory in this case)
+            $directory = '';
+
+            // Check if the directory exists, if not, create it
+            if (!Storage::disk('publicForVideo')->exists($directory)) {
+                Storage::disk('publicForVideo')->makeDirectory($directory);
+            }
+
+            // Generate a unique filename
             $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
-            $this->file->storeAs('videos', $filename, 'publicForPdf');
+
+            // Store the file
+            $this->file->storeAs($directory, $filename, 'publicForVideo');
+
+            // Save the filename to the validated array
             $validated['file'] = $filename;
         }
+
 
         $createdVideo = Video::create($validated);
 

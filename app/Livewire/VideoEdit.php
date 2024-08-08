@@ -15,6 +15,7 @@ use App\Models\Author;
 use App\Models\Keyword;
 
 use Image;
+use Storage;
 use Illuminate\Support\Facades\File;
 
 class VideoEdit extends Component
@@ -353,11 +354,24 @@ class VideoEdit extends Component
 
         if (!empty($this->file)) {
             // $filename = time() . '_' . $this->file->getClientOriginalName();
+            // Define the directory path (root directory in this case)
+            $directory = '';
+
+            // Check if the directory exists, if not, create it
+            if (!Storage::disk('publicForVideo')->exists($directory)) {
+                Storage::disk('publicForVideo')->makeDirectory($directory);
+            }
+
+            // Generate a unique filename
             $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
-            $this->file->storeAs('videos', $filename, 'publicForPdf');
+
+            // Store the file
+            $this->file->storeAs($directory, $filename, 'publicForVideo');
+
+            // Save the filename to the validated array
             $validated['file'] = $filename;
 
-            $old_file = public_path('assets/pdf/videos/' . $this->item->file);
+            $old_file = public_path('assets/videos/' . $this->item->file);
             if (File::exists($old_file)) {
                 File::delete($old_file);
             }
