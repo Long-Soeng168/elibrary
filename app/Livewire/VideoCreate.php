@@ -269,10 +269,6 @@ class VideoCreate extends Component
             'file' => 'file|max:20480', // 2MB Max
         ]);
 
-        if(!$this->name){
-            $this->name = $this->file->getClientOriginalName();
-        }
-
         session()->flash('success', 'file successfully uploaded!');
     }
 
