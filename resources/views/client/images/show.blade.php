@@ -15,26 +15,26 @@
             <div class="flex flex-col items-center col-span-5 mb-6">
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
-                        <a href="{{ asset('assets/images/images/'.$item->image) }}" class="w-full overflow-hidden rounded-md shadow glightbox">
+                        <a href="{{ env('AWS_Resource_Path') . $item->image }}" class="w-full overflow-hidden rounded-md shadow glightbox">
                             <img class="w-full h-auto border cursor-pointer "
-                                src="{{ asset('assets/images/images/thumb/'.$item->image) }}" alt="Book Cover" />
+                                src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image" />
                         </a>
                     @else
                         <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
                             <img class="w-full aspect-[16/9] object-contain p-10 rounded-md cursor-pointer border shadow"
-                            src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
+                            src="{{ asset('assets/icons/no-image.png') }}" alt="Image" />
                         </a>
                     @endif
                         <div class="grid grid-cols-4 gap-2">
                             @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)
-                                <a href="{{ asset('assets/images/images/thumb/' . $image->image) }}"
+                                <a href="{{ env('AWS_Resource_Path') . $image->image }}"
                                     class="glightbox">
                                     <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/images/thumb/' . $image->image) }}">
+                                        src="{{ env('AWS_Resource_Path') . $image->image }}">
                                 </a>
                             @elseif ($index == 3)
-                                <a href="{{ asset('assets/images/images/' . $image->image) }}"
+                                <a href="{{ env('AWS_Resource_Path') . $image->image }}"
                                     class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
                                     <div
                                         class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
@@ -42,13 +42,13 @@
                                             +{{ count($multi_images) - 4 }}
                                         </span>
                                     </div>
-                                    <img src="{{ asset('assets/images/images/thumb/' . $image->image) }}"
+                                    <img src="{{ env('AWS_Resource_Path') . $image->image }}"
                                         class="bg-white rounded-lg w-full aspect-[1/1]">
                                 </a>
                             @else
-                                <a href="{{ asset('assets/images/images/' . $image->image) }}" class="glightbox">
+                                <a href="{{ env('AWS_Resource_Path') . $image->image }}" class="glightbox">
                                     <img class="bg-white hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/images/thumb/' . $image->image) }}">
+                                        src="{{ env('AWS_Resource_Path') . $image->image }}">
                                 </a>
                             @endif
                         @endforeach
@@ -292,7 +292,7 @@
             <a class="block group" href="{{ url('images/'.$item->id) }}">
                 <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800">
                     <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="{{ asset('assets/images/images/thumb/'.$item->image) }}"
+                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                         alt="Image Description" />
                 </div>
 

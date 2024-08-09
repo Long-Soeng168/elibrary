@@ -53,11 +53,10 @@ class ClientImageController extends Controller
 
         // Retrieve related Images excluding the item itself
         $related_items = Image::where(function($query) use ($item) {
-            $query->where('image_category_id', $item->image_category_id)
-                ->orWhere('image_sub_category_id', $item->image_sub_category_id);
+            $query->where('image_category_id', $item->image_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->inRandomOrder()
-        ->limit(6)
+        ->limit(8)
         ->get();
 
         // Return the view with the data

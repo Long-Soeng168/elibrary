@@ -67,6 +67,12 @@ Route::get('/expired', function () {
 })->name('expired');
 
 
+use App\Http\Controllers\FileUploadController;
+
+Route::post('/upload', [FileUploadController::class, 'upload']);
+Route::get('/upload_creat', [FileUploadController::class, 'create']);
+
+
 
 /*
 |--------------------------------------------------------------------------

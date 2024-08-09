@@ -84,6 +84,7 @@
    <link rel="icon" href="{{ asset('assets/images/website_infos/logo.png') }}">
 
    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 
 
    {{-- End PWA --}}
@@ -99,11 +100,13 @@
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
 
-            <header class="md:absolute left-0 right-0 bottom-0  z-[30]
+            <header class="absolute left-0 right-0 top-0  z-[30]
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
-                <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
-                    <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
+                <div class="z-20 flex items-center justify-between px-2 mx-auto text-white border-gray-200 max-w-7xl bg-primary-400">
+                    <img class=" w-auto max-h-[28px] object-contain"
+                    src="{{ asset('assets/images/website_infos/logoText.png') }}" alt="" />
+                    <div class="flex flex-wrap items-center justify-end flex-1 max-w-screen-xl mx-auto">
                         <div
                             class="py-1.5 lg:order-2 justify-items-end max-[1280px]:w-full max-[1280px]:flex max-[1280px]:justify-end max-[1280px]:items-center">
                             <div class="min-[1280px]:px-2 shrink-0">

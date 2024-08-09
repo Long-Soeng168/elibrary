@@ -17,17 +17,28 @@
                     <div class="relative w-full overflow-hidden rounded-md">
                         @if ($item->image)
                             <img class="w-full border rounded-md cursor-pointer"
-                                src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
+                                src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image" />
                         @else
                             <img class="object-contain w-full p-10 border rounded-md cursor-pointer aspect-video"
-                                src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
+                                src="{{ asset('assets/icons/no-image.png') }}" alt="Image" />
 
                         @endif
 
                         <div class="absolute inset-0 border size-full">
                             <div class="flex flex-col items-center justify-center size-full">
+                                @php
+                                    $url = $item->link;
+                                    if (Str::contains($url, 'videolibrary.trokelibrary.kh')) {
+                                        $parsedUrl = parse_url($url);
+                                        $newPath = str_replace('/view', '/embed', $parsedUrl['path']);
+                                        $newUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $newPath . '?' . $parsedUrl['query'];
+                                    } else {
+                                        $newUrl = $url;
+                                    }
+                                @endphp
                                 <a class="inline-flex items-center px-4 py-3 text-sm font-semibold text-gray-800 bg-white border border-gray-200 rounded-full shadow-sm glightbox3 gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                                    href="{{  $item->link ? $item->link : asset('assets/videos/'.$item->file) }}"
+                                    href="{{ $newUrl }}"
+                                    {{-- href="{{ $item->link }}" --}}
                                 >
                                     <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -43,25 +54,23 @@
                     <div class="grid grid-cols-4 gap-2">
                         @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)
-                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}" class="glightbox">
+                                <a href="{{ env('AWS_Resource_Path') . $image->image }}" class="glightbox">
                                     <img class="w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/videos/thumb/' . $image->image) }}">
-                                </a>
-                            @elseif ($index == 3)
-                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}"
+                                    src="{{ env('AWS_Resource_Path') . $image->image }}">
+                                <a href="{{ env('AWS_Resource_Path') . $image->image }}"
                                 class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
                                     <div class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
                                         <span class="text-xl font-medium text-white">
                                             +{{ count($multi_images) - 4 }}
                                         </span>
                                     </div>
-                                    <img src="{{ asset('assets/images/videos/thumb/' . $image->image) }}"
+                                    <img src="{{ env('AWS_Resource_Path') . $image->image }}"
                                         class="rounded-lg w-full aspect-[1/1]">
                                 </a>
                             @else
-                                <a href="{{ asset('assets/images/videos/thumb/' . $image->image) }}" class="glightbox">
+                                <a href="{{ env('AWS_Resource_Path') . $image->image  }}" class="glightbox">
                                     <img class="hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/videos/thumb/' . $image->image) }}">
+                                    src="{{ env('AWS_Resource_Path') . $image->image }}">
                                 </a>
                             @endif
                         @endforeach
@@ -293,7 +302,7 @@
             <a class="block group" href="{{ url('videos/'.$item->id) }}">
                 <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800">
                     <img class="w-full aspect-[16/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                        src="{{ asset('assets/images/videos/thumb/'.$item->image) }}"
+                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                         alt="Image Description" />
                 </div>
 

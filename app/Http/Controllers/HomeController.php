@@ -38,34 +38,34 @@ class HomeController extends Controller
                 // }
         // $items = DB::table('article_meta_data_subject')->get();
         // foreach ($items as $key => $item) {
-        //     $archive = Publication::find($item->article_meta_data_id);
+        //     $archive = Image::find($item->article_meta_data_id);
         //     if($archive) {
         //         $archive->update([
-        //             'publication_category_id' => $item->subject_id,
+        //             'image_category_id' => $item->subject_id,
         //         ]);
         //     }
         // }
-        // return ($items);
+
 
         $slides = Slide::latest()->get();
-        $publications = Publication::latest()->limit(10)->get();
-        $videos = Video::latest()->limit(8)->get();
-        $images = Image::latest()->limit(8)->get();
-        $audios = Audio::latest()->limit(8)->get();
-        $bulletins = News::latest()->limit(8)->get();
-        $theses = Thesis::latest()->limit(10)->get();
-        $journals = Journal::latest()->limit(10)->get();
-        $articles = Article::latest()->limit(10)->get();
+        $publications = Publication::inRandomOrder()->limit(10)->get();
+        $videos = Video::inRandomOrder()->limit(8)->get();
+        $images = Image::inRandomOrder()->limit(8)->get();
+        $articles = Article::inRandomOrder()->limit(10)->get();
+        // $audios = Audio::latest()->limit(8)->get();
+        // $bulletins = News::latest()->limit(8)->get();
+        // $theses = Thesis::latest()->limit(10)->get();
+        // $journals = Journal::latest()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
             'publications' => $publications,
             'videos' => $videos,
             'images' => $images,
-            'audios' => $audios,
-            'bulletins' => $bulletins,
-            'theses' => $theses,
-            'journals' => $journals,
             'articles' => $articles,
+            // 'audios' => $audios,
+            // 'bulletins' => $bulletins,
+            // 'theses' => $theses,
+            // 'journals' => $journals,
         ]);
     }
 

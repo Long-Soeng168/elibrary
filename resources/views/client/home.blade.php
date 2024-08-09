@@ -1,15 +1,15 @@
 @extends('layouts.client')
 @section('content')
     {{-- Start Search --}}
-    @include('client.components.search', [
-        'actionUrl' => url('/'.$menu_database_default->slug),
-        'title' => $menu_database_default->name,
-        'title_kh' => $menu_database_default->name_kh,
-    ])
+        @include('client.components.search', [
+            'actionUrl' => url('/'.$menu_database_default->slug),
+            'title' => $menu_database_default->name,
+            'title_kh' => $menu_database_default->name_kh,
+            ])
     {{-- End Search --}}
 
     <!-- Slide Show -->
-    <div class="max-w-screen-xl p-2 mx-auto">
+    {{-- <div class="max-w-screen-xl p-2 mx-auto">
         <swiper-container autoplay="true" autoplay-delay="2000" speed="1000" effect="slide" class="mySwiper" pagination="true"
             pagination-clickable="true" space-between="30" loop="true">
             @forelse ($slides as $slide)
@@ -22,9 +22,7 @@
             @empty
             @endforelse
         </swiper-container>
-
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
-    </div>
+    </div> --}}
     <!-- End Slide Show -->
 
     <!-- Start Database -->
@@ -134,14 +132,14 @@
                             <a class="block group" href="{{ url('/publications/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
+                                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                                         alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -183,13 +181,13 @@
                             <a class="block group" href="{{ url('/videos/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full aspect-[{{ env('VIDEO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
-                                        src="{{ asset('assets/images/videos/thumb/' . $item->image) }}" alt="Image Description" />
+                                    src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -232,13 +230,13 @@
                             <a class="block group" href="{{ url('/images/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full aspect-[{{ env('IMAGE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
-                                        src="{{ asset('assets/images/images/thumb/' . $item->image) }}" alt="Image Description" />
+                                    src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -282,7 +280,7 @@
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-gray-800">
                                     @if ($item->image)
                                         <img class="w-full aspect-[{{ env('AUDIO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
-                                        src="{{ asset('assets/images/audios/thumb/' . $item->image) }}" alt="Image Description" />
+                                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image Description" />
                                     @else
                                         <img class="w-full aspect-[{{ env('AUDIO_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-contain p-8 rounded-md border"
                                         src="{{ asset('assets/icons/audio_placeholder.png') }}" alt="Image Description" />
@@ -293,7 +291,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -336,13 +334,13 @@
                             <a class="block group" href="{{ url('/bulletins/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[{{ env('BULLETIN_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Image Description" />
+                                    src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -385,13 +383,13 @@
                             <a class="block group" href="{{ url('/theses/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[{{ env('THESIS_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/theses/thumb/' . $item->image) }}" alt="Image Description" />
+                                    src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -434,14 +432,14 @@
                             <a class="block group" href="{{ url('/journals/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[{{ env('JOURNAL_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/journals/thumb/' . $item->image) }}"
+                                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                                         alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -484,14 +482,14 @@
                             <a class="block group" href="{{ url('/articles/' . $item->id) }}">
                                 <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                                     <img class="w-full border aspect-[{{ env('ARTICLE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ asset('assets/images/articles/thumb/' . $item->image) }}"
+                                       src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                                         alt="Image Description" />
                                 </div>
 
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-2">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
