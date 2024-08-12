@@ -1333,7 +1333,7 @@
                             @endcan
 
                             @can('view major')
-                            <li x-data="{
+                            {{-- <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
                                         this.$nextTick(() => this.$refs.majors.scrollIntoView({ behavior: 'smooth' }));
@@ -1346,7 +1346,7 @@
                                         class="object-contain w-8 h-8 p-0.5 bg-white dark:bg-gray-200 rounded">
                                     <span class="ml-3">Majors</span>
                                 </x-sidebar-item>
-                            </li>
+                            </li> --}}
                             @endcan
 
                             {{-- <li>
@@ -1398,7 +1398,7 @@
                                                 Publishers
                                             </a>
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="{{ url('admin/people/students') }}"
                                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/students*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                                 Students
@@ -1415,7 +1415,7 @@
                                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/lecturers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                                 Lecturers
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
                             </ul>
@@ -1447,24 +1447,24 @@
                                     </svg>
                                 </button>
                                 <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ url('admin/settings/slides') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/slides*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                             Slides
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ url('admin/settings/menus') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/menus*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                             Menus
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="{{ url('admin/settings/links') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/links*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                             Links
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a href="{{ url('admin/settings/footer/1/edit') }}"
                                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/settings/footer*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">

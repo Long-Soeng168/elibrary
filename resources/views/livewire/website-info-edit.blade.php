@@ -112,7 +112,7 @@
                 <!-- End Switch/Toggle -->
                 <x-input-error :messages="$errors->get('show_bg_menu')" class="mt-2" />
             </div>
-            <div>
+            {{-- <div>
                 <x-input-label for="pdf_viewer_default" :value="__('PDF Viewer')" />
                 <span class="text-red-500">* </span>
                 <!-- Switch/Toggle -->
@@ -124,7 +124,7 @@
                 </label>
                 <!-- End Switch/Toggle -->
                 <x-input-error :messages="$errors->get('pdf_viewer_default')" class="mt-2" />
-            </div>
+            </div> --}}
 
 
             <!-- End Name -->

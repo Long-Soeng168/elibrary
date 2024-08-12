@@ -149,7 +149,7 @@
             <div class="flex flex-wrap gap-4 mt-2">
                 @forelse ($multiImages as $index => $image)
                     <div class="relative group" wire:key='{{ $image->id }}'>
-                        <img src="{{ asset('assets/images/videos/thumb/' . $image->image) }}"
+                        <img src="{{ env('AWS_Resource_Path') . $image->image }}"
                             alt="Preview Image"
                             class="object-contain max-w-full border rounded-lg shadow-md max-h-40" />
                             <button wire:click="delete({{ $image->id }})"

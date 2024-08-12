@@ -21,7 +21,8 @@ class FileUploadController extends Controller
         //     $file = $request->file('file');
         //     $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
         //     $filePath = env('AWS_File_Path') . $filename;
-        //     $uploadSuccess = Storage::disk('s3')->put($filePath, file_get_contents($file));
+        //     $uploadSuccess = Storage::disk('s3')->put($filePath, $file->get());
+            // $uploadSuccess = Storage::disk('s3')->put($filePath, file_get_contents($file));
         //     if (!$uploadSuccess) {
         //         throw new \Exception('Failed to upload the file to S3.');
         //     }

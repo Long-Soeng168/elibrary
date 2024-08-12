@@ -332,7 +332,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
 
                                 {{ app()->getLocale() == 'kh' ? 'តំណភ្ជាប់សង្គម' : 'Social Links' }}
@@ -349,24 +349,8 @@
                                         </a>
                                     @empty
                                     @endforelse
-
-                                    {{-- <a href="#" class="hover:text-gray-900 dark:hover:text-white">
-                                        <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
-                                            src="{{ asset('assets/icons/youtube.png') }}" alt="Facebook page" />
-                                        <span class="sr-only">Youtube</span>
-                                    </a>
-                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">
-                                        <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
-                                            src="{{ asset('assets/icons/telegram.png') }}" alt="Facebook page" />
-                                        <span class="sr-only">Telegram</span>
-                                    </a>
-                                    <a href="#" class="hover:text-gray-900 dark:hover:text-white">
-                                        <img class="h-[55px] aspect-square object-contain rounded-full border border-white hover:scale-110 transition-all"
-                                            src="{{ asset('assets/icons/www.png') }}" alt="Facebook page" />
-                                        <span class="sr-only">WWW</span>
-                                    </a> --}}
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />

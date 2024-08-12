@@ -8,6 +8,7 @@ use App\Models\Article;
 use Livewire\WithFileUploads;
 use Image;
 use Illuminate\Support\Facades\File;
+use Storage;
 
 class ArticleImage extends Component
 {
@@ -31,16 +32,16 @@ class ArticleImage extends Component
         $image = MultiImage::findOrFail($id);
 
         // Get the path to the image
-        $imagePathThumb = public_path('assets/images/articles/thumb/' . $image->image);
-        $imagePath = public_path('assets/images/articles/' . $image->image);
+        // $imagePathThumb = public_path('assets/images/articles/thumb/' . $image->image);
+        // $imagePath = public_path('assets/images/articles/' . $image->image);
 
-        // Delete the image file from the filesystem
-        if (File::exists($imagePathThumb)) {
-            File::delete($imagePathThumb);
-        }
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
-        }
+        // // Delete the image file from the filesystem
+        // if (File::exists($imagePathThumb)) {
+        //     File::delete($imagePathThumb);
+        // }
+        // if (File::exists($imagePath)) {
+        //     File::delete($imagePath);
+        // }
 
         // Delete the record from the database
         $image->delete();
@@ -69,36 +70,47 @@ class ArticleImage extends Component
         ]);
 
         // Ensure directories exist
-        $articlePath = public_path('assets/images/articles');
-        $thumbPath = public_path('assets/images/articles/thumb');
-        if (!File::exists($articlePath)) {
-            File::makeDirectory($articlePath, 0755, true);
-        }
-        if (!File::exists($thumbPath)) {
-            File::makeDirectory($thumbPath, 0755, true);
-        }
+        // $articlePath = public_path('assets/images/articles');
+        // $thumbPath = public_path('assets/images/articles/thumb');
+        // if (!File::exists($articlePath)) {
+        //     File::makeDirectory($articlePath, 0755, true);
+        // }
+        // if (!File::exists($thumbPath)) {
+        //     File::makeDirectory($thumbPath, 0755, true);
+        // }
 
         foreach ($this->images as $image) {
             if (!empty($image)) {
-                // $filename = time() . '_' . $image->getClientOriginalName();
-                $filename = time() . str()->random(10) . '.' . $image->getClientOriginalExtension();
-
-                $imagePath = $articlePath . '/' . $filename;
-                $imageThumbPath = $thumbPath . '/' . $filename;
-
                 try {
-                    $imageUpload = Image::make($image->getRealPath())->save($imagePath);
-                    $imageUpload->resize(400, null, function ($resize) {
-                        $resize->aspectRatio();
-                    })->save($imageThumbPath);
+                    $file = $image;
+                    $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
+                    // Process and upload the original image to S3
+                    // dd($this->image->getRealPath()) ;
+                    $image = Image::make($file->getRealPath())->encode();
+                    $image_path =  env('AWS_File_Path') . '/' . $filename;
+                    $uploadSuccess = Storage::disk('s3')->put($image_path, $image);
+                    if (!$uploadSuccess) {
+                        throw new \Exception('Failed to upload the original image.');
+                    }
+                    // Process and upload the thumbnail to S3
+                    $image_thumb = Image::make($file->getRealPath())
+                        ->resize(400, null, function($resize) {
+                            $resize->aspectRatio();
+                        })
+                        ->encode();
+                    $image_thumb_path = env('AWS_File_Path') . '/thumb/' . $filename;
+                    $thumbUploadSuccess = Storage::disk('s3')->put($image_thumb_path, $image_thumb);
+                    if (!$thumbUploadSuccess) {
+                        throw new \Exception('Failed to upload the thumbnail.');
+                    }
 
                     MultiImage::create([
                         'article_id' => $this->item->id,
                         'image' => $filename,
                     ]);
+
                 } catch (\Exception $e) {
-                    session()->flash('error', ['An error occurred while saving the image.']);
-                    return;
+                    return session()->flash('error', ['Error: ' . $e->getMessage()]);
                 }
             }
         }

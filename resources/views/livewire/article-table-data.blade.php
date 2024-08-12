@@ -172,8 +172,8 @@
                         </td>
                         <th scope="row"
                             class="flex items-center px-4 py-2 font-medium text-gray-900 dark:text-white">
-                            <a href="{{ asset('assets/images/articles/' . $item->image) }}" class="glightbox">
-                                <img src="{{ asset('assets/images/articles/thumb/' . $item->image) }}"
+                            <a href="{{ env('AWS_Resource_Path') . $item->image }}" class="glightbox">
+                                <img src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                                     alt="iMac Front Image" class="object-cover h-10 mr-3 aspect-[6/9]">
                             </a>
                         </th>

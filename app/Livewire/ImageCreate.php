@@ -15,6 +15,7 @@ use App\Models\Author;
 use App\Models\Keyword;
 
 use Image as ImageClass;
+use Storage;
 
 class ImageCreate extends Component
 {
@@ -307,16 +308,48 @@ class ImageCreate extends Component
 
         // dd($validated);
 
-        if(!empty($this->image)){
+        // if(!empty($this->image)){
             // $filename = time() . '_' . $this->image->getClientOriginalName();
-            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
+            // $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
 
-            $image_path = public_path('assets/images/images/'.$filename);
-            $image_thumb_path = public_path('assets/images/images/thumb/'.$filename);
-            $imageUpload = ImageClass::make($this->image->getRealPath())->save($image_path);
-            $imageUpload->resize(400,null,function($resize){
-                $resize->aspectRatio();
-            })->save($image_thumb_path);
+            // $image_path = public_path('assets/images/images/'.$filename);
+            // $image_thumb_path = public_path('assets/images/images/thumb/'.$filename);
+            // $imageUpload = ImageClass::make($this->image->getRealPath())->save($image_path);
+            // $imageUpload->resize(400,null,function($resize){
+            //     $resize->aspectRatio();
+            // })->save($image_thumb_path);
+            // if (empty($this->image)) {
+            //     return session()->flash('error', 'No image selected.');
+            // }
+
+        if(!empty($this->image)){
+            try {
+                $file = $this->image;
+                $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
+                // Process and upload the original image to S3
+                // dd($this->image->getRealPath()) ;
+                $image = ImageClass::make($file->getRealPath())->encode();
+                $image_path =  env('AWS_File_Path') . '/' . $filename;
+                $uploadSuccess = Storage::disk('s3')->put($image_path, $image);
+                if (!$uploadSuccess) {
+                    throw new \Exception('Failed to upload the original image.');
+                }
+                // Process and upload the thumbnail to S3
+                $image_thumb = ImageClass::make($file->getRealPath())
+                    ->resize(400, null, function($resize) {
+                        $resize->aspectRatio();
+                    })
+                    ->encode();
+                $image_thumb_path = env('AWS_File_Path') . '/thumb/' . $filename;
+                $thumbUploadSuccess = Storage::disk('s3')->put($image_thumb_path, $image_thumb);
+                if (!$thumbUploadSuccess) {
+                    throw new \Exception('Failed to upload the thumbnail.');
+                }
+
+            } catch (\Exception $e) {
+                return session()->flash('error', ['Error: ' . $e->getMessage()]);
+            }
+
             $validated['image'] = $filename;
         }
 

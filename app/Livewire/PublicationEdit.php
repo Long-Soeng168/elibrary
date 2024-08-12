@@ -16,6 +16,7 @@ use App\Models\Keyword;
 
 use Image;
 use Illuminate\Support\Facades\File;
+use Storage;
 
 class PublicationEdit extends Component
 {
@@ -332,39 +333,62 @@ class PublicationEdit extends Component
         }
 
         if (!empty($this->image)) {
-            // $filename = time() . '_' . $this->image->getClientOriginalName();
-            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
+            try {
+                $file = $this->image;
+                $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
+                // Process and upload the original image to S3
+                // dd($this->image->getRealPath()) ;
+                $image = Image::make($file->getRealPath())->encode();
+                $image_path =  env('AWS_File_Path') . '/' . $filename;
+                $uploadSuccess = Storage::disk('s3')->put($image_path, $image);
+                if (!$uploadSuccess) {
+                    throw new \Exception('Failed to upload the original image.');
+                }
+                // Process and upload the thumbnail to S3
+                $image_thumb = Image::make($file->getRealPath())
+                    ->resize(400, null, function($resize) {
+                        $resize->aspectRatio();
+                    })
+                    ->encode();
+                $image_thumb_path = env('AWS_File_Path') . '/thumb/' . $filename;
+                $thumbUploadSuccess = Storage::disk('s3')->put($image_thumb_path, $image_thumb);
+                if (!$thumbUploadSuccess) {
+                    throw new \Exception('Failed to upload the thumbnail.');
+                }
 
-            $image_path = public_path('assets/images/publications/' . $filename);
-            $image_thumb_path = public_path('assets/images/publications/thumb/' . $filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path);
-            $imageUpload->resize(400, null, function ($resize) {
-                $resize->aspectRatio();
-            })->save($image_thumb_path);
+            } catch (\Exception $e) {
+                return session()->flash('error', ['Error: ' . $e->getMessage()]);
+            }
             $validated['image'] = $filename;
-
-            $old_path = public_path('assets/images/publications/' . $this->item->image);
-            $old_thumb_path = public_path('assets/images/publications/thumb/' . $this->item->image);
-            if (File::exists($old_path)) {
-                File::delete($old_path);
-            }
-            if (File::exists($old_thumb_path)) {
-                File::delete($old_thumb_path);
-            }
         }else {
             $validated['image'] = $this->item->image;
         }
 
         if (!empty($this->pdf)) {
             // $filename = time() . '_' . $this->pdf->getClientOriginalName();
-            $filename = time() . str()->random(10) . '.' . $this->pdf->getClientOriginalExtension();
-            $this->pdf->storeAs('publications', $filename, 'publicForPdf');
-            $validated['pdf'] = $filename;
+            // $filename = time() . str()->random(10) . '.' . $this->pdf->getClientOriginalExtension();
+            // $this->pdf->storeAs('publications', $filename, 'publicForPdf');
+            // $validated['pdf'] = $filename;
 
-            $old_file = public_path('assets/pdf/publications/' . $this->item->pdf);
-            if (File::exists($old_file)) {
-                File::delete($old_file);
+            // $old_file = public_path('assets/pdf/publications/' . $this->item->pdf);
+            // if (File::exists($old_file)) {
+            //     File::delete($old_file);
+            // }
+
+            try {
+                $file = $this->pdf;
+                $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
+                $filePath = env('AWS_File_Path') . $filename;
+                $uploadSuccess = Storage::disk('s3')->put($filePath, $file->get());
+                if (!$uploadSuccess) {
+                    throw new \Exception('Failed to upload the file to S3.');
+                }
+            } catch (\Exception $e) {
+                session()->flash('error', ['Error: ' . $e->getMessage()]);
+                return redirect()->back();
             }
+
+            $validated['pdf'] = $filename;
         }else {
             $validated['pdf'] = $this->item->pdf;
         }

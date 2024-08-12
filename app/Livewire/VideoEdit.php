@@ -329,25 +329,42 @@ class VideoEdit extends Component
         }
 
         if (!empty($this->image)) {
-            // $filename = time() . '_' . $this->image->getClientOriginalName();
-            $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
+            try {
+                $file = $this->image;
+                $filename = time() . str()->random(10) . '.' . $file->getClientOriginalExtension();
+                // Process and upload the original image to S3
+                // dd($this->image->getRealPath()) ;
+                $image = Image::make($file->getRealPath())->encode();
+                $image_path =  env('AWS_File_Path') . '/' . $filename;
+                $uploadSuccess = Storage::disk('s3')->put($image_path, $image);
+                if (!$uploadSuccess) {
+                    throw new \Exception('Failed to upload the original image.');
+                }
+                // Process and upload the thumbnail to S3
+                $image_thumb = Image::make($file->getRealPath())
+                    ->resize(400, null, function($resize) {
+                        $resize->aspectRatio();
+                    })
+                    ->encode();
+                $image_thumb_path = env('AWS_File_Path') . '/thumb/' . $filename;
+                $thumbUploadSuccess = Storage::disk('s3')->put($image_thumb_path, $image_thumb);
+                if (!$thumbUploadSuccess) {
+                    throw new \Exception('Failed to upload the thumbnail.');
+                }
 
-            $image_path = public_path('assets/images/videos/' . $filename);
-            $image_thumb_path = public_path('assets/images/videos/thumb/' . $filename);
-            $imageUpload = Image::make($this->image->getRealPath())->save($image_path, 70);
-            $imageUpload->resize(400, null, function ($resize) {
-                $resize->aspectRatio();
-            })->save($image_thumb_path, 70);
+            } catch (\Exception $e) {
+                return session()->flash('error', ['Error: ' . $e->getMessage()]);
+            }
             $validated['image'] = $filename;
 
-            $old_path = public_path('assets/images/videos/' . $this->item->image);
-            $old_thumb_path = public_path('assets/images/videos/thumb/' . $this->item->image);
-            if (File::exists($old_path)) {
-                File::delete($old_path);
-            }
-            if (File::exists($old_thumb_path)) {
-                File::delete($old_thumb_path);
-            }
+            // $old_path = public_path('assets/images/videos/' . $this->item->image);
+            // $old_thumb_path = public_path('assets/images/videos/thumb/' . $this->item->image);
+            // if (File::exists($old_path)) {
+            //     File::delete($old_path);
+            // }
+            // if (File::exists($old_thumb_path)) {
+            //     File::delete($old_thumb_path);
+            // }
         } else {
             $validated['image'] = $this->item->image;
         }

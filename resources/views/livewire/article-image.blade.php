@@ -146,10 +146,10 @@
     @if ($multiImages)
         <div class="pt-5">
             <strong class="text-lg font-semibold">Available Images:</strong>
-            <div class="flex flex-wrap gap-4 mt-2">
+            <div class="flex flex-wrap gap-4 mt-2" >
                 @forelse ($multiImages as $index => $image)
-                    <div class="relative group">
-                        <img src="{{ asset('assets/images/articles/thumb/' . $image->image) }}"
+                    <div class="relative group" wire:key='{{ $image->id }}'>
+                        <img src="{{ env('AWS_Resource_Path') . 'thumb/' . $image->image }}"
                             alt="Preview Image"
                             class="object-contain max-w-full border rounded-lg shadow-md max-h-40" />
                             <button wire:click="delete({{ $image->id }})"

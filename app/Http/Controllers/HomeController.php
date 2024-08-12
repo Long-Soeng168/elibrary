@@ -23,30 +23,6 @@ use Illuminate\Support\Facades\Schema;
 class HomeController extends Controller
 {
     public function index() {
-
-        // $items = Publication::with('publicationSubCategory')->get();
-        // foreach($items as $item){
-        //         $item->update([
-        //             'publication_category_id' => $item->publicationSubCategory?->publication_category_id,
-        //         ]);
-        // }
-        // $items = Thesis::with('major')->get();
-        // foreach($items as $item){
-            //         $item->update([
-                //             'thesis_category_id' => $item->major?->thesis_category_id,
-                //         ]);
-                // }
-        // $items = DB::table('article_meta_data_subject')->get();
-        // foreach ($items as $key => $item) {
-        //     $archive = Image::find($item->article_meta_data_id);
-        //     if($archive) {
-        //         $archive->update([
-        //             'image_category_id' => $item->subject_id,
-        //         ]);
-        //     }
-        // }
-
-
         $slides = Slide::latest()->get();
         $publications = Publication::inRandomOrder()->limit(10)->get();
         $videos = Video::inRandomOrder()->limit(8)->get();
