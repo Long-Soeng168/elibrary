@@ -104,8 +104,8 @@
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
                 <div class="z-20 flex items-center justify-between px-2 mx-auto text-white border-gray-200 max-w-7xl bg-primary-400">
-                    <img class=" w-auto max-h-[28px] object-contain"
-                    src="{{ asset('assets/images/website_infos/logoText.png') }}" alt="" />
+                   <a href="/"> <img class=" w-auto max-h-[28px] object-contain"
+                    src="{{ asset('assets/images/website_infos/logoText.png') }}" alt="" /></a>
                     <div class="flex flex-wrap items-center justify-end flex-1 max-w-screen-xl mx-auto">
                         <div
                             class="py-1.5 lg:order-2 justify-items-end max-[1280px]:w-full max-[1280px]:flex max-[1280px]:justify-end max-[1280px]:items-center">
@@ -189,13 +189,13 @@
                                                 </a>
 
                                         </li>
-                                        <li
+                                        {{-- <li
                                             class="transition-all hover:underline underline-offset-4 ">
-                                            <a href="{{ url('/logout') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                            <a href="{{ url('/logout') }}"
                                                 class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
                                                 {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     @else
                                         <li
                                             class="transition-all hover:underline underline-offset-4 ">
@@ -292,7 +292,7 @@
                             </a>
                         </div>
                         <div class="justify-between gap-6 lg:flex lg:gap-20">
-                            <div class="max-w-[500px]">
+                            <div class="max-w-[650px]">
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
                                     @if (app()->getLocale() == 'kh' && $footer->name_kh)
                                         {!! $footer->name_kh !!}

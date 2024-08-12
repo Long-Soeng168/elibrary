@@ -15,9 +15,9 @@
             <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
-                        <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
+                        <a href="{{ env('AWS_Resource_Path') . $item->image }}" class="glightbox">
                             <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ asset('assets/images/publications/thumb/' . $item->image) }}" alt="Book Cover" />
+                                src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}" alt="Book Cover" />
                         </a>
                     @else
                     <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
@@ -28,10 +28,10 @@
                     <div class="grid grid-cols-4 gap-2">
                         @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)
-                                <a href="{{ asset('assets/images/publications/thumb/' . $image->image) }}"
+                                <a href="{{ env('AWS_Resource_Path') . 'thumb/' . $image->image }}"
                                     class="glightbox">
                                     <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
+                                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $image->image }}">
                                 </a>
                             @elseif ($index == 3)
                                 <a href="{{ asset('assets/images/publications/' . $image->image) }}"
@@ -42,13 +42,13 @@
                                             +{{ count($multi_images) - 4 }}
                                         </span>
                                     </div>
-                                    <img src="{{ asset('assets/images/publications/thumb/' . $image->image) }}"
+                                    <img src="{{ env('AWS_Resource_Path') . 'thumb/' . $image->image }}"
                                         class="bg-white rounded-lg w-full aspect-[1/1]">
                                 </a>
                             @else
-                                <a href="{{ asset('assets/images/publications/' . $image->image) }}" class="glightbox">
+                                <a href="{{ env('AWS_Resource_Path') . $item->image }}" class="glightbox">
                                     <img class="bg-white hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
+                                        src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}">
                                 </a>
                             @endif
                         @endforeach
@@ -62,19 +62,21 @@
                                  href="{{ route('client.login', ['path' => 'publications-'.$item->id]) }}"
                                 @else
                                     @if ($websiteInfo->pdf_viewer_default == 1)
-                                        href="{{ route('pdf.stream', [
+                                        {{-- href="{{ route('pdf.stream', [
                                                 'archive' => 'publication',
                                                 'id' => $item->id,
                                                 'file_name' => $item->pdf
                                             ])
-                                        }}"
+                                        }}" --}}
+                                        href=" {{ env('AWS_Resource_Path') . $item->pdf }} "
                                     @else
-                                        href="{{ route('pdf.view', [
+                                        {{-- href="{{ route('pdf.view', [
                                                 'archive' => 'publication',
                                                 'id' => $item->id,
                                                 'file_name' => $item->pdf
                                             ])
-                                        }}"
+                                        }}" --}}
+                                        href=" {{ env('AWS_Resource_Path') . $item->pdf }} "
                                     @endif
 
                                 @endif
@@ -90,9 +92,9 @@
                                 <div>
                                     <div class="flex flex-wrap gap-1">
                                         <p class="whitespace-nowrap">{{ __('messages.readPdf') }}</p>
-                                        @if ($item->read_count)
+                                        {{-- @if ($item->read_count)
                                         <p>( {{ $item->read_count }} )</p>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
                                 @if (!$item->can_read)
@@ -138,57 +140,7 @@
                             </div>
                         </div>
 
-                        <div class="flex-1">
-                            {{-- Start Download Button --}}
-                            <a
-                                @if (!$item->can_download && !auth()->check())
-                                href="{{ route('client.login', ['path' => 'publications-'.$item->id]) }}"
-                                @else
-                                href="{{ route('pdf.download', [
-                                        'archive' => 'publication',
-                                        'id' => $item->id,
-                                        'file_name' => $item->pdf
-                                    ])
-                                }}"
-                                onclick="
-                                    (function(){
-                                        fetch(`/add_download_count/publication/{{ $item->id }}`)
-                                        .then(response => {
-                                            if (response.ok) {
-                                                console.log('success');
-                                            } else {
-                                                console.error('Error:', response.statusText);
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.error('Error:', error);
-                                        });
-                                    })();
-                                "
-                                @endif
-                                class="relative inline-flex items-center justify-center w-full h-full gap-2 px-2 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-arrow-down-to-line">
-                                    <path d="M12 17V3" />
-                                    <path d="m6 11 6 6 6-6" />
-                                    <path d="M19 21H5" />
-                                </svg>
-                                <div class="flex flex-wrap gap-1">
-                                    <p class="whitespace-nowrap">{{ __('messages.download') }}</p>
-                                    @if ($item->download_count)
-                                    <p>( {{ $item->download_count }} )</p>
-                                    @endif
-                                </div>
-                                @if (!$item->can_download)
-                                <span class="absolute bg-red-500 border rounded-full -top-1.5 -right-1.5">
-                                    <img class="w-6 h-6 " src="{{ asset('assets/icons/lock.png') }}" alt="">
-                                </span>
-                                @endif
-                            </a>
-                            {{-- End Download Button --}}
 
-                        </div>
                     </div>
                 </div>
             </div>
@@ -415,7 +367,7 @@
                 <a class="block group" href="{{ url('publications/' . $item->id) }}">
                     <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800">
                         <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                            src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
+                            src="{{ env('AWS_Resource_Path') . 'thumb/' . $item->image }}"
                             alt="Image Description" />
                     </div>
 

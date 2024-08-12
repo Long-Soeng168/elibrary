@@ -328,6 +328,12 @@ class VideoEdit extends Component
             $validated['keywords'] = null;
         }
 
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
+        }
+
         if (!empty($this->image)) {
             try {
                 $file = $this->image;

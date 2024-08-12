@@ -158,7 +158,7 @@
                     <th scope="col" class="px-4 py-3">Category</th>
                     @can('update article')
                     <th scope="col" class="py-3 text-center">Read</th>
-                    <th scope="col" class="py-3 text-center">Download</th>
+                    {{-- <th scope="col" class="py-3 text-center">Download</th> --}}
                     @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -201,7 +201,7 @@
                             </span>
                             @endif
                         </x-table-data>
-                        <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
+                        {{-- <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
                             @if ($item->can_download)
                             <span
                                 class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
@@ -213,7 +213,7 @@
                                 Not-Allow
                             </span>
                             @endif
-                        </x-table-data>
+                        </x-table-data> --}}
                         @endcan
 
 

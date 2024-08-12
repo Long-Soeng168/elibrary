@@ -308,6 +308,12 @@ class PublicationCreate extends Component
             $validated['keywords'] = null;
         }
 
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
+        }
+
         // dd($validated);
 
         if(!empty($this->image)){

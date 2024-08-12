@@ -332,6 +332,12 @@ class ArticleEdit extends Component
             $validated['keywords'] = null;
         }
 
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
+        }
+
         if (!empty($this->image)) {
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             // $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
