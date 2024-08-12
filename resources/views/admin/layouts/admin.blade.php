@@ -1281,6 +1281,57 @@
                         </ul>
 
                         <ul class="pt-5 mt-5 space-y-1 border-t border-gray-200 dark:border-gray-700">
+                            {{-- Start General --}}
+                            @can('view general')
+                            <ul>
+                                <li x-data="{
+                                    open: {{ request()->is('admin/general*') ? 'true' : 'false' }},
+                                    init() {
+                                        if ({{ request()->is('admin/general*') ? 'true' : 'false' }}) {
+                                            this.$nextTick(() => this.$refs.dropdown.scrollIntoView({ behavior: 'smooth' }));
+                                        }
+                                    }
+                                }">
+                                    <button type="button"
+                                        class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/general*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
+                                        :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
+                                        @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))">
+                                        <img src="{{ asset('assets/icons/') }}" alt="icon"
+                                            class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
+                                        <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">General</span>
+                                        <svg class="w-3 h-3 transition-transform duration-200 transform"
+                                            :class="{ 'rotate-180': open }" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 4 4 4-4" />
+                                        </svg>
+                                    </button>
+                                    <ul x-show="open" x-transition class="py-2 ml-2 space-y-2" x-ref="dropdown">
+                                        <li>
+                                            <a href="{{ url('admin/general/page') }}"
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/general/page*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                Pages
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/general/sub') }}"
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/general/sub*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                Sub Menu
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('admin/general/main') }}"
+                                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/general/main*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
+                                                Main Menu
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                            @endcan
+                            {{-- End General --}}
+
                             @can('view keyword')
                             <li x-data="{
                                 init() {

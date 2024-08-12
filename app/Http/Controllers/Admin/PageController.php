@@ -5,18 +5,23 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminPermissionController extends Controller
+use App\Models\Page;
+
+class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view general', ['only' => ['index', 'show']]);
+        $this->middleware('permission:create general', ['only' => ['create', 'store']]);
+        $this->middleware('permission:update general', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete general', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */
-    public function __construct()
-    {
-        $this->middleware('permission:view permission', ['only' => ['index']]);
-    }
     public function index()
     {
-        return view('admin.permissions.index');
+        return view('admin.page.index');
     }
 
     /**
@@ -24,7 +29,7 @@ class AdminPermissionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.page.create');
     }
 
     /**
@@ -48,7 +53,10 @@ class AdminPermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Slide::findOrFail($id);
+        return view('admin.page.edit', [
+            'item' => $item,
+        ]);
     }
 
     /**

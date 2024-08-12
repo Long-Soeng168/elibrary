@@ -40,6 +40,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DtcController;
 use App\Http\Controllers\Admin\SlideController;
+use App\Http\Controllers\Admin\MainController;
+use App\Http\Controllers\Admin\SubController;
+use App\Http\Controllers\Admin\PageController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Client\ClientPublicationController;
@@ -168,6 +171,10 @@ Route::group([
 
     Route::resource('slides', SlideController::class);
     Route::resource('dtcs', DtcController::class);
+
+    Route::resource('general/main', MainController::class );
+    Route::resource('general/sub', SubController::class );
+    Route::resource('general/page', PageController::class );
 
     Route::get('addmore', function(){
         dd('Add More Route Test Success');
