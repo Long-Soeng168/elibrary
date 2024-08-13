@@ -16,6 +16,9 @@ use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
 use App\Models\WebsiteInfo;
+use App\Models\ProtectedArea;
+use App\Models\Area;
+use App\Models\Page;
 use Image as ImageCompress;
 use DB;
 use Illuminate\Support\Facades\Schema;
@@ -28,6 +31,7 @@ class HomeController extends Controller
         $videos = Video::inRandomOrder()->limit(8)->get();
         $images = Image::inRandomOrder()->limit(8)->get();
         $articles = Article::inRandomOrder()->limit(10)->get();
+        $protectedAreas = ProtectedArea::orderBy('order_index')->get();
         // $audios = Audio::latest()->limit(8)->get();
         // $bulletins = News::latest()->limit(8)->get();
         // $theses = Thesis::latest()->limit(10)->get();
@@ -38,11 +42,32 @@ class HomeController extends Controller
             'videos' => $videos,
             'images' => $images,
             'articles' => $articles,
+            'protectedAreas' => $protectedAreas,
             // 'audios' => $audios,
             // 'bulletins' => $bulletins,
             // 'theses' => $theses,
             // 'journals' => $journals,
         ]);
+    }
+
+    public function areaData($id) {
+        $protectedArea = ProtectedArea::where('id', $id)->first();
+        $areas = Area::where('protected_area_id', $id)->with('pages')->get();
+        return view('client.area_data', [
+            'protectedArea' => $protectedArea,
+            'areas' => $areas,
+        ]);
+    }
+
+    public function pageDescription($id) {
+        $page = Page::where('id', $id)->first();
+        // return $page;
+        return view('client.page_description', [
+            'page' => $page,
+        ]);
+    }
+    public function commingSoon($id) {
+        return view('client.comming_soon');
     }
 
     public function oneSearch(Request $request)

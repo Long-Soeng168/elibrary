@@ -53,9 +53,8 @@ class PageController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Slide::findOrFail($id);
         return view('admin.page.edit', [
-            'item' => $item,
+            'id' => $id,
         ]);
     }
 

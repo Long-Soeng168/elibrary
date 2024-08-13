@@ -49,8 +49,8 @@
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
 
-            @can('create setting')
-            <x-primary-button href="{{ url('admin/settings/slides/create') }}">
+            @can('create general')
+            <x-primary-button href="{{ url('admin/general/page/create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
                     aria-hidden="true">
                     <path clip-rule="evenodd" fill-rule="evenodd"
@@ -98,6 +98,8 @@
                         </div>
                     </th>
 
+                    <th scope="col" class="py-3">Image Link</th>
+                    <th scope="col" class="py-3">Video Link</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -121,6 +123,8 @@
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->name }}" />
+                            <x-table-data value="{{ $item->video_url }}" />
+                            <x-table-data value="{{ $item->image_url }}" />
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
@@ -145,7 +149,7 @@
                                     </div>
                                 </div> --}}
 
-                                @can('delete setting')
+                                @can('delete general')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
                                     <a wire:click="delete({{ $item->id }})"
@@ -170,10 +174,10 @@
                                 </div>
                                 @endcan
 
-                                @can('update setting')
+                                @can('update general')
                                 <div class="pb-1" x-data="{ tooltip: false }">
                                     <!-- Modal toggle -->
-                                    <a href="{{ url('admin/settings/slides/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                    <a href="{{ url('admin/general/page/'.$item->id.'/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

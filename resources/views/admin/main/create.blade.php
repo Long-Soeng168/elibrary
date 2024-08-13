@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="p-4">
-        <x-form-header :value="__('Create Slide')" class="p-4" />
+        <x-form-header :value="__('Create Main Menu')" class="p-4" />
 
-        @livewire('slide-create')
+        @livewire('main-create')
 
     </div>
 @endsection

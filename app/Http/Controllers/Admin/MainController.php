@@ -53,7 +53,7 @@ class MainController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Slide::findOrFail($id);
+        $item = ProtectedArea::findOrFail($id);
         return view('admin.main.edit', [
             'item' => $item,
         ]);

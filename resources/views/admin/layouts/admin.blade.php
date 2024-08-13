@@ -1296,7 +1296,7 @@
                                         class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/general*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}"
                                         :class="{ 'bg-slate-100 dark:bg-slate-700': open }"
                                         @click="open = !open; if (open) $nextTick(() => $refs.dropdown.scrollIntoView({ behavior: 'smooth' }))">
-                                        <img src="{{ asset('assets/icons/') }}" alt="icon"
+                                        <img src="{{ asset('assets/icons/list.png') }}" alt="icon"
                                             class="object-contain w-8 h-8 bg-white rounded dark:bg-gray-200">
                                         <span class="flex-1 text-left ms-3 rtl:text-right whitespace-nowrap">General</span>
                                         <svg class="w-3 h-3 transition-transform duration-200 transform"

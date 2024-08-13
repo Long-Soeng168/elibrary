@@ -106,6 +106,69 @@
     </div>
     <!-- End Database -->
 
+    {{-- Start General --}}
+    @if (count($protectedAreas) > 0)
+    <div class="max-w-screen-xl mx-auto mt-6">
+        <div class="flex justify-between px-2 py-1 m-2 bg-primary xl:m-0">
+            <p class="text-lg text-white">KEY IMAGES AND VIDEOS</p>
+            {{-- <a  href="{{ url('/publications') }}"
+                class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer hover:underline hover:translate-x-2">
+                {{ __('messages.seeMore') }}
+                <img src="{{ asset('assets/icons/right-arrow.png') }}" alt="" class="w-5 h-5" />
+            </a> --}}
+        </div>
+        <!-- Card Grid -->
+        <div
+            class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
+            <!-- Card -->
+            @forelse ($protectedAreas as $item)
+                    <a href="{{ url('/area_data/' . $item->id) }}"
+                        class="w-full px-2 py-4
+                        {{-- {{ request()->is($item->slug . '*') ? 'bg-gray-100' : '' }}  --}}
+                        dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                        <img class="h-16 mx-auto"
+                            src="{{ env('AWS_Resource_Path') . 'general/' . $item->image }}"
+                            alt="">
+                        <h3
+                            class="mt-2 font-semibold text-center text-gray-800 group-hover:text-gray-600 text-md lg:text-lg dark:text-gray-300 dark:group-hover:text-gray-50">
+                            @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                {{ $item->name_kh }}
+                            @else
+                                {{ $item->name }}
+                            @endif
+                        </h3>
+                    </a>
+                {{-- <a class="block group" href="{{ url('/publications/' . $item->id) }}">
+                    <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
+                        <img class="w-full border aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                            src="{{ env('AWS_Resource_Path') . 'general/' . $item->image }}"
+                            alt="Image Description" />
+                    </div>
+
+                    <div class="relative pt-2" x-data="{ tooltipVisible: false }">
+                        <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
+                            class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
+                            <p class="line-clamp-2">{{ $item->name }}</p>
+                        </h3>
+
+                        <div x-show="tooltipVisible" x-transition
+                            class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
+                            style="display: none;">
+                            {{ $item->name }}
+                            <div class="tooltip-arrow"></div>
+                        </div>
+                    </div>
+                </a> --}}
+            @empty
+            <p class="p-2">{{ __('messages.noData') }}...</p>
+            @endforelse
+        </div>
+        <!-- End Card Grid -->
+    </div>
+    @endif
+
+    {{-- End General --}}
+
     <!-- ====== Start Items ====== -->
 
     @forelse ($menu_databases as $database)
