@@ -968,20 +968,13 @@
                     </div>
                     <style>
                         progress {
-                        border-radius: 7px;
-                        width: 80%;
-                        height: 22px;
-                        margin-left: -11.5%;
-                        box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+
                         }
                         progress::-webkit-progress-bar {
-                        background-color: yellow;
-                        border-radius: 7px;
+                        background-color: rgb(194, 194, 194);
                         }
                         progress::-webkit-progress-value {
-                        background-color: blue;
-                        border-radius: 7px;
-                        box-shadow: 1px 1px 5px 3px rgba( 255, 0, 0, 0.8 );
+                        background-color: rgb(17, 150, 17);
                         }
                     </style>
                     <div x-show="uploading">
