@@ -968,17 +968,23 @@
                     </div>
                     <style>
                         progress {
-
+                            border-radius: 3px;
                         }
                         progress::-webkit-progress-bar {
-                        background-color: rgb(194, 194, 194);
+                            border-radius: 3px;
+                            background-color: rgb(194, 194, 194);
                         }
                         progress::-webkit-progress-value {
-                        background-color: rgb(17, 150, 17);
+                            border-radius: 3px;
+                            background-color: rgb(17, 150, 17);
                         }
                     </style>
-                    <div x-show="uploading">
-                        <progress class="w-full bg-grey-400 " max="100" x-bind:value="progress"></progress>
+                    <div
+                        x-show="uploading"
+                        class="flex items-center gap-1"
+                    >
+                        <span x-text="progress + '%'"></span>
+                        <progress class="w-full" max="100" x-bind:value="progress"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
