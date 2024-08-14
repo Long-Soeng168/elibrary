@@ -883,11 +883,11 @@
         <div class="mb-5">
             {{-- Start Image Upload --}}
             <div class="flex items-center mb-5 space-4" wire:key='uploadimage'
-                x-data="{ uploading: false, progress: 0, paused: false }"
-                x-on:livewire-upload-start="uploading = true; console.log('started');"
-                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
-                x-on:livewire-upload-error="uploading = false"
-                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                x-data="{ uploadingImage: false, progressImage: 0 }"
+                x-on:livewire-upload-start.window="if($event.detail.key == 'image') { uploadingImage = true; }"
+                x-on:livewire-upload-finish.window="if($event.detail.key == 'image') { uploadingImage = false; }"
+                x-on:livewire-upload-error.window="if($event.detail.key == 'image') { uploadingImage = false; }"
+                x-on:livewire-upload-progress.window="if($event.detail.key == 'image') { progressImage = $event.detail.progress; }"
             >
                 @if ($image)
                     <div class="pt-5 max-w-40">
@@ -896,38 +896,22 @@
                     </div>
                 @endif
                 <div class="flex flex-col flex-1">
-                    <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload Image (Max: 2MB) <span class="text-red-500">*</span>
-                    </label>
+                    <!-- Upload Image Input -->
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
                             class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                        class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
-
+                                <!-- Icon and Text -->
                             </div>
                             <input wire:model="image" accept="image/png, image/jpeg, image/gif" id="dropzone-file"
                                 type="file" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="image" class="text-blue-700">
-                        <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
-                            Uploading...
-                        </span>
+                        <!-- Loading Indicator -->
                     </div>
-                    <div>
-                        <div x-show="uploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
+                    <div x-show="uploadingImage">
+                        <progress max="100" x-bind:value="progressImage"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
@@ -936,58 +920,36 @@
 
             {{-- Start PDF Upload --}}
             <div class="flex items-center space-4" wire:key='uploadpdf'
-                x-data="{ uploading: false, progress: 0, paused: false }"
-                x-on:livewire-upload-start="uploading = true; console.log('started');"
-                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
-                x-on:livewire-upload-error="uploading = false"
-                x-on:livewire-upload-progress="progress = $event.detail.progress"
+                x-data="{ uploadingPdf: false, progressPdf: 0 }"
+                x-on:livewire-upload-start.window="if($event.detail.key == 'pdf') { uploadingPdf = true; }"
+                x-on:livewire-upload-finish.window="if($event.detail.key == 'pdf') { uploadingPdf = false; }"
+                x-on:livewire-upload-error.window="if($event.detail.key == 'pdf') { uploadingPdf = false; }"
+                x-on:livewire-upload-progress.window="if($event.detail.key == 'pdf') { progressPdf = $event.detail.progress; }"
             >
                 <div class="flex flex-col flex-1">
-                    <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
-                    </label>
+                    <!-- Upload PDF Input -->
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="pdf"
                             class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                        class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">PDF (MAX. 50MB)</p>
-                                @if ($pdf)
-                                    <p class="text-sm text-center text-gray-600 dark:text-gray-400">
-                                        <span class="font-bold text-md">Uploaded File :</span>
-                                        {{ $pdf->getClientOriginalName() }}
-                                    </p>
-                                @endif
+                                <!-- Icon and Text -->
                             </div>
                             <input type="file" wire:model="pdf" id="pdf" name="pdf"
                                 accept="application/pdf" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="pdf" class="text-blue-700">
-                        <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
-                            Uploading...
-                        </span>
+                        <!-- Loading Indicator -->
                     </div>
-                    <div>
-                        <div x-show="uploading">
-                            <progress max="100" x-bind:value="progress"></progress>
-                        </div>
+                    <div x-show="uploadingPdf">
+                        <progress max="100" x-bind:value="progressPdf"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
             </div>
             {{-- End PDF Upload --}}
-
-
         </div>
+
 
         <div class="mb-5" wire:ignore>
             <x-input-label for="description" :value="__('Description')" />
