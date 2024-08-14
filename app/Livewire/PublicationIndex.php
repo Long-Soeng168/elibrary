@@ -123,6 +123,16 @@ class PublicationIndex extends Component
         $this->resetPage();
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div>
+            Loading spinner...
+            <svg>...</svg>
+        </div>
+        HTML;
+    }
+
 
 
     public function render()
