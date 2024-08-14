@@ -1,4 +1,4 @@
 @extends('layouts.client')
 @section('content')
-    @livewire('audio-index')
+    @livewire('audio-index', ['lazy' => true])
 @endsection
