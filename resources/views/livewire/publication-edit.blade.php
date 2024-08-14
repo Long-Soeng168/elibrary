@@ -219,7 +219,8 @@
                             <option wire:key='year-select' value="0">Select Year...</option>
 
                             @for ($year = date('Y'); $year >= 1980; $year--)
-                                <option wire:key='{{ $year }}' value="{{ $year }}">{{ $year }}</option>
+                                <option wire:key='{{ $year }}' value="{{ $year }}">
+                                    {{ $year }}</option>
                             @endfor
                         </x-select-option>
                     </div>
@@ -405,10 +406,12 @@
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                                 <option wire:key='modalcate' value="0">Select Category</option>
                                                 @forelse ($categories as $category)
-                                                    <option wire:key='{{ $category->name }}' value="{{ $category->id }}">{{ $category->name }}
+                                                    <option wire:key='{{ $category->name }}'
+                                                        value="{{ $category->id }}">{{ $category->name }}
                                                     </option>
                                                 @empty
-                                                    <option wire:key='nomodalcate' value="0">--No Category--</option>
+                                                    <option wire:key='nomodalcate' value="0">--No Category--
+                                                    </option>
                                                 @endforelse
                                             </select>
                                         </div>
@@ -449,7 +452,8 @@
                             name="publication_type_id" class="type-select">
                             <option wire:key='type' value="0">Select Type...</option>
                             @forelse ($types as $type)
-                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
+                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">
+                                    {{ $type->name }}</option>
                             @empty
                                 <option wire:key='notype' value="0">--No Type--</option>
                             @endforelse
@@ -542,7 +546,8 @@
                             class="publisher-select">
                             <option wire:key='publisher' value="0">Select Publisher...</option>
                             @forelse ($publishers as $publisher)
-                                <option wire:key='{{ $publisher->id }}' value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                                <option wire:key='{{ $publisher->id }}' value="{{ $publisher->id }}">
+                                    {{ $publisher->name }}</option>
                             @empty
                                 <option wire:key='nopublisher' value="0"> --No Publisher--</option>
                             @endforelse
@@ -636,9 +641,10 @@
                     <div class="flex justify-start flex-1">
                         <x-select-option wire:model.live='location_id' id="location" name="location_id"
                             class="location-select">
-                            <option  wire:key='location' value="0">Select Location...</option>
+                            <option wire:key='location' value="0">Select Location...</option>
                             @forelse ($locations as $location)
-                                <option wire:key='{{ $location->id }}' value="{{ $location->id }}">{{ $location->name }}</option>
+                                <option wire:key='{{ $location->id }}' value="{{ $location->id }}">
+                                    {{ $location->name }}</option>
                             @empty
                                 <option wire:key='nolocation' value="0"> --No Location--</option>
                             @endforelse
@@ -718,7 +724,8 @@
                             class="language-select">
                             <option wire:key='language' value="0">Select Language...</option>
                             @forelse ($languages as $language)
-                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }}</option>
+                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">
+                                    {{ $language->name }}</option>
                             @empty
                                 <option wire:key='nolanguage' value="0"> --No Language--</option>
                             @endforelse
@@ -914,7 +921,8 @@
                     </div>
                     <div wire:loading wire:target="image" class="text-blue-700">
                         <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                                src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
                     </div>
@@ -924,7 +932,11 @@
             {{-- End Image Upload --}}
 
             {{-- Start PDF Upload --}}
-            <div class="flex items-center space-4" wire:key='uploadpdf'>
+            <div class="flex items-center space-4" wire:key='uploadpdf' x-data="{ uploading: false, progress: 0, paused: false }"
+                x-on:livewire-upload-start="uploading = true; progress = 0; console.log('started');"
+                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress">
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
@@ -955,9 +967,29 @@
                     </div>
                     <div wire:loading wire:target="pdf" class="text-blue-700">
                         <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                                src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
+                    </div>
+                    <style>
+                        progress {
+                            border-radius: 3px;
+                        }
+
+                        progress::-webkit-progress-bar {
+                            border-radius: 3px;
+                            background-color: rgb(194, 194, 194);
+                        }
+
+                        progress::-webkit-progress-value {
+                            border-radius: 3px;
+                            background-color: rgb(17, 150, 17);
+                        }
+                    </style>
+                    <div x-show="uploading" class="flex items-center gap-1">
+                        <span x-text="progress + '%'"></span>
+                        <progress class="w-full" max="100" x-bind:value="progress"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
@@ -976,7 +1008,8 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf" wire:loading.attr="disabled"
+            <button wire:loading.class="cursor-not-allowed" wire:click.prevent="save" wire:target="save, image, pdf"
+                wire:loading.attr="disabled"
                 class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
                 Save
             </button>
@@ -985,7 +1018,7 @@
                     src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
-            <span wire:target="pdf,image"  wire:loading class="dark:text-white">
+            <span wire:target="pdf,image" wire:loading class="dark:text-white">
                 <img class="inline w-6 h-6 text-white me-2 animate-spin"
                     src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 On Uploading File...
@@ -1080,8 +1113,6 @@
                 initFlowbite();
             });
         });
-
-
     </script>
 
     {{-- <script>
