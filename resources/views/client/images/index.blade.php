@@ -1,4 +1,4 @@
 @extends('layouts.client')
 @section('content')
-    @livewire('image-index')
+    @livewire('image-index', ['lazy' => true])
 @endsection

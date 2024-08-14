@@ -119,10 +119,15 @@ class ImageIndex extends Component
         $this->resetPage();
     }
 
+    public function placeholder()
+    {
+        return view('client.placeholder.index');
+    }
 
 
     public function render()
     {
+        // sleep(3);
         $query = Archive::query();
 
         if (!empty($this->selected_categories) && empty($this->selected_sub_categories)) {
