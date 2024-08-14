@@ -966,6 +966,24 @@
                             Uploading...
                         </span>
                     </div>
+                    <style>
+                        progress {
+                        border-radius: 7px;
+                        width: 80%;
+                        height: 22px;
+                        margin-left: -11.5%;
+                        box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+                        }
+                        progress::-webkit-progress-bar {
+                        background-color: yellow;
+                        border-radius: 7px;
+                        }
+                        progress::-webkit-progress-value {
+                        background-color: blue;
+                        border-radius: 7px;
+                        box-shadow: 1px 1px 5px 3px rgba( 255, 0, 0, 0.8 );
+                        }
+                    </style>
                     <div x-show="uploading">
                         <progress class="w-full bg-grey-400 " max="100" x-bind:value="progress"></progress>
                     </div>
