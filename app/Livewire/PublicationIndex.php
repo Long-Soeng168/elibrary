@@ -125,12 +125,10 @@ class PublicationIndex extends Component
 
     public function placeholder()
     {
-        return <<<'HTML'
-        <div>
+        return "<div>
             Loading spinner...
             <svg>...</svg>
-        </div>
-        HTML;
+        </div>";
     }
 
 
