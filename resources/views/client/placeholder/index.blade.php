@@ -1,6 +1,5 @@
 <div>
 
-
     <div class="max-w-screen-xl grid-cols-12 gap-4 px-2 mx-auto lg:grid xl:px-0">
         <!-- Start Database -->
         <div wire:ignore id="accordion-collapse" data-accordion="collapse" class="col-span-1 mt-6">
@@ -67,7 +66,7 @@
 
         <!-- Items -->
         <div class="col-span-11 lg:pl-4">
-            <div class="max-w-screen-xl mx-auto mt-6">
+            <div class="max-w-screen-xl mx-auto">
                 <div
                     class="grid grid-cols-2 gap-2 py-2 lg:py-4 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 sm:gap-2 md:gap-4 lg:gap-6">
                     <!-- Card -->
