@@ -171,7 +171,7 @@
                         <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-1">
                             @forelse ($menu_databases as $index => $database)
                                 @if ($database->type == 'slug')
-                                    <a class="{{ request()->is($database->slug) ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
+                                    <a class="{{ $database->slug == 'videos' ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
                                     href="{{ url('/' . $database->slug) }}">
                                         <div class="flex items-center justify-center object-contain w-12 aspect-square rounded-xl">
                                             <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt=""
