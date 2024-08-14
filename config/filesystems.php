@@ -60,6 +60,14 @@ return [
             'throw' => false,
         ],
 
+        'publicForVideo' => [
+            'driver' => 'local',
+            'root' => public_path('assets/videos'),
+            'url' => env('APP_URL').'/assets/videos',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'publicForPdf' => [
             'driver' => 'local',
             'root' => public_path('assets/pdf'),
