@@ -856,7 +856,13 @@
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
+            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'
+            x-data="{ uploading: false, progress: 0, paused: false }"
+            x-on:livewire-upload-start="uploading = true; progress = 0; console.log('started');"
+            x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+            x-on:livewire-upload-error="uploading = false"
+            x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 @if ($image)
                     <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
@@ -891,6 +897,25 @@
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
+                    </div>
+                    <style>
+                        progress {
+                            border-radius: 3px;
+                        }
+
+                        progress::-webkit-progress-bar {
+                            border-radius: 3px;
+                            background-color: rgb(194, 194, 194);
+                        }
+
+                        progress::-webkit-progress-value {
+                            border-radius: 3px;
+                            background-color: rgb(17, 150, 17);
+                        }
+                    </style>
+                    <div x-show="uploading" class="flex items-center gap-1">
+                        <span x-text="progress + '%'"></span>
+                        <progress class="w-full" max="100" x-bind:value="progress"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
