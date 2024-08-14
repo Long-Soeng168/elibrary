@@ -280,7 +280,7 @@
                     <!-- Card -->
                     @forelse ($items as $index => $item)
 
-                        <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('images/'.$item->id) }}">
+                        <a wire:key="{{ $item->id }}-{{ $index }}" class="block group" href="{{ url('images/'.$item->id) }}" lazy>
                             <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
                                 @if ($item->image)
                                     <img class="w-full aspect-[{{ env('IMAGE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
