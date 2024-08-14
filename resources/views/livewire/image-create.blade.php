@@ -856,7 +856,13 @@
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
+            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'
+                x-data="{ uploading: false, progress: 0, paused: false }"
+                x-on:livewire-upload-start="uploading = true; console.log('started');"
+                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 @if ($image)
                     <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
@@ -891,6 +897,11 @@
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
+                    </div>
+                    <div>
+                        <div x-show="uploading">
+                            <progress max="100" x-bind:value="progress"></progress>
+                        </div>
                     </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>

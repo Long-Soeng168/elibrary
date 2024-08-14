@@ -882,7 +882,13 @@
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
-            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'>
+            <div class="flex items-center mb-5 space-4" wire:key='uploadimage'
+                x-data="{ uploading: false, progress: 0, paused: false }"
+                x-on:livewire-upload-start="uploading = true; console.log('started');"
+                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 @if ($image)
                     <div class="pt-5 max-w-40">
                         <img src="{{ $image->temporaryUrl() }}" alt="Selected Image"
@@ -918,13 +924,24 @@
                             Uploading...
                         </span>
                     </div>
+                    <div>
+                        <div x-show="uploading">
+                            <progress max="100" x-bind:value="progress"></progress>
+                        </div>
+                    </div>
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
             </div>
             {{-- End Image Upload --}}
 
             {{-- Start PDF Upload --}}
-            <div class="flex items-center space-4" wire:key='uploadpdf'>
+            <div class="flex items-center space-4" wire:key='uploadpdf'
+                x-data="{ uploading: false, progress: 0, paused: false }"
+                x-on:livewire-upload-start="uploading = true; console.log('started');"
+                x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+                x-on:livewire-upload-error="uploading = false"
+                x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
@@ -958,6 +975,11 @@
                             <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
+                    </div>
+                    <div>
+                        <div x-show="uploading">
+                            <progress max="100" x-bind:value="progress"></progress>
+                        </div>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
