@@ -255,7 +255,7 @@ class HomeController extends Controller
             ]);
         }
 
-        if (!$item->can_download && !auth()->check()) {
+        if (!$item->can_download && !$item->can_read && !auth()->check()) {
             abort(403);
         }
 
