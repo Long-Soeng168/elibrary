@@ -51,8 +51,22 @@ class DashboardController extends Controller
             'authors' => Author::count(),
         ];
 
+        // $readCounts = [
+        //     'publications' => Publication::sum('read_count'),
+        //     'videos' => Video::sum('read_count'),
+        //     'images' => Image::sum('read_count'),
+        //     'audios' => Audio::sum('read_count'),
+        //     'bulletins' => News::sum('read_count'),
+        //     'theses' => Thesis::sum('read_count'),
+        //     'journals' => Journal::sum('read_count'),
+        //     'articles' => Article::sum('read_count'),
+        // ];
+
         $label = [];
         $data = [];
+
+        // $readCountLabel = [];
+        // $readCountData = [];
 
         // Fetch menu databases
         $menu_databases = Database::where('status', 1)
@@ -69,7 +83,20 @@ class DashboardController extends Controller
             }
         }
 
-        // return $counts;
+        // foreach ($menu_databases as $database) {
+        //     if ($database->type == 'slug' && $database->status) {
+        //         $readCountLabel[] = $database->name;
+
+        //         // Get count based on slug
+        //         $slug = $database->slug;
+        //         $readCountData[] = $readCounts[$slug] ?? 0;
+        //     }
+        // }
+
+        // return [
+        //     'readCountLabel' => $readCountLabel,
+        //     'readCountData' => $readCountData,
+        // ];
 
         return view('admin.dashboard.index', array_merge([
             'title' => 'Records'
@@ -77,33 +104,10 @@ class DashboardController extends Controller
             'label' => $label,
             'data' => $data,
             'counts' => $counts,
+            // 'readCountLabel' => $readCountLabel,
+            // 'readCountData' => $readCountData,
         ]));
     }
-
-
-            // Read and Download Count
-            // $publicationReadCount = Publication::sum('read_count');
-            // $imageReadCount = Image::sum('read_count');
-            // $videoReadCount = Video::sum('read_count');
-            // $audioReadCount = Audio::sum('read_count');
-            // $newsReadCount = News::sum('read_count');
-            // $articleReadCount = Article::sum('read_count');
-            // $thesisReadCount = Thesis::sum('read_count');
-            // $journalReadCount = Journal::sum('read_count');
-
-            // return [
-            //     $publicationReadCount,
-            //     $imageReadCount,
-            //     $videoReadCount,
-            //     $audioReadCount,
-            //     $newsReadCount,
-            //     $articleReadCount,
-            //     $thesisReadCount,
-            //     $journalReadCount,
-            // ];
-
-            // // Download Count
-            // $publicationJournalDownloadCount = Publication::sum('download_count');
 
     /**
      * Show the form for creating a new resource.
