@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use DB;
+
 use App\Models\Publication;
 use App\Models\Video;
 use App\Models\Image;
@@ -33,73 +36,74 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $publicationsCount = Publication::count();
-        $videosCount = Video::count();
-        $imagesCount = Image::count();
-        $audiosCount = Audio::count();
-        $bulletinsCount = News::count();
-        $thesesCount = Thesis::count();
-        $journalsCount = Journal::count();
-        $articlesCount = Article::count();
-
-        $usersCount = User::count();
-        $publishersCount = Publisher::count();
-        $authorsCount = Author::count();
+        // Count various records
+        $counts = [
+            'publications' => Publication::count(),
+            'videos' => Video::count(),
+            'images' => Image::count(),
+            'audios' => Audio::count(),
+            'bulletins' => News::count(),
+            'theses' => Thesis::count(),
+            'journals' => Journal::count(),
+            'articles' => Article::count(),
+            'users' => User::count(),
+            'publishers' => Publisher::count(),
+            'authors' => Author::count(),
+        ];
 
         $label = [];
         $data = [];
 
-        $menu_databases = Database::where('status', 1)->orderBy('order_index', 'ASC')->get() ?? new Database;
+        // Fetch menu databases
+        $menu_databases = Database::where('status', 1)
+            ->orderBy('order_index', 'ASC')
+            ->get();
 
-        foreach($menu_databases as $database){
-            if($database->type == 'slug' && $database->status){
+        foreach ($menu_databases as $database) {
+            if ($database->type == 'slug' && $database->status) {
                 $label[] = $database->name;
-                switch ($database->slug) {
-                    case 'publications':
-                        $data[] = $publicationsCount;
-                        break;
-                    case 'videos':
-                        $data[] = $videosCount;
-                        break;
-                    case 'images':
-                        $data[] = $imagesCount;
-                        break;
-                    case 'audios':
-                        $data[] = $audiosCount;
-                        break;
-                    case 'bulletins':
-                        $data[] = $bulletinsCount;
-                        break;
-                    case 'theses':
-                        $data[] = $thesesCount;
-                        break;
-                    case 'journals':
-                        $data[] = $journalsCount;
-                        break;
-                    case 'articles':
-                        $data[] = $articlesCount;
-                        break;
-                }
+
+                // Get count based on slug
+                $slug = $database->slug;
+                $data[] = $counts[$slug] ?? 0;
             }
         }
 
-        return view('admin.dashboard.index', [
-            'title' => 'Records',
-            'publicationsCount' => $publicationsCount,
-            'videosCount' => $videosCount,
-            'imagesCount' => $imagesCount,
-            'audiosCount' => $audiosCount,
-            'bulletinsCount' => $bulletinsCount,
-            'usersCount' => $usersCount,
-            'publishersCount' => $publishersCount,
-            'authorsCount' => $authorsCount,
-            'thesesCount' => $thesesCount,
-            'journalsCount' => $journalsCount,
-            'articlesCount' => $articlesCount,
+        // return $counts;
+
+        return view('admin.dashboard.index', array_merge([
+            'title' => 'Records'
+        ], $counts, [
             'label' => $label,
-            'data' => $data
-        ]);
+            'data' => $data,
+            'counts' => $counts,
+        ]));
     }
+
+
+            // Read and Download Count
+            // $publicationReadCount = Publication::sum('read_count');
+            // $imageReadCount = Image::sum('read_count');
+            // $videoReadCount = Video::sum('read_count');
+            // $audioReadCount = Audio::sum('read_count');
+            // $newsReadCount = News::sum('read_count');
+            // $articleReadCount = Article::sum('read_count');
+            // $thesisReadCount = Thesis::sum('read_count');
+            // $journalReadCount = Journal::sum('read_count');
+
+            // return [
+            //     $publicationReadCount,
+            //     $imageReadCount,
+            //     $videoReadCount,
+            //     $audioReadCount,
+            //     $newsReadCount,
+            //     $articleReadCount,
+            //     $thesisReadCount,
+            //     $journalReadCount,
+            // ];
+
+            // // Download Count
+            // $publicationJournalDownloadCount = Publication::sum('download_count');
 
     /**
      * Show the form for creating a new resource.

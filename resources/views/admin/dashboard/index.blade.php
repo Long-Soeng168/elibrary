@@ -25,7 +25,7 @@
                                                 <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                     class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                                 <div class="text-sm text-gray-900 dark:text-white">Publications</div>
-                                                <p class="text-center text-gray-700 dark:text-gray-200">{{ $publicationsCount }}</p>
+                                                <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['publications'] }}</p>
                                             </a>
                                         @endcan
                                     @break
@@ -37,7 +37,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Videos</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $videosCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['videos'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -49,7 +49,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Images</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $imagesCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['images'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -61,7 +61,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Audios</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $audiosCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['audios'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -73,7 +73,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $bulletinsCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['bulletins'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -85,7 +85,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Theses</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $thesesCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['theses'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -97,7 +97,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Journals</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $journalsCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['journals'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -109,7 +109,7 @@
                                             <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                                 class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
                                             <div class="text-sm text-gray-900 dark:text-white">Articles</div>
-                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $articlesCount }}</p>
+                                            <p class="text-center text-gray-700 dark:text-gray-200">{{ $counts['articles'] }}</p>
                                         </a>
                                         @endcan
                                     @break
@@ -225,9 +225,9 @@
                 datasets: [{
                     label: "Records",
                     data: [
-                        {{ $usersCount }},
-                        {{ $publishersCount }},
-                        {{ $authorsCount }},
+                        {{ $counts['users'] }},
+                        {{ $counts['authors'] }},
+                        {{ $counts['publishers'] }},
 
                     ],
                     backgroundColor: [
