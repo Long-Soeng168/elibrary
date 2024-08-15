@@ -123,6 +123,7 @@ class PublicationIndex extends Component
         $this->resetPage();
     }
 
+
     public function placeholder()
     {
         return view('client.placeholder.index');

@@ -246,7 +246,7 @@
                             <option wire:key='category' value="0">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                    {{ $category->name }}
+                                    {{ $category->name }} {{ ' / ' . $category->name_kh }}
                                 </option>
                             @empty
                                 <option wire:key='nocateogry' value="0"> --No Category--</option>
@@ -342,7 +342,8 @@
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
-                                    {{ $subCategory->name }}</option>
+                                    {{ $subCategory->name }} {{ ' / ' . $subCategory->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='nosub-category' value="0">--No Category--</option>
                             @endforelse
@@ -453,7 +454,8 @@
                             <option wire:key='type' value="0">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">
-                                    {{ $type->name }}</option>
+                                    {{ $type->name }} {{ ' / ' . $type->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='notype' value="0">--No Type--</option>
                             @endforelse
@@ -725,7 +727,7 @@
                             <option wire:key='language' value="0">Select Language...</option>
                             @forelse ($languages as $language)
                                 <option wire:key='{{ $language->id }}' value="{{ $language->id }}">
-                                    {{ $language->name }}</option>
+                                    {{ $language->name }} {{ ' / ' . $language->name_kh }}</option>
                             @empty
                                 <option wire:key='nolanguage' value="0"> --No Language--</option>
                             @endforelse
