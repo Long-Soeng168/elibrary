@@ -14,6 +14,7 @@
         </div> --}}
 
         <div class="p-4">
+
             <div class="grid items-start grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-{{ (count($menu_databases) <= 5) ? count($menu_databases) : '6' }}">
                 @forelse ($menu_databases as $database)
                     @if ($database->type !== 'slug')
@@ -59,6 +60,7 @@
                                 </a>
                             @endcan
                         @break
+
                         @case('videos')
                             @can('view video')
                                 <a href="{{ url('admin/videos') }}"
@@ -347,7 +349,8 @@
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(153, 102, 255, 1)'
                             ],
-                            borderWidth: 3
+                            borderWidth: 3,
+                            pointRadius: 10,
                         }]
                     },
                     options: {
