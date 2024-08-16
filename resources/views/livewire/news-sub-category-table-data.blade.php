@@ -148,7 +148,7 @@
                                         <option wire:key="selectCate" {{ !$new_category_id ? 'selected' : '' }} value="">Select Category</option>
                                         @foreach ($categories as $category)
                                             <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                            {{ $category->name }}</option>
+                                            {{ $category->name }} {{ ' / ' . $category->name_kh }}</option>
                                         @endforeach
                                     </select>
                                 </div>

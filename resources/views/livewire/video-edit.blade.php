@@ -227,7 +227,7 @@
                             <option wire:key='category' value="0">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                    {{ $category->name }}
+                                    {{ $category->name }} {{ ' / ' . $category->name_kh }}
                                 </option>
                             @empty
                                 <option wire:key='nocateogry' value="0"> --No Category--</option>
@@ -323,7 +323,8 @@
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
-                                    {{ $subCategory->name }}</option>
+                                    {{ $subCategory->name }} {{ ' / ' . $subCategory->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='nosub-category' value="0">--No Category--</option>
                             @endforelse
@@ -431,7 +432,8 @@
                             name="video_type_id" class="type-select">
                             <option wire:key='type' value="0">Select Type...</option>
                             @forelse ($types as $type)
-                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
+                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }} {{ ' / ' . $type->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='notype' value="0">--No Type--</option>
                             @endforelse
@@ -700,7 +702,8 @@
                             class="language-select">
                             <option wire:key='language' value="0">Select Language...</option>
                             @forelse ($languages as $language)
-                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }}</option>
+                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }} {{ ' / ' . $language->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='nolanguage' value="0"> --No Language--</option>
                             @endforelse
@@ -907,10 +910,16 @@
             {{-- End Image Upload --}}
 
             {{-- Start file Upload --}}
-            {{-- <div class="flex items-center space-4" wire:key='uploadfile'>
+            <div class="flex items-center space-4" wire:key='uploadfile'
+            x-data="{ uploading: false, progress: 0, paused: false }"
+            x-on:livewire-upload-start="uploading = true; progress = 0; console.log('started');"
+            x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+            x-on:livewire-upload-error="uploading = false"
+            x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Upload File (Max : 10MB) <span class="text-red-500">*</span>
+                        Video File, Max : 50MB (Optional) : <span class="text-yellow-600">Video file not required if using a YouTube link.</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="file"
@@ -924,7 +933,7 @@
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
                                         class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 10MB)</p>
+                                <p class="mb-2 text-xs text-gray-500 dark:text-gray-400">file (MAX. 50MB)</p>
                                 @if ($file)
                                     <p class="text-sm text-center text-gray-600 dark:text-gray-400">
                                         <span class="font-bold text-md">Uploaded File :</span>
@@ -933,7 +942,7 @@
                                 @endif
                             </div>
                             <input type="file" wire:model="file" id="file" name="file"
-                                accept="application/file" class="absolute h-[140%] w-[100%]" />
+                                accept="video/*" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="file" class="text-blue-700">
@@ -942,9 +951,28 @@
                             Uploading...
                         </span>
                     </div>
+                    <style>
+                        progress {
+                            border-radius: 3px;
+                        }
+
+                        progress::-webkit-progress-bar {
+                            border-radius: 3px;
+                            background-color: rgb(194, 194, 194);
+                        }
+
+                        progress::-webkit-progress-value {
+                            border-radius: 3px;
+                            background-color: rgb(17, 150, 17);
+                        }
+                    </style>
+                    <div x-show="uploading" class="flex items-center gap-1">
+                        <span x-text="progress + '%'"></span>
+                        <progress class="w-full" max="100" x-bind:value="progress"></progress>
+                    </div>
                     <x-input-error :messages="$errors->get('file')" class="mt-2" />
                 </div>
-            </div> --}}
+            </div>
             {{-- End file Upload --}}
 
 

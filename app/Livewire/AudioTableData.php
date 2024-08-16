@@ -115,10 +115,13 @@ class AudioTableData extends Component
         $categories = AudioCategory::latest()->get();
         $selectedCategory = AudioCategory::find($this->filter);
 
+        $totalReadCount = Audio::sum('read_count');
+
         return view('livewire.audio-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
         ]);
     }
 }

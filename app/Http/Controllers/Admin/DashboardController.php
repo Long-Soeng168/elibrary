@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use DB;
+
 use App\Models\Publication;
 use App\Models\Video;
 use App\Models\Image;
@@ -31,73 +34,185 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     // Count various records
+    //     $counts = [
+    //         'publications' => Publication::count(),
+    //         'videos' => Video::count(),
+    //         'images' => Image::count(),
+    //         'audios' => Audio::count(),
+    //         'bulletins' => News::count(),
+    //         'theses' => Thesis::count(),
+    //         'journals' => Journal::count(),
+    //         'articles' => Article::count(),
+    //         'users' => User::count(),
+    //         'publishers' => Publisher::count(),
+    //         'authors' => Author::count(),
+    //     ];
+
+    //     // $readCounts = [
+    //     //     'publications' => Publication::sum('read_count'),
+    //     //     'videos' => Video::sum('read_count'),
+    //     //     'images' => Image::sum('read_count'),
+    //     //     'audios' => Audio::sum('read_count'),
+    //     //     'bulletins' => News::sum('read_count'),
+    //     //     'theses' => Thesis::sum('read_count'),
+    //     //     'journals' => Journal::sum('read_count'),
+    //     //     'articles' => Article::sum('read_count'),
+    //     // ];
+
+    //     $label = [];
+    //     $data = [];
+
+    //     // $readCountLabel = [];
+    //     // $readCountData = [];
+
+    //     // Fetch menu databases
+    //     $menu_databases = Database::where('status', 1)
+    //         ->orderBy('order_index', 'ASC')
+    //         ->get();
+
+    //     foreach ($menu_databases as $database) {
+    //         if ($database->type == 'slug' && $database->status) {
+    //             $label[] = $database->name;
+
+    //             // Get count based on slug
+    //             $slug = $database->slug;
+    //             $data[] = $counts[$slug] ?? 0;
+    //         }
+    //     }
+
+    //     // foreach ($menu_databases as $database) {
+    //     //     if ($database->type == 'slug' && $database->status) {
+    //     //         $readCountLabel[] = $database->name;
+
+    //     //         // Get count based on slug
+    //     //         $slug = $database->slug;
+    //     //         $readCountData[] = $readCounts[$slug] ?? 0;
+    //     //     }
+    //     // }
+
+    //     // return [
+    //     //     'readCountLabel' => $readCountLabel,
+    //     //     'readCountData' => $readCountData,
+    //     // ];
+
+
+    //     return view('admin.dashboard.index', array_merge([
+    //         'title' => 'Records'
+    //     ], $counts, [
+    //         'label' => $label,
+    //         'data' => $data,
+    //         'counts' => $counts,
+    //         // 'readCountLabel' => $readCountLabel,
+    //         // 'readCountData' => $readCountData,
+    //     ]));
+    // }
     public function index()
     {
-        $publicationsCount = Publication::count();
-        $videosCount = Video::count();
-        $imagesCount = Image::count();
-        $audiosCount = Audio::count();
-        $bulletinsCount = News::count();
-        $thesesCount = Thesis::count();
-        $journalsCount = Journal::count();
-        $articlesCount = Article::count();
 
-        $usersCount = User::count();
-        $publishersCount = Publisher::count();
-        $authorsCount = Author::count();
-
+       // Define the labels for the last 6 months
         $label = [];
-        $data = [];
+        for ($i = 6; $i > 0; $i--) {
+            $label[] = Carbon::now()->subMonths($i)->format('M'); // 01, 02, 03, etc.
+        }
 
-        $menu_databases = Database::where('status', 1)->orderBy('order_index', 'ASC')->get() ?? new Database;
+        // Initialize an array to hold the counts
+        $data = array_fill(0, 6, 0); // Create an array with 6 zeros
 
-        foreach($menu_databases as $database){
-            if($database->type == 'slug' && $database->status){
-                $label[] = $database->name;
-                switch ($database->slug) {
-                    case 'publications':
-                        $data[] = $publicationsCount;
-                        break;
-                    case 'videos':
-                        $data[] = $videosCount;
-                        break;
-                    case 'images':
-                        $data[] = $imagesCount;
-                        break;
-                    case 'audios':
-                        $data[] = $audiosCount;
-                        break;
-                    case 'bulletins':
-                        $data[] = $bulletinsCount;
-                        break;
-                    case 'theses':
-                        $data[] = $thesesCount;
-                        break;
-                    case 'journals':
-                        $data[] = $journalsCount;
-                        break;
-                    case 'articles':
-                        $data[] = $articlesCount;
-                        break;
+        $models = [
+            Publication::class,
+            Video::class,
+            Image::class,
+            Audio::class,
+            News::class,
+            Thesis::class,
+            Journal::class,
+            Article::class,
+        ];
+
+        foreach ($models as $model) {
+            $results = $model::select(
+                DB::raw('COUNT(*) as total'),
+                DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month')
+            )
+            ->where('created_at', '>=', Carbon::now()->subMonths(6)->startOfMonth())
+            ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
+            ->orderBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), 'asc')
+            ->get()
+            ->pluck('total', 'month');
+
+            // Debug: Print the results for verification
+            // foreach ($results as $month => $total) {
+            //     echo "Month: $month, Total: $total\n";
+            // }
+
+            // Add the totals to the $count array
+            foreach ($results as $month => $total) {
+                $monthDate = Carbon::createFromFormat('Y-m', $month);
+                $monthIndex = Carbon::now()->startOfMonth()->diffInMonths($monthDate);
+
+                if ($monthIndex >= 0 && $monthIndex < 6) {
+                    $data[5 - $monthIndex] += $total; // Adjust index based on the loop
                 }
             }
         }
+        // return [$label, $data];
+
+        // Debugging for a specific month count
+        // return Article::where('created_at', 'LIKE', '%2024-07%')->count();
+
+
+
+        // $readCounts = [
+        //     'publications' => Publication::sum('read_count'),
+        //     'videos' => Video::sum('read_count'),
+        //     'images' => Image::sum('read_count'),
+        //     'audios' => Audio::sum('read_count'),
+        //     'bulletins' => News::sum('read_count'),
+        //     'theses' => Thesis::sum('read_count'),
+        //     'journals' => Journal::sum('read_count'),
+        //     'articles' => Article::sum('read_count'),
+        // ];
+
+        // foreach ($menu_databases as $database) {
+        //     if ($database->type == 'slug' && $database->status) {
+        //         $readCountLabel[] = $database->name;
+
+        //         // Get count based on slug
+        //         $slug = $database->slug;
+        //         $readCountData[] = $readCounts[$slug] ?? 0;
+        //     }
+        // }
+
+        // return [
+        //     'readCountLabel' => $readCountLabel,
+        //     'readCountData' => $readCountData,
+        // ];
+
+        $totalCountEachArchive = [
+            'publications' => Publication::count(),
+            'videos' => Video::count(),
+            'images' => Image::count(),
+            'audios' => Audio::count(),
+            'bulletins' => News::count(),
+            'theses' => Thesis::count(),
+            'journals' => Journal::count(),
+            'articles' => Article::count(),
+            'users' => User::count(),
+            'publishers' => Publisher::count(),
+            'authors' => Author::count(),
+        ];
+
+
 
         return view('admin.dashboard.index', [
-            'title' => 'Records',
-            'publicationsCount' => $publicationsCount,
-            'videosCount' => $videosCount,
-            'imagesCount' => $imagesCount,
-            'audiosCount' => $audiosCount,
-            'bulletinsCount' => $bulletinsCount,
-            'usersCount' => $usersCount,
-            'publishersCount' => $publishersCount,
-            'authorsCount' => $authorsCount,
-            'thesesCount' => $thesesCount,
-            'journalsCount' => $journalsCount,
-            'articlesCount' => $articlesCount,
             'label' => $label,
-            'data' => $data
+            'data' => $data,
+            'totalCountEachArchive' => $totalCountEachArchive,
+            // 'readCountLabel' => $readCountLabel,
+            // 'readCountData' => $readCountData,
         ]);
     }
 

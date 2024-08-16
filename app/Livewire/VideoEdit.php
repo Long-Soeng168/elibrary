@@ -15,6 +15,7 @@ use App\Models\Author;
 use App\Models\Keyword;
 
 use Image;
+use Storage;
 use Illuminate\Support\Facades\File;
 
 class VideoEdit extends Component
@@ -291,7 +292,7 @@ class VideoEdit extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:2048', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
@@ -327,6 +328,12 @@ class VideoEdit extends Component
             $validated['keywords'] = null;
         }
 
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
+        }
+
         if (!empty($this->image)) {
             // $filename = time() . '_' . $this->image->getClientOriginalName();
             $filename = time() . str()->random(10) . '.' . $this->image->getClientOriginalExtension();
@@ -353,11 +360,24 @@ class VideoEdit extends Component
 
         if (!empty($this->file)) {
             // $filename = time() . '_' . $this->file->getClientOriginalName();
+            // Define the directory path (root directory in this case)
+            $directory = '';
+
+            // Check if the directory exists, if not, create it
+            if (!Storage::disk('publicForVideo')->exists($directory)) {
+                Storage::disk('publicForVideo')->makeDirectory($directory);
+            }
+
+            // Generate a unique filename
             $filename = time() . str()->random(10) . '.' . $this->file->getClientOriginalExtension();
-            $this->file->storeAs('videos', $filename, 'publicForPdf');
+
+            // Store the file
+            $this->file->storeAs($directory, $filename, 'publicForVideo');
+
+            // Save the filename to the validated array
             $validated['file'] = $filename;
 
-            $old_file = public_path('assets/pdf/videos/' . $this->item->file);
+            $old_file = public_path('assets/videos/' . $this->item->file);
             if (File::exists($old_file)) {
                 File::delete($old_file);
             }

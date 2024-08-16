@@ -92,7 +92,10 @@
         </div>
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-
+            <div class="flex flex-col items-end text-sm text-gray-500">
+                <span>Total Read : {{ $totalReadCount }}</span>
+                <span>Total Download : {{ $totalDownloadCount }}</span>
+            </div>
             @can('create thesis')
             <x-primary-button href="{{ route('admin.theses.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +186,13 @@
                         <x-table-data>
                             <span
                                 class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300 whitespace-nowrap">
-                                {{ $item->student?->name ? $item->student?->name : 'N/A' }} {{ $item->student_name ? $item->student_name : '' }}
+                                @if ($item->student?->name)
+                                    {{ $item->student?->name }}
+                                @elseif ($item->student_name)
+                                    {{ $item->student_name }}
+                                @else
+                                    NA
+                                @endif
                             </span>
                         </x-table-data>
                         <x-table-data value="{{ $item->major?->name ? $item->major?->name : 'N/A' }}" />

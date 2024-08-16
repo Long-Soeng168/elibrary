@@ -122,7 +122,10 @@ class ArticleIndex extends Component
         $this->resetPage();
     }
 
-
+    public function placeholder()
+    {
+        return view('client.placeholder.index');
+    }
 
     public function render()
     {

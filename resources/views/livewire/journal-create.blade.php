@@ -357,7 +357,8 @@
                             <option wire:key='type' value="">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">
-                                    {{ $type->name }}</option>
+                                    {{ $type->name }} {{ ' / ' . $type->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='notype' value="">--No Type--</option>
                             @endforelse
@@ -451,7 +452,7 @@
                             <option wire:key='category' value="">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                    {{ $category->name }}
+                                    {{ $category->name }} {{ ' / ' . $category->name_kh }}
                                 </option>
                             @empty
                                 <option wire:key='nocateogry' value=""> --No Category--</option>
@@ -629,7 +630,7 @@
                             <option wire:key='language' value="">Select Language...</option>
                             @forelse ($languages as $language)
                                 <option wire:key='{{ $language->id }}' value="{{ $language->id }}">
-                                    {{ $language->name }}</option>
+                                    {{ $language->name }} {{ ' / ' . $language->name_kh }}</option>
                             @empty
                                 <option wire:key='nolanguage' value=""> --No Language--</option>
                             @endforelse
@@ -863,7 +864,13 @@
             {{-- End Image Upload --}}
 
             {{-- Start PDF Upload --}}
-            <div class="flex items-center space-4" wire:key='uploadpdf'>
+            <div class="flex items-center space-4" wire:key='uploadpdf'
+            x-data="{ uploading: false, progress: 0, paused: false }"
+            x-on:livewire-upload-start="uploading = true; progress = 0; console.log('started');"
+            x-on:livewire-upload-finish="uploading = false; console.log('finished');"
+            x-on:livewire-upload-error="uploading = false"
+            x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                         Upload PDF File (Max : 50MB) <span class="text-red-500">*</span>
@@ -898,6 +905,25 @@
                                 src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
+                    </div>
+                    <style>
+                        progress {
+                            border-radius: 3px;
+                        }
+
+                        progress::-webkit-progress-bar {
+                            border-radius: 3px;
+                            background-color: rgb(194, 194, 194);
+                        }
+
+                        progress::-webkit-progress-value {
+                            border-radius: 3px;
+                            background-color: rgb(17, 150, 17);
+                        }
+                    </style>
+                    <div x-show="uploading" class="flex items-center gap-1">
+                        <span x-text="progress + '%'"></span>
+                        <progress class="w-full" max="100" x-bind:value="progress"></progress>
                     </div>
                     <x-input-error :messages="$errors->get('pdf')" class="mt-2" />
                 </div>
