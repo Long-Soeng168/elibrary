@@ -184,21 +184,6 @@ class DashboardController extends Controller
             'articles' => Article::sum('read_count'),
         ];
 
-        // foreach ($menu_databases as $database) {
-        //     if ($database->type == 'slug' && $database->status) {
-        //         $readCountLabel[] = $database->name;
-
-        //         // Get count based on slug
-        //         $slug = $database->slug;
-        //         $readCountData[] = $readCounts[$slug] ?? 0;
-        //     }
-        // }
-
-        // return [
-        //     'readCountLabel' => $readCountLabel,
-        //     'readCountData' => $readCountData,
-        // ];
-
         $totalCountEachArchive = [
             'publications' => Publication::count(),
             'videos' => Video::count(),
