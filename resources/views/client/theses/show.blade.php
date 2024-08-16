@@ -89,9 +89,9 @@
                                 <div>
                                     <div class="flex flex-wrap gap-1">
                                         <p class="whitespace-nowrap">{{ __('messages.readPdf') }}</p>
-                                        @if ($item->read_count)
+                                        {{-- @if ($item->read_count)
                                         <p>( {{ $item->read_count }} )</p>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </div>
                                 @if (!$item->can_read)
@@ -175,9 +175,9 @@
                                 </svg>
                                 <div class="flex flex-wrap gap-1">
                                     <p class="whitespace-nowrap">{{ __('messages.download') }}</p>
-                                    @if ($item->download_count)
+                                    {{-- @if ($item->download_count)
                                     <p>( {{ $item->download_count }} )</p>
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 @if (!$item->can_download)
                                 <span class="absolute bg-red-500 border rounded-full -top-1.5 -right-1.5">
@@ -485,7 +485,7 @@
                         </div>
                     @endif
 
-                    @if ($item->user?->name)
+                    {{-- @if ($item->user?->name)
                     <div class="flex nowrap">
                         <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.postBy') }}
@@ -494,7 +494,7 @@
                             {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
                         </p>
                     </div>
-                @endif
+                @endif --}}
                     @if ($item->updated_at)
                     <div class="flex nowrap">
                         <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">

@@ -107,10 +107,13 @@ class ImageTableData extends Component
         $categories = ImageCategory::latest()->get();
         $selectedCategory = ImageCategory::find($this->filter);
 
+        $totalReadCount = Image::sum('read_count');
+
         return view('livewire.image-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
         ]);
     }
 }

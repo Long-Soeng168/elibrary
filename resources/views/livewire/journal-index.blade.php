@@ -142,7 +142,7 @@
                         <input type="search" id="search-dropdown" wire:model.live.debounce.300ms='search'
                             class="block p-2.5 w-full z-20 text-md text-gray-900 bg-gray-50 border-gray-50 border-1 border  dark:bg-gray-700 dark:border-gray-300 dark:placeholder-gray-400 dark:text-white rounded-bl-lg md:rounded-bl-none focus:outline-double dark:focus:outline-white focus:outline-primary  border-primary"
                             placeholder="{{ __('messages.search') }}..." name="search"/>
-                        <button type="submit"
+                        <button type="button"
                             class="top-0 end-0 p-2.5 text-md font-medium h-full text-white bg-primary rounded-e-lg border border-primary hover:bg-primaryHover focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-primary dark:hover:bg-primary dark:focus:ring-primaryHover flex space-x-2 items-center justify-center ml-2 rounded-tr-none md:rounded-tr-lg">
                             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 20 20">
@@ -183,7 +183,7 @@
                         <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-1">
                             @forelse ($menu_databases as $index => $database)
                                 @if ($database->type == 'slug')
-                                    <a class="{{ request()->is($database->slug) ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
+                                    <a class="{{ $database->slug == 'journals' ? 'bg-gray-200 dark:bg-gray-700' : '' }} flex flex-col items-center justify-center p-2 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600 "
                                     href="{{ url('/' . $database->slug) }}">
                                         <div class="flex items-center justify-center object-contain w-12 aspect-square rounded-xl">
                                             <img src="{{ asset('assets/images/databases/' . $database->client_side_image) }}" alt=""
@@ -309,7 +309,7 @@
                             <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                 <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                     class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                    <p class="line-clamp-1">{{ $item->name }}</p>
+                                    <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                 </h3>
 
                                 <div x-show="tooltipVisible" x-transition

@@ -28,10 +28,10 @@
     <!-- End Slide Show -->
 
     <!-- Start Database -->
-    <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
+    <div class="max-w-screen-xl px-2 mx-auto mt-4">
+        {{-- <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
             {{ __('messages.databases') }}
-        </p>
+        </p> --}}
         <!-- Icon Blocks -->
         <div class="">
             <div>
@@ -141,7 +141,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -189,7 +189,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -238,7 +238,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -293,7 +293,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -342,7 +342,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -391,7 +391,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -441,7 +441,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition
@@ -491,7 +491,7 @@
                                 <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                     <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                         class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                        <p class="line-clamp-1">{{ $item->name }}</p>
+                                        <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                     </h3>
 
                                     <div x-show="tooltipVisible" x-transition

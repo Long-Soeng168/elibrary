@@ -48,14 +48,14 @@ class HomeController extends Controller
         // return ($items);
 
         $slides = Slide::latest()->get();
-        $publications = Publication::latest()->limit(10)->get();
-        $videos = Video::latest()->limit(8)->get();
-        $images = Image::latest()->limit(8)->get();
-        $audios = Audio::latest()->limit(8)->get();
-        $bulletins = News::latest()->limit(10)->get();
-        $theses = Thesis::latest()->limit(10)->get();
-        $journals = Journal::latest()->limit(10)->get();
-        $articles = Article::latest()->limit(10)->get();
+        $publications = Publication::inRandomOrder()->limit(10)->get();
+        $videos = Video::inRandomOrder()->limit(8)->get();
+        $images = Image::inRandomOrder()->limit(8)->get();
+        $audios = Audio::inRandomOrder()->limit(8)->get();
+        $bulletins = News::inRandomOrder()->limit(8)->get();
+        $theses = Thesis::inRandomOrder()->limit(10)->get();
+        $journals = Journal::inRandomOrder()->limit(10)->get();
+        $articles = Article::inRandomOrder()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
             'publications' => $publications,
@@ -255,7 +255,7 @@ class HomeController extends Controller
             ]);
         }
 
-        if (!$item->can_download && !auth()->check()) {
+        if (!$item->can_download && !$item->can_read && !auth()->check()) {
             abort(403);
         }
 
