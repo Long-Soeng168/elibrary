@@ -177,11 +177,11 @@ class DashboardController extends Controller
         ];
 
         $downloadCounts = [
-            'publications' => Publication::sum('read_count'),
-            'bulletins' => News::sum('read_count'),
-            'theses' => Thesis::sum('read_count'),
-            'journals' => Journal::sum('read_count'),
-            'articles' => Article::sum('read_count'),
+            'publications' => Publication::sum('download_count'),
+            'bulletins' => News::sum('download_count'),
+            'theses' => Thesis::sum('download_count'),
+            'journals' => Journal::sum('download_count'),
+            'articles' => Article::sum('download_count'),
         ];
 
         $totalCountEachArchive = [
