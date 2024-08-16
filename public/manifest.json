@@ -1,6 +1,6 @@
 {
-    "name": "NEC Elibrary",
-    "short_name": "NEC",
+    "name": "NEC E-Library",
+    "short_name": "NEC E-Library",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",

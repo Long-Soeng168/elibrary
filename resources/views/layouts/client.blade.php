@@ -359,6 +359,17 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div id="add-to-home-screen">
+                                <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
+                                    {{ app()->getLocale() == 'kh' ? 'អ្នកទស្សនាគេហទំព័រ' : 'Visitors' }}
+                                </h2>
+                                <ul class="flex gap-4 mb-8 font-medium dark:text-gray-400">
+                                    <li class="mb-4">
+                                        <a href="https://info.flagcounter.com/vscH"><img src="https://s11.flagcounter.com/count2/vscH/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
                             <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
 
