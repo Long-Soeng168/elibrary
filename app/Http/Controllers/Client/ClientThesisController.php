@@ -51,8 +51,8 @@ class ClientThesisController extends Controller
 
         // Retrieve related Thesiss excluding the item itself
         $related_items = Thesis::where(function($query) use ($item) {
-            $query->where('major_id', $item->major_id)
-                ->orWhere('thesis_category_id', $item->thesis_category_id);
+            $query->where('major_id', $item->major_id);
+                // ->orWhere('thesis_category_id', $item->thesis_category_id);
         })->where('id', '!=', $item->id) // Exclude the item itself
         ->inRandomOrder()
         ->limit(6)
