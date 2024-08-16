@@ -2,17 +2,20 @@
 @section('content')
     <div>
         <div class="grid grid-cols-1 gap-4 mx-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
-            {{-- <div class="w-full p-4 m-auto rounded-lg sm:col-span-1 md:col-span-2 lg:col-span-2">
+            <div class="w-full p-4 m-auto rounded-lg sm:col-span-1 md:col-span-2 lg:col-span-2">
                 <canvas id="chartPie"></canvas>
-            </div> --}}
-            <div class="w-full p-4 m-auto rounded-lg sm:col-span-1 md:col-span-2 lg:col-span-4">
+            </div>
+            <div class="w-full p-4 mx-auto rounded-lg sm:col-span-1 md:col-span-2 lg:col-span-4">
                 <canvas id="chartBar"></canvas>
             </div>
         </div>
+        {{-- <div class="max-w-screen-md mx-auto max-h-[400px]">
+            <canvas id="chartBar"></canvas>
+        </div> --}}
 
         <div class="p-4">
 
-            <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-{{ count($menu_databases) }}">
+            <div class="grid items-start grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-{{ count($menu_databases) }}">
                 @forelse ($menu_databases as $database)
                     @if ($database->type !== 'slug')
                         @continue
@@ -24,9 +27,36 @@
                                     class="{{ request()->is('admin/publications*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Publications</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['publications'] }}
-                                    </p>
+                                    <div class="text-lg font-bold text-gray-600 dark:text-white">Publications</div>
+                                    <div>
+                                        <div class="flex text-sm text-gray-400">
+                                            <span class="flex">
+                                                <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                Records :
+                                            </span>
+                                            <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                               {{ $totalCountEachArchive['publications'] }}
+                                            </p>
+                                        </div>
+                                        <div class="flex text-sm text-gray-400">
+                                            <span class="flex">
+                                                <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                Read :
+                                            </span>
+                                            <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                               {{ $readCounts['publications'] }}
+                                            </p>
+                                        </div>
+                                        <div class="flex gap-2 text-sm text-gray-400">
+                                            <span class="flex">
+                                                <img src="{{ asset('assets/icons/download.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                Download :
+                                            </span>
+                                            <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                               {{ $downloadCounts['publications'] }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </a>
                             @endcan
                         @break
@@ -37,8 +67,27 @@
                                     class="{{ request()->is('admin/videos*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Videos</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['videos'] }}</p>
+                                    <div class="text-lg font-bold text-gray-600 dark:text-white">Videos</div>
+                                    <div>
+                                        <div class="flex text-sm text-gray-400">
+                                            <span class="flex">
+                                                <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                Records :
+                                            </span>
+                                            <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                               {{ $totalCountEachArchive['videos'] }}
+                                            </p>
+                                        </div>
+                                        <div class="flex text-sm text-gray-400">
+                                            <span class="flex">
+                                                <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                View :
+                                            </span>
+                                            <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                               {{ $readCounts['videos'] }}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </a>
                             @endcan
                         @break
@@ -49,8 +98,27 @@
                                     class="{{ request()->is('admin/images*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Images</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['images'] }}</p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Images</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['images'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    View :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['images'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -61,8 +129,27 @@
                                     class="{{ request()->is('admin/audios*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Audios</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['audios'] }}</p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Audios</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['audios'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Read :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['audios'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -73,9 +160,36 @@
                                     class="{{ request()->is('admin/bulletins*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Bulletins</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['bulletins'] }}
-                                    </p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Bulletins</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['bulletins'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Read :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['bulletins'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex gap-2 text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/download.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Download :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $downloadCounts['bulletins'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -86,8 +200,36 @@
                                     class="{{ request()->is('admin/theses*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Theses</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['theses'] }}</p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Theses</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['theses'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Read :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['theses'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex gap-2 text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/download.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Download :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $downloadCounts['theses'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -98,9 +240,36 @@
                                     class="{{ request()->is('admin/journals*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Journals</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['journals'] }}
-                                    </p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Journals</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['journals'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Read :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['journals'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex gap-2 text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/download.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Download :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $downloadCounts['journals'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -111,9 +280,36 @@
                                     class="{{ request()->is('admin/articles*') ? 'bg-slate-200 dark:bg-slate-500' : '' }} flex flex-col items-center justify-center p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 group">
                                     <img src="{{ asset('assets/images/databases/' . $database->image) }}" alt="icon"
                                         class="object-contain h-20 aspect-square p-0.5 bg-white dark:bg-gray-200 rounded">
-                                    <div class="text-sm text-gray-900 dark:text-white">Articles</div>
-                                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $totalCountEachArchive['articles'] }}
-                                    </p>
+                                        <div class="text-lg font-bold text-gray-600 dark:text-white">Articles</div>
+                                        <div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/total.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Records :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $totalCountEachArchive['articles'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Read :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $readCounts['articles'] }}
+                                                </p>
+                                            </div>
+                                            <div class="flex gap-2 text-sm text-gray-400">
+                                                <span class="flex">
+                                                    <img src="{{ asset('assets/icons/download.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
+                                                    Download :
+                                                </span>
+                                                <p class="font-bold text-center text-gray-500 dark:text-gray-200">
+                                                   {{ $downloadCounts['articles'] }}
+                                                </p>
+                                            </div>
+                                        </div>
                                 </a>
                             @endcan
                         @break
@@ -123,63 +319,7 @@
 
                 </div>
             </div>
-            {{-- <div class="grid items-center grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            <a href="{{ url('/admin/publications') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
-                <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
-                    <img src="{{ asset('assets/icons/epublication.png') }}" alt="" class="object-contain h-full">
-                </div>
-                <div class="mt-1">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-gray-600 text-md whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                        E-Publications
-                    </h3>
-                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $publicationsCount }}</p>
-                </div>
-            </a>
-            <a href="{{ url('/admin/videos') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
-                <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
-                    <img src="{{ asset('assets/icons/video.png') }}" alt="" class="object-contain h-full">
-                </div>
-                <div class="mt-1">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-gray-600 text-md whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                        Videos
-                    </h3>
-                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $videosCount }}</p>
-                </div>
-            </a>
-            <a href="{{ url('admin/images') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
-                <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
-                    <img src="{{ asset('assets/icons/image.png') }}" alt="" class="object-contain h-full">
-                </div>
-                <div class="mt-1">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-gray-600 text-md whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                        Image
-                    </h3>
-                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $imagesCount }}</p>
-                </div>
-            </a>
-            <a href="{{ url('admin/audios') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
-                <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
-                    <img src="{{ asset('assets/icons/audio.png') }}" alt="" class="object-contain h-full">
-                </div>
-                <div class="mt-1">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-gray-600 text-md whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                        Audios
-                    </h3>
-                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $audiosCount }}</p>
-                </div>
-            </a>
-            <a href="{{ url('admin/bulletins') }}" class="flex flex-col items-center justify-center p-4 group hover:bg-gray-100 rounded-xl dark:hover:bg-gray-600">
-                <div class="flex items-center justify-center object-contain h-20 aspect-square rounded-xl">
-                    <img src="{{ asset('assets/icons/bulletin.png') }}" alt="" class="object-contain h-full">
-                </div>
-                <div class="mt-1">
-                    <h3 class="font-semibold text-gray-800 group-hover:text-gray-600 text-md whitespace-nowrap dark:text-gray-300 dark:group-hover:text-gray-50">
-                        Bulletin / News
-                    </h3>
-                    <p class="text-center text-gray-700 dark:text-gray-200">{{ $bulletinsCount }}</p>
-                </div>
-            </a>
-        </div> --}}
+
         </div>
         </div>
 
@@ -221,40 +361,40 @@
                     }
                 });
 
-                // var ctx = document.getElementById('chartPie').getContext('2d');
-                // var chartPie = new Chart(ctx, {
-                //     type: 'pie',
-                //     data: {
-                //         labels: ['Users', 'Authors', 'Publishers'],
-                //         datasets: [{
-                //             label: "Records",
-                //             data: [
-                //                 {{ $totalCountEachArchive['users'] }},
-                //                 {{ $totalCountEachArchive['authors'] }},
-                //                 {{ $totalCountEachArchive['publishers'] }},
+                var ctx = document.getElementById('chartPie').getContext('2d');
+                var chartPie = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Users', 'Authors', 'Publishers'],
+                        datasets: [{
+                            label: "Records",
+                            data: [
+                                {{ $totalCountEachArchive['users'] }},
+                                {{ $totalCountEachArchive['authors'] }},
+                                {{ $totalCountEachArchive['publishers'] }},
 
-                //             ],
-                //             backgroundColor: [
-                //                 'rgba(255, 99, 132, 0.2)',
-                //                 'rgba(54, 162, 235, 0.2)',
-                //                 'rgba(255, 206, 86, 0.2)',
-                //             ],
-                //             borderColor: [
-                //                 'rgba(255, 99, 132, 1)',
-                //                 'rgba(54, 162, 235, 1)',
-                //                 'rgba(255, 206, 86, 1)',
-                //             ],
-                //             borderWidth: 1
-                //         }]
-                //     },
-                //     options: {
-                //         scales: {
-                //             y: {
-                //                 beginAtZero: true
-                //             }
-                //         }
-                //     }
-                // });
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             });
         </script>
 

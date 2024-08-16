@@ -165,16 +165,24 @@ class DashboardController extends Controller
 
 
 
-        // $readCounts = [
-        //     'publications' => Publication::sum('read_count'),
-        //     'videos' => Video::sum('read_count'),
-        //     'images' => Image::sum('read_count'),
-        //     'audios' => Audio::sum('read_count'),
-        //     'bulletins' => News::sum('read_count'),
-        //     'theses' => Thesis::sum('read_count'),
-        //     'journals' => Journal::sum('read_count'),
-        //     'articles' => Article::sum('read_count'),
-        // ];
+        $readCounts = [
+            'publications' => Publication::sum('read_count'),
+            'videos' => Video::sum('read_count'),
+            'images' => Image::sum('read_count'),
+            'audios' => Audio::sum('read_count'),
+            'bulletins' => News::sum('read_count'),
+            'theses' => Thesis::sum('read_count'),
+            'journals' => Journal::sum('read_count'),
+            'articles' => Article::sum('read_count'),
+        ];
+
+        $downloadCounts = [
+            'publications' => Publication::sum('read_count'),
+            'bulletins' => News::sum('read_count'),
+            'theses' => Thesis::sum('read_count'),
+            'journals' => Journal::sum('read_count'),
+            'articles' => Article::sum('read_count'),
+        ];
 
         // foreach ($menu_databases as $database) {
         //     if ($database->type == 'slug' && $database->status) {
@@ -211,6 +219,8 @@ class DashboardController extends Controller
             'label' => $label,
             'data' => $data,
             'totalCountEachArchive' => $totalCountEachArchive,
+            'readCounts' => $readCounts,
+            'downloadCounts' => $downloadCounts,
             // 'readCountLabel' => $readCountLabel,
             // 'readCountData' => $readCountData,
         ]);
