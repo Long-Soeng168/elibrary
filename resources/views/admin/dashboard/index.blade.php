@@ -143,7 +143,7 @@
                                             <div class="flex text-sm text-gray-400">
                                                 <span class="flex">
                                                     <img src="{{ asset('assets/icons/open-eye.png') }}" class="object-contain w-4 h-4 mr-1" alt="">
-                                                    Read :
+                                                    Listen :
                                                 </span>
                                                 <p class="font-bold text-center text-gray-500 dark:text-gray-200">
                                                    {{ $readCounts['audios'] }}
