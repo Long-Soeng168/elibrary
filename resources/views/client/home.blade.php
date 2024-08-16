@@ -28,10 +28,10 @@
     <!-- End Slide Show -->
 
     <!-- Start Database -->
-    <div class="max-w-screen-xl px-2 mx-auto mt-6">
-        <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
+    <div class="max-w-screen-xl px-2 mx-auto mt-4">
+        {{-- <p class="mb-2 text-xl font-bold text-gray-700 uppercase textmax-w-2xl dark:text-white xl:p-0">
             {{ __('messages.databases') }}
-        </p>
+        </p> --}}
         <!-- Icon Blocks -->
         <div class="">
             <div>
