@@ -52,7 +52,7 @@ class HomeController extends Controller
         $videos = Video::inRandomOrder()->limit(8)->get();
         $images = Image::inRandomOrder()->limit(8)->get();
         $audios = Audio::inRandomOrder()->limit(8)->get();
-        $bulletins = News::inRandomOrder()->limit(10)->get();
+        $bulletins = News::inRandomOrder()->limit(8)->get();
         $theses = Thesis::inRandomOrder()->limit(10)->get();
         $journals = Journal::inRandomOrder()->limit(10)->get();
         $articles = Article::inRandomOrder()->limit(10)->get();
