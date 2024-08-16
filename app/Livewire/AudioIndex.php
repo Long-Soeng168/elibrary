@@ -166,7 +166,7 @@ class AudioIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.audio-index', [
             'items' => $items,
             'categories' => $categories,

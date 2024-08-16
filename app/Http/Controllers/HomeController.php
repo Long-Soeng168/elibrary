@@ -88,7 +88,7 @@ class HomeController extends Controller
             'videos' => 8,
             'images' => 8,
             'audios' => 8,
-            'bulletins' => 8,
+            'bulletins' => 10,
             'theses' => 10,
             'journals' => 10,
             'articles' => 10,
