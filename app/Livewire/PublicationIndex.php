@@ -172,10 +172,8 @@ class PublicationIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
-
-
-
+        $categories = Category::orderBy('id', 'ASC')->get();
+      
         return view('livewire.publication-index', [
             'items' => $items,
             'categories' => $categories,

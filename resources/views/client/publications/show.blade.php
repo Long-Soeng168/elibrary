@@ -17,7 +17,7 @@
                     @if ($item->image)
                         <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
                             <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ asset('assets/images/publications/thumb/' . $item->image) }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/publications/' . $item->image) }}" alt="Book Cover" />
                         </a>
                     @else
                     <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
