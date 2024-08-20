@@ -475,7 +475,7 @@
                         </div>
                     @endif
 
-                    @if ($item->user?->name)
+                    {{-- @if ($item->user?->name)
                     <div class="flex nowrap">
                         <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.postBy') }}
@@ -484,7 +484,7 @@
                             {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
                         </p>
                     </div>
-                @endif
+                @endif --}}
                     @if ($item->updated_at)
                     <div class="flex nowrap">
                         <p class="w-[150px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
@@ -548,7 +548,7 @@
                 <a class="block group" href="{{ url('theses/' . $item->id) }}">
                     <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800" >
                         <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                            src="{{ asset('assets/images/journals/thumb/' . $item->image) }}"
+                            src="{{ asset('assets/images/journals/' . $item->image) }}"
                             alt="Image Description" />
                     </div>
 

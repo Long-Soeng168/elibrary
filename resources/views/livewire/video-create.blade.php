@@ -227,7 +227,7 @@
                             <option wire:key='category' value="">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                    {{ $category->name }}
+                                    {{ $category->name }} {{ ' / ' . $category->name_kh }}
                                 </option>
                             @empty
                                 <option wire:key='nocateogry' value=""> --No Category--</option>
@@ -323,7 +323,8 @@
                             </option>
                             @forelse ($subCategories as $subCategory)
                                 <option wire:key='{{ $subCategory->id }}' value="{{ $subCategory->id }}">
-                                    {{ $subCategory->name }}</option>
+                                    {{ $subCategory->name }} {{ ' / ' . $subCategory->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='nosub-category' value="">--No Category--</option>
                             @endforelse
@@ -431,7 +432,7 @@
                             name="video_type_id" class="type-select">
                             <option wire:key='type' value="">Select Type...</option>
                             @forelse ($types as $type)
-                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }}</option>
+                                <option wire:key='{{ $type->id }}' value="{{ $type->id }}">{{ $type->name }} {{ ' / ' . $type->name_kh }}</option>
                             @empty
                                 <option wire:key='notype' value="">--No Type--</option>
                             @endforelse
@@ -700,7 +701,7 @@
                             class="language-select">
                             <option wire:key='language' value="">Select Language...</option>
                             @forelse ($languages as $language)
-                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }}</option>
+                                <option wire:key='{{ $language->id }}' value="{{ $language->id }}">{{ $language->name }} {{ ' / ' . $language->name_kh }}</option>
                             @empty
                                 <option wire:key='nolanguage' value=""> --No Language--</option>
                             @endforelse

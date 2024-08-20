@@ -357,7 +357,8 @@
                             <option wire:key='type' value="">Select Type...</option>
                             @forelse ($types as $type)
                                 <option wire:key='{{ $type->id }}' value="{{ $type->id }}">
-                                    {{ $type->name }}</option>
+                                    {{ $type->name }} {{ ' / ' . $type->name_kh }}
+                                </option>
                             @empty
                                 <option wire:key='notype' value="">--No Type--</option>
                             @endforelse
@@ -451,7 +452,7 @@
                             <option wire:key='category' value="">Select Category...</option>
                             @forelse ($categories as $category)
                                 <option wire:key='{{ $category->id }}' value="{{ $category->id }}">
-                                    {{ $category->name }}
+                                    {{ $category->name }} {{ ' / ' . $category->name_kh }}
                                 </option>
                             @empty
                                 <option wire:key='nocateogry' value=""> --No Category--</option>
@@ -629,7 +630,7 @@
                             <option wire:key='language' value="">Select Language...</option>
                             @forelse ($languages as $language)
                                 <option wire:key='{{ $language->id }}' value="{{ $language->id }}">
-                                    {{ $language->name }}</option>
+                                    {{ $language->name }} {{ ' / ' . $language->name_kh }}</option>
                             @empty
                                 <option wire:key='nolanguage' value=""> --No Language--</option>
                             @endforelse

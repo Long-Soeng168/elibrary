@@ -66,6 +66,10 @@ Route::get('/expired', function () {
     return view('auth.expired');
 })->name('expired');
 
+Route::get('/static', function () {
+    return view('static');
+});
+
 
 
 /*
@@ -175,7 +179,6 @@ Route::group([
 | End Admin Routes
 |--------------------------------------------------------------------------
 */
-
 /*
 |--------------------------------------------------------------------------
 | Start Koha Routes

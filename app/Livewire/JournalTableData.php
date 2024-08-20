@@ -127,10 +127,15 @@ class JournalTableData extends Component
         $types = Category::latest()->get();
         $selectedType = Category::find($this->filter);
 
+        $totalReadCount = Journal::sum('read_count');
+        $totalDownloadCount = Journal::sum('download_count');
+
         return view('livewire.journal-table-data', [
             'items' => $items,
             'types' => $types,
             'selectedType' => $selectedType,
+            'totalReadCount' => $totalReadCount,
+            'totalDownloadCount' => $totalDownloadCount,
         ]);
     }
 }

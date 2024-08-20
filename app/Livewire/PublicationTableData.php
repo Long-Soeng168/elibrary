@@ -124,10 +124,15 @@ class PublicationTableData extends Component
         $categories = PublicationCategory::latest()->get();
         $selectedCategory = PublicationCategory::find($this->filter);
 
+        $totalReadCount = Publication::sum('read_count');
+        $totalDownloadCount = Publication::sum('download_count');
+
         return view('livewire.publication-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
+            'totalDownloadCount' => $totalDownloadCount,
         ]);
     }
 }

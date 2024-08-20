@@ -52,7 +52,7 @@ class HomeController extends Controller
         $videos = Video::inRandomOrder()->limit(8)->get();
         $images = Image::inRandomOrder()->limit(8)->get();
         $audios = Audio::inRandomOrder()->limit(8)->get();
-        $bulletins = News::inRandomOrder()->limit(8)->get();
+        $bulletins = News::inRandomOrder()->limit(10)->get();
         $theses = Thesis::inRandomOrder()->limit(10)->get();
         $journals = Journal::inRandomOrder()->limit(10)->get();
         $articles = Article::inRandomOrder()->limit(10)->get();
@@ -88,7 +88,7 @@ class HomeController extends Controller
             'videos' => 8,
             'images' => 8,
             'audios' => 8,
-            'bulletins' => 8,
+            'bulletins' => 10,
             'theses' => 10,
             'journals' => 10,
             'articles' => 10,
@@ -255,7 +255,7 @@ class HomeController extends Controller
             ]);
         }
 
-        if (!$item->can_download && !auth()->check()) {
+        if (!$item->can_download && !$item->can_read && !auth()->check()) {
             abort(403);
         }
 

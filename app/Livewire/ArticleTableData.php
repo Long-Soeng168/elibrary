@@ -123,10 +123,15 @@ class ArticleTableData extends Component
         $categories = ArticleCategory::latest()->get();
         $selectedCategory = ArticleCategory::find($this->filter);
 
+        $totalReadCount = Article::sum('read_count');
+        $totalDownloadCount = Article::sum('download_count');
+
         return view('livewire.article-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
+            'totalDownloadCount' => $totalDownloadCount,
         ]);
     }
 }
