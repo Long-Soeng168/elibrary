@@ -48,7 +48,7 @@ class PublicationController extends Controller
             'language',
             'location',
             'user',
-            'images:image'
+            'images:image,publication_id'
         ])->findOrFail($id);
 
         return response()->json($item, 200);
