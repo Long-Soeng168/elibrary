@@ -48,7 +48,7 @@ class PublicationController extends Controller
             'language',
             'location',
             'user',
-            'images:image,publication_id' // Add the foreign key here
+            'images:image'
         ])->findOrFail($id);
 
         return response()->json($item, 200);
