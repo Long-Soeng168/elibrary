@@ -14,7 +14,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $items = Video::select('id', 'name', 'image')->paginate(10);
+        $items = Video::select('id', 'name', 'image')->inRandomOrder()->paginate(10);
         return response()->json($items, 200);
     }
 

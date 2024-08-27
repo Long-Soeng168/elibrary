@@ -14,7 +14,7 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        $items = Publication::select('id', 'name', 'image')->paginate(10);
+        $items = Publication::select('id', 'name', 'image')->inRandomOrder()->paginate(10);
         return response()->json($items, 200);
     }
 
