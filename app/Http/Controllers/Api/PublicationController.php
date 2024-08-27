@@ -39,9 +39,21 @@ class PublicationController extends Controller
      */
     public function show(string $id)
     {
-        $item = Publication::with('publicationCategory', 'publicationSubCategory', 'publicationType', 'author', 'publisher', 'language', 'location', 'user', 'images')->findOrFail($id);
+        $item = Publication::with([
+            'publicationCategory',
+            'publicationSubCategory',
+            'publicationType',
+            'author',
+            'publisher',
+            'language',
+            'location',
+            'user',
+            'images:image,publication_id' // Add the foreign key here
+        ])->findOrFail($id);
+
         return response()->json($item, 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.
