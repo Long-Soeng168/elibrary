@@ -14,7 +14,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $items = Image::paginate(10);
+        $items = Image::select('id', 'name', 'image')->paginate(10);
         return response()->json($items, 200);
     }
 

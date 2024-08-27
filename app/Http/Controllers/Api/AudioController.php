@@ -14,7 +14,7 @@ class AudioController extends Controller
      */
     public function index()
     {
-        $items = Audio::paginate(10);
+        $items = Audio::select('id', 'name', 'image')->paginate(10);
         return response()->json($items, 200);
     }
 
