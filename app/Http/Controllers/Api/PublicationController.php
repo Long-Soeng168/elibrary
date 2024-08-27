@@ -39,7 +39,7 @@ class PublicationController extends Controller
      */
     public function show(string $id)
     {
-        $items = Publication::with('publicationCategory', 'publicationSubCategory', 'publicationType', 'author', 'publisher', 'language', 'location', 'user')->paginate(10);
+        $item = Publication::with('publicationCategory', 'publicationSubCategory', 'publicationType', 'author', 'publisher', 'language', 'location', 'user')->findOrFail($id);
     }
 
     /**
