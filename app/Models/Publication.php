@@ -42,7 +42,7 @@ class Publication extends Model
     }
 
     public function images(){
-        return $this->belongsTo(PublicationImage::class, 'image_id', 'id');
+        return $this->hasMany(PublicationImage::class, 'image_id', 'id');
     }
 
     public function user(){
