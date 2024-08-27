@@ -14,7 +14,7 @@ class PublicationController extends Controller
      */
     public function index()
     {
-        $items = Publication::paginate(10);
+        $items = Publication::select('id', 'name', 'image')->paginate(10);
         return response()->json($items, 200);
     }
 
@@ -39,7 +39,7 @@ class PublicationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $items = Publication::with('publicationCategory', 'publicationSubCategory', 'publicationType', 'author', 'publisher', 'language', 'location', 'user')->paginate(10);
     }
 
     /**
