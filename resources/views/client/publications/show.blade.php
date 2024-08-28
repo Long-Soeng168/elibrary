@@ -13,29 +13,29 @@
     <div class="max-w-screen-xl px-2 mx-auto mt-6 lg:px-0">
         @php
             $userIp = request()->ip();
-            
+
              $ipRanges = [
                 '203.144.68.205/32',
                 '27.109.114.162',
             ];
-        
+
             function ip_in_range($ip, $range)
             {
                 if (strpos($range, '/') === false) {
                     $range .= '/32'; // Append /32 if no subnet is provided
                 }
-        
+
                 [$range, $netmask] = explode('/', $range, 2);
                 $range_dec = ip2long($range);
                 $ip_dec = ip2long($ip);
                 $wildcard_dec = pow(2, (32 - $netmask)) - 1;
                 $netmask_dec = ~ $wildcard_dec;
-        
+
                 return ($ip_dec & $netmask_dec) === ($range_dec & $netmask_dec);
             }
-        
+
             $ipInRange = false; // Initialize the flag
-        
+
             foreach ($ipRanges as $range) {
                 if (ip_in_range($userIp, $range)) {
                     $ipInRange = true; // Set flag to true if match is found
@@ -87,7 +87,7 @@
                     </div>
                     <!-- Action Button -->
                     <div class="flex w-full gap-2 rounded-md shadow-sm" role="group">
-                        @if($ipInRange) 
+                        @if($ipInRange)
                         <div class="flex-1">
                             {{-- Start Read Button --}}
                             <a
@@ -172,7 +172,59 @@
                             </div>
                         </div>
 
-                         
+                        <div class="flex-1">
+                            {{-- Start Download Button --}}
+                            <a
+                                @if (!$item->can_download && !auth()->check())
+                                href="{{ route('client.login', ['path' => 'publications-'.$item->id]) }}"
+                                @else
+                                href="{{ route('pdf.download', [
+                                        'archive' => 'publication',
+                                        'id' => $item->id,
+                                        'file_name' => $item->pdf
+                                    ])
+                                }}"
+                                onclick="
+                                    (function(){
+                                        fetch(`/add_download_count/publication/{{ $item->id }}`)
+                                        .then(response => {
+                                            if (response.ok) {
+                                                console.log('success');
+                                            } else {
+                                                console.error('Error:', response.statusText);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                        });
+                                    })();
+                                "
+                                @endif
+                                class="relative inline-flex items-center justify-center w-full h-full gap-2 px-2 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-arrow-down-to-line">
+                                    <path d="M12 17V3" />
+                                    <path d="m6 11 6 6 6-6" />
+                                    <path d="M19 21H5" />
+                                </svg>
+                                <div class="flex flex-wrap gap-1">
+                                    <p class="whitespace-nowrap">{{ __('messages.download') }}</p>
+                                    @if ($item->download_count)
+                                    <p>( {{ $item->download_count }} )</p>
+                                    @endif
+                                </div>
+                                @if (!$item->can_download)
+                                <span class="absolute bg-red-500 border rounded-full -top-1.5 -right-1.5">
+                                    <img class="w-6 h-6 " src="{{ asset('assets/icons/lock.png') }}" alt="">
+                                </span>
+                                @endif
+                            </a>
+                            {{-- End Download Button --}}
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>
