@@ -114,7 +114,7 @@ class DashboardController extends Controller
 
        // Define the labels for the last 6 months
         $label = [];
-        for ($i = 6; $i > 0; $i--) {
+        for ($i = 7; $i > 1; $i--) {
             $label[] = Carbon::now()->subMonths($i)->format('M'); // 01, 02, 03, etc.
         }
 
