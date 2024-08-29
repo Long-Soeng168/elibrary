@@ -28,7 +28,7 @@ class HomeController extends Controller
 {
     public function index() {
 
-        // $items = Publication::all();
+        // $items = Publication::where('id', '>', 151)->get();
         // foreach($items as $item){
         //         $item->update([
         //             'name' => $item->name . ', ' . $item->Subtitle,
@@ -79,7 +79,7 @@ class HomeController extends Controller
     public function fetchAndSaveBookCover()
     {
         // Fetch all publications
-        $items = Publication::all();
+        $items = Publication::where('id', '>', 151)->get();
 
         foreach($items as $item) {
             $isbn = $item->isbn;
