@@ -20,6 +20,10 @@ use Image as ImageCompress;
 use DB;
 use Illuminate\Support\Facades\Schema;
 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class HomeController extends Controller
 {
     public function index() {
@@ -49,6 +53,7 @@ class HomeController extends Controller
         // $items = Publication::all();
         // return ($items);
 
+
         $slides = Slide::latest()->get();
         $publications = Publication::inRandomOrder()->limit(10)->get();
         $videos = Video::inRandomOrder()->limit(8)->get();
@@ -68,6 +73,64 @@ class HomeController extends Controller
             'theses' => $theses,
             'journals' => $journals,
             'articles' => $articles,
+        ]);
+    }
+
+    public function fetchAndSaveBookCover()
+    {
+        // Fetch all publications
+        $items = Publication::all();
+
+        foreach($items as $item) {
+            $isbn = $item->isbn;
+            $client = new Client();
+            $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" . $isbn;
+
+            try {
+                // Send request to Google Books API
+                $response = $client->request('GET', $url);
+                $bookData = json_decode($response->getBody(), true);
+
+                // Check if items exist and extract the cover image URL
+                if (isset($bookData['items']) && isset($bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'])) {
+                    $coverUrl = $bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+
+                    // Replace 'zoom=1' with 'zoom=10'
+                    $coverUrl = str_replace('zoom=1', 'zoom=10', $coverUrl);
+
+                    // Download the cover image
+                    $imageResponse = $client->get($coverUrl);
+                    $imageContents = $imageResponse->getBody()->getContents();
+
+                    // Define the path to save the image
+                    $imageName = 'book-cover-' . $isbn . '.jpg';
+                    $imagePath = public_path('assets/images/publications/' . $imageName);
+                    $imagePathThumb = public_path('assets/images/publications/thumb/' . $imageName);
+
+                    // Ensure the directory exists
+                    if (!File::exists(public_path('assets/images/publications'))) {
+                        File::makeDirectory(public_path('assets/images/publications'), 0755, true);
+                    }
+                    if (!File::exists(public_path('assets/images/publications/thumb/'))) {
+                        File::makeDirectory(public_path('assets/images/publications/thumb/'), 0755, true);
+                    }
+
+                    // Save the image to the specified path
+                    File::put($imagePath, $imageContents);
+
+                    // Update the publication record with the image name
+                    $item->update([
+                        'image' => $imageName,
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // Continue to the next item if there's an error
+                continue;
+            }
+        }
+
+        return response()->json([
+            'message' => 'Books cover saved successfully!',
         ]);
     }
 
