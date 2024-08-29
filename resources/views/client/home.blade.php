@@ -150,10 +150,7 @@
                                                 {{ $item->name }}
                                             @endif
                                         </h1>
-                                        <p
-                                            class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                                            {{ $item->author?->name }}
-                                        </p>
+
                                     </div>
                                 @endif
 
@@ -372,10 +369,6 @@
                                 {{ $item->name }}
                             @endif
                         </h1>
-                        <p
-                            class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                            {{ $item->author?->name }}
-                        </p>
                     </div>
                 @endif
             </div>
@@ -442,10 +435,6 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                             {{ $item->name }}
                         @endif
                     </h1>
-                    <p
-                        class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                        {{ $item->author?->name }}
-                    </p>
                 </div>
             @endif
 
@@ -513,10 +502,6 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                         {{ $item->name }}
                     @endif
                 </h1>
-                <p
-                    class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                    {{ $item->author?->name }}
-                </p>
             </div>
         @endif
 
@@ -584,10 +569,7 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                     {{ $item->name }}
                 @endif
             </h1>
-            <p
-                class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                {{ $item->author?->name }}
-            </p>
+
         </div>
     @endif
 
