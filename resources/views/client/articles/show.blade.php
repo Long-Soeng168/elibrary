@@ -50,23 +50,59 @@
             <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
-                        <a href="{{ asset('assets/images/articles/' . $item->image) }}" class="glightbox">
-                            <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ asset('assets/images/articles/' . $item->image) }}" alt="Book Cover" />
-                        </a>
+                    <a href="{{ asset('assets/images/articles/' . $item->image) }}" class="glightbox">
+                        <img class="w-full bg-white border rounded-md shadow cursor-pointer"
+                            src="{{ asset('assets/images/articles/' . $item->image) }}" alt="Book Cover" />
+                    </a>
                     @else
-                        <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
-                            <img class="w-full aspect-[6/9] object-contain p-10 rounded-md cursor-pointer border shadow"
-                                src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
-                        </a>
+                        <div class="aspect-{{ env('ARTICLE_ASPECT') }} border rounded-md shadow cursor-pointer relative">
+                            <img class="object-contain w-full h-full" src="{{ asset('assets/book_cover_default.png') }}"
+                                alt="Book Cover" />
+
+                            <h1
+                                class="absolute block w-full p-4 text-2xl font-medium font-bold leading-9 text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                    {{ $item->name_kh }}
+                                @else
+                                    {{ $item->name }}
+                                @endif
+                            </h1>
+                            <p
+                                class="absolute bottom-0 block w-full p-4 text-lg font-medium leading-6 text-right text-gray-700 dark:text-gray-100">
+                                {{ $item->author?->name }}
+                            </p>
+                        </div>
                     @endif
 
                     <div class="grid grid-cols-4 gap-2">
                         @foreach ($multi_images as $index => $image)
                             @if ($index < 3 || count($multi_images) == 4)
                                 <a href="{{ asset('assets/images/articles/thumb/' . $image->image) }}" class="glightbox">
-                                    <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/articles/thumb/' . $image->image) }}">
+                                    @if ($item->image)
+                                        <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
+                                            src="{{ asset('assets/images/articles/thumb/' . $image->image) }}">
+                                    @else
+                                        <div
+                                            class="aspect-{{ env('ARTICLE_ASPECT') }} rounded-md shadow overflow-hidden cursor-pointer relative">
+                                            <img class="w-full aspect-[{{ env('ARTICLE_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                                src="{{ asset('assets/book_cover_default.png') }}"
+                                                alt="Image Description" />
+
+                                            <h1
+                                                class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                                @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                                    {{ $item->name_kh }}
+                                                @else
+                                                    {{ $item->name }}
+                                                @endif
+                                            </h1>
+                                            <p
+                                                class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
+                                                {{ $item->author?->name }}
+                                            </p>
+                                        </div>
+                                    @endif
+
                                 </a>
                             @elseif ($index == 3)
                                 <a href="{{ asset('assets/images/articles/' . $image->image) }}"

@@ -67,10 +67,7 @@
                                     {{ $item->name }}
                                 @endif
                             </h1>
-                            <p
-                                class="absolute bottom-0 block w-full p-4 text-lg font-medium leading-6 text-right text-gray-700 dark:text-gray-100">
-                                    {{ $item->author?->name }}
-                            </p>
+
                         </div>
                     @endif
                     <div class="grid grid-cols-4 gap-2">
@@ -108,7 +105,7 @@
                                 {{-- Start Read Button --}}
                                 <a @if (!$item->can_read && !auth()->check()) href="{{ route('client.login', ['path' => 'publications-' . $item->id]) }}"
                                 @else
-                                    @if(!$item->pdf && $item->link)
+                                    @if (!$item->pdf && $item->link)
                                         href="{{ $item->link }}"
                                     @elseif($websiteInfo->pdf_viewer_default == 1)
                                         href="{{ route('pdf.stream', [
@@ -256,14 +253,18 @@
 
                 </h1>
                 <div class="flex flex-col gap-2">
-                    @if ($item->author?->name)
+                    @if ($item->author?->name || $item->author_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.author') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ $item->author?->name }}
+                                @if ($item->author?->name)
+                                    {{ $item->author?->name }}
+                                @elseif($item->author_name)
+                                    {{ $item->author_name }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -292,14 +293,18 @@
                         </div>
                     @endif
 
-                    @if ($item->publisher?->name)
+                    @if ($item->publisher?->name || $item->publisher_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.publisher') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ $item->publisher?->name }}
+                                @if ($item->publisher?->name)
+                                    {{ $item->publisher?->name }}
+                                @elseif($item->publisher_name)
+                                    {{ $item->publisher_name }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -339,14 +344,18 @@
                         </div>
                     @endif
 
-                    @if ($item->language?->name)
+                    @if ($item->language?->name || $item->language_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.language') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->language?->name_kh : $item->language?->name }}
+                                @if ($item->language?->name)
+                                    {{ app()->getLocale() == 'kh' ? $item->language?->name_kh : $item->language?->name }}
+                                @elseif($item->language_name)
+                                    {{ $item->language_name }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -438,7 +447,7 @@
                             <p class="space-x-1 space-y-1 text-sm text-gray-600 dark:text-gray-200">
                                 @foreach (explode(',', $item->keywords) as $keyword)
                                     <span
-                                        class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 whitespace-nowrap capitalize">
+                                        class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 capitalize">
                                         {{ $keyword }}
                                     </span>
                                 @endforeach
@@ -483,9 +492,27 @@
             @forelse ($related_items as $item)
                 <a class="block group" href="{{ url('publications/' . $item->id) }}">
                     <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800">
-                        <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                            src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
-                            alt="Image Description" />
+                        @if ($item->image)
+                            <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                src="{{ asset('assets/images/publications/thumb/' . $item->image) }}"
+                                alt="Image Description" />
+                        @else
+                            <div
+                                class="aspect-{{ env('EPUB_ASPECT') }} rounded-md shadow overflow-hidden cursor-pointer relative">
+                                <img class="w-full aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
+                                    src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
+
+                                <h1
+                                    class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                    @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                        {{ $item->name_kh }}
+                                    @else
+                                        {{ $item->name }}
+                                    @endif
+                                </h1>
+                            </div>
+                        @endif
+
                     </div>
 
                     <div class="relative pt-2" x-data="{ tooltipVisible: false }">
