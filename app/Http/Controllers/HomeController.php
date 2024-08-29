@@ -117,6 +117,7 @@ class HomeController extends Controller
 
                     // Save the image to the specified path
                     File::put($imagePath, $imageContents);
+                    File::put($imagePathThumb, $imageContents);
 
                     // Update the publication record with the image name
                     $item->update([
