@@ -24,12 +24,13 @@ class HomeController extends Controller
 {
     public function index() {
 
-        // $items = Publication::with('publicationSubCategory')->get();
+        // $items = Publication::all();
         // foreach($items as $item){
         //         $item->update([
-        //             'publication_category_id' => $item->publicationSubCategory?->publication_category_id,
+        //             'name' => $item->name . ', ' . $item->Subtitle,
         //         ]);
         // }
+
         // $items = Thesis::with('major')->get();
         // foreach($items as $item){
             //         $item->update([
@@ -45,6 +46,7 @@ class HomeController extends Controller
         //         ]);
         //     }
         // }
+        // $items = Publication::all();
         // return ($items);
 
         $slides = Slide::latest()->get();
