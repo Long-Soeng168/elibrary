@@ -79,7 +79,7 @@ class HomeController extends Controller
     public function fetchAndSaveBookCover()
     {
         // Fetch all publications
-        $items = Publication::where('id', '>', 151)->get();
+        // $items = Publication::whereBetween('id', [1125, 1200])->get();
 
         foreach($items as $item) {
             $isbn = $item->isbn;
