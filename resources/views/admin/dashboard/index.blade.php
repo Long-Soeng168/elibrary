@@ -13,6 +13,8 @@
             <canvas id="chartBar"></canvas>
         </div> --}}
 
+        @if(auth()->user()->hasRole('super-admin')) 
+       
         <div class="p-4">
 
             <div class="grid items-start grid-cols-3 gap-4 sm:grid-cols-3 lg:grid-cols-{{ (count($menu_databases) <= 5) ? count($menu_databases) : '6' }}">
@@ -319,6 +321,7 @@
 
                 </div>
             </div>
+             @endif
 
         </div>
         </div>
