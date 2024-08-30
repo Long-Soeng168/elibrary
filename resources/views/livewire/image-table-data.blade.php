@@ -160,7 +160,6 @@
                     <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">Category</th>
                     {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
-                    <th scope="col" class="px-4 py-3">Type</th>
                     <th scope="col" class="px-4 py-3">Language</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -190,7 +189,6 @@
                         <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->imageCategory?->name ? $item->imageCategory?->name : 'N/A' }}" />
                         {{-- <x-table-data value="{{ $item->imagesubCategory?->name }}" /> --}}
-                        <x-table-data value="{{ $item->imageType?->name ? $item->imageType?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->language?->name ? $item->language?->name : 'N/A' }}" />
 
 
