@@ -309,25 +309,34 @@
                         </div>
                     @endif
 
-                    @if ($item->publicationType?->name)
+                    @if ($item->publicationType?->name || $item->type_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.type') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{ app()->getLocale() == 'kh' ? $item->publicationType?->name_kh : $item->publicationType?->name }}
+                                @if ($item->publicationType?->name)
+                                    {{ app()->getLocale() == 'kh' ? $item->publicationType?->name_kh : $item->publicationType?->name }} 
+                                @elseif($item->type_name)
+                                    {{ $item->type_name }}
+                                @endif
+                                
                             </p>
                         </div>
                     @endif
 
-                    @if ($item->publicationCategory?->name)
+                    @if ($item->publicationCategory?->name || $item->category_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.category') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
+                                @if (!$item->publicationCategory?->name && $item->category_name) 
+                                    {{ $item->category_name }}
+                                @endif
+                                
                                 @if (app()->getLocale() == 'kh' && $item->publicationCategory?->name_kh)
                                     {{ $item->publicationCategory?->name_kh }}
                                 @else
@@ -339,6 +348,8 @@
                                 @elseif($item->publicationSubCategory?->name)
                                     / {{ $item->publicationSubCategory?->name }}
                                 @endif
+                                
+                                
 
                             </p>
                         </div>

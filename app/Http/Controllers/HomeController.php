@@ -55,14 +55,14 @@ class HomeController extends Controller
 
 
         $slides = Slide::latest()->get();
-        $publications = Publication::inRandomOrder()->limit(10)->get();
+        $publications = Publication::inRandomOrder()->limit(12)->get();
         $videos = Video::inRandomOrder()->limit(8)->get();
         $images = Image::inRandomOrder()->limit(8)->get();
         $audios = Audio::inRandomOrder()->limit(8)->get();
         $bulletins = News::inRandomOrder()->limit(10)->get();
         $theses = Thesis::inRandomOrder()->limit(10)->get();
         $journals = Journal::inRandomOrder()->limit(10)->get();
-        $articles = Article::inRandomOrder()->limit(10)->get();
+        $articles = Article::inRandomOrder()->limit(12)->get();
         return view('client.home', [
             'slides' => $slides,
             'publications' => $publications,
@@ -82,11 +82,12 @@ class HomeController extends Controller
         $from = $request->from;
         $end = $request->end;
         $items = Publication::whereBetween('id', [$from, $end])->get();
+        // return $items;
 
         foreach($items as $item) {
             $isbn = $item->isbn;
             $client = new Client();
-            $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" . $isbn;
+            $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" . $isbn . "&key=AIzaSyC6d25JubfqTP6JLOTRtdVQx1eAnZErWd4";
 
             try {
                 // Send request to Google Books API
@@ -96,6 +97,11 @@ class HomeController extends Controller
                 // Check if items exist and extract the cover image URL
                 if (isset($bookData['items']) && isset($bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'])) {
                     $coverUrl = $bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+                    $description = $bookData['items'][0]['volumeInfo']['description'];
+                    $pageCount = $bookData['items'][0]['volumeInfo']['pageCount'];
+                    $printType = $bookData['items'][0]['volumeInfo']['printType'];
+                    $categories = $bookData['items'][0]['volumeInfo']['categories'];
+                    $category_name = implode(', ', $categories);
 
                     // Replace 'zoom=1' with 'zoom=10'
                     // $coverUrl = str_replace('zoom=1', 'zoom=10', $coverUrl);
@@ -124,6 +130,10 @@ class HomeController extends Controller
                     // Update the publication record with the image name
                     $item->update([
                         'image' => $imageName,
+                        'pages_count' => $pageCount,
+                        'description' => $description,
+                        'type_name' => $printType,
+                        'category_name' => $category_name,
                     ]);
                 }
             } catch (\Exception $e) {
