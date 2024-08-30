@@ -77,8 +77,8 @@
                                 <li class="flex items-center">
                                     <button wire:click.prevent='setFilter("{{ $type->id }}")'>
                                         <p
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $type->id == $filter ? 'underline' : '' }}">
-                                                {{ $type->name }}
+                                            class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100 text-left hover:underline {{ $type->id == $filter ? 'underline' : '' }}">
+                                            {{ $type->name }}
                                         </p>
                                     </button>
                                 </li>
@@ -96,14 +96,14 @@
                 <span>Total Download : {{ $totalDownloadCount }}</span>
             </div>
             @can('create journal')
-            <x-primary-button href="{{ route('admin.journals.create') }}">
-                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true">
-                    <path clip-rule="evenodd" fill-rule="evenodd"
-                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                </svg>
-                Add Item
-            </x-primary-button>
+                <x-primary-button href="{{ route('admin.journals.create') }}">
+                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path clip-rule="evenodd" fill-rule="evenodd"
+                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                    </svg>
+                    Add Item
+                </x-primary-button>
             @endcan
 
             <div class="flex items-center w-full space-x-3 md:w-auto">
@@ -133,9 +133,10 @@
                     <th scope="col" class="px-4 py-3 " wire:click='setSortBy("name")'>
                         <div class="flex items-center cursor-pointer">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="lucide lucide-chevrons-up-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="lucide lucide-chevrons-up-down">
                                 <path d="m7 15 5 5 5-5" />
                                 <path d="m7 9 5-5 5 5" />
                             </svg>
@@ -156,12 +157,12 @@
                     </th> --}}
 
                     <th scope="col" class="px-4 py-3">Author</th>
-                    <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">Category</th>
+                    <th scope="col" class="px-4 py-3">PDF</th>
                     {{-- <th scope="col" class="px-4 py-3">Published Date</th> --}}
                     @can('update journal')
-                    <th scope="col" class="py-3 text-center">Read</th>
-                    <th scope="col" class="py-3 text-center">Download</th>
+                        <th scope="col" class="py-3 text-center">Read</th>
+                        <th scope="col" class="py-3 text-center">Download</th>
                     @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -188,54 +189,95 @@
                                 {{ $item->author?->name ? $item->author?->name : 'N/A' }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
+                        <x-table-data>
+                            @if ($item->pdf)
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                    Available
+                                </span>
+                            @else
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                    Not-Available
+                                </span>
+                            @endif
+                        </x-table-data>
                         {{-- <x-table-data value="{{ Carbon\Carbon::parse($item->published_date)->format('d-M-Y') }}" /> --}}
                         @can('update journal')
-                        <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
-                            @if ($item->can_read)
-                            <span
-                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                Allow
-                            </span>
-                            @else
-                            <span
-                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                Not-Allow
-                            </span>
-                            @endif
-                        </x-table-data>
-                        <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
-                            @if ($item->can_download)
-                            <span
-                                class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                Allow
-                            </span>
-                            @else
-                            <span
-                                class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                Not-Allow
-                            </span>
-                            @endif
-                        </x-table-data>
+                            <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
+                                @if ($item->can_read)
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                        Allow
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        Not-Allow
+                                    </span>
+                                @endif
+                            </x-table-data>
+                            <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
+                                @if ($item->can_download)
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                        Allow
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        Not-Allow
+                                    </span>
+                                @endif
+                            </x-table-data>
                         @endcan
 
 
                         <td class="px-6 py-4">
                             <div class="flex items-start justify-center gap-3">
                                 @can('update journal')
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a href="{{ url('admin/journals_images/'. $item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false"
-                                        class="relative">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-plus-circle">
-                                            <circle cx="12" cy="12" r="10" />
-                                            <path d="M8 12h8" />
-                                            <path d="M12 8v8" />
-                                        </svg>
+                                    <div class="pb-1" x-data="{ tooltip: false }">
+                                        <!-- Modal toggle -->
+                                        <a href="{{ url('admin/journals_images/' . $item->id) }}"
+                                            @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-plus-circle">
+                                                <circle cx="12" cy="12" r="10" />
+                                                <path d="M8 12h8" />
+                                                <path d="M12 8v8" />
+                                            </svg>
+                                            <!-- View tooltip -->
+                                            <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                                x-transition:enter-start="opacity-0 transform scale-90"
+                                                x-transition:enter-end="opacity-100 transform scale-100"
+                                                x-transition:leave="transition ease-in duration-75"
+                                                x-transition:leave-start="opacity-100 transform scale-100"
+                                                x-transition:leave-end="opacity-0 transform scale-90"
+                                                class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                                style="display: none;">
+                                                Add Image
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endcan
+
+                                @can('view journal')
+                                    <div class="pb-1" x-data="{ tooltip: false }">
+                                        <!-- Modal toggle -->
+                                        <a href="{{ url('journals/' . $item->id) }}" @mouseenter="tooltip = true"
+                                            @mouseleave="tooltip = false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-eye">
+                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                                <circle cx="12" cy="12" r="3" />
+                                            </svg>
+                                        </a>
+
                                         <!-- View tooltip -->
                                         <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
                                             x-transition:enter-start="opacity-0 transform scale-90"
@@ -243,97 +285,71 @@
                                             x-transition:leave="transition ease-in duration-75"
                                             x-transition:leave-start="opacity-100 transform scale-100"
                                             x-transition:leave-end="opacity-0 transform scale-90"
-                                            class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                            class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
                                             style="display: none;">
-                                            Add Image
+                                            View
                                         </div>
-                                    </a>
-                                </div>
-                                @endcan
-
-                                @can('view journal')
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a href="{{ url('journals/'.$item->id) }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-eye">
-                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                                            <circle cx="12" cy="12" r="3" />
-                                        </svg>
-                                    </a>
-
-                                    <!-- View tooltip -->
-                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        class="absolute z-10 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
-                                        style="display: none;">
-                                        View
                                     </div>
-                                </div>
                                 @endcan
 
                                 @can('delete journal')
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}' wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
-                                        @mouseleave="tooltip = false">
-                                        <span class="text-red-600">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-trash">
-                                                <path d="M3 6h18" />
-                                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                            </svg>
-                                        </span>
-                                    </a>
+                                    <div class="pb-1" x-data="{ tooltip: false }">
+                                        <!-- Modal toggle -->
+                                        <a wire:confirm='Are you sure? you want to delete : {{ $item->name }}'
+                                            wire:click='delete({{ $item->id }})' @mouseenter="tooltip = true"
+                                            @mouseleave="tooltip = false">
+                                            <span class="text-red-600">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-trash">
+                                                    <path d="M3 6h18" />
+                                                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                                                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                                                </svg>
+                                            </span>
+                                        </a>
 
-                                    <!-- View tooltip -->
-                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
-                                        style="display: none;">
-                                        Delete
+                                        <!-- View tooltip -->
+                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0 transform scale-90"
+                                            x-transition:enter-end="opacity-100 transform scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="opacity-100 transform scale-100"
+                                            x-transition:leave-end="opacity-0 transform scale-90"
+                                            class="absolute z-30 inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap"
+                                            style="display: none;">
+                                            Delete
+                                        </div>
                                     </div>
-                                </div>
                                 @endcan
 
                                 @can('update journal')
-                                <div class="pb-1" x-data="{ tooltip: false }">
-                                    <!-- Modal toggle -->
-                                    <a href="{{ url('admin/journals/'. $item->id . '/edit') }}" @mouseenter="tooltip = true" @mouseleave="tooltip = false">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                            class="lucide lucide-file-pen-line">
-                                            <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
-                                            <path d="M8 18h1" />
-                                            <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
-                                        </svg>
-                                    </a>
-                                    <!-- View tooltip -->
-                                    <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
-                                        x-transition:enter-start="opacity-0 transform scale-90"
-                                        x-transition:enter-end="opacity-100 transform scale-100"
-                                        x-transition:leave="transition ease-in duration-75"
-                                        x-transition:leave-start="opacity-100 transform scale-100"
-                                        x-transition:leave-end="opacity-0 transform scale-90"
-                                        class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap right-0"
-                                        style="display: none;">
-                                        Edit
+                                    <div class="pb-1" x-data="{ tooltip: false }">
+                                        <!-- Modal toggle -->
+                                        <a href="{{ url('admin/journals/' . $item->id . '/edit') }}"
+                                            @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="lucide lucide-file-pen-line">
+                                                <path d="m18 5-3-3H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2" />
+                                                <path d="M8 18h1" />
+                                                <path d="M18.4 9.6a2 2 0 1 1 3 3L17 17l-4 1 1-4Z" />
+                                            </svg>
+                                        </a>
+                                        <!-- View tooltip -->
+                                        <div x-show="tooltip" x-transition:enter="transition ease-out duration-200"
+                                            x-transition:enter-start="opacity-0 transform scale-90"
+                                            x-transition:enter-end="opacity-100 transform scale-100"
+                                            x-transition:leave="transition ease-in duration-75"
+                                            x-transition:leave-start="opacity-100 transform scale-100"
+                                            x-transition:leave-end="opacity-0 transform scale-90"
+                                            class="absolute z-[9999] inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700 whitespace-nowrap right-0"
+                                            style="display: none;">
+                                            Edit
+                                        </div>
                                     </div>
-                                </div>
                                 @endcan
 
                             </div>

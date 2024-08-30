@@ -158,11 +158,11 @@
                     </th> --}}
 
                     <th scope="col" class="px-4 py-3">Author</th>
-                    <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">Category</th>
+                    <th scope="col" class="px-4 py-3">PDF</th>
                     @can('update bulletin')
-                    <th scope="col" class="py-3 text-center">Read</th>
-                    <th scope="col" class="py-3 text-center">Download</th>
+                        <th scope="col" class="py-3 text-center">Read</th>
+                        <th scope="col" class="py-3 text-center">Download</th>
                     @endcan
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -189,35 +189,47 @@
                                 {{ $item->author?->name ? $item->author?->name : 'N/A' }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->newsCategory?->name ? $item->newsCategory?->name : 'N/A' }}" />
+                        <x-table-data>
+                            @if ($item->pdf)
+                                <span
+                                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                    Available
+                                </span>
+                            @else
+                                <span
+                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                    Not-Available
+                                </span>
+                            @endif
+                        </x-table-data>
                         @can('update bulletin')
-                        <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
-                            @if ($item->can_read)
-                                <span
-                                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                    Allow
-                                </span>
-                            @else
-                                <span
-                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                    Not-Allow
-                                </span>
-                            @endif
-                        </x-table-data>
-                        <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
-                            @if ($item->can_download)
-                                <span
-                                    class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
-                                    Allow
-                                </span>
-                            @else
-                                <span
-                                    class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
-                                    Not-Allow
-                                </span>
-                            @endif
-                        </x-table-data>
+                            <x-table-data wire:click="updateRead({{ $item->id }})" class="cursor-pointer">
+                                @if ($item->can_read)
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                        Allow
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        Not-Allow
+                                    </span>
+                                @endif
+                            </x-table-data>
+                            <x-table-data wire:click="updateDownload({{ $item->id }})" class="cursor-pointer">
+                                @if ($item->can_download)
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-green-900 dark:text-green-300 whitespace-nowrap">
+                                        Allow
+                                    </span>
+                                @else
+                                    <span
+                                        class="bg-red-100 text-red-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-red-900 dark:text-red-300 whitespace-nowrap">
+                                        Not-Allow
+                                    </span>
+                                @endif
+                            </x-table-data>
                         @endcan
 
 

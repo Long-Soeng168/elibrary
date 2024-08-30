@@ -87,18 +87,20 @@
                 <x-input-label for="primary" :value="__('Main Color')" /><span class="text-red-500">*</span>
                 <input type="color" class="block w-full mt-1" wire:model='primary'>
                 <x-input-error :messages="$errors->get('primary')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="primary_hover" :value="__('Hover Color')" /><span class="text-red-500">*</span>
-                <input type="color" class="block w-full mt-1" wire:model='primary_hover'>
-                <x-input-error :messages="$errors->get('primary_hover')" class="mt-2" />
-            </div>
-            <div>
-                <x-input-label for="banner_color" :value="__('Banner Color')" /><span class="text-red-500">*</span>
-                <input type="color" class="block w-full mt-1" wire:model='banner_color'>
-                <x-input-error :messages="$errors->get('banner_color')" class="mt-2" />
+                </div>
+                <div>
+                    <x-input-label for="primary_hover" :value="__('Hover Color')" /><span class="text-red-500">*</span>
+                    <input type="color" class="block w-full mt-1" wire:model='primary_hover'>
+                    <x-input-error :messages="$errors->get('primary_hover')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="banner_color" :value="__('Banner Color')" /><span class="text-red-500">*</span>
+                        <input type="color" class="block w-full mt-1" wire:model='banner_color'>
+                        <x-input-error :messages="$errors->get('banner_color')" class="mt-2" />
+                        </div>
             </div>
 
+            <div class="grid grid-cols-2 gap-5 mb-5 lg:grid-cols-3">
             <div>
                 <x-input-label for="show_bg_menu" :value="__('Menu Background')" />
                 <span class="text-red-500">* </span>
@@ -124,6 +126,40 @@
                 </label>
                 <!-- End Switch/Toggle -->
                 <x-input-error :messages="$errors->get('pdf_viewer_default')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="show_download_button" :value="__('Show Button Download')" />
+                <span class="text-red-500">* </span>
+                <!-- Switch/Toggle -->
+                <label class="flex items-center mt-1 cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" wire:model='show_download_button'>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Don't Show</span>
+                    <div class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Show</span>
+                </label>
+                <!-- End Switch/Toggle -->
+                <x-input-error :messages="$errors->get('show_download_button')" class="mt-2" />
+            </div>
+            <div>
+                <x-input-label for="check_ip_range" :value="__('Check IP Range')" />
+                <span class="text-red-500">* </span>
+                <!-- Switch/Toggle -->
+                <label class="flex items-center mt-1 cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" wire:model='check_ip_range'>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Don't Check</span>
+                    <div class="mx-2 relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="text-sm text-gray-400 dark:text-gray-300">Check IP</span>
+                </label>
+                <!-- End Switch/Toggle -->
+                <x-input-error :messages="$errors->get('check_ip_range')" class="mt-2" />
+            </div>
+            <div class="col-span-2">
+                <x-input-label for="ip_range" :value="__('IP Range')" />
+                <span class="text-yellow-600">Ex : 192.168.1.0/24<span class="text-2xl font-bold">,</span>203.144.68.205 (Add More by <span class="text-2xl font-bold">,</span> symbol)</span>
+                <x-text-input id="ip_range" class="block w-full mt-1" type="text" name="ip_range" wire:model='ip_range'
+                    required autofocus placeholder="Ex : 192.168.1.0/24,203.144.68.205 (Add More by , symbol)" />
+                <span class="text-gray-400">'192.168.1.0/24',   // IP range for 192.168.1.0 -> 192.168.1.255</span>
+                <x-input-error :messages="$errors->get('ip_range')" class="mt-2" />
             </div>
 
 

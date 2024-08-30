@@ -114,7 +114,7 @@ class DashboardController extends Controller
 
        // Define the labels for the last 6 months
         $label = [];
-        for ($i = 6; $i > 0; $i--) {
+        for ($i = 5; $i >= 0; $i--) {
             $label[] = Carbon::now()->subMonths($i)->format('M'); // 01, 02, 03, etc.
         }
 
@@ -165,31 +165,24 @@ class DashboardController extends Controller
 
 
 
-        // $readCounts = [
-        //     'publications' => Publication::sum('read_count'),
-        //     'videos' => Video::sum('read_count'),
-        //     'images' => Image::sum('read_count'),
-        //     'audios' => Audio::sum('read_count'),
-        //     'bulletins' => News::sum('read_count'),
-        //     'theses' => Thesis::sum('read_count'),
-        //     'journals' => Journal::sum('read_count'),
-        //     'articles' => Article::sum('read_count'),
-        // ];
+        $readCounts = [
+            'publications' => Publication::sum('read_count'),
+            'videos' => Video::sum('read_count'),
+            'images' => Image::sum('read_count'),
+            'audios' => Audio::sum('read_count'),
+            'bulletins' => News::sum('read_count'),
+            'theses' => Thesis::sum('read_count'),
+            'journals' => Journal::sum('read_count'),
+            'articles' => Article::sum('read_count'),
+        ];
 
-        // foreach ($menu_databases as $database) {
-        //     if ($database->type == 'slug' && $database->status) {
-        //         $readCountLabel[] = $database->name;
-
-        //         // Get count based on slug
-        //         $slug = $database->slug;
-        //         $readCountData[] = $readCounts[$slug] ?? 0;
-        //     }
-        // }
-
-        // return [
-        //     'readCountLabel' => $readCountLabel,
-        //     'readCountData' => $readCountData,
-        // ];
+        $downloadCounts = [
+            'publications' => Publication::sum('download_count'),
+            'bulletins' => News::sum('download_count'),
+            'theses' => Thesis::sum('download_count'),
+            'journals' => Journal::sum('download_count'),
+            'articles' => Article::sum('download_count'),
+        ];
 
         $totalCountEachArchive = [
             'publications' => Publication::count(),
@@ -211,6 +204,8 @@ class DashboardController extends Controller
             'label' => $label,
             'data' => $data,
             'totalCountEachArchive' => $totalCountEachArchive,
+            'readCounts' => $readCounts,
+            'downloadCounts' => $downloadCounts,
             // 'readCountLabel' => $readCountLabel,
             // 'readCountData' => $readCountData,
         ]);

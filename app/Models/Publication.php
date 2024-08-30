@@ -36,8 +36,13 @@ class Publication extends Model
     public function language(){
         return $this->belongsTo(Language::class, 'language_id', 'id');
     }
+
     public function location(){
         return $this->belongsTo(Location::class, 'location_id', 'id');
+    }
+
+    public function images(){
+        return $this->hasMany(PublicationImage::class, 'publication_id', 'id');
     }
 
     public function user(){
