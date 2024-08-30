@@ -109,7 +109,7 @@
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
                     <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
                         <div
-                            class="justify-items-end lg:order-2 max-[1280px]:flex max-[1280px]:items-center max-[1280px]:justify-end max-[1280px]:w-full py-1.5">
+                            class="justify-items-end lg:mr-20 lg:order-2 max-[1280px]:flex max-[1280px]:items-center max-[1280px]:justify-end max-[1280px]:w-full md:mr-16 py-1.5 xl:mr-28">
                             <div class="min-[1280px]:px-2 shrink-0">
                                 <!-- Toggle Dark mode -->
                                 <button id="theme-toggle" type="button"
