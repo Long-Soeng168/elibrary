@@ -81,7 +81,7 @@ class HomeController extends Controller
         // Fetch all publications
         $from = $request->from;
         $end = $request->end;
-        $items = Publication::whereBetween('id', [$start, $end])->get();
+        $items = Publication::whereBetween('id', [$from, $end])->get();
 
         foreach($items as $item) {
             $isbn = $item->isbn;
