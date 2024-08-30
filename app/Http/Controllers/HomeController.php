@@ -76,10 +76,12 @@ class HomeController extends Controller
         ]);
     }
 
-    public function fetchAndSaveBookCover()
+    public function fetchAndSaveBookCover(Request $request)
     {
         // Fetch all publications
-        $items = Publication::where('id', '>', 151)->get();
+        $from = $request->from;
+        $end = $request->end;
+        $items = Publication::whereBetween('id', [$start, $end])->get();
 
         foreach($items as $item) {
             $isbn = $item->isbn;
@@ -96,7 +98,7 @@ class HomeController extends Controller
                     $coverUrl = $bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
 
                     // Replace 'zoom=1' with 'zoom=10'
-                    $coverUrl = str_replace('zoom=1', 'zoom=10', $coverUrl);
+                    // $coverUrl = str_replace('zoom=1', 'zoom=10', $coverUrl);
 
                     // Download the cover image
                     $imageResponse = $client->get($coverUrl);
