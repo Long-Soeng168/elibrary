@@ -117,6 +117,14 @@
                 </select>
                 <x-input-error :messages="$errors->get('type')" class="mt-2" />
             </div>
+            <div class="col-span-1">
+                <label for="light_mode_color" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                   {{ __('Background Color Light') }}
+                </label>
+                <input id="light_mode_color" class="block w-full mt-1" type="color" name="light_mode_color" wire:model='light_mode_color'
+                required autofocus placeholder="Order Index" >
+                <x-input-error :messages="$errors->get('light_mode_color')" class="mt-2" />
+            </div>
             <!-- End Name -->
 
         </div>
