@@ -24,6 +24,8 @@ class DatabaseEdit extends Component
     public $order_index;
     public $description;
     public $description_kh;
+    public $light_mode_color;
+    public $dark_mode_color;
 
     public function mount(Database $item)
     {
@@ -34,6 +36,8 @@ class DatabaseEdit extends Component
         $this->slug = $item->slug;
         $this->type = $item->type;
         $this->order_index = $item->order_index;
+        $this->light_mode_color = $item->light_mode_color;
+        $this->dark_mode_color = $item->dark_mode_color;
     }
 
     public function updatedImage()
@@ -63,6 +67,8 @@ class DatabaseEdit extends Component
             'slug' => 'nullable|string|max:255|unique:databases,slug,'.$this->item->id,
             'type' => 'nullable|string|max:255',
             'order_index' => 'nullable||max:255',
+            'light_mode_color' => 'nullable||max:255',
+            'dark_mode_color' => 'nullable||max:255',
         ]);
 
         // Update the existing item record

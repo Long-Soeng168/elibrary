@@ -89,7 +89,7 @@
                                                 alt="Image Description" />
 
                                             <h1
-                                                class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                                class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                                 @if (app()->getLocale() == 'kh' && $item->name_kh)
                                                     {{ $item->name_kh }}
                                                 @else

@@ -43,7 +43,7 @@
                                 <a href="{{ url('/' . $database->slug) }}"
                                     class="flex flex-col items-center justify-center w-full p-4 py-6
                                 {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
-                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600 bg-[{{ $database->light_mode_color }}]">
                                     <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                         src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                         alt="">
@@ -60,7 +60,7 @@
                                 <a href="{{ $database->link ? $database->link : '#' }}" target="_blank"
                                     class="flex flex-col items-center justify-center w-full p-4 py-6
                                 {{-- {{ request()->is($database->slug . '*') ? 'bg-gray-100' : '' }}  --}}
-                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600">
+                                 dark:bg-gray-800 group hover:bg-gray-200 rounded-xl dark:hover:bg-gray-600 bg-[{{ $database->light_mode_color }}]">
                                     <img class="object-contain h-16 aspect-square swiper-responsive-img"
                                         src="{{ asset('assets/images/databases/' . $database->client_side_image) }}"
                                         alt="">
@@ -143,7 +143,7 @@
                                             src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
                                         <h1
-                                            class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                            class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                             @if (app()->getLocale() == 'kh' && $item->name_kh)
                                                 {{ $item->name_kh }}
                                             @else
@@ -362,7 +362,7 @@
                             src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
                         <h1
-                            class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                            class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                             @if (app()->getLocale() == 'kh' && $item->name_kh)
                                 {{ $item->name_kh }}
                             @else
@@ -428,7 +428,7 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                         src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
                     <h1
-                        class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                        class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                         @if (app()->getLocale() == 'kh' && $item->name_kh)
                             {{ $item->name_kh }}
                         @else
@@ -495,7 +495,7 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                     src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
                 <h1
-                    class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                    class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                     @if (app()->getLocale() == 'kh' && $item->name_kh)
                         {{ $item->name_kh }}
                     @else
@@ -562,7 +562,7 @@ class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:
                 src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
             <h1
-                class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 @if (app()->getLocale() == 'kh' && $item->name_kh)
                     {{ $item->name_kh }}
                 @else
