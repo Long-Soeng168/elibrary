@@ -127,7 +127,7 @@
                 </div>
                 <!-- Card Grid -->
                 <div
-                    class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
+                    class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
                     <!-- Card -->
                     @forelse ($publications as $item)
                         <a class="block group" href="{{ url('/publications/' . $item->id) }}">
@@ -546,7 +546,7 @@ class="flex items-center gap-2 text-lg text-white transition-all cursor-pointer 
 </div>
 <!-- Card Grid -->
 <div
-class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
+class="grid grid-cols-2 gap-4 py-2 m-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-4 xl:m-0">
 <!-- Card -->
 @forelse ($articles as $item)
 <a class="block group" href="{{ url('/articles/' . $item->id) }}">

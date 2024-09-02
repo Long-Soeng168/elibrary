@@ -100,7 +100,7 @@ class ArticleIndex extends Component
     #[Url(history: true)]
     public $search = '';
 
-    public $perPage = 25;
+    public $perPage = 24;
 
     use WithPagination;
     public function updatingPage(){

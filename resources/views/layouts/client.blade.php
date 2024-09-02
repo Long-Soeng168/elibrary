@@ -103,112 +103,127 @@
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a> --}}
 
-            <header class="md:absolute left-0 right-0 bottom-0  z-[30]
+            <header class="md:absolute left-0 right-0 top-0  z-[30]
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
-                    <div class="flex flex-wrap items-center justify-end max-w-screen-xl mx-auto">
-                        <div
-                            class="justify-items-end lg:order-2 max-[1280px]:flex max-[1280px]:items-center max-[1280px]:justify-end max-[1280px]:w-full py-1.5">
-                            <div class="min-[1280px]:px-2 shrink-0">
-                                <!-- Toggle Dark mode -->
-                                <button id="theme-toggle" type="button"
-                                    class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none ">
-                                    <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
-                                        </path>
-                                    </svg>
-                                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                                            fill-rule="evenodd" clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                                <!-- Start Language -->
-                                <a href="{{ route('switch-language', ['locale' => 'kh']) }}" type="button"
-                                    class="{{ app()->getLocale() == 'kh' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
-                                    <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}"
-                                        alt="" />
-                                </a>
-                                <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
-                                    class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
-                                    <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
-                                        alt="" />
-                                </a>
-                                {{-- End Language --}}
-                                <button type="button" data-drawer-target="drawer-body-scrolling"
-                                    data-drawer-show="drawer-body-scrolling" data-drawer-body-scrolling="true"
-                                    aria-controls="drawer-body-scrolling"
-                                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-100 hover:text-gray-500 rounded-lg min-[1280px]:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-200 dark:hover:text-gray-700 dark:hover:bg-gray-200 dark:focus:ring-gray-600">
-                                    <span class="sr-only">Open main menu</span>
-                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 17 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                        <!-- ================== Menu Navigator ================== -->
-                        <nav class="py-1 md:py-4 pl-2 mr-10 hidden w-full min-[1280px]:block min-[1280px]:w-auto"
-                            id="navbar-default">
-                            <ul
-                                class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                                <li
-                                    class="transition-all hover:underline underline-offset-4 {{ request()->is('/') ? 'underline' : '' }}  ">
-                                    <a href="/"
-                                        class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                        {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
+                    <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
+                         <a href="/" class="flex items-center gap-2 p-2"> 
+                            <img class="mx-auto w-12 md:w-20 aspect-square object-contain rounded-lg"
+                                src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}" alt="" />
+                            <span>
+                                <h1 class="text-md md:text-xl font-moul">
+                                {{ $websiteInfo->name_kh }}
+                                </h1>
+                                <h1 class="text-sm md:text-lg font-bold">
+                                    {{ $websiteInfo->name }}
+                                </h1>
+                            </span>
+                        </a>
+                        <div class="flex items-center"> 
+                            <div
+                                class="justify-items-end  lg:order-2 max-[1280px]:flex max-[1280px]:items-center max-[1280px]:justify-end max-[1280px]:w-full  py-1.5 ">
+                                <div class="min-[1280px]:px-2 shrink-0">
+                                    <!-- Toggle Dark mode -->
+                                    <button id="theme-toggle" type="button"
+                                        class="p-2 text-sm text-gray-100 rounded-lg hover:text-gray-500 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-gray-600 focus:outline-none ">
+                                        <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="currentColor"
+                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z">
+                                            </path>
+                                        </svg>
+                                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
+                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                                fill-rule="evenodd" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+                                    <!-- Start Language -->
+                                    <a href="{{ route('switch-language', ['locale' => 'kh']) }}" type="button"
+                                        class="{{ app()->getLocale() == 'kh' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer dark:text-white hover:bg-gray-100 dark:hover:bg-gray-200 dark:hover:text-white">
+                                        <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/khmer.png') }}"
+                                            alt="" />
                                     </a>
-                                </li>
-                                @forelse ($menu_pages as $item)
+                                    <a href="{{ route('switch-language', ['locale' => 'en']) }}" type="button"
+                                        class="{{ app()->getLocale() == 'en' ? 'bg-gray-100' : '' }} inline-flex items-center justify-center p-2 text-sm font-medium text-gray-900 rounded-lg cursor-pointer  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:text-white">
+                                        <img class="w-5 h-5 rounded-full" src="{{ asset('assets/icons/english.png') }}"
+                                            alt="" />
+                                    </a>
+                                    {{-- End Language --}}
+                                    <button type="button" data-drawer-target="drawer-body-scrolling"
+                                        data-drawer-show="drawer-body-scrolling" data-drawer-body-scrolling="true"
+                                        aria-controls="drawer-body-scrolling"
+                                        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-100 hover:text-gray-500 rounded-lg min-[1280px]:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-200 dark:hover:text-gray-700 dark:hover:bg-gray-200 dark:focus:ring-gray-600">
+                                        <span class="sr-only">Open main menu</span>
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 17 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 1h15M1 7h15M1 13h15"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- ================== Menu Navigator ================== -->
+                            <nav class="py-1 md:py-4 pl-2 mr-10 hidden w-full min-[1280px]:block min-[1280px]:w-auto"
+                                id="navbar-default">
+                               
+                                <ul
+                                    class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg text-md md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                                     <li
-                                        class="transition-all hover:underline underline-offset-4 {{ request()->is('menu/' . $item->id) ? 'underline' : '' }}   ">
-                                        @if ($item->link)
-                                        <a href="{{ $item->link }}" target="_blank"
+                                        class="transition-all hover:underline underline-offset-4 {{ request()->is('/') ? 'underline' : '' }}  ">
+                                        <a href="/"
                                             class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                            {{ app()->getLocale() == 'kh' ? 'ទំព័រដើម' : 'Home' }}
                                         </a>
-                                        @else
-                                        <a href="{{ url('/menu/' . $item->id) }}"
-                                            class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                            {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
-                                        </a>
-                                        @endif
-
                                     </li>
-                                @empty
-                                @endforelse
-                                    @if (auth()->check())
+                                    @forelse ($menu_pages as $item)
                                         <li
-                                            class="transition-all hover:underline underline-offset-4 ">
-                                                <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
-                                                    class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
-                                                    {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
+                                            class="transition-all hover:underline underline-offset-4 {{ request()->is('menu/' . $item->id) ? 'underline' : '' }}   ">
+                                            @if ($item->link)
+                                            <a href="{{ $item->link }}" target="_blank"
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                            </a>
+                                            @else
+                                            <a href="{{ url('/menu/' . $item->id) }}"
+                                                class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                {{ app()->getLocale() == 'kh' ? $item->name_kh : $item->name }}
+                                            </a>
+                                            @endif
+    
+                                        </li>
+                                    @empty
+                                    @endforelse
+                                        @if (auth()->check())
+                                            <li
+                                                class="transition-all hover:underline underline-offset-4 ">
+                                                    <a href="{{ url('/admin/dashboard') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                                        class="block px-3 py-2 rounded md:border-0 md:p-0 dark:text-white">
+                                                        {{ app()->getLocale() == 'kh' ? 'ផ្ទាំងគ្រប់គ្រង' : 'Dashboard' }}
+                                                    </a>
+    
+                                            </li>
+                                            <li
+                                                class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
+                                                <a href="{{ url('/logout') }}" {{-- <a href="{{ url('/logout') }}" --}}
+                                                    class="block px-3 py-2 rounded md:border-0 md:p-0 ">
+                                                    {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
                                                 </a>
-
-                                        </li>
-                                        <li
-                                            class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
-                                            <a href="{{ url('/logout') }}" {{-- <a href="{{ url('/logout') }}" --}}
-                                                class="block px-3 py-2 rounded md:border-0 md:p-0 ">
-                                                {{ app()->getLocale() == 'kh' ? 'ចាកចេញ' : 'Logout' }}
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li
-                                            class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
-                                            <a href="{{ url('/login') }}"
-                                                class="block px-3 py-2 rounded md:border-0 md:p-0 ">
-                                                {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
-                                            </a>
-                                        </li>
-
-                                    @endif
-                            </ul>
-                        </nav>
+                                            </li>
+                                        @else
+                                            <li
+                                                class="px-3 transition-all duration-300 border hover:bg-white hover:text-primary underline-offset-4">
+                                                <a href="{{ url('/login') }}"
+                                                    class="block px-3 py-2 rounded md:border-0 md:p-0 ">
+                                                    {{ app()->getLocale() == 'kh' ? 'ចូលគណនី' : 'Login' }}
+                                                </a>
+                                            </li>
+    
+                                        @endif
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </header>
