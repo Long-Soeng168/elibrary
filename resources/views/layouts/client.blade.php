@@ -107,7 +107,6 @@
                 {{ $websiteInfo->show_bg_menu ? 'bg-bannerColor/50' : '' }}
             ">
                 <div class="z-20 px-2 text-white border-gray-200 bg-primary-400">
-                    
                     <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto">
                          <a href="/" class="flex items-center gap-2 p-2"> 
                             <img class="mx-auto w-12 md:w-20 aspect-square object-contain rounded-lg"

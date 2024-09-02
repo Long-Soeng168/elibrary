@@ -308,7 +308,7 @@ class ArticleEdit extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'pdf' => 'nullable|file|mimes:pdf|max:20480',
+            'pdf' => 'nullable|file|mimes:pdf|max:51200',
             'image' => 'nullable|image|max:2048',
             'pages_count' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
