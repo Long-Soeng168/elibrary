@@ -1,7 +1,7 @@
 {{-- resources/views/vendor/pagination/custom.blade.php --}}
 
 @if ($paginator->hasPages())
-    <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
+    <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between" wire:key="{{ rand() }}">
         <div class="flex justify-between flex-1 sm:hidden">
             @if ($paginator->onFirstPage())
                 <span class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-300 bg-white border border-gray-300 rounded-md cursor-not-allowed dark:bg-gray-800 dark:border-gray-300 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300">
