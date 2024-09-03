@@ -53,7 +53,6 @@ class HomeController extends Controller
         // $items = Publication::all();
         // return ($items);
 
-
         $slides = Slide::latest()->get();
         $publications = Publication::inRandomOrder()->limit(10)->get();
         $videos = Video::inRandomOrder()->limit(8)->get();
