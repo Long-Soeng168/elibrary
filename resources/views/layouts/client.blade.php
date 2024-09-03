@@ -297,14 +297,14 @@
             <footer class="m-2 xl:m-0">
                 <div class="w-full max-w-screen-xl py-6 mx-auto lg:py-8">
                     <div class="min-[1300px]:flex md:justify-between">
-                        {{-- <div class="mb-6 min-[1300px]:mb-0">
+                        <div class="mb-6 min-[1300px]:mb-0">
                             <a href="#" class="flex items-center">
                                 <img src="{{ asset('assets/images/website_infos/' . $websiteInfo->image) }}"
                                     class="h-24 max-w-[250px] object-contain me-3 rounded-md" alt="Logo" />
-                            </a>
-                        </div> --}}
-                        <div class="justify-between w-full gap-6 lg:flex lg:gap-20">
-                            <div class="max-w-[450px]">
+                            </a> 
+                        </div>
+                        <div class="justify-between gap-6 lg:flex lg:gap-20"> 
+                            <div class="max-w-[380px]">  
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white">
                                     @if (app()->getLocale() == 'kh' && $footer->name_kh)
                                         {!! $footer->name_kh !!}
@@ -359,6 +359,16 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div id="add-to-home-screen">
+                                <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
+                                    {{ app()->getLocale() == 'kh' ? 'អ្នកទស្សនាគេហទំព័រ' : 'Visitors' }}
+                                </h2>
+                                <ul class="mb-8 font-medium dark:text-gray-400">
+                                    <li class="mb-4">
+                                        <a href="https://info.flagcounter.com/i5nY"><img src="https://s11.flagcounter.com/count2/i5nY/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+                                    </li>
+                                </ul>
+                            </div> 
                             <div>
                                 <h2 class="mb-3 text-sm font-semibold uppercase dark:text-white lg:text-center">
 
@@ -401,6 +411,7 @@
                         <span class="text-sm sm:text-center dark:text-gray-400">
                             {{ app()->getLocale() == 'kh' ? $footer->copyright_kh : $footer->copyright }}
                         </span>
+                        
                         <a href="https://alphalib.org/" class="text-sm hover:underline sm:text-center dark:text-gray-400">
                             {{ app()->getLocale() == 'kh' ? 'អភិវឌ្ឍដោយ Alphalib' : 'Powered by Alphalib' }}
                         </a>
