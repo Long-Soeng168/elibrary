@@ -124,6 +124,10 @@ class PublicationIndex extends Component
     }
 
 
+    public function placeholder()
+    {
+        return view('client.placeholder.index');
+    }
 
     public function render()
     {
@@ -166,9 +170,10 @@ class PublicationIndex extends Component
             });
         }
 
-        $items = $query->latest()->paginate($this->perPage);
+        $items = $query->orderBy('id', 'DESC')->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
+      
         return view('livewire.publication-index', [
             'items' => $items,
             'categories' => $categories,

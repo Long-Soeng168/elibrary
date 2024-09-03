@@ -17,7 +17,7 @@
                     <div class="relative w-full overflow-hidden rounded-md">
                         @if ($item->image)
                             <img class="w-full border rounded-md cursor-pointer"
-                                src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/videos/'.$item->image) }}" alt="Book Cover" />
                         @else
                             <img class="object-contain w-full p-10 border rounded-md cursor-pointer aspect-video"
                                 src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
@@ -27,7 +27,8 @@
                         <div class="absolute inset-0 border size-full">
                             <div class="flex flex-col items-center justify-center size-full">
                                 <a class="inline-flex items-center px-4 py-3 text-sm font-semibold text-gray-800 bg-white border border-gray-200 rounded-full shadow-sm glightbox3 gap-x-2 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800"
-                                    href="{{ $item->link }}">
+                                    href="{{  $item->link ? $item->link : asset('assets/videos/'.$item->file) }}"
+                                >
                                     <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -218,7 +219,7 @@
                             </p>
                         </div>
                     @endif
-                    @if ($item->user?->name)
+                    {{-- @if ($item->user?->name)
                     <div class="flex nowrap">
                         <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                             {{ __('messages.postBy') }}
@@ -227,7 +228,7 @@
                             {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
                         </p>
                     </div>
-                @endif
+                @endif --}}
                     @if ($item->updated_at)
                     <div class="flex nowrap">
                         <p class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">

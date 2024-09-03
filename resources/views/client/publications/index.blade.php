@@ -1,4 +1,4 @@
 @extends('layouts.client')
 @section('content')
-    @livewire('publication-index')
+    @livewire('publication-index', ['lazy' => false])
 @endsection

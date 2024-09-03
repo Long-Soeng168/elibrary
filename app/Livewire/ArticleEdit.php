@@ -6,7 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Article;
 use App\Models\ArticleCategory;
-use App\Models\ArticlesubCategory;
+use App\Models\ArticleSubCategory;
 use App\Models\ArticleType;
 use App\Models\Publisher;
 use App\Models\Location;
@@ -155,7 +155,7 @@ class ArticleEdit extends Component
                 'selectedCategoryId' => 'required|exists:article_categories,id',
             ]);
 
-            ArticlesubCategory::create([
+            ArticleSubCategory::create([
                 'name' => $this->newSubCategoryName,
                 'name_kh' => $this->newSubCategoryNameKh,
                 'article_category_id' => $this->selectedCategoryId,
@@ -308,7 +308,7 @@ class ArticleEdit extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'pdf' => 'nullable|file|mimes:pdf|max:20480',
+            'pdf' => 'nullable|file|mimes:pdf|max:51200',
             'image' => 'nullable|image|max:2048',
             'pages_count' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
@@ -329,6 +329,12 @@ class ArticleEdit extends Component
             $validated['keywords'] = implode(',', $this->keywords);
         } else {
             $validated['keywords'] = null;
+        }
+
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
         }
 
         if (!empty($this->image)) {
@@ -377,7 +383,7 @@ class ArticleEdit extends Component
     public function render()
     {
         $categories = ArticleCategory::latest()->get();
-        $subCategories = ArticlesubCategory::where('article_category_id', $this->article_category_id)->latest()->get();
+        $subCategories = ArticleSubCategory::where('article_category_id', $this->article_category_id)->latest()->get();
         $types = ArticleType::latest()->get();
         $publishers = Publisher::latest()->get();
         $locations = Location::latest()->get();

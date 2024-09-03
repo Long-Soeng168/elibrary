@@ -119,7 +119,10 @@ class VideoIndex extends Component
         $this->resetPage();
     }
 
-
+    public function placeholder()
+    {
+        return view('client.placeholder.index');
+    }
 
     public function render()
     {
@@ -163,7 +166,7 @@ class VideoIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.video-index', [
             'items' => $items,
             'categories' => $categories,

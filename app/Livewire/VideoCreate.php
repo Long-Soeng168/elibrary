@@ -266,7 +266,7 @@ class VideoCreate extends Component
     public function updatedFile()
     {
         $this->validate([
-            'file' => 'file|max:20480', // 2MB Max
+            'file' => 'file|max:51200', // 2MB Max
         ]);
 
         session()->flash('success', 'file successfully uploaded!');
@@ -303,6 +303,12 @@ class VideoCreate extends Component
             $validated['keywords'] = implode(',', $this->keywords);
         } else {
             $validated['keywords'] = null;
+        }
+
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
         }
 
         // dd($validated);

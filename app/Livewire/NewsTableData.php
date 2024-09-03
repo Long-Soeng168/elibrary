@@ -122,10 +122,15 @@ class NewsTableData extends Component
         $categories = NewsCategory::latest()->get();
         $selectedCategory = NewsCategory::find($this->filter);
 
+        $totalReadCount = News::sum('read_count');
+        $totalDownloadCount = News::sum('download_count');
+
         return view('livewire.news-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
+            'totalDownloadCount' => $totalDownloadCount,
         ]);
     }
 }

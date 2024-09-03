@@ -106,10 +106,13 @@ class VideoTableData extends Component
         $categories = VideoCategory::latest()->get();
         $selectedCategory = VideoCategory::find($this->filter);
 
+        $totalReadCount = Video::sum('read_count');
+
         return view('livewire.video-table-data', [
             'items' => $items,
             'categories' => $categories,
             'selectedCategory' => $selectedCategory,
+            'totalReadCount' => $totalReadCount,
         ]);
     }
 }

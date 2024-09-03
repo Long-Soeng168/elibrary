@@ -76,25 +76,25 @@
             </div>
             <div>
                 <x-input-label for="name_kh" :value="__('Name KH')" /><span class="text-red-500">*</span>
-                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh" wire:model='name_kh'
-                    required autofocus placeholder="Name KH" />
+                <x-text-input id="name_kh" class="block w-full mt-1" type="text" name="name_kh"
+                    wire:model='name_kh' required autofocus placeholder="Name KH" />
                 <x-input-error :messages="$errors->get('name_kh')" class="mt-2" />
             </div>
             <div class="col-span-1">
                 <label for="order_index" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                   {{ __('Order Index') }}
+                    {{ __('Order Index') }}
                 </label>
-                <x-text-input id="order_index" class="block w-full mt-1" type="text" name="order_index" wire:model='order_index'
-                    required autofocus placeholder="Order Index" />
+                <x-text-input id="order_index" class="block w-full mt-1" type="text" name="order_index"
+                    wire:model='order_index' required autofocus placeholder="Order Index" />
                 <x-input-error :messages="$errors->get('order_index')" class="mt-2" />
             </div>
             @if ($item->type !== 'slug')
                 <div class="col-span-1">
                     <label for="link" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                    {{ __('Link') }}
+                        {{ __('Link') }}
                     </label>
-                    <x-text-input id="link" class="block w-full mt-1" type="text" name="link" wire:model='link'
-                        required autofocus placeholder="Link or URL" />
+                    <x-text-input id="link" class="block w-full mt-1" type="text" name="link"
+                        wire:model='link' required autofocus placeholder="Link or URL" />
                     <x-input-error :messages="$errors->get('link')" class="mt-2" />
                 </div>
             @endif
@@ -158,6 +158,16 @@
             </div>
             <!-- End Link -->
         </div> --}}
+        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
+            <div class="col-span-1">
+                <label for="light_mode_color" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
+                    {{ __('Background Color Light') }}
+                </label>
+                <input id="light_mode_color" class="block w-full mt-1" type="color" name="light_mode_color"
+                    wire:model='light_mode_color' required autofocus placeholder="Order Index">
+                <x-input-error :messages="$errors->get('light_mode_color')" class="mt-2" />
+            </div>
+        </div>
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
@@ -169,13 +179,14 @@
                     </div>
                 @elseif($item->image)
                     <div class="pt-5 max-w-40">
-                        <img src="{{ asset('assets/images/databases/'.$item->image) }}" alt="Selected Image"
+                        <img src="{{ asset('assets/images/databases/' . $item->image) }}" alt="Selected Image"
                             class="max-w-full pr-4 max-h-40" />
                     </div>
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Admin Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels) <span class="text-red-500">*</span>
+                        Admin Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels) <span
+                            class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
@@ -198,7 +209,8 @@
                     </div>
                     <div wire:loading wire:target="image" class="text-blue-700">
                         <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                                src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
                     </div>
@@ -214,13 +226,14 @@
                     </div>
                 @elseif($item->client_side_image)
                     <div class="pt-5 max-w-40">
-                        <img src="{{ asset('assets/images/databases/'.$item->client_side_image) }}" alt="Selected Image"
-                            class="max-w-full pr-4 max-h-40" />
+                        <img src="{{ asset('assets/images/databases/' . $item->client_side_image) }}"
+                            alt="Selected Image" class="max-w-full pr-4 max-h-40" />
                     </div>
                 @endif
                 <div class="flex flex-col flex-1">
                     <label class='mb-4 text-sm font-medium text-gray-600 dark:text-white'>
-                        Client Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels)<span class="text-red-500">*</span>
+                        Client Side Image (Max: 2MB) (Recommend : 1x1 or 512x512 pixels)<span
+                            class="text-red-500">*</span>
                     </label>
                     <div class="relative flex items-center justify-center w-full -mt-3 overflow-hidden">
                         <label for="dropzone-file"
@@ -237,13 +250,14 @@
                                 <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 2MB)</p>
 
                             </div>
-                            <input wire:model="client_side_image" accept="image/png, image/jpeg, image/gif" id="dropzone-file"
-                                type="file" class="absolute h-[140%] w-[100%]" />
+                            <input wire:model="client_side_image" accept="image/png, image/jpeg, image/gif"
+                                id="dropzone-file" type="file" class="absolute h-[140%] w-[100%]" />
                         </label>
                     </div>
                     <div wire:loading wire:target="client_side_image" class="text-blue-700">
                         <span>
-                            <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                            <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                                src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                             Uploading...
                         </span>
                     </div>
@@ -268,15 +282,14 @@
             <x-outline-button wire:ignore href="{{ URL::previous() }}">
                 Go back
             </x-outline-button>
-            <button wire:click.prevent="save"
-                    wire:target="save"
-                    wire:loading.attr="disabled"
-                    class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+            <button wire:click.prevent="save" wire:target="save" wire:loading.attr="disabled"
+                class = 'text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
 
-                    Save
+                Save
             </button>
             <span wire:target="save" wire:loading>
-                <img class="inline w-6 h-6 text-white me-2 animate-spin" src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
+                <img class="inline w-6 h-6 text-white me-2 animate-spin"
+                    src="{{ asset('assets/images/reload.png') }}" alt="reload-icon">
                 Saving
             </span>
 
@@ -315,11 +328,12 @@
             document.addEventListener('livewire:updated', event => {
                 console.log('updated'); // Logs 'Livewire component updated' to browser console
                 initFlowbite();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
-
-
     </script>
 
     {{-- <script>
