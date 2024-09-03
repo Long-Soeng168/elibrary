@@ -17,7 +17,7 @@
                     @if ($item->image)
                     <a href="{{ asset('assets/images/audios/'.$item->image) }}" class="glightbox">
                         <img class="w-full border rounded-md shadow cursor-pointer"
-                            src="{{ asset('assets/images/audios/'.$item->image) }}" alt="Book Cover" />
+                            src="{{ asset('assets/images/audios/thumb/'.$item->image) }}" alt="Book Cover" />
 
                     </a>
                         <div class="grid grid-cols-4 gap-2">
