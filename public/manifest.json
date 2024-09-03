@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
     "name": "NEC E-Library",
     "short_name": "NEC E-Library",
-=======
-    "name": "ONE Elibrary",
-    "short_name": "ONE",
->>>>>>> ae5dbc31e31ecc17b4ef0686b2122a7425e1e346
     "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
