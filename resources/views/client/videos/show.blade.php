@@ -225,7 +225,7 @@
                             {{ __('messages.postBy') }}
                         </p>
                         <p class="flex text-sm text-gray-600 dark:text-gray-200">
-                            {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
+                            {{ $item->user?->name }} - {{ $item->created_at?->format('d-M-Y') }}
                         </p>
                     </div>
                 @endif --}}
