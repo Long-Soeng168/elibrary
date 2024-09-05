@@ -236,7 +236,7 @@
                             <td></td>
                         @else
                             <x-table-data class="capitalize" value="{{ $item->gender ? $item->gender : 'N/A' }}" />
-                            <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
+                            <x-table-data class="capitalize" value="{{ $item->created_at?->format('d-M-Y') }}" />
                         @endif
 
 
