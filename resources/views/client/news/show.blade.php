@@ -52,7 +52,7 @@
                     @if ($item->image)
                         <a href="{{ asset('assets/images/news/' . $item->image) }}" class="glightbox">
                             <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ asset('assets/images/news/' . $item->image) }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/news/thumb/' . $item->image) }}" alt="Book Cover" />
                         </a>
                     @else
                         <a href="{{ asset('assets/icons/no-image.png') }}" class="glightbox">
@@ -396,7 +396,7 @@
                             {{ __('messages.postBy') }}
                         </p>
                         <p class="flex text-sm text-gray-600 dark:text-gray-200">
-                            {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
+                            {{ $item->user?->name }} - {{ $item->created_at?->format('d-M-Y') }}
                         </p>
                     </div>
                 @endif --}}

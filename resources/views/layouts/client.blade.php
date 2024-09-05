@@ -95,7 +95,7 @@
     <div>
         <div class="relative w-full bg-bannerColor xl:px-0">
             <a href="/">
-                <img class="mx-auto max-h-[350px] object-cover"
+                <img class="object-cover w-full mx-auto"
                     src="{{ asset('assets/images/website_infos/' . $websiteInfo->banner) }}" alt="" />
             </a>
             {{-- <a href="/">
