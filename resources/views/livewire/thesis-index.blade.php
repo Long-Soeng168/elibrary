@@ -320,10 +320,7 @@
                                                 {{ $item->name }}
                                             @endif
                                         </h1>
-                                        <p
-                                            class="absolute bottom-0 block w-full pr-2 text-sm font-medium leading-9 text-right text-gray-700 dark:text-gray-100">
-                                            {{ $item->author?->name }}
-                                        </p>
+
                                     </div>
                                 @endif
 
