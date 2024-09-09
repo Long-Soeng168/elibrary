@@ -38,6 +38,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::resource('publications', PublicationController::class);
+Route::get('publication_categories', [PublicationController::class, 'publicationCategories']);
+Route::get('publication_categories/{id}', [PublicationController::class, 'publicationCategory']);
+
+
 Route::resource('videos', VideoController::class);
 Route::resource('images', ImageController::class);
 Route::resource('audios', AudioController::class);

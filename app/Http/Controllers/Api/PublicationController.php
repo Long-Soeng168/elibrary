@@ -6,16 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Publication;
+use App\Models\PublicationCategory;
 
 class PublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Publication::select('id', 'name', 'image')->inRandomOrder()->paginate(10);
+        $categoryId = $request->categoryId;
+        $query = Publication::query();
+        if($categoryId){
+            $query->where('publication_category_id', $categoryId);
+        }
+        $items = $query->paginate(10);
         return response()->json($items, 200);
+    }
+
+    public function publicationCategories() {
+        $items = PublicationCategory::get();
+        return response()->json($items, 200);
+    }
+
+    public function publicationCategory($id) {
+        $item = PublicationCategory::find($id);
+        return response()->json($item, 200);
     }
 
     /**
