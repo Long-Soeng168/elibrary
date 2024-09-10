@@ -42,7 +42,8 @@ class PublicationController extends Controller
         $query = Publication::query();
         $query->where('publication_category_id', $publication->publication_category_id);
         $query->where('id', '!=', $publication->id);
-        $query->orderBy('id', 'desc');
+        // $query->orderBy('id', 'desc');
+        $query->inRandomOrder();
         $items = $query->paginate(10);
         return response()->json($items, 200);
     }
