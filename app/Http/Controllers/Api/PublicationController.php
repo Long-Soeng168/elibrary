@@ -16,9 +16,14 @@ class PublicationController extends Controller
     public function index(Request $request)
     {
         $categoryId = $request->categoryId;
+        $search = $request->search;
+
         $query = Publication::query();
         if($categoryId){
             $query->where('publication_category_id', $categoryId);
+        }
+        if($search){
+            $query->where('name', 'LIKE', '%'.$search.'%');
         }
         $query->orderBy('id', 'desc');
         $items = $query->paginate(10);
@@ -37,19 +42,12 @@ class PublicationController extends Controller
 
     public function relatedItems(Request $request, $id)
     {
-        $search = $request->search;
-
         $publication = Publication::findOrFail($id);
 
         $query = Publication::query();
         $query->where('publication_category_id', $publication->publication_category_id);
         $query->where('id', '!=', $publication->id);
         // $query->orderBy('id', 'desc');
-
-        if($search){
-            $query->where('name', 'LIKE', '%'.$search.'%');
-        }
-
         $query->inRandomOrder();
         $items = $query->paginate(10);
         return response()->json($items, 200);
