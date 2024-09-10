@@ -20,6 +20,7 @@ class PublicationController extends Controller
         if($categoryId){
             $query->where('publication_category_id', $categoryId);
         }
+        $query->orderBy('id', 'desc');
         $items = $query->paginate(10);
         return response()->json($items, 200);
     }
