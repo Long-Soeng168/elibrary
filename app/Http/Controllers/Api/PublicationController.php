@@ -35,14 +35,21 @@ class PublicationController extends Controller
         return response()->json($item, 200);
     }
 
-    public function relatedItems($id)
+    public function relatedItems(Request $request, $id)
     {
+        $search = $request->search;
+
         $publication = Publication::findOrFail($id);
 
         $query = Publication::query();
         $query->where('publication_category_id', $publication->publication_category_id);
         $query->where('id', '!=', $publication->id);
         // $query->orderBy('id', 'desc');
+
+        if($search){
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        }
+
         $query->inRandomOrder();
         $items = $query->paginate(10);
         return response()->json($items, 200);
