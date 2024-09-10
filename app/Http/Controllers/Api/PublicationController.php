@@ -35,6 +35,18 @@ class PublicationController extends Controller
         return response()->json($item, 200);
     }
 
+    public function relatedItems($id)
+    {
+        $publication = Publication::findOrFail($id);
+
+        $query = Publication::query();
+        $query->where('publication_category_id', $publication->publication_category_id);
+        $query->where('id', '!=', $publication->id);
+        $query->orderBy('id', 'desc');
+        $items = $query->paginate(10);
+        return response()->json($items, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -40,6 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::resource('publications', PublicationController::class);
 Route::get('publication_categories', [PublicationController::class, 'publicationCategories']);
 Route::get('publication_categories/{id}', [PublicationController::class, 'publicationCategory']);
+Route::get('publication_related_items/{id}', [PublicationController::class, 'relatedItems']);
 
 
 Route::resource('videos', VideoController::class);
