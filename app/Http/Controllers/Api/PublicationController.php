@@ -6,15 +6,50 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Publication;
+use App\Models\PublicationCategory;
 
 class PublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = Publication::select('id', 'name', 'image')->inRandomOrder()->paginate(10);
+        $categoryId = $request->categoryId;
+        $search = $request->search;
+
+        $query = Publication::query();
+        if($categoryId){
+            $query->where('publication_category_id', $categoryId);
+        }
+        if($search){
+            $query->where('name', 'LIKE', '%'.$search.'%');
+        }
+        $query->orderBy('id', 'desc');
+        $items = $query->paginate(10);
+        return response()->json($items, 200);
+    }
+
+    public function publicationCategories() {
+        $items = PublicationCategory::get();
+        return response()->json($items, 200);
+    }
+
+    public function publicationCategory($id) {
+        $item = PublicationCategory::find($id);
+        return response()->json($item, 200);
+    }
+
+    public function relatedItems(Request $request, $id)
+    {
+        $publication = Publication::findOrFail($id);
+
+        $query = Publication::query();
+        $query->where('publication_category_id', $publication->publication_category_id);
+        $query->where('id', '!=', $publication->id);
+        // $query->orderBy('id', 'desc');
+        $query->inRandomOrder();
+        $items = $query->paginate(10);
         return response()->json($items, 200);
     }
 

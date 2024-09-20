@@ -52,7 +52,7 @@
                     @if ($item->image)
                         <a href="{{ asset('assets/images/publications/' . $item->image) }}" class="glightbox">
                             <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ asset('assets/images/publications/' . $item->image) }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/publications/thumb/' . $item->image) }}" alt="Book Cover" />
                         </a>
                     @else
                         <div class="aspect-{{ env('EPUB_ASPECT') }} border rounded-md shadow cursor-pointer relative">
@@ -423,7 +423,7 @@
                             {{ __('messages.postBy') }}
                         </p>
                         <p class="flex text-sm text-gray-600 dark:text-gray-200">
-                            {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
+                            {{ $item->user?->name }} - {{ $item->created_at?->format('d-M-Y') }}
                         </p>
                     </div>
                 @endif --}}
@@ -503,7 +503,7 @@
                                     src="{{ asset('assets/book_cover_default.png') }}" alt="Image Description" />
 
                                 <h1
-                                    class="absolute block w-full p-4 text-lg font-medium font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 dark:text-gray-100">
+                                    class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                                     @if (app()->getLocale() == 'kh' && $item->name_kh)
                                         {{ $item->name_kh }}
                                     @else

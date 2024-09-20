@@ -252,7 +252,7 @@
                                 </span>
                             </x-table-data>
                             <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
-                            <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
+                            <x-table-data class="capitalize" value="{{ $item->created_at?->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">

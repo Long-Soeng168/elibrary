@@ -17,7 +17,7 @@
                     <div class="relative w-full overflow-hidden rounded-md">
                         @if ($item->image)
                             <img class="w-full border rounded-md cursor-pointer"
-                                src="{{ asset('assets/images/videos/'.$item->image) }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/videos/thumb/'.$item->image) }}" alt="Book Cover" />
                         @else
                             <img class="object-contain w-full p-10 border rounded-md cursor-pointer aspect-video"
                                 src="{{ asset('assets/icons/no-image.png') }}" alt="Book Cover" />
@@ -225,7 +225,7 @@
                             {{ __('messages.postBy') }}
                         </p>
                         <p class="flex text-sm text-gray-600 dark:text-gray-200">
-                            {{ $item->user?->name }} - {{ $item->created_at->format('d-M-Y') }}
+                            {{ $item->user?->name }} - {{ $item->created_at?->format('d-M-Y') }}
                         </p>
                     </div>
                 @endif --}}

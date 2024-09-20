@@ -213,7 +213,7 @@
                             <td></td>
                         @else
                             <x-table-data class="uppercase" value="{{ $item->name }}" />
-                                <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
+                                <x-table-data class="capitalize" value="{{ $item->created_at?->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">
