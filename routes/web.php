@@ -236,6 +236,8 @@ Route::group([
     //     return view('client.publications.index');
     // });
     Route::get('/publications', [ClientPublicationController::class, 'index']);
+    Route::get('/jstors', [ClientPublicationController::class, 'jstors']);
+    Route::get('/jstors/{id}', [ClientPublicationController::class, 'jstors_detail']);
     Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
 
     Route::get('/articles', [ClientArticleController::class, 'index']);

@@ -24,6 +24,8 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Support\Facades\Http;
+
 class HomeController extends Controller
 {
     public function index() {
@@ -53,6 +55,16 @@ class HomeController extends Controller
         // $items = Publication::all();
         // return ($items);
 
+        $response = Http::get('https://thnal.com/api/jstors', [
+            'per_page' => 5,
+            'page' => 1,
+        ]);
+
+        $jstors = json_decode($response->body());
+        // dd($jstors);
+
+        $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
+
         $slides = Slide::latest()->get();
         $publications = Publication::inRandomOrder()->limit(10)->get();
         $videos = Video::inRandomOrder()->limit(8)->get();
@@ -64,6 +76,7 @@ class HomeController extends Controller
         $articles = Article::inRandomOrder()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
+            'jstors' => $jstors ? $jstors->data : [],
             'publications' => $publications,
             'videos' => $videos,
             'images' => $images,

@@ -66,5 +66,7 @@ return [
     'noData' => 'No Data',
     'readPdf' => 'Read PDF',
     'download' => 'Download',
-    'search' => 'Search'
+    'search' => 'Search',
+
+    'jstors' => 'JSTOR',
 ];
