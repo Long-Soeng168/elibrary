@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use App\Models\Thesis as Archive;
 use App\Models\Major as Category;
 use App\Models\ThesisSubCategory as SubCategory;
+use App\Models\ThesisType as SubCategory;
 
 class ThesisIndex extends Component
 {
@@ -134,7 +135,7 @@ class ThesisIndex extends Component
             });
         }elseif (empty($this->selected_categories) && !empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
-                $subQuery->whereIn('thesis_sub_category_id', $this->selected_sub_categories);
+                $subQuery->whereIn('thesis_type_id', $this->selected_sub_categories);
             });
         }elseif(!empty($this->selected_categories) && !empty($this->selected_sub_categories)) {
             $query->where(function ($subQuery) {
@@ -168,9 +169,11 @@ class ThesisIndex extends Component
         $items = $query->latest()->paginate($this->perPage);
 
         $categories = Category::latest()->get();
+        $subCategories = SubCategory::latest()->get();
         return view('livewire.thesis-index', [
             'items' => $items,
             'categories' => $categories,
+            'subCategories' => $subCategories,
         ]);
     }
 }

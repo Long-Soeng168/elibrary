@@ -123,12 +123,12 @@ class ThesisTableData extends Component
                                     ->orWhere('isbn', 'LIKE', "%$this->search%");
                             })
                             ->when($this->filter != 0, function($query){
-                                $query->where('thesis_category_id', $this->filter);
+                                $query->where('thesis_type_id', $this->filter);
                             })
                             ->orderBy($this->sortBy, $this->sortDir)
                             ->paginate($this->perPage);
-        $types = Category::latest()->get();
-        $selectedType = Category::find($this->filter);
+        $types = Type::latest()->get();
+        $selectedType = Type::find($this->filter);
 
         $totalReadCount = Thesis::sum('read_count');
         $totalDownloadCount = Thesis::sum('download_count');

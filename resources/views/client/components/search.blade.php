@@ -22,6 +22,11 @@
                 <div id="dropdown"
                     class="z-30 hidden w-auto bg-white border divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700">
                     <ul class="py-2 text-gray-700 text-md dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="http://catalog.libraryrac.com" class="menu-catalog-link block px-6 py-2 hover:bg-gray-100 }} dark:hover:bg-gray-600 dark:hover:text-white">
+                                {{ app()->getLocale() == 'kh' ? 'កាតាឡុក' : 'Catalog' }}
+                            </a>
+                        </li>
                         @forelse ($menu_databases as $item)
                             @if ($item->type == 'slug')
                                 <li>
@@ -58,6 +63,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('search-dropdown');
             const menuItems = document.querySelectorAll('.menu-item-link');
+            const menuCatalog = document.querySelectorAll('.menu-catalog-link');
 
             searchInput.addEventListener('input', function() {
                 const query = searchInput.value;
@@ -65,6 +71,12 @@
                     const baseUrl = item.getAttribute('href').split('?')[0];
                     item.setAttribute('href', baseUrl + '?search=' + encodeURIComponent(query));
                 });
+
+                menuCatalog.forEach(function(item) {
+                    const baseUrl = item.getAttribute('href').split('?')[0];
+                    item.setAttribute('href', baseUrl + '/cgi-bin/koha/opac-search.pl?q=' + encodeURIComponent(query));
+                });
+
             });
         });
     </script>
