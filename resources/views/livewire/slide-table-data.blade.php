@@ -123,7 +123,7 @@
                                 {{ $item->order_index }}
                             </span>
                         </x-table-data>
-                        <x-table-data value="{{ $item->created_at->format('d-M-Y') }}" />
+                        <x-table-data value="{{ $item->created_at?->format('d-M-Y') }}" />
 
 
                         <td class="px-6 py-4">

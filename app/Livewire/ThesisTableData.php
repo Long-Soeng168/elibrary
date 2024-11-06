@@ -130,10 +130,15 @@ class ThesisTableData extends Component
         $types = Type::latest()->get();
         $selectedType = Type::find($this->filter);
 
+        $totalReadCount = Thesis::sum('read_count');
+        $totalDownloadCount = Thesis::sum('download_count');
+
         return view('livewire.thesis-table-data', [
             'items' => $items,
             'types' => $types,
             'selectedType' => $selectedType,
+            'totalReadCount' => $totalReadCount,
+            'totalDownloadCount' => $totalDownloadCount,
         ]);
     }
 }

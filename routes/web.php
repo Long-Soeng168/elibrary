@@ -62,9 +62,15 @@ use App\Http\Controllers\Client\ClientJournalController;
 //    echo "Done";
 // });
 
+Route::get('/fetch_book_cover', [HomeController::class, 'fetchAndSaveBookCover']);
+
 Route::get('/expired', function () {
     return view('auth.expired');
 })->name('expired');
+
+Route::get('/static', function () {
+    return view('static');
+});
 
 
 
@@ -175,7 +181,6 @@ Route::group([
 | End Admin Routes
 |--------------------------------------------------------------------------
 */
-
 /*
 |--------------------------------------------------------------------------
 | Start Koha Routes
@@ -231,6 +236,8 @@ Route::group([
     //     return view('client.publications.index');
     // });
     Route::get('/publications', [ClientPublicationController::class, 'index']);
+    Route::get('/jstors', [ClientPublicationController::class, 'jstors']);
+    Route::get('/jstors/{id}', [ClientPublicationController::class, 'jstors_detail']);
     Route::get('/publications/{id}', [ClientPublicationController::class, 'show']);
 
     Route::get('/articles', [ClientArticleController::class, 'index']);

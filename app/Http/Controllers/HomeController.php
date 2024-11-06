@@ -20,16 +20,23 @@ use Image as ImageCompress;
 use DB;
 use Illuminate\Support\Facades\Schema;
 
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
+use Illuminate\Support\Facades\Http;
+
 class HomeController extends Controller
 {
     public function index() {
 
-        // $items = Publication::with('publicationSubCategory')->get();
+        // $items = Publication::where('id', '>', 151)->get();
         // foreach($items as $item){
         //         $item->update([
-        //             'publication_category_id' => $item->publicationSubCategory?->publication_category_id,
+        //             'name' => $item->name . ', ' . $item->Subtitle,
         //         ]);
         // }
+
         // $items = Thesis::with('major')->get();
         // foreach($items as $item){
             //         $item->update([
@@ -45,19 +52,31 @@ class HomeController extends Controller
         //         ]);
         //     }
         // }
+        // $items = Publication::all();
         // return ($items);
 
+        $response = Http::get('https://thnal.com/api/jstors', [
+            'per_page' => 5,
+            'page' => 1,
+        ]);
+
+        $jstors = json_decode($response->body());
+        // dd($jstors);
+
+        $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
+
         $slides = Slide::latest()->get();
-        $publications = Publication::latest()->limit(10)->get();
-        $videos = Video::latest()->limit(8)->get();
-        $images = Image::latest()->limit(8)->get();
-        $audios = Audio::latest()->limit(8)->get();
-        $bulletins = News::latest()->limit(8)->get();
-        $theses = Thesis::latest()->limit(10)->get();
-        $journals = Journal::latest()->limit(10)->get();
-        $articles = Article::latest()->limit(10)->get();
+        $publications = Publication::inRandomOrder()->limit(10)->get();
+        $videos = Video::inRandomOrder()->limit(8)->get();
+        $images = Image::inRandomOrder()->limit(8)->get();
+        $audios = Audio::inRandomOrder()->limit(8)->get();
+        $bulletins = News::inRandomOrder()->limit(10)->get();
+        $theses = Thesis::inRandomOrder()->limit(10)->get();
+        $journals = Journal::inRandomOrder()->limit(10)->get();
+        $articles = Article::inRandomOrder()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
+            'jstors' => $jstors ? $jstors->data : [],
             'publications' => $publications,
             'videos' => $videos,
             'images' => $images,
@@ -66,6 +85,67 @@ class HomeController extends Controller
             'theses' => $theses,
             'journals' => $journals,
             'articles' => $articles,
+        ]);
+    }
+
+    public function fetchAndSaveBookCover(Request $request)
+    {
+        // Fetch all publications
+        $from = $request->from;
+        $end = $request->end;
+        $items = Publication::whereBetween('id', [$from, $end])->get();
+
+        foreach($items as $item) {
+            $isbn = $item->isbn;
+            $client = new Client();
+            $url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" . $isbn;
+
+            try {
+                // Send request to Google Books API
+                $response = $client->request('GET', $url);
+                $bookData = json_decode($response->getBody(), true);
+
+                // Check if items exist and extract the cover image URL
+                if (isset($bookData['items']) && isset($bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'])) {
+                    $coverUrl = $bookData['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+
+                    // Replace 'zoom=1' with 'zoom=10'
+                    // $coverUrl = str_replace('zoom=1', 'zoom=10', $coverUrl);
+
+                    // Download the cover image
+                    $imageResponse = $client->get($coverUrl);
+                    $imageContents = $imageResponse->getBody()->getContents();
+
+                    // Define the path to save the image
+                    $imageName = 'book-cover-' . $isbn . '.jpg';
+                    $imagePath = public_path('assets/images/publications/' . $imageName);
+                    $imagePathThumb = public_path('assets/images/publications/thumb/' . $imageName);
+
+                    // Ensure the directory exists
+                    if (!File::exists(public_path('assets/images/publications'))) {
+                        File::makeDirectory(public_path('assets/images/publications'), 0755, true);
+                    }
+                    if (!File::exists(public_path('assets/images/publications/thumb/'))) {
+                        File::makeDirectory(public_path('assets/images/publications/thumb/'), 0755, true);
+                    }
+
+                    // Save the image to the specified path
+                    File::put($imagePath, $imageContents);
+                    File::put($imagePathThumb, $imageContents);
+
+                    // Update the publication record with the image name
+                    $item->update([
+                        'image' => $imageName,
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // Continue to the next item if there's an error
+                continue;
+            }
+        }
+
+        return response()->json([
+            'message' => 'Books cover saved successfully!',
         ]);
     }
 
@@ -88,7 +168,7 @@ class HomeController extends Controller
             'videos' => 8,
             'images' => 8,
             'audios' => 8,
-            'bulletins' => 8,
+            'bulletins' => 10,
             'theses' => 10,
             'journals' => 10,
             'articles' => 10,
@@ -255,7 +335,7 @@ class HomeController extends Controller
             ]);
         }
 
-        if (!$item->can_download && !auth()->check()) {
+        if (!$item->can_download && !$item->can_read && !auth()->check()) {
             abort(403);
         }
 

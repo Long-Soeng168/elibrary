@@ -119,10 +119,15 @@ class ImageIndex extends Component
         $this->resetPage();
     }
 
+    public function placeholder()
+    {
+        return view('client.placeholder.index');
+    }
 
 
     public function render()
     {
+        // sleep(3);
         $query = Archive::query();
 
         if (!empty($this->selected_categories) && empty($this->selected_sub_categories)) {
@@ -163,7 +168,7 @@ class ImageIndex extends Component
 
         $items = $query->latest()->paginate($this->perPage);
 
-        $categories = Category::latest()->get();
+        $categories = Category::orderBy('id', 'ASC')->get();
         return view('livewire.image-index', [
             'items' => $items,
             'categories' => $categories,

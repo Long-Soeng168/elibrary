@@ -1332,7 +1332,7 @@
                             </li>
                             @endcan
 
-                            @can('view major')
+                            {{-- @can('view major')
                             <li x-data="{
                                 init() {
                                     if ({{ request()->is('admin/majors*') ? 'true' : 'false' }}) {
@@ -1347,7 +1347,7 @@
                                     <span class="ml-3">Majors</span>
                                 </x-sidebar-item>
                             </li>
-                            @endcan
+                            @endcan --}}
 
                             {{-- <li>
                         <x-sidebar-item href="#">
@@ -1398,7 +1398,7 @@
                                                 Publishers
                                             </a>
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a href="{{ url('admin/people/students') }}"
                                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/students*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                                 Students
@@ -1415,7 +1415,7 @@
                                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 {{ request()->is('admin/people/lecturers*') ? 'bg-slate-200 dark:bg-slate-500' : '' }}">
                                                 Lecturers
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </li>
                             </ul>

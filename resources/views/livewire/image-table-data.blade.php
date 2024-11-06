@@ -92,7 +92,9 @@
         </div>
         <div
             class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-
+            <div class="flex flex-col items-end text-sm text-gray-500">
+                <span>Total View : {{ $totalReadCount }}</span>
+            </div>
             @can('create image')
             <x-primary-button href="{{ route('admin.images.create') }}">
                 <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
@@ -158,7 +160,6 @@
                     <th scope="col" class="px-4 py-3">Publisher</th>
                     <th scope="col" class="px-4 py-3">Category</th>
                     {{-- <th scope="col" class="px-4 py-3">Sub_Category</th> --}}
-                    <th scope="col" class="px-4 py-3">Type</th>
                     <th scope="col" class="px-4 py-3">Language</th>
                     <th scope="col" class="py-3 text-center">Action</th>
                 </tr>
@@ -188,7 +189,6 @@
                         <x-table-data value="{{ $item->publisher?->name ? $item->publisher?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->imageCategory?->name ? $item->imageCategory?->name : 'N/A' }}" />
                         {{-- <x-table-data value="{{ $item->imagesubCategory?->name }}" /> --}}
-                        <x-table-data value="{{ $item->imageType?->name ? $item->imageType?->name : 'N/A' }}" />
                         <x-table-data value="{{ $item->language?->name ? $item->language?->name : 'N/A' }}" />
 
 

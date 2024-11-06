@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\DtcController;
+use App\Http\Controllers\Api\PublicationController;
+use App\Http\Controllers\Api\VideoController;
+use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\AudioController;
 use App\Http\Controllers\Api\SlideController;
 
 use App\Http\Controllers\Api\AuthController;
@@ -34,5 +37,13 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-Route::resource('dtcs', DtcController::class);
+Route::resource('publications', PublicationController::class);
+Route::get('publication_categories', [PublicationController::class, 'publicationCategories']);
+Route::get('publication_categories/{id}', [PublicationController::class, 'publicationCategory']);
+Route::get('publication_related_items/{id}', [PublicationController::class, 'relatedItems']);
+
+
+Route::resource('videos', VideoController::class);
+Route::resource('images', ImageController::class);
+Route::resource('audios', AudioController::class);
 Route::resource('slides', SlideController::class);

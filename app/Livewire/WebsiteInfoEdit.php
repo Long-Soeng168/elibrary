@@ -24,6 +24,9 @@ class WebsiteInfoEdit extends Component
     public $banner_color;
     public $show_bg_menu;
     public $pdf_viewer_default;
+    public $show_download_button;
+    public $check_ip_range;
+    public $ip_range;
 
     public $description;
     public $description_kh;
@@ -36,8 +39,11 @@ class WebsiteInfoEdit extends Component
         $this->primary = $item->primary;
         $this->primary_hover = $item->primary_hover;
         $this->banner_color = $item->banner_color;
+        $this->ip_range = $item->ip_range;
         $this->show_bg_menu = (bool) $item->show_bg_menu;
         $this->pdf_viewer_default = (bool) $item->pdf_viewer_default;
+        $this->show_download_button = (bool) $item->show_download_button;
+        $this->check_ip_range = (bool) $item->check_ip_range;
     }
 
     public function updatedImage()
@@ -65,8 +71,11 @@ class WebsiteInfoEdit extends Component
             'primary' => 'required|max:255',
             'primary_hover' => 'required|max:255',
             'banner_color' => 'required|max:255',
+            'ip_range' => 'nullable|max:500',
             'show_bg_menu' => 'required|boolean',
             'pdf_viewer_default' => 'required|boolean',
+            'show_download_button' => 'required|boolean',
+            'check_ip_range' => 'required|boolean',
         ]);
 
 

@@ -66,5 +66,7 @@ return [
     'noData' => 'មិនមានទិន្នន័យ',
     'readPdf' => 'អានឯកសារ',
     'download' => 'ទាញយក',
-    'search' => 'ស្វែងរក'
+    'search' => 'ស្វែងរក',
+
+    'jstors' => 'JSTOR',
 ];

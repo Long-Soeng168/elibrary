@@ -149,7 +149,7 @@
                                         <option wire:key="selectCate" {{ !$new_category_id ? 'selected' : '' }} value="">Select Category</option>
                                         @foreach ($categories as $index => $category)
                                             <option wire:key='{{ 'selectCate'.$index - $category->id }}' value="{{ $category->id }}">
-                                            {{ $category->name }}</option>
+                                            {{ $category->name }} {{ ' / ' . $category->name_kh }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -253,7 +253,7 @@
                                 </span>
                             </x-table-data>
                             <x-table-data value="{{ $item->category?->name ? $item->category?->name : 'N/A' }}" />
-                            <x-table-data class="capitalize" value="{{ $item->created_at->format('d-M-Y') }}" />
+                            <x-table-data class="capitalize" value="{{ $item->created_at?->format('d-M-Y') }}" />
                         @endif
 
                         <td class="px-6 py-4 ">

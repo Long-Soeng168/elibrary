@@ -308,7 +308,7 @@ class PublicationEdit extends Component
         $this->dispatch('livewire:updated');
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'pdf' => 'nullable|file|mimes:pdf|max:2048',
+            'pdf' => 'nullable|file|mimes:pdf|max:51200',
             'image' => 'nullable|image|max:2048',
             'pages_count' => 'nullable|integer|min:1',
             'year' => 'nullable|integer|min:1000|max:' . date('Y'),
@@ -329,6 +329,12 @@ class PublicationEdit extends Component
             $validated['keywords'] = implode(',', $this->keywords);
         } else {
             $validated['keywords'] = null;
+        }
+
+        foreach ($validated as $key => $value) {
+            if (is_null($value) || $value === '') {
+                unset($validated[$key]);
+            }
         }
 
         if (!empty($this->image)) {
