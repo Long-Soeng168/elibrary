@@ -55,7 +55,7 @@ class HomeController extends Controller
         // $items = Publication::all();
         // return ($items);
 
-        $response = Http::get('https://thnal.com/api/jstors', [
+        $response = Http::get('http://thnal.com/api/jstors', [
             'per_page' => 5,
             'page' => 1,
         ]);
