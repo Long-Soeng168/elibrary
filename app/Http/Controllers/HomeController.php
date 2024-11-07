@@ -61,7 +61,7 @@ class HomeController extends Controller
         ]);
 
         $jstors = json_decode($response->body());
-        // dd($jstors);
+        dd($jstors);
 
         $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
 
