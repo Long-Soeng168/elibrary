@@ -119,7 +119,7 @@ class JstorIndex extends Component
 
         $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
 
-        $this->last_page = $items['last_page'];
+        $this->last_page = $items['last_page'] ?? 1;
 
         // dd($items['links']);
         return view('livewire.jstor-index', [
