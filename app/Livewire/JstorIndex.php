@@ -118,6 +118,7 @@ class JstorIndex extends Component
         ]);
 
         $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
+        dd($items);
 
         $this->last_page = $items['last_page'] ?? 1;
 
