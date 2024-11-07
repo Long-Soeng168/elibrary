@@ -29,7 +29,7 @@ class ClientPublicationController extends Controller
     {
         try {
             // Retrieve the main publication item from the API
-            $response = Http::get("http://thnal.com/api/jstors/{$id}");
+            $response = Http::get("https://thnal.com/api/jstors/{$id}");
 
             // Check if the API request was successful
             if (!$response->successful()) {
@@ -43,7 +43,7 @@ class ClientPublicationController extends Controller
             $publication_category_id = $item->publication_category_id ?? '000';
 
             // Retrieve related publications from the API excluding the item itself
-            $related_items_response = Http::get("http://thnal.com/api/jstors?selected_category_id={$publication_category_id}&exclude_id={$item->id}&per_page=6");
+            $related_items_response = Http::get("https://thnal.com/api/jstors?selected_category_id={$publication_category_id}&exclude_id={$item->id}&per_page=6");
 
             // Decode the related items response
             $related_items = $related_items_response->successful() ? json_decode($related_items_response->body()) : [];

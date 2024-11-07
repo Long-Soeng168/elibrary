@@ -29,7 +29,7 @@ class JstorIndex extends Component
     // Load categories from API
     private function loadCategories()
     {
-        $response = Http::get('http://thnal.com/api/jstors_categories');
+        $response = Http::get('https://thnal.com/api/jstors_categories');
         if ($response->successful()) {
             $this->categories = $response->json();
         }
@@ -109,7 +109,7 @@ class JstorIndex extends Component
     public function render()
     {
         // Fetch items from API with filters and pagination
-        $response = Http::get('http://thnal.com/api/jstors', [
+        $response = Http::get('https://thnal.com/api/jstors', [
             'search' => $this->search,
             'selected_category_id' => $this->selected_category_id,
             'sub_categories' => $this->selected_sub_categories,
