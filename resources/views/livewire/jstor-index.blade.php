@@ -59,20 +59,21 @@
                         <ul class="py-2 text-sm text-gray-700 border-none dark:text-gray-200 max-h-[600px] overflow-scroll"
                             aria-labelledby="multiLevelDropdownButton">
                             @forelse ($categories as $category)
-                                <li class="hover:underline" wire:key="{{ $category['id'] }}">
+                                <li class="hover:underline" wire:key="{{ $category->id }}">
                                     <div class="flex items-center flex-1 gap-2 pl-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        wire:change="handleSelectCategory({{ $category['id'] }})">
-                                        <input type="radio" id="category-{{ $category['id'] }}"
-                                            name="selected_categories[]" value="{{ $category['id'] }}">
-                                        <label class="flex-1 py-2 pr-2" for="category-{{ $category['id'] }}">
-                                            @if (app()->getLocale() == 'kh' && $category['name_kh'])
-                                                {{ $category['name_kh'] }}
+                                        wire:change="handleSelectCategory({{ $category->id }})">
+                                        <input type="radio" id="category-{{ $category->id }}"
+                                            name="selected_categories[]" value="{{ $category->id }}">
+                                        <label class="flex-1 py-2 pr-2" for="category-{{ $category->id }}">
+                                            @if (app()->getLocale() == 'kh' && $category->name_kh)
+                                                {{ $category->name_kh }}
                                             @else
-                                                {{ $category['name'] }}
+                                                {{ $category->name }}
                                             @endif
                                         </label>
                                     </div>
                                 </li>
+
                             @empty
                                 <li class="py-2 text-center">No categories available</li>
                             @endforelse
@@ -165,18 +166,81 @@
                         {{ __('messages.jstors') }}
                     </p>
                 </div>
+                @if ($selected_categories_item || $selected_sub_categories_item)
+                    <div class="relative flex flex-wrap gap-2 p-2 pt-4 mt-4 border rounded-md shadow-md">
+                        @forelse ($selected_categories_item as $index => $item)
+                            <div class="relative flex gap-1 rounded-sm group dark:bg-blue-400/50 bg-blue-400/20"
+                                wire:key="{{ $item->id }}-{{ $index }}">
+                                <div class="flex items-center gap-2 p-2 text-gray-800 rounded-md dark:text-white">
+                                    @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                        {{ $item->name_kh }}
+                                    @else
+                                        {{ $item->name }}
+                                    @endif
+                                </div>
+                                <button wire:click="handleRemoveCategoryName({{ $item }})"
+                                    class="px-1.5 my-1.5 dark:text-white text-gray-700 duration-300 border-l borderdark:bg-blue-400/40 border-l-blue-600/50 dark:border-l-white">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        @empty
+                        @endforelse
+
+                        @forelse ($selected_sub_categories_item as $index => $item)
+                            <div class="relative flex gap-1 rounded-sm group dark:bg-blue-400/30 bg-blue-400/10"
+                                wire:key="{{ $item->id }}-{{ $index }}">
+                                <div class="flex items-center gap-2 p-2 text-gray-800 rounded-md dark:text-white">
+                                    @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                        {{ $item->name_kh }}
+                                    @else
+                                        {{ $item->name }}
+                                    @endif
+                                </div>
+                                <button wire:click="handleRemoveSubCategoryName({{ $item }})"
+                                    class="px-1.5 my-1.5 dark:text-white text-gray-700 duration-300 border-l borderdark:bg-blue-400/40 border-l-blue-600/50 dark:border-l-white">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        @empty
+                        @endforelse
+
+                        {{-- Filter top title --}}
+                        <div
+                            class="absolute px-2 duration-300 bg-white border-l border-r dark:bg-gray-800 dark:text-white -top-2.5 left-2">
+                            <p class="text-sm font-bold">{{ __('messages.filter') }}</p>
+                        </div>
+
+                        {{-- Button Clear all --}}
+                        <button wire:click="handleClearAllFilter"
+                            class="absolute p-0.5 text-white duration-300 bg-red-400 rounded-full -top-2.5 -right-2.5">
+                            <svg class="w-5 h-5 rounded-full" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                @endif
 
                 <div
-                    class="grid grid-cols-2 gap-2 py-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 sm:gap-2 md:gap-4 lg:gap-6">
+                    class="grid grid-cols-2 gap-2 py-2 lg:py-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 sm:gap-2 md:gap-4 lg:gap-6">
                     <!-- Card -->
                     @forelse ($items as $index => $item)
 
-                        <a wire:key="{{ $item['id'] }}-{{ $index }}" class="block group"
-                            href="{{ url('jstors/' . $item['id']) }}">
+                        <a wire:key="{{ $item->id }}-{{ $index }}" class="block group"
+                            href="{{ url('jstors/' . $item->id) }}">
                             <div class="w-full overflow-hidden bg-gray-100 border rounded-md dark:bg-neutral-800">
-                                @if ($item['image'])
+                                @if ($item->image)
                                     <img class="w-full aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                        src="{{ 'https://www.thnal.com/assets/images/publications/thumb/' . $item['image'] }}"
+                                        src="{{ asset('assets/images/jstors/' . $item->image) }}"
                                         alt="Image Description" />
                                 @else
                                     <div
@@ -187,10 +251,10 @@
 
                                         <h1
                                             class="absolute block w-full p-4 text-lg font-bold text-center text-gray-700 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                                            @if (app()->getLocale() == 'kh' && $item['name_kh'])
-                                                {{ $item['name_kh'] }}
+                                            @if (app()->getLocale() == 'kh' && $item->name_kh)
+                                                {{ $item->name_kh }}
                                             @else
-                                                {{ $item['name'] }}
+                                                {{ $item->name }}
                                             @endif
                                         </h1>
 
@@ -202,13 +266,13 @@
                             <div class="relative pt-2" x-data="{ tooltipVisible: false }">
                                 <h3 @mouseenter="tooltipVisible = true" @mouseleave="tooltipVisible = false"
                                     class="relative block font-medium text-md text-black before:absolute before:bottom-[-0.1rem] before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-lime-400 before:transition before:origin-left before:scale-x-0 group-hover:before:scale-x-100 dark:text-white mb-1">
-                                    <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item['name'] }}</p>
+                                    <p class="line-clamp-{{ env('Limit_Line') }}">{{ $item->name }}</p>
                                 </h3>
 
                                 <div x-show="tooltipVisible" x-transition
                                     class="absolute z-10 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm dark:bg-gray-600"
                                     style="display: none;">
-                                    {{ $item['name'] }}
+                                    {{ $item->name }}
                                     <div class="tooltip-arrow"></div>
                                 </div>
                             </div>
@@ -231,40 +295,13 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="5">5</option>
                         <option value="10">10</option>
-                        <option value="25">25</option>
+                        <option value="24">24</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
                 </div>
-                <div class="flex items-center justify-between">
-                    <div>
-                        @if ($items_all['from'] && $items_all['to'] && $items_all['total'])
-                        <p class="text-sm leading-5 text-gray-700 dark:text-gray-400">
-                            <span>{{ __('messages.showing') }}</span>
-                            <span class="font-medium">{{ $items_all['from'] }}</span>
-                            <span>{{ __('messages.to') }}</span>
-                            <span class="font-medium">{{ $items_all['to'] }}</span>
-                            <span>{{ __('messages.of') }}</span>
-                            <span class="font-medium">{{ $items_all['total'] }}</span>
-                            <span>{{ __('messages.results') }}</span>
-                        </p>
-                        @endif
 
-                    </div>
-                    <div>
-                        <button type="button" wire:click="previousPage()"
-                            class="relative inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-blue-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300">
-                            « {{ __('messages.previous') }}
-                        </button>
-
-                        <button type="button" wire:click="nextPage()"
-                            class="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:ring ring-blue-300 focus:border-blue-300 active:bg-gray-100 active:text-gray-700 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300 dark:focus:border-blue-700 dark:active:bg-gray-700 dark:active:text-gray-300">
-                            {{ __('messages.next') }} »
-                        </button>
-                    </div>
-                </div>
-                {{-- @dd($full_items) --}}
-                {{-- {{ $full_items->links('vendor.pagination.custom') }} --}}
+                {{ $items->links('vendor.pagination.custom') }}
 
             </div>
             <!-- End Pagination -->

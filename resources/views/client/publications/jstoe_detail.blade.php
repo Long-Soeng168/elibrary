@@ -4,8 +4,8 @@
     {{-- Start Search --}}
     @include('client.components.search', [
         'actionUrl' => url('/jstors'),
-        'title' => 'Jstor',
-        'title_kh' => 'Jstor',
+        'title' => 'JSTOR',
+        'title_kh' => 'JSTOR',
     ])
     {{-- End Search --}}
 
@@ -50,9 +50,9 @@
             <div class="flex flex-col items-center w-full col-span-5 px-2 mb-6 mr-2 lg:col-span-4 lg-px-0">
                 <div class="flex flex-col w-full gap-2">
                     @if ($item->image)
-                        <a href="{{ 'https://www.thnal.com/assets/images/publications/' . $item->image }}" class="glightbox">
+                        <a href="{{ asset('assets/images/jstors/' . $item->image) }}" class="glightbox">
                             <img class="w-full bg-white border rounded-md shadow cursor-pointer"
-                                src="{{ 'https://www.thnal.com/assets/images/publications/thumb/' . $item->image }}" alt="Book Cover" />
+                                src="{{ asset('assets/images/jstors/thumb/' . $item->image) }}" alt="Book Cover" />
                         </a>
                     @else
                         <div class="aspect-{{ env('EPUB_ASPECT') }} border rounded-md shadow cursor-pointer relative">
@@ -70,45 +70,21 @@
 
                         </div>
                     @endif
-                    {{-- <div class="grid grid-cols-4 gap-2">
-                        @foreach ($multi_images as $index => $image)
-                            @if ($index < 3 || count($multi_images) == 4)
-                                <a href="{{ asset('assets/images/publications/thumb/' . $image->image) }}"
-                                    class="glightbox">
-                                    <img class="bg-white w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
-                                </a>
-                            @elseif ($index == 3)
-                                <a href="{{ asset('assets/images/publications/' . $image->image) }}"
-                                    class="glightbox relative w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out ">
-                                    <div
-                                        class="absolute flex items-center justify-center w-full h-full transition-all duration-300 border rounded-md shadow-md bg-gray-900/60 hover:bg-gray-900/20">
-                                        <span class="text-xl font-medium text-white">
-                                            +{{ count($multi_images) - 4 }}
-                                        </span>
-                                    </div>
-                                    <img src="{{ asset('assets/images/publications/thumb/' . $image->image) }}"
-                                        class="bg-white rounded-lg w-full aspect-[1/1]">
-                                </a>
-                            @else
-                                <a href="{{ asset('assets/images/publications/' . $image->image) }}" class="glightbox">
-                                    <img class="bg-white hidden w-full aspect-[1/1] hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border shadow-md"
-                                        src="{{ asset('assets/images/publications/thumb/' . $image->image) }}">
-                                </a>
-                            @endif
-                        @endforeach
-                    </div> --}}
+
                     <!-- Action Button -->
                     <div class="flex w-full gap-2 rounded-md shadow-sm" role="group">
                         @if ($ipInRange)
                             <div class="flex-1">
                                 {{-- Start Read Button --}}
-                                <a
-                                    @if ($item->pdf)
-                                         href="https://www.thnal.com/stream_pdf/publication/870/1725322346uHnGdHQqzx.pdf"
+                                <a @if (!$item->can_read && !auth()->check()) href="{{ route('client.login', ['path' => 'publications-' . $item->id]) }}"
+                                @else
+                                    @if (!$item->pdf && $item->link)
+                                        href="{{ $item->link }}"
+
                                     @else
-                                        href='{{ $item->link }}'
+                                        href="{{ asset('assets/pdf/jstors/' . $item->pdf) }}" @endif
                                     @endif
+
                                     class="relative inline-flex items-center justify-center w-full h-full gap-2 px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
                                     >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
@@ -137,7 +113,7 @@
 
                                 {{-- <button type="button"
                                 class="inline-flex items-center justify-center w-full gap-2 px-4 py-1 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
-                                onclick="openPdfPopup('{{ asset('assets/pdf/publications/' . $item->pdf) }}', 'publication', {{ $item->id }})">
+                                onclick="openPdfPopup('{{ asset('assets/pdf/jstors/' . $item->pdf) }}', 'publication', {{ $item->id }})">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-eye">
@@ -169,6 +145,7 @@
                                 </div>
                             </div>
 
+
                         @endif
 
 
@@ -189,19 +166,18 @@
 
                 </h1>
                 <div class="flex flex-col gap-2">
-                    @if ($item->author_name)
+                    @if ($item->author?->name || $item->author_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.author') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{-- @if ($item->author?->name)
+                                @if ($item->author?->name)
                                     {{ $item->author?->name }}
                                 @elseif($item->author_name)
                                     {{ $item->author_name }}
-                                    @endif --}}
-                                    {{ $item->author_name }}
+                                @endif
                             </p>
                         </div>
                     @endif
@@ -230,54 +206,51 @@
                         </div>
                     @endif
 
-                    @if ($item->publisher_name)
+                    @if ($item->publisher?->name || $item->publisher_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.publisher') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{-- @if ($item->publisher?->name)
+                                @if ($item->publisher?->name)
                                     {{ $item->publisher?->name }}
                                 @elseif($item->publisher_name)
                                     {{ $item->publisher_name }}
-                                    @endif --}}
-                                    {{ $item->publisher_name }}
+                                @endif
                             </p>
                         </div>
                     @endif
 
-                    @if ($item->type_name)
+                    @if ($item->publicationType?->name || $item->type_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.type') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{-- @if ($item->publicationType?->name)
+                                @if ($item->publicationType?->name)
                                     {{ app()->getLocale() == 'kh' ? $item->publicationType?->name_kh : $item->publicationType?->name }}
                                 @elseif($item->type_name)
                                     {{ $item->type_name }}
-                                    @endif --}}
-                                    {{ $item->type_name }}
+                                @endif
 
                             </p>
                         </div>
                     @endif
 
-                    @if ($item->category_name)
+                    @if ($item->publicationCategory?->name || $item->category_name)
                         <div class="flex nowrap">
                             <p
                                 class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
                                 {{ __('messages.category') }}
                             </p>
                             <p class="text-sm text-gray-600 dark:text-gray-200">
-                                {{-- @if (!$item->publicationCategory?->name && $item->category_name)
+                                @if (!$item->publicationCategory?->name && $item->category_name)
                                     {{ $item->category_name }}
-                                    @endif --}}
-                                    {{ $item->category_name }}
+                                @endif
 
-                                {{-- @if (app()->getLocale() == 'kh' && $item->publicationCategory?->name_kh)
+                                @if (app()->getLocale() == 'kh' && $item->publicationCategory?->name_kh)
                                     {{ $item->publicationCategory?->name_kh }}
                                 @else
                                     {{ $item->publicationCategory?->name }}
@@ -287,7 +260,7 @@
                                     / {{ $item->publicationSubCategory?->name_kh }}
                                 @elseif($item->publicationSubCategory?->name)
                                     / {{ $item->publicationSubCategory?->name }}
-                                @endif --}}
+                                @endif
 
 
 
@@ -378,6 +351,17 @@
                         </p>
                     </div>
                 @endif --}}
+                    @if ($item->updated_at)
+                        <div class="flex nowrap">
+                            <p
+                                class="w-[123px] uppercase tracking-wide text-sm text-gray-500 dark:text-gray-300 font-semibold border-r border-gray-600 dark:border-gray-300 pr-5 mr-5 flex-shrink-0">
+                                {{ __('messages.lastUpdate') }}
+                            </p>
+                            <p class="text-sm text-gray-600 dark:text-gray-200">
+                                {{ $item->updated_at->format('d-M-Y') }}
+                            </p>
+                        </div>
+                    @endif
                     @if ($item->keywords)
                         <div class="flex nowrap">
                             <p
@@ -434,7 +418,7 @@
                     <div class="w-full overflow-hidden bg-gray-100 border rounded-md shadow dark:bg-gray-800">
                         @if ($item->image)
                             <img class="w-full aspect-[6/9] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md"
-                                src="{{'https://www.thnal.com/assets/images/publications/thumb/' . $item->image }}"
+                                src="{{ asset('assets/images/jstors/thumb/' . $item->image) }}"
                                 alt="Image Description" />
                         @else
                             <div

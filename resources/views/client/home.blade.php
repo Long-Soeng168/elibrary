@@ -247,7 +247,7 @@
                     <a class="block group" href="{{ url('/jstors/' . $item->id) }}">
                         <div class="w-full overflow-hidden bg-gray-100 rounded-md dark:bg-neutral-800">
                             <img class="w-full aspect-[{{ env('EPUB_ASPECT') }}] group-hover:scale-110 transition-transform duration-500 ease-in-out object-cover rounded-md border"
-                                src="{{ 'https://www.thnal.com/assets/images/publications/thumb/' . $item->image }}" alt="Image Description" />
+                                src="{{ asset('assets/images/jstors/' . $item->image) }}" alt="Image Description" />
                         </div>
 
                         <div class="relative pt-2" x-data="{ tooltipVisible: false }">

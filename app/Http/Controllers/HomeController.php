@@ -16,6 +16,7 @@ use App\Models\Article;
 use App\Models\News;
 use App\Models\Menu;
 use App\Models\WebsiteInfo;
+use App\Models\Jstor;
 use Image as ImageCompress;
 use DB;
 use Illuminate\Support\Facades\Schema;
@@ -55,15 +56,14 @@ class HomeController extends Controller
         // $items = Publication::all();
         // return ($items);
 
-        $response = Http::get('http://thnal.com/api/jstors', [
-            'per_page' => 5,
-            'page' => 1,
-        ]);
+        // $response = Http::get('http://thnal.com/api/jstors', [
+        //     'per_page' => 5,
+        //     'page' => 1,
+        // ]);
 
-        $jstors = json_decode($response->body());
-        // dd($jstors);
+        // $jstors = json_decode($response->body());
 
-        $items = $response->successful() ? $response->json() : ['data' => [], 'links' => []];
+        $jstors = Jstor::orderBy('id')->limit(5)->get();
 
         $slides = Slide::latest()->get();
         $publications = Publication::inRandomOrder()->limit(10)->get();
@@ -76,7 +76,7 @@ class HomeController extends Controller
         $articles = Article::inRandomOrder()->limit(10)->get();
         return view('client.home', [
             'slides' => $slides,
-            'jstors' => $jstors ? $jstors->data : [],
+            'jstors' => $jstors,
             'publications' => $publications,
             'videos' => $videos,
             'images' => $images,
