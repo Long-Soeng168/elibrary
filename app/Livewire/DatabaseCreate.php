@@ -25,8 +25,8 @@ class DatabaseCreate extends Component
     public $order_index = 0;
     public $description = null;
     public $description_kh = null;
-    public $light_mode_color = null;
-    public $dark_mode_color = null;
+    // public $light_mode_color = null;
+    // public $dark_mode_color = null;
 
     public function updatedImage()
     {
@@ -73,8 +73,8 @@ class DatabaseCreate extends Component
             'type' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:databases,slug',
             'order_index' => 'nullable|max:255',
-            'light_mode_color' => 'nullable|max:255',
-            'dark_mode_color' => 'nullable|max:255',
+            // 'light_mode_color' => 'nullable|max:255',
+            // 'dark_mode_color' => 'nullable|max:255',
         ]);
 
         // $validated['create_by_user_id'] = request()->user()->id;

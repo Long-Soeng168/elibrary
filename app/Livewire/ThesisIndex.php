@@ -8,7 +8,6 @@ use Livewire\WithPagination;
 
 use App\Models\Thesis as Archive;
 use App\Models\Major as Category;
-use App\Models\ThesisSubCategory as SubCategory;
 use App\Models\ThesisType as SubCategory;
 
 class ThesisIndex extends Component

@@ -158,7 +158,7 @@
             </div>
             <!-- End Link -->
         </div> --}}
-        <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
+        {{-- <div class="grid gap-5 mb-5 lg:grid-cols-2 lg:gap-6">
             <div class="col-span-1">
                 <label for="light_mode_color" class = 'mb-4 text-sm font-medium text-gray-600 dark:text-white'>
                     {{ __('Background Color Light') }}
@@ -167,7 +167,7 @@
                     wire:model='light_mode_color' required autofocus placeholder="Order Index">
                 <x-input-error :messages="$errors->get('light_mode_color')" class="mt-2" />
             </div>
-        </div>
+        </div> --}}
 
         <div class="mb-5">
             {{-- Start Image Upload --}}
